@@ -27,7 +27,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build, tag, and push the app image to Amazon ECR
-      id: build-image
+      id: build-app-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.WEB_REPO_NAME }}
@@ -40,7 +40,7 @@ jobs:
         echo "name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
     
     - name: Build, tag, and push the database image to Amazon ECR
-      id: build-image
+      id: build-database-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.DATABASE_REPO_NAME }}
@@ -53,7 +53,7 @@ jobs:
         echo "name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
     - name: Build, tag, and push the server image to Amazon ECR
-      id: build-image
+      id: build-server-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.SERVER_REPO_NAME }}
