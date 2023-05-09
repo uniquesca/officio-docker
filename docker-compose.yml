@@ -1,0 +1,64 @@
+version: '3'
+services:
+  
+  #PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: ./officio/Dockerfile
+    image: docker-officio-app
+    container_name: app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./officio/app:/var/www
+      - ./officio/php.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - officio-network
+
+  #Apache Service
+  webserver:
+    image:  docker-officio-apache
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8080:80"
+    volumes:
+      - ./officio/app:/var/www
+    networks:
+      - officio-network
+
+  #MySQL Service
+  db:
+    image: docker-officio-mysql
+    container_name: mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 'test'
+      MYSQL_DATABASE: officio
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - officio-mysql:/var/lib/mysql/
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - officio-network
+
+#Docker Networks
+networks:
+  officio-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  officio-mysql:
+    driver: local
+  
