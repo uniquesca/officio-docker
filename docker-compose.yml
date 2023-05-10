@@ -1,14 +1,14 @@
 version: '3'
 services:
   
-  #PHP Service
+  # PHP Service
   app:
     build:
       context: .
       dockerfile: ./officio/Dockerfile
     image: docker-officio-app
     container_name: app
-    restart: unless-stopped
+    restart: always
     tty: true
     environment:
       SERVICE_NAME: app
@@ -20,11 +20,16 @@ services:
     networks:
       - officio-network
 
-  #Apache Service
+  # Apache Service
   webserver:
+    build:
+        context: .
+        dockerfile: ./apache/Dockerfile
     image:  docker-officio-apache
     container_name: webserver
-    restart: unless-stopped
+    restart: always
+    environment:
+      - HOSTNAME=docker-officio.com
     tty: true
     ports:
       - "8080:80"
@@ -33,11 +38,14 @@ services:
     networks:
       - officio-network
 
-  #MySQL Service
+  # MySQL Service
   db:
+    build:
+      context: .
+      dockerfile: ./mysql/Dockerfile
     image: docker-officio-mysql
     container_name: mysql
-    restart: unless-stopped
+    restart: always
     tty: true
     ports:
       - "3306:3306"
@@ -52,13 +60,15 @@ services:
     networks:
       - officio-network
 
-#Docker Networks
+# Docker Networks
 networks:
   officio-network:
+    name: officio-network
     driver: bridge
 
-#Volumes
+# Volumes
 volumes:
   officio-mysql:
+    name: officio-mysql
     driver: local
   
