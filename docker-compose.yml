@@ -4,8 +4,8 @@ services:
   # PHP Service
   app:
     build:
-      context: .
-      dockerfile: ./officio/Dockerfile
+      context: ./officio
+      dockerfile: Dockerfile
     image: docker-officio-app
     container_name: app
     restart: always
@@ -23,8 +23,8 @@ services:
   # Apache Service
   webserver:
     build:
-        context: .
-        dockerfile: ./apache/Dockerfile
+        context: ./apache
+        dockerfile: Dockerfile
     image:  docker-officio-apache
     container_name: webserver
     restart: always
@@ -41,8 +41,8 @@ services:
   # MySQL Service
   db:
     build:
-      context: .
-      dockerfile: ./mysql/Dockerfile
+      context: ./mysql
+      dockerfile: Dockerfile
     image: docker-officio-mysql
     container_name: mysql
     restart: always
