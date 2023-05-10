@@ -8,7 +8,7 @@ RUN docker-php-ext-install pdo_mysql
 WORKDIR /var/www
 
 # Copy existing application directory contents
-COPY officio/app /var/www
+COPY app /var/www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
