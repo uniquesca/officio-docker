@@ -1,0 +1,826 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->booShowLeftPanel = !$this->booCurrentMemberSuperAdmin;
+
+$booNewCompany           = empty($this->edit_company_id);
+$booShowCompanyInvoices  = !$booNewCompany;
+$booShowCompanyPackages  = !$booNewCompany;
+$booShowCompanyUsers     = $this->booCurrentMemberSuperAdmin && !$booNewCompany && $this->arrAccessRights['manage_company_users'];
+$booShowCompanyRoles     = $this->booCurrentMemberSuperAdmin && !$booNewCompany;
+$booShowCompanyTimeLog   = $this->booCurrentMemberSuperAdmin && !$booNewCompany && $this->arrAccessRights['clients_time_tracker_show']; // Note: this rule isn't showed for superadmin, so we'll not show this tab at all
+$booShowCompanyTickets   = $this->booCurrentMemberSuperAdmin && !$booNewCompany && $this->arrAccessRights['manage_company_tickets'];
+$booShowCompanyStats     = $this->booCurrentMemberSuperAdmin && !$booNewCompany;
+$booShowBusinessHoursTab = !$booNewCompany && $this->arrAccessRights['manage_business_hours'];
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headScript()->appendFile($this->layout()->assetsUrl . '/jquery-validation/dist/jquery.validate.min.js');
+
+if ($booShowBusinessHoursTab) {
+    $this->headLink()->appendStylesheet($this->layout()->cssUrl . '/manage_business_hours.css');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/business-hours/workdays/panel.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/business-hours/holidays/dialog.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/business-hours/holidays/grid.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/business-hours/panel.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/business-hours/init.js');
+}
+
+
+$this->headScript()->appendFile($this->layout()->jsUrl . '/generatePasswordButton.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/company/edit/main.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/company/edit/export.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/company/edit/exportEmailsDialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/company/edit/ExportMailChecker.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/company/edit/exportProfilesAndCasesDialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/company/edit/packages.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/company/edit/email_dialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/company/mass_email_sender.js');
+
+// Make sure that we'll not use the top menu from already processed members/roles pages
+$this->layout()->top_menu = '';
+
+if ($this->booCurrentMemberSuperAdmin) {
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/tasks.css');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/tasks/Toolbar.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/tasks/ReplyDialog.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/tasks/NewTaskDialog.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/tasks/TasksGrid.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/tasks/ThreadsGrid.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/tasks/Panel.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/tasks/Init.js');
+
+    // Time Log
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/time_tracker.css');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/clients/time_tracker/ClientTrackerAddDialog.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/clients/time_tracker/ClientTrackerInit.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/clients/time_tracker/ClientTrackerPanel.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/clients/time_tracker/ClientTrackerGrid.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/clients/time_tracker/ClientTrackerToolbar.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/clients/time_tracker/ClientTrackerFilter.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/clients/time_tracker/ClientTrackerMarkDialog.js');
+
+
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/notes.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/clients/notes.js');
+
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/tickets/grid.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/tickets/ticket.js');
+
+    if (!$booNewCompany && $this->arrAccessRights['login_as_company_admin']) {
+        $this->layout()->top_menu = sprintf(
+            '<a href="%s" target="_parent" style="color: #DC4300; font-weight: bold;">' .
+            '<i class="las la-sign-in-alt"></i>Login as company admin' .
+            '</a>',
+            $this->layout()->baseUrl . '/manage-company-as-admin/' . $this->edit_company_id
+        );
+    }
+}
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/themes/' . $this->layout()->theme . '.css');
+$this->headLink()->appendStylesheet($this->layout()->cssUrl . '/company_details.css');
+
+$this->headLink()->appendStylesheet($this->layout()->assetsUrl . '/jquery-ui/themes/base/theme.css');
+$this->headLink()->appendStylesheet($this->layout()->assetsUrl . '/jquery-ui/themes/base/tabs.css');
+
+$action = $booNewCompany ? $this->layout()->baseUrl . "/manage-company/add" : $this->layout()->baseUrl . "/manage-company/edit?company_id=" . $this->edit_company_id;
+
+$arrNotesAccessRights = array();
+if ($this->booCurrentMemberSuperAdmin) {
+    $arrNotesAccessRights = array('booHiddenTaskAdd', 'booHiddenNotesAdd', 'booHiddenNotesEdit');
+    if ($this->booCanDeleteNotes) {
+        $arrNotesAccessRights[] = 'booHiddenNotesDelete';
+    }
+
+    if ($this->booCanDeleteTasks) {
+        $arrNotesAccessRights[] = 'booHiddenClientsTasksDelete';
+    }
+}
+$arrNotesToolbarOptions = [
+    'access'                  => $arrNotesAccessRights,
+    'systemLogsCheckboxLabel' => 'Show System Logs'
+];
+
+$this->headScript()->captureStart();
+if (empty($this->arrCompanyInfo['companyLogo'])) {
+    echo 'var booShowCompanyLogo = false;';
+} else {
+    echo 'var booShowCompanyLogo = true;';
+    echo "var companyLogoUrl = '{$this->layout()->baseUrl}/manage-company/get-company-logo?company_id=$this->edit_company_id';";
+}
+
+if (!empty($this->option)) {
+    echo 'var booShowFieldsOption = true;';
+} else {
+    echo 'var booShowFieldsOption = false;';
+}
+
+?>
+if(typeof(autoshow_error) == "undefined") {
+var autoshow_error = [];
+}
+autoshow_error.push('<?= $this->escapeHtml(addslashes($this->edit_error_message)) ?>');
+
+if(typeof(autoshow_info) == "undefined") {
+var autoshow_info = [];
+}
+autoshow_info.push('<?= $this->escapeHtml(addslashes($this->confirmation_message)) ?>');
+
+var company_id = <?= $this->edit_company_id ?>;
+var canManageCompanyPackages = <?= ($this->booCanManageCompanyPackages ? 1 : 0) ?>;
+var canManageCompanyPackagesExtraDetails = <?= ($this->booCanManageCompanyPackagesExtraDetails ? 1 : 0) ?>;
+var defaultCountryId = <?= $this->defaultCountryId; ?>;
+var defaultTimeZone = '<?= $this->defaultTimezone; ?>';
+var companyDetails = <?= $this->data ?>;
+var arrNotesToolbarOptions = <?= Json::encode($arrNotesToolbarOptions) ?>;
+var arrTicketsAccessRights = <?= Json::encode($this->arrTicketsAccessRights) ?>;
+var arrCompanyUsers = <?= Json::encode($this->arrCompanyUsers) ?>;
+var arrTasksSettings = <?= Json::encode($this->arrTasksSettings) ?>;
+var curr_member_id = <?= $this->currentMemberId ?>;
+var passwordMinLength = <?= $this->passwordMinLength ?>;
+var passwordMaxLength = <?= $this->passwordMaxLength ?>;
+var is_client = false;
+var arrBusinessHoursAccess = <?= Json::encode($this->arrAccessRights['business_hours_access_rights']) ?>;
+var ta_label = <?= Json::encode($this->ta_label) ?>;
+<?php $this->headScript()->captureEnd(); ?>
+
+<?php if (empty($this->option)): ?>
+<div id="manage-company-content">
+    <div id="edit_company_container">
+        <ul>
+            <li class="main-company-tabs"><a href="#company-details"><span>Company Details</span></a></li>
+
+            <?php if ($booShowBusinessHoursTab) : ?>
+                <li class="main-company-tabs main-company-schedule-tab"><a href="#schedule-container"><span>Business Hours</span></a></li>
+            <?php endif ?>
+
+            <?php if ($booShowCompanyTickets) : ?>
+                <li class="main-company-tabs main-company-tickets-tab"><a href="#company-tickets"><span>Tickets</span></a></li>
+            <?php endif ?>
+
+            <?php if ($booShowCompanyPackages) : ?>
+                <li class="main-company-tabs"><a href="#company-packages" id="company-packages-link"><span>Account Details</span></a></li>
+            <?php endif ?>
+
+            <?php if ($booShowCompanyStats) : ?>
+                <li class="main-company-tabs"><a href="#stats"><span>Stats</span></a></li>
+            <?php endif ?>
+
+            <?php if ($booShowCompanyInvoices) : ?>
+                <li class="main-company-tabs"><a href="#company-invoices"><span>Company Invoices</span></a></li>
+            <?php endif ?>
+
+            <?php if ($booShowCompanyUsers) : ?>
+                <li class="main-company-tabs main-company-users-tab"><a href="#company-users"><span>Users</span></a></li>
+            <?php endif ?>
+
+            <?php if ($booShowCompanyRoles) : ?>
+                <li class="main-company-tabs"><a href="#company-roles"><span>Roles</span></a></li>
+            <?php endif ?>
+
+            <?php if ($booShowCompanyTimeLog) : ?>
+                <li class="main-company-tabs main-company-time-log-tab"><a href="#time-log"><span>Time Log</span></a></li>
+            <?php endif ?>
+        </ul>
+    </div>
+
+    <form name="editCompanyForm" id="editCompanyForm" action="<?= $action ?>#updateCompanyInfoBtn" method="post" enctype="multipart/form-data">
+        <?php if (!$booNewCompany): ?>
+            <input type="hidden" name="company_id" id="company_id" value="<?= $this->edit_company_id; ?>"/>
+        <?php endif; ?>
+
+        <div id="company-details">
+
+            <table cellspacing="1" cellpadding="4" align=center class="admin_table">
+                <tr>
+                    <td class='header_bg' colspan="2" valign="top"><?= ($booNewCompany ? '<i class="las la-plus"></i>' : '<i class="las la-edit"></i>') . ' ' . $this->layout()->title; ?></td>
+                </tr>
+
+                <tr>
+                    <td height="30" colspan="2" valign="middle" class="gray-text18">
+                        <div style="float: left; padding: 0 0 0 4px;" class="field_name">Company Details</div>
+                        <div><span class="field_name"><label class="required">&nbsp;</label><span class="featured"> indicates mandatory fields </span></span></div>
+                    </td>
+                </tr>
+
+                <?php if (!$booNewCompany): ?>
+                    <tr>
+                        <td class="field_name"><label for="company-admins-combo" class="required">Primary Company Admin :</label></td>
+                        <td>
+                            <div id="company-admins-div">
+                                <select id="company-admins-combo" class="drop_down" name="company-admins-combo" style="float: left;">
+                                    <?php foreach ($this->arrAdminsCompanyInfo as $companyAdmin) { ?>
+                                        <option value="<?= $companyAdmin['member_id'] ?>"<?php if ($this->arrDefaultCompanyAdminInfo['admin_id'] == $companyAdmin['member_id']) {
+                                            echo ' selected="selected"';
+                                        } ?> ><?= $companyAdmin['fName'] . ' ' . $companyAdmin['lName'] ?></option>
+                                    <?php } ?>
+                                </select>
+                                <?php if ($this->booCanViewMemberDetails): ?>
+                                    <div id="edit-company-admin" style="margin-left: 10px; float: left;"></div>
+                                <?php endif; ?>
+                                <div id="set-as-default-company-admin" style="margin-left: 10px; float: left;"></div>
+                                <div style="font-style: italic; clear: both; padding-top: 5px">Note: Email of this user is used for Questionnaires, Officio subscription notifications, etc.</div>
+                            </div>
+                        </td>
+                    </tr>
+                <?php else: ?>
+                    <tr>
+                        <td height="30" colspan="2" valign="bottom" class="gray-text18 padd-left5 field_name">Company Admin User Details</td>
+                    </tr>
+
+                    <tr>
+                        <td width="40%" class="field_name"><label for="fName" class="required">Admin First Name :</label></td>
+                        <td><input type="text" name="fName" value="<?= $this->escapeHtmlAttr($this->arrAdminCompanyInfo['fName']) ?>" size="50" id="fName" class="textbox"/></td>
+                    </tr>
+                    <tr>
+                        <td class="field_name"><label for="lName" class="required">Admin Last Name :</label></td>
+                        <td><input type="text" name="lName" value="<?= $this->escapeHtmlAttr($this->arrAdminCompanyInfo['lName']) ?>" size="50" id="lName" class="textbox"/></td>
+                    </tr>
+                    <tr>
+                        <td class="field_name"><label for="username" class="required">Username :</label></td>
+                        <td><input type="text" name="username" value="<?= $this->escapeHtmlAttr($this->arrAdminCompanyInfo['username']) ?>" size="50" id="username" class="textbox"/><br/></td>
+                    </tr>
+                    <tr>
+                        <td class="field_name">
+                            <label for="password" class="required">Password :</label>
+                        </td>
+                        <td>
+                            <input type="text" name="password" value="" size="50" id="password" class="textbox" style="float: left;"/>
+                            <div id="generatePassword" style="float: left; margin-left: 10px"></div>
+                            <br style="clear: both"/>
+                            <label for="password" generated="true" class="error" style="padding: 10px 0;"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="field_name"><label for="emailAddress" class="required">Admin Email Address :</label></td>
+                        <td><input type="text" name="emailAddress" value="<?= $this->escapeHtmlAttr($this->arrAdminCompanyInfo['emailAddress']) ?>" size="50" id="emailAddress" class="textbox"/><br/></td>
+                    </tr>
+                <?php endif; ?>
+
+                <?php if ($this->booCurrentMemberSuperAdmin): ?>
+                    <tr>
+                        <td class="field_name"><label for="status" class="required">Status :</label></td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td style="width: 33%; padding: 0;"><input type="radio" name="new_status" value="1" <?php if (array_key_exists('Status', $this->arrCompanyInfo) && $this->arrCompanyInfo['Status'] == '1'): ?>checked="checked" <?php endif; ?> id="status_active" style="width: 20px;"/><label for="status_active">Active</label></td>
+                                    <td style="width: 33%; padding: 0;"><input type="radio" name="new_status" value="0" <?php if (array_key_exists('Status', $this->arrCompanyInfo) && $this->arrCompanyInfo['Status'] == '0'): ?>checked="checked" <?php endif; ?> id="status_inactive" style="width: 20px;"/><label for="status_inactive">Inactive</label></td>
+                                    <td style="width: 33%; padding: 0;"><input type="radio" name="new_status" value="2" <?php if (array_key_exists('Status', $this->arrCompanyInfo) && $this->arrCompanyInfo['Status'] == '2'): ?>checked="checked" <?php endif; ?> id="status_suspended" style="width: 20px;"/><label for="status_suspended">Suspended</label></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+                <?php if ($booNewCompany) { ?>
+                    <tr style="display: none;">
+                        <td class="field_name"><label class="required">Company Template :</label></td>
+                        <td>
+                            <?= $this->formDropdown('company_template_id', $this->arrTemplates, $this->arrCompanyInfo['company_template_id'], ' class="drop_down"'); ?>
+                        </td>
+                    </tr>
+                <?php } ?>
+                <tr>
+                    <td class="field_name"><label class="required">Time Zone :</label></td>
+                    <td>
+                        <?php if ($this->booCanChangeTimeZone) {
+                            echo $this->formDropdown('companyTimeZone', $this->arrTimeZones, $this->arrCompanyInfo['companyTimeZone'], ' class="drop_down" ');
+                        } else {
+                            echo $this->escapeHtml($this->arrTimeZones[$this->arrCompanyInfo['companyTimeZone']]);
+                            echo "<input name='companyTimeZone' type='hidden' value='" . $this->arrCompanyInfo['companyTimeZone'] . "' />";
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field_name"><label for="companyName" class="required">Company Name :</label></td>
+                    <td><input type="text" name="companyName" value="<?= $this->escapeHtmlAttr($this->arrCompanyInfo['companyName']) ?>" size="50" id="companyName" class="textbox"/><br/></td>
+                </tr>
+
+                <?php if ($this->booShowABN) : ?>
+                    <tr>
+                        <td class="field_name"><label for="company_abn" class="required">Company ABN :</label></td>
+                        <td><input type="text" name="company_abn" value="<?= $this->escapeHtmlAttr(@$this->arrCompanyInfo['company_abn']) ?>" size="50" id="company_abn" class="textbox"/><br/></td>
+                    </tr>
+                <?php endif ?>
+
+                <tr>
+                    <td class="field_name" valign="top"><label>Company Logo :</label>&nbsp;</td>
+                    <td>
+                        <?php $visibilityClass = empty($this->arrCompanyInfo['companyLogo']) ? '' : 'hidden' ?>
+                        <div class="company-image-edit <?= $visibilityClass ?>">
+                            <input type="file" name="companyLogo" value="" size="50" id="companyLogo" class="textbox"/><br/>
+                            <img src="<?= $this->imgUrl('client-logo.jpg') ?>" hspace="2" vspace="2" border="0" align="bottom" alt="" class="company-image-edit-default <?= $visibilityClass ?>" style="display: block;"/>
+                            <div style="color: #000000; font-size:11px; padding: 10px 0;">5Mb and <?= $this->arrCompanyLogoDimensions[0] ?> by <?= $this->arrCompanyLogoDimensions[1] ?> pixels (max)</div>
+                            <a href="#" class="blulinkunb company-image-edit-cancel <?= !empty($this->arrCompanyInfo['companyLogo']) ? '' : 'hidden' ?>">Cancel</a>
+                        </div>
+
+                        <?php if (!empty($this->arrCompanyInfo['companyLogo'])) { ?>
+                            <?php $logoUrl = $this->layout()->baseUrl . '/manage-company/get-company-logo?company_id=' . $this->edit_company_id . '&' . time() ?>
+                            <div class="company-image-view">
+                                <div style="float: left; height: <?= $this->arrCompanyLogoDimensions[1] ?>px;">
+                                    <img src="<?= $logoUrl ?>" hspace="2" vspace="2" border="0" align="bottom" alt=""/>
+                                </div>
+                                <div style="float: left; margin-left: 5px;">
+                                    <a href="#" class="blulinkunb company-image-edit-change">Change</a><br/>
+                                    <a href="#" class="blulinkunb company-image-edit-remove">Remove</a>
+                                </div>
+                                <div style="clear: both"></div>
+                            </div>
+                        <?php } ?>
+                    </td>
+                </tr>
+
+                <?php if (!$booNewCompany): ?>
+                    <tr>
+                        <td class="field_name"><label for="login-url">Custom Company Client Login Link :</label>&nbsp;</td>
+                        <td>
+                            <a style="color: #3B74BE" id="login-url" name="company_login_url" target="_blank" href="<?= $this->arrCompanyInfo['loginUrlWithHash']; ?>"><?= $this->arrCompanyInfo['loginUrlWithHash']; ?></a>
+                            <input type="button" class="button-copy-url" value="    Copy URL    "/><br/>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+                <tr>
+                    <td class="field_name"><label for="address" class="required">Address :</label></td>
+                    <td>
+                        <textarea name="address" id="address" cols="27" rows="3" class="textbox"><?= $this->arrCompanyInfo['address']; ?></textarea><br/></td>
+                </tr>
+
+
+                <tr>
+                    <td class="field_name"><label for="city" class="required"><?= $this->layout()->settings->getSiteCityLabel() ?> :</label></td>
+                    <td><input type="text" name="city" value="<?= $this->arrCompanyInfo['city']; ?>" size="50" id="city" class="textbox"/><br/></td>
+                </tr>
+
+                <tr>
+                    <td class="field_name"><label for="country" class="required">Country :</label></td>
+                    <td>
+                        <?= $this->formDropdown('country', $this->arrCountry, (int)$this->arrCompanyInfo['country'], ' class="drop_down" onchange="updateProvinceField(this.value); return false;"'); ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="field_name"><label for="provinces" class="required">Province/State :</label></td>
+                    <td>
+                        <div id="provinces-div"<?= !$this->isDefaultCountry ? ' style="display:none;"' : ''; ?>>
+                            <select id="provinces" class="drop_down" name="provinces">
+                                <?php foreach ($this->provincesList as $province) { ?>
+                                    <option value="<?= $province['state_name'] ?>"<?php if ($this->arrCompanyInfo['state'] == $province['state_name']) {
+                                        echo ' selected="selected"';
+                                    } ?> ><?= $province['state_name'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div id="state-div"<?= $this->isDefaultCountry ? ' style="display:none;"' : ''; ?>>
+                            <input type="text" name="state" value="<?= $this->arrCompanyInfo['state']; ?>" size="50" id="state" class="textbox"/>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="field_name"><label for="zip">Postal Code/Zip :</label>&nbsp;</td>
+                    <td><input type="text" name="zip" value="<?= $this->arrCompanyInfo['zip']; ?>" size="50" id="zip" class="textbox"/><br/></td>
+                </tr>
+
+
+                <tr>
+                    <td class="field_name"><label for="phone1" class="required">Phone #1 :</label></td>
+                    <td><input type="text" name="phone1" value="<?= $this->arrCompanyInfo['phone1']; ?>" size="50" id="phone1" class="textbox"/><br/></td>
+                </tr>
+
+                <?php if ($this->arrAccessRights['manage_extra_details']): ?>
+                    <tr>
+                        <td class="field_name"><label for="phone2">Phone #2 :</label>&nbsp;</td>
+                        <td><input type="text" name="phone2" value="<?= $this->arrCompanyInfo['phone2']; ?>" size="50" id="phone2" class="textbox"/><br/></td>
+                    </tr>
+
+                    <tr>
+                        <td class="field_name"><label for="companyEmail" class="required">Company Email :</label></td>
+                        <td><input type="text" name="companyEmail" value="<?= $this->arrCompanyInfo['companyEmail']; ?>" size="50" id="companyEmail" class="textbox"/><br/></td>
+                    </tr>
+
+                    <tr>
+                        <td class="field_name"><label for="fax">Fax :</label>&nbsp;</td>
+                        <td><input type="text" name="fax" value="<?= $this->arrCompanyInfo['fax']; ?>" size="50" id="fax" class="textbox"/><br/></td>
+                    </tr>
+
+                    <tr>
+                        <td class="field_name"><label for="note">Note :</label>&nbsp;</td>
+                        <td>
+                            <textarea name="note" id="note" cols="27" rows="3" class="textbox"><?= $this->arrCompanyInfo['note']; ?></textarea><br/></td>
+                    </tr>
+                <?php endif; ?>
+
+                <tr>
+                    <td class="field_name"><label for="default_label_office">Label Office field as :</label>&nbsp;</td>
+                    <td>
+                        <?= $this->formDropdown('default_label_office', $this->arrOfficeLabels, $this->arrCompanyInfo['default_label_office'], ' class="drop_down"') ?>
+                    </td>
+                </tr>
+
+                <?php if ($this->booCurrentMemberSuperAdmin): ?>
+                    <tr>
+                        <td class="field_name"><label for="advanced_search_rows_max_count">Max count of rows in Advanced Search :</label>&nbsp;</td>
+                        <td>
+                            <input type="text" name="advanced_search_rows_max_count" value="<?= $this->arrCompanyInfo['advanced_search_rows_max_count']; ?>" size="50" id="advanced_search_rows_max_count" class="textbox"/><br/>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+                <tr>
+                    <td class="field_name"><label for="default_label_trust_account">For Client/Trust Account use :</label>&nbsp;</td>
+                    <td>
+                        <?= $this->formDropdown('default_label_trust_account', $this->arrTALabels, $this->arrCompanyInfo['default_label_trust_account'], ' class="drop_down"') ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="field_name"><label for="invoice_number_format">Invoice Settings :</label>&nbsp;</td>
+                    <td>
+                        <table style="width: 100%">
+                            <tr>
+                                <td>
+                                    <label for="invoice_number_format">Invoice Number Format:</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="invoice_number_format" value="<?= $this->arrCompanyInfo['invoice_number_format']; ?>" size="255" id="invoice_number_format" class="textbox"/><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div style="font-style: italic;">Note: please use the {sequence_number} variable that will be replaced with the generated sequence number.</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 1%; white-space: nowrap;">
+                                    <label for="invoice_number_start_from">Next Sequence Number:</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="invoice_number_start_from" value="<?= $this->arrCompanyInfo['invoice_number_start_from']; ?>" size="10" id="invoice_number_start_from" class="textbox" style="width: 130px" data-min-value="<?= $this->arrCompanyInfo['invoice_number_start_from']; ?>"/><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div id="invoice_number_start_from_warning" class="error" style="display: none; font-weight: normal">You have changed the sequence number to a number smaller than previously saved. Please ensure your sequence numbers remain unique.</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="invoice_tax_number"><?= $this->invoice_tax_number_label ?>:</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="invoice_tax_number" value="<?= $this->arrCompanyInfo['invoice_tax_number']; ?>" size="10" id="invoice_tax_number" class="textbox" placeholder="E.g. GST# 81812345"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <label for="invoice_disclaimer" style="margin-bottom: 5px">Invoice footer or disclaimer text:</label>
+                                    <textarea name="invoice_disclaimer" id="invoice_disclaimer" cols="27" rows="3" class="textbox cws-rich-editor"><?= $this->arrCompanyInfo['invoice_disclaimer']; ?></textarea><br/>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="field_name"><label for="client_profile_id_enabled">Client Profile ID :</label>&nbsp;</td>
+                    <td>
+                        <input type="checkbox" name="client_profile_id_enabled" <?php if (!empty($this->arrCompanyInfo['client_profile_id_enabled'])): ?>checked="checked"<?php endif; ?> id="client_profile_id_enabled"/> <label for="client_profile_id_enabled">Enable Client Profile ID</label><br/>
+                        <div id="client_profile_id_warning" style="display: none; padding: 10px 0">Client Profile ID field will be enabled for all roles as a read-only field.</div>
+
+                        <table style="width: 100%">
+                            <tr>
+                                <td>
+                                    <label for="client_profile_id_start_from">Next ID :</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="client_profile_id_start_from" value="<?= $this->arrCompanyInfo['client_profile_id_start_from']; ?>" size="10" id="client_profile_id_start_from" style="width: 130px" placeholder="E.g. 1000" data-min-value="<?= $this->arrCompanyInfo['client_profile_id_start_from']; ?>" /><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div id="client_profile_id_start_from_warning" class="error" style="display: none; font-weight: normal">You have changed the ID number to a number smaller than previously saved. Please ensure your ID numbers remain unique.</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 1%; white-space: nowrap;">
+                                    <label for="client_profile_id_format">Client Profile ID format :</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="client_profile_id_format" value="<?= $this->arrCompanyInfo['client_profile_id_format']; ?>" size="255" id="client_profile_id_format" placeholder="E.g. {client_id_sequence}" /><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div style="font-style: italic;">Note: please use the {client_id_sequence} variable that will be replaced with the generated ID number.</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <?php if ($this->booCurrentMemberSuperAdmin && !$booNewCompany) : ?>
+                    <tr>
+                        <td class="field_name"><label>Company purged :</label>&nbsp;</td>
+                        <td>
+                            <?php if (isset($this->arrCompanyInfo['purged']) && $this->arrCompanyInfo['purged'] === 'Y') : ?>
+                                <div style="padding-bottom: 20px; color: orange">Yes, some Company Data is Purged.</div>
+                                <div style="font-weight: bold">Notes:</div>
+                                <?= nl2br($this->arrCompanyInfo['purged_details'] ?? '') ?>
+                            <?php else : ?>
+                                No company data has been purged.
+                            <?php endif ?>
+                        </td>
+                    </tr>
+                <?php endif ?>
+
+                <tr>
+                    <td class="field_name"><label for="use_annotations">Annotation Support :</label>&nbsp;</td>
+                    <td>
+                        <input type="checkbox" name="use_annotations" <?php if (array_key_exists('use_annotations', $this->arrCompanyInfo) && $this->arrCompanyInfo['use_annotations'] == 'Y'): ?>checked="checked"<?php endif; ?> id="use_annotations"/> <label for="use_annotations">Enable Annotation</label><br/><br/>
+                        <span style="font-style: italic;">Check <b>Enable Annotation</b> to make comments and signature notations on a form and to see the "Comments List".</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="field_name"><label for="hide_inactive_users">Inactive users :</label>&nbsp;</td>
+                    <td>
+                        <input type="checkbox" name="hide_inactive_users" <?php if (array_key_exists('hide_inactive_users', $this->arrCompanyInfo) && $this->arrCompanyInfo['hide_inactive_users'] == 'Y'): ?>checked="checked"<?php endif; ?> id="hide_inactive_users"/> <label for="hide_inactive_users">Hide inactive users</label><br/><br/>
+                        <span style="font-style: italic;">Note: do not display inactive users in various drop-down menus.</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="field_name"><label for="remember_default_fields">Default fields :</label>&nbsp;</td>
+                    <td>
+                        <input type="checkbox" name="remember_default_fields" <?php if (array_key_exists('remember_default_fields', $this->arrCompanyInfo) && $this->arrCompanyInfo['remember_default_fields'] == 'Y'): ?>checked="checked"<?php endif; ?> id="remember_default_fields"/> <label for="remember_default_fields">Remember default fields</label><br/><br/>
+                        <span style="font-style: italic;">Note: When checked, the Responsible Staff and <?= $this->arrCompanyInfo['default_label_office_readable'] ?> fields for your new case is prepopulated based on your answers to your previous case.</span>
+                    </td>
+                </tr>
+
+                <?php if ($this->booCurrentMemberSuperAdmin): ?>
+                    <tr>
+                        <td class="field_name"><label for="marketplace_module_enabled">ImmigrationSquare (marketplace) :</label>&nbsp;</td>
+                        <td>
+                            <input type="checkbox" name="marketplace_module_enabled" <?php if (array_key_exists('marketplace_module_enabled', $this->arrCompanyInfo) && $this->arrCompanyInfo['marketplace_module_enabled'] == 'Y'): ?>checked="checked"<?php endif; ?> id="marketplace_module_enabled"/>
+                            <label for="marketplace_module_enabled">Enable Marketplace Module</label>
+                        </td>
+                    </tr>
+
+                    <?php if ($this->arrAccessRights['manage_extra_details']): ?>
+                        <tr>
+                            <td class="field_name"><label for="do_not_send_mass_email">Emailing :</label>&nbsp;</td>
+                            <td>
+                                <input type="checkbox" name="do_not_send_mass_email" <?php if (array_key_exists('send_mass_email', $this->arrCompanyInfo) && $this->arrCompanyInfo['send_mass_email'] == 'N'): ?>checked="checked"<?php endif; ?> id="do_not_send_mass_email"/> <label for="do_not_send_mass_email">Do not send email</label><br/><br/>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+
+                    <tr>
+                        <td class="field_name"><label for="company_website">Web-builder :</label>&nbsp;</td>
+                        <td>
+                            <input type="checkbox" name="company_website" <?php if (array_key_exists('company_website', $this->arrCompanyInfo) && $this->arrCompanyInfo['company_website'] == 'Y'): ?>checked="checked"<?php endif; ?> id="company_website"/> <label for="company_website">Enable Web-builder</label><br/><br/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="field_name"><label for="time_tracker_enabled">Time Tracker :</label>&nbsp;</td>
+                        <td>
+                            <input type="checkbox" name="time_tracker_enabled" <?php if (array_key_exists('time_tracker_enabled', $this->arrCompanyInfo) && $this->arrCompanyInfo['time_tracker_enabled'] == 'Y'): ?>checked="checked"<?php endif; ?> id="time_tracker_enabled"/> <label for="time_tracker_enabled">Enable Time Tracker</label><br/><br/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="field_name"><label for="employers_module_enabled">Employer Module :</label>&nbsp;</td>
+                        <td>
+                            <input type="checkbox" name="employers_module_enabled" <?php if (array_key_exists('employers_module_enabled', $this->arrCompanyInfo) && $this->arrCompanyInfo['employers_module_enabled'] == 'Y'): ?>checked="checked"<?php endif; ?> id="employers_module_enabled"/> <label for="employers_module_enabled">Enable Employer Module</label><br/><br/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="field_name"><label for="allow_change_case_type">Change <?= $this->caseTypeFieldLabel ?> :</label>&nbsp;</td>
+                        <td>
+                            <input type="checkbox" name="allow_change_case_type" <?php if (array_key_exists('allow_change_case_type', $this->arrCompanyInfo) && $this->arrCompanyInfo['allow_change_case_type'] == 'Y'): ?>checked="checked"<?php endif; ?> id="allow_change_case_type"/> <label for="allow_change_case_type">Allow to Change <?= $this->caseTypeFieldLabel ?></label><br/><br/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="field_name"><label for="allow_multiple_advanced_search_tabs">Advanced search :</label>&nbsp;</td>
+                        <td>
+                            <input type="checkbox" name="allow_multiple_advanced_search_tabs" <?php if (array_key_exists('allow_multiple_advanced_search_tabs', $this->arrCompanyInfo) && $this->arrCompanyInfo['allow_multiple_advanced_search_tabs'] == 'Y'): ?>checked="checked"<?php endif; ?> id="allow_multiple_advanced_search_tabs"/> <label for="allow_multiple_advanced_search_tabs">Allow multiple advanced search tabs</label><br/><br/>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+                <tr>
+                    <td class="field_name"><label for="loose_task_rules">Task rules :</label>&nbsp;</td>
+                    <td>
+                        <input type="checkbox" name="loose_task_rules" <?php if (array_key_exists('loose_task_rules', $this->arrCompanyInfo) && $this->arrCompanyInfo['loose_task_rules'] == 'Y'): ?>checked="checked"<?php endif; ?> id="loose_task_rules"/> <label for="loose_task_rules">Allow tasks subjects and deadlines to be edited by other users</label><br/><br/>
+                    </td>
+                </tr>
+
+                <?php if ($this->booCurrentMemberSuperAdmin): ?>
+
+                    <tr>
+                        <td class="field_name"><label for="allow_decision_rationale_tab">Draft Notes :</label>&nbsp;</td>
+                        <td>
+                            <input type="checkbox" name="allow_decision_rationale_tab" <?php if (array_key_exists('allow_decision_rationale_tab', $this->arrCompanyInfo) && $this->arrCompanyInfo['allow_decision_rationale_tab'] == 'Y'): ?>checked="checked"<?php endif; ?> id="allow_decision_rationale_tab"/> <label for="allow_decision_rationale_tab">Show "Draft Notes" Tab</label><br/><br/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="field_name"><label for="decision_rationale_tab_name">"Draft Notes" Tab Name :</label>&nbsp;</td>
+                        <td><input type="text" name="decision_rationale_tab_name" value="<?= $this->arrCompanyInfo['decision_rationale_tab_name'] ?? '' ?>" size="50" id="decision_rationale_tab_name" class="textbox" <?php if (!array_key_exists('allow_decision_rationale_tab', $this->arrCompanyInfo) || $this->arrCompanyInfo['allow_decision_rationale_tab'] == 'N'): ?>disabled="disabled"<?php endif; ?>/><br/></td>
+                    </tr>
+
+                    <tr>
+                        <td class="field_name"><label for="log_client_changes_enabled">Log changes in client's profile :</label>&nbsp;</td>
+                        <td>
+                            <input type="checkbox" name="log_client_changes_enabled" <?php if (array_key_exists('log_client_changes_enabled', $this->arrCompanyInfo) && $this->arrCompanyInfo['log_client_changes_enabled'] == 'Y'): ?>checked="checked"<?php endif; ?> id="log_client_changes_enabled"/> <label for="log_client_changes_enabled">Enable Log</label><br/><br/>
+                        </td>
+                    </tr>
+
+                    <?php if ($this->arrAccessRights['manage_extra_details']): ?>
+                        <tr>
+                            <td class="field_name"><label for="storage_location">Storage location :</label>&nbsp;</td>
+                            <td>
+                                <select class="drop_down" id="storage_location" name="storage_location">
+                                    <option value="s3" <?= $this->arrCompanyInfo['storage_location'] == 's3' ? "selected" : "" ?>>Amazon S3</option>
+                                    <option value="local" <?= $this->arrCompanyInfo['storage_location'] == 'local' ? "selected" : "" ?>>Local</option>
+                                </select>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+
+                    <tr>
+                        <td class="field_name"><label>Import :</label>&nbsp;</td>
+                        <td>
+                            <input type="checkbox" name="allow_import" <?php if (array_key_exists('allow_import', $this->arrCompanyInfo) && $this->arrCompanyInfo['allow_import'] == 'Y'): ?>checked="checked"<?php endif; ?> id="allow_import"/> <label for="allow_import">Allow Import</label><br/><br/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="field_name"><label>BC PNP Import :</label>&nbsp;</td>
+                        <td>
+                            <input type="checkbox" name="allow_import_bcpnp" <?php if (array_key_exists('allow_import_bcpnp', $this->arrCompanyInfo) && $this->arrCompanyInfo['allow_import_bcpnp'] == 'Y'): ?>checked="checked"<?php endif; ?> id="allow_import_bcpnp"/> <label for="allow_import_bcpnp">Allow BC PNP Import</label><br/><br/>
+                        </td>
+                    </tr>
+
+                <?php endif; ?>
+
+                <?php if ($this->booCurrentMemberSuperAdmin || $this->booCanExport): ?>
+                    <tr>
+                        <td class="field_name"><label>Export :</label>&nbsp;</td>
+                        <td>
+                            <?php if ($this->booCurrentMemberSuperAdmin): ?>
+                                <input type="checkbox" name="allow_export" <?php if (array_key_exists('allow_export', $this->arrCompanyInfo) && $this->arrCompanyInfo['allow_export'] == 'Y'): ?>checked="checked"<?php endif; ?> id="allow_export"/> <label for="allow_export">Allow Export</label><br/><br/>
+                            <?php endif; ?>
+                            <?php if ($this->arrAccessRights['allow_export']): ?>
+                                <div id="company_export_container"></div>
+                            <?php else: ?>
+                                Export is not allowed
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+                <?php if (!empty($this->arrCompanyInfo['freetrial_key'])) : ?>
+                    <tr>
+                        <td class="field_name"><label>Free Trial Key :</label>&nbsp;</td>
+                        <td><?= $this->arrCompanyInfo['freetrial_key'] ?><br/></td>
+                    </tr>
+                <?php endif; ?>
+
+                <?php if ($this->booCurrentMemberSuperAdmin) : ?>
+                    <tr>
+                        <td class="field_name"><label for="enable_case_management">Case Management :</label>&nbsp;</td>
+                        <td>
+                            <input type="checkbox" name="enable_case_management" <?php if (array_key_exists('enable_case_management', $this->arrCompanyInfo) && $this->arrCompanyInfo['enable_case_management'] == 'Y'): ?>checked="checked"<?php endif; ?> id="enable_case_management"/> <label for="enable_case_management">Enable Case Management</label><br/><br/>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+                <?php if (!$booNewCompany) : ?>
+                    <tr>
+                        <td class="field_name"><label>Last logged in :</label>&nbsp;</td>
+                        <td><?= $this->arrCompanyInfo['lastLoggedIn'] ?><br/></td>
+                    </tr>
+                <?php endif; ?>
+                <tr>
+                    <td colspan="2" style="padding-top: 15px; padding-bottom: 15px; text-align: center;"><input id="updateCompanyInfoBtn" name="Submit" type="submit" class="orange-save-btn" value="<?= $this->btnHeading; ?>"/></td>
+                </tr>
+            </table>
+
+            <div>&nbsp;</div>
+        </div>
+
+        <?php if ($booShowCompanyInvoices) : ?>
+            <div id="company-invoices">
+                <?php
+                if (!is_array($this->invoices) || count($this->invoices) == 0) {
+                    echo 'There are no invoices';
+                } else {
+                    echo '<table cellpadding="0" cellspacing="0" border="0">' .
+                        '<tr>' .
+                        '<td style="padding:4px 6px; width:400px; font-weight:bold;">Description</td>' .
+                        '<td style="padding:4px 6px; width:100px; font-weight:bold;">Status</td>' .
+                        '<td style="padding:4px 6px; width:100px; font-weight:bold;">Invoice Date</td>' .
+                        '<td style="padding:4px 6px; width:100px; font-weight:bold;">Posted Date</td>' .
+                        '<td style="padding:4px 6px; width:100px; font-weight:bold;">Total Amount</td>' .
+                        ($this->booCurrentMemberSuperAdmin ? '<td> </td>' : '') .
+                        '</tr>';
+
+                    foreach ($this->invoices as $invoice) {
+                        if ($invoice['status'] == 'C') {
+                            $strInvoiceLink = sprintf(
+                                "<a href='#' class='bluelink' onclick='getInvoicePDF(%d); return false;'>%s</a>",
+                                $invoice['company_invoice_id'],
+                                $invoice['subject']
+                            );
+                        } else {
+                            $strInvoiceLink = $invoice['subject'];
+                        }
+
+
+                        echo '<tr id="tr-' . $invoice['company_invoice_id'] . '">' .
+                            '<td style="padding:4px 6px; width:400px;">' . $strInvoiceLink . '</td>' .
+                            '<td style="padding:4px 6px; width:100px;">' . $invoice['status_formatted'] . '</td>' .
+                            '<td style="padding:4px 6px; width:100px;">' . $invoice['invoice_date'] . '</td>' .
+                            '<td style="padding:4px 6px; width:100px;">' . $invoice['invoice_posted_date'] . '</td>' .
+                            '<td style="padding:4px 6px; width:100px;">$' . $invoice['total'] . '</td>' .
+                            ($this->booCurrentMemberSuperAdmin ? '<td style="padding: 4px 6px; width: 200px;">' : '') .
+                            ($this->booCanDeleteInvoices ? '<a href="#" class="bluelink" style="margin-right: 10px" onclick="removeInvoice(' . $invoice['company_invoice_id'] . '); return false;">Delete</a>' : '') .
+                            ($this->booCanChargeInvoices && $invoice['status'] !== 'C' ? '<a href="#" class="bluelink" onclick="chargeInvoice(' . $invoice['company_invoice_id'] . '); return false;">Charge Now</a>' : '') .
+                            ($this->booCurrentMemberSuperAdmin ? '</td>' : '') .
+                            '</tr>';
+                    }
+
+                    echo '</table>';
+                }
+                ?>
+            </div>
+        <?php endif ?>
+    </form>
+
+
+    <?php if ($booShowCompanyPackages) : ?>
+        <div id="company-packages">
+
+            <div style="padding-bottom:10px;">
+                <a href="#" class="bluelinks" style="padding:1px 0 2px 0;" onclick="updateCC(<?= $this->edit_company_id ?>); return false;"><i class="las la-money-bill-wave"></i>Update Credit Card on File</a>
+                <?php if ($this->booCanManageCompanyPackages) : ?>
+                    &nbsp;
+                    <a href="#" class="bluelinks" style="padding:1px 0 2px 20px;" onclick="runCharge(true); return false;"><i class="las la-dollar-sign"></i>Create Invoice Now</a>
+                    &nbsp;
+                    <a href="#" class="bluelinks" style="padding:1px 0 2px 20px;" onclick="createInvoice(<?= $this->edit_company_id ?>, true); return false;"><i class="las la-money-bill"></i>Create Recurring Invoice Now</a>
+                    &nbsp;
+                    <a href="#" class="bluelinks" style="padding:1px 0 2px 20px;" onclick="createInvoice(<?= $this->edit_company_id ?>, false); return false;"><i class="las la-money-bill-alt"></i>Create First Invoice Now</a>
+                    &nbsp;
+                    <a href="#" class="bluelinks" style="padding:1px 0 2px 20px;" onclick="sendCompanyMail(<?= $this->edit_company_id ?>, false); return false;"><i class="las la-envelope"></i>Send Mail</a>
+                <?php endif; ?>
+            </div>
+
+
+            <div id="packages-info"></div>
+
+            <?php if ($this->booCanManageCompanyPackages) : ?>
+                <div style="margin: 0 auto; text-align: center"><input type="submit" value="<?= $this->btnInvoices ?>" onclick="savePackagesInfo(); return false;" class="buttons"></div>
+            <?php endif; ?>
+
+        </div>
+    <?php endif ?>
+
+    <?php if ($booShowCompanyUsers) : ?>
+        <div id="company-users">
+            <?= $this->rendered_members ?>
+        </div>
+    <?php endif ?>
+
+    <?php if ($booShowCompanyRoles) : ?>
+        <div id="company-roles">
+            <?= $this->rendered_roles ?>
+        </div>
+    <?php endif ?>
+
+    <?php if ($booShowCompanyTimeLog) : ?>
+        <div id="time-log"></div>
+    <?php endif ?>
+
+    <?php if ($booShowBusinessHoursTab) : ?>
+        <div id="schedule-container"></div>
+    <?php endif ?>
+
+    <?php if ($booShowCompanyTickets) : ?>
+        <div id="company-tickets"></div>
+    <?php endif ?>
+
+    <?php if ($booShowCompanyStats) : ?>
+        <div id="stats"></div>
+    <?php endif ?>
+
+    <?php endif; ?>
+</div>

@@ -1,0 +1,7 @@
+<?php if ($this->mailEnabled): ?>
+    <div id='mail-container'></div>
+<?php else: ?>
+    <span class="white12"><?= $this->translate('Email tab in this version of the site is disabled.') ?></span>
+    <br/>
+    <img src="<?= $this->imgUrl('webmail.jpg') ?>" alt="Email" vspace="5"/>
+<?php endif; ?>

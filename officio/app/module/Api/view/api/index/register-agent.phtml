@@ -1,0 +1,76 @@
+<div class="container">
+    <div style="padding-bottom: 10px;">
+        <h1>Authorised Agent Registration Page</h1>
+    </div>
+
+    <?php
+
+    if (!empty($this->strError)): ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $this->strError ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (empty($this->strError) && $this->booCreated): ?>
+        <div class="alert alert-success" role="alert">
+            You was successfully registered. Please click
+            <a href="<?= $this->layout()->topBaseUrl ?>" class="alert-link">here to login</a>.
+        </div>
+    <?php endif; ?>
+
+    <?php if ($this->booShowForm): ?>
+        <form action="<?= $this->layout()->topBaseUrl ?>/api/index/register-agent" method="post">
+            <input type="hidden" name="hash" value="<?= $this->hash ?>">
+
+            <fieldset class="form-group">
+                <legend>User details</legend>
+
+                <div class="form-group">
+                    <label for="userFirstName">First Name</label>
+                    <input type="text" class="form-control" id="userFirstName" name="userFirstName" required="required" value="<?= $this->arrMemberInfo['fName'] ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="userLastName">Last Name</label>
+                    <input type="text" class="form-control" id="userLastName" name="userLastName" required="required" value="<?= $this->arrMemberInfo['lName'] ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="userEmail">Email Address</label>
+                    <input type="email" class="form-control" id="userEmail" name="userEmail" required="required" value="<?= $this->arrMemberInfo['emailAddress'] ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="userTimeZone">Time Zone</label>
+                    <select class="form-control" id="userTimeZone" name="userTimeZone">
+                        <?php foreach ($this->arrTimeZones as $key => $timeZoneLabel) : ?>
+                            <option value="<?= $key ?>" <?= $this->arrMemberInfo['timeZone'] == $key ? 'selected="selected"' : '' ?>><?= $timeZoneLabel ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-group">
+                <legend>Access level</legend>
+
+                <div class="form-group">
+                    <label for="userOffice">Office</label>
+                    <input type="text" class="form-control" id="userOffice" value="<?= $this->userOffice ?>" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label for="userUsername">Username</label>
+                    <input type="text" class="form-control" id="userUsername" name="userUsername" required="required" value="<?= $this->arrMemberInfo['username'] ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="userPassword">Password</label>
+                    <input type="password" class="form-control" id="userPassword" name="userPassword" aria-describedby="userPasswordHelp" required="required">
+                    <small id="userPasswordHelp" class="form-text text-muted">Requirements: <?= $this->passwordRegex ?></small>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    <?php endif; ?>
+</div>

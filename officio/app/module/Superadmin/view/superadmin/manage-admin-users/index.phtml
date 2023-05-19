@@ -1,0 +1,194 @@
+<?php
+
+$bgClass = '';
+function getBgColor()
+{
+    global $bgClass;
+    $bgClass = ($bgClass == "evenRow") ? "oddRow" : "evenRow";
+    return $bgClass;
+}
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headScript()->appendFile($this->layout()->jqueryUrl . '/thickbox.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/check_submit_form.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/iframe_height.js');
+
+$this->headLink()->appendStylesheet($this->layout()->cssUrl . '/thickbox.css');
+
+
+$addAdminUserLink = <<<EOD
+<i class="las la-plus"></i>&nbsp;<a href="{$this->layout()->baseUrl}/manage-admin-users/add" class="bluelinks">Add New SuperAdmin User</a>    
+EOD;
+
+$searchAdminUserLink = <<<EOD
+<i class="las la-search"></i>&nbsp;<a href="#TB_inline?height=250&amp;width=400&amp;inlineId=hiddenSearchBox&amp;modal=false;setfocus=srchUsername" class="thickbox bluelinks">Search SuperAdmin Users</a>
+EOD;
+
+$topMenu = $this->booCanAddAdminUser ? $addAdminUserLink : '';
+$topMenu = empty($topMenu) ? $searchAdminUserLink : $topMenu . '&nbsp;&nbsp;' . $searchAdminUserLink;
+
+
+$this->layout()->top_menu = $topMenu;
+?>
+
+<?php $this->headScript()->captureStart(); ?>
+if(typeof(autoshow_error) == "undefined") {
+var autoshow_error = [];
+}
+autoshow_error.push('<?= $this->escapeHtml(addslashes($this->error_message)) ?>');
+
+if(typeof(autoshow_info) == "undefined") {
+var autoshow_info = [];
+}
+autoshow_info.push('<?= $this->escapeHtml(addslashes($this->confirmation_message)) ?>');
+<?php $this->headScript()->captureEnd(); ?>
+
+<div class="admin-tab-content">
+    <!--  Search table starts here -->
+    <div id="hiddenSearchBox" style="display:none;"><br/><br/>
+        <form name="frmSearch" method="get" action="#">
+            <table width="100%" border="0" cellspacing="1" cellpadding="4" align=center bgcolor="#D8D8D8" class="padding_4">
+                <tr>
+                    <td colspan="2" class="header_bg" valign="top"><i class="las la-search"></i>&nbsp; Search Admins</td>
+                </tr>
+                <tr class="<?= getBgColor() ?>">
+                    <td width="40%" align="right" class="field_name">User Name</td>
+                    <td align="left">
+                        <input id="srchUsername" name="srchUsername" value="<?= $this->escapeHtmlAttr($this->srchUsername) ?>" class="textbox" size="30" type="text"/>
+                    </td>
+                </tr>
+                <tr class="<?= getBgColor() ?>">
+                    <td width="40%" align="right" class="field_name">Admin Name</td>
+                    <td align="left">
+                        <input name="srchName" value="<?= $this->escapeHtmlAttr($this->srchName) ?>" class="textbox" size="30" type="text"/>
+                    </td>
+                </tr>
+                <tr class="<?= getBgColor() ?>">
+                    <td width="40%" align="right" class="field_name">Admin Email</td>
+                    <td align="left">
+                        <input name="srchEmail" value="<?= $this->escapeHtmlAttr($this->srchEmail) ?>" class="textbox" size="30" type="text"/>
+                    </td>
+                </tr>
+                <tr class="<?= getBgColor() ?>">
+                    <td width="40%" align="right" class="field_name">Status</td>
+                    <td width="60%" align="left">
+                        <select name="srchStatus" class="drop_down">
+                            <option value="" <?php if ($this->srchStatus == "") {
+                                echo " selected";
+                            } ?>>Any
+                            </option>
+                            <option value="1" <?php if ($this->srchStatus == "1") {
+                                echo " selected";
+                            } ?>>Active
+                            </option>
+                            <option value="0" <?php if ($this->srchStatus == "0") {
+                                echo " selected";
+                            } ?>>Inactive
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="<?= getBgColor() ?>">
+                    <td colspan="2" align="center"><input name="Submit" type="submit" class="buttons" value="Search"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <!--  Search table ends here -->
+
+    <?php if ($this->totalRecords > 0) { ?>
+        <br/>
+        <form name="pageLimit" action="" method="get">
+            <table width="80%" border="0" cellspacing="0" cellpadding="4" align="center">
+                <tr>
+                    <td class="gray_txt" align="left" width="18%">Records per page:</td>
+                    <td class="gray_txt" align="left" width="82%">
+                        <select name="srchLimit" class="drop_down" id="srchLimit" style="width:50px;" onChange="javascript:this.form.submit();">
+                            <?= $this->formSearchLimit($this->srchLimit); ?>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <?php
+    } ?>
+
+    <form name="admin_users_form" method="post" action="">
+        <input type="hidden" name="section" value="admin_users"/>
+        <table width="80%" border="0" cellspacing="1" cellpadding="4" align=center bgcolor="#D8D8D8" class="gray_txt padding_4">
+            <?php if ($this->totalRecords > 0) { ?>
+                <tr>
+                    <td width="10%" class="header_bg text-center">ID <?= $this->formSortArrows('member_id') ?></td>
+                    <td width="18%" class="header_bg text-center">User Name <?= $this->formSortArrows('username') ?></td>
+                    <td width="18%" class="header_bg text-center">Admin Name</td>
+                    <td width="16%" class="header_bg text-center">Email<?= $this->formSortArrows('emailAddress') ?></td>
+                    <td width="15%" class="header_bg text-center">Add Time <?= $this->formSortArrows('regTime') ?></td>
+                    <td width="12%" class="header_bg text-center">Status <?= $this->formSortArrows('status') ?></td>
+                    <?php if ($this->booCanEditAdminUser) : ?>
+                        <td width="8%" class="header_bg text-center">Edit</td>
+                    <?php endif; ?>
+                    <td width="8%" class="header_bg text-center">
+                        <input name="check_all" type="checkbox" id="check_all" value="check_all" onClick="checkall(this.form)">
+                    </td>
+                </tr>
+
+                <?php
+                foreach ($this->results as $row) {
+                    $bgClass = ($bgClass == "evenRow") ? "oddRow" : "evenRow";
+                    $this->sn++;
+                    ?>
+                    <tr class="<?= $bgClass; ?>">
+                        <td class="gray_txt text-center"><?= $row['member_id']; ?></td>
+                        <td class="gray_txt text-left">
+                            <div id="superadmin_id_<?= $row['member_id'] ?>"><?= $this->escapeHtml($row['username']); ?></div>
+                        </td>
+                        <td class="gray_txt text-left"><?= $this->escapeHtml($row['lName'] . " " . $row['fName']); ?></td>
+                        <td class="gray_txt text-left"><?= $this->escapeHtml($row['emailAddress']); ?></td>
+                        <td class="gray_txt text-center"><?= date("d/m/Y", $row['regTime']); ?></td>
+                        <td class="gray_txt text-center"><?php ($row['status'] == 1) ? print "Active" : print "Inactive"; ?></td>
+                        <?php if ($this->booCanEditAdminUser) : ?>
+                            <td valign="middle" class="text-center">
+                                <a href="<?= $this->layout()->baseUrl . "/manage-admin-users/edit?member_id=" . $row['member_id']; ?>"><i class="las la-edit"></i></a>
+                            </td>
+                        <?php endif; ?>
+                        <td width="5%" valign="middle" class="text-center">
+                            <?php if ($this->currentMemberId != $row['member_id']): ?>
+                                <input type="checkbox" name="delIDs[]" value="<?= $row['member_id']; ?>">
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                $bgClass = ($bgClass == "evenRow") ? "oddRow" : "evenRow"; ?>
+                <tr align="right" class="<?= $bgClass; ?>">
+                    <td colspan="8">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="100%" colspan="2" class="text-right">
+                                    <input type="hidden" name="listingAction" value=""/>
+                                    <input type="button" name="Activate" value="Activate" class="buttons" onClick="return submit_form(this.form,this.value)">
+                                    <input type="button" name="Deactivate" value="Deactivate" class="buttons" onClick="return submit_form(this.form,this.value)">
+                                    <?php if ($this->booCanDeleteAdminUser) { ?>
+                                        <input type="button" name="Delete" value="Delete" class="buttons" onClick="return submit_form(this.form,this.value)">
+                                        <?php
+                                    } ?>
+                                </td>
+                            </tr>
+                            <?php
+                            if ($this->pagingStr != '') {
+                                ?>
+                                <tr>
+                                    <td height="35" colspan="2" align="right" valign="bottom"><?= $this->pagingStr; ?></td>
+                                </tr>
+                                <?php
+                            } ?>
+                        </table>
+                    </td>
+                </tr>
+
+            <?php } ?>
+        </table>
+    </form>
+</div>

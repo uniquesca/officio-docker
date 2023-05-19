@@ -1,0 +1,315 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->headLink()->appendStylesheet($this->layout()->assetsUrl . '/@fortawesome/fontawesome-free/css/all.min.css');
+$this->headLink()->appendStylesheet($this->layout()->assetsUrl . '/select2/dist/css/select2.min.css');
+$this->headLink()->appendStylesheet($this->layout()->officioCssUrl . '/colorbox.css');
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/bootstrap-signup.css');
+
+if (!empty($this->googleRecaptchaKey)) {
+    $this->headScript()->setAllowArbitraryAttributes(true);
+    $this->headScript()->appendFile('https://www.google.com/recaptcha/api.js', 'text/javascript', array('minify_disabled' => true, 'weight' => 50, 'async' => 'async', 'defer' => 'defer'));
+}
+
+$this->headScript()->appendFile($this->layout()->assetsUrl . '/select2/dist/js/select2.min.js');
+$this->headScript()->appendFile($this->layout()->jqueryUrl . '/jquery.metadata.js');
+$this->headScript()->appendFile($this->layout()->jqueryUrl . '/jquery.json.js');
+$this->headScript()->appendFile($this->layout()->assetsUrl . '/jquery-validation/dist/jquery.validate.min.js');
+$this->headScript()->appendFile($this->layout()->assetsUrl . '/jquery-creditcardvalidator/jquery.creditCardValidator.js');
+$this->headScript()->appendFile($this->layout()->assetsUrl . '/jquery-colorbox/jquery.colorbox-min.js');
+$this->headScript()->appendFile($this->layout()->officioJsUrl . '/signup/step4.js');
+
+$booAustralia = $this->layout()->site_version == 'australia';
+
+$this->headScript()->captureStart();
+?>
+var booRecaptchaEnabled = <?= Json::encode(!empty($this->googleRecaptchaKey)) ?>;
+var booShowABN = <?= Json::encode($this->booShowABN) ?>;
+var defaultCountryId = <?= $this->defaultCountryId; ?>;
+<?php $this->headScript()->captureEnd(); ?>
+<div id="page-container" class="container-fluid pr-0 pl-0 h-100 d-flex flex-column">
+
+    <nav class="header navbar fixed-top navbar-expand-md navbar-dark">
+        <div class="container">
+            <a href="<?= $this->layout()->officioBaseUrl ?>/index.php">
+                <img src="<?= $this->layout()->imagesUrl ?>/default/logo.png" height="65" width="174" alt="<?= $this->layout()->officio_domain ?>" title="<?= $this->layout()->officio_domain ?>" border="0"/>
+            </a>
+
+            <?php if ($this->booShowPackageSection) : ?>
+                <div style="float: left;" class="navbar-brand">
+                    <table>
+                        <tr>
+                            <td id="selectedPlanContainer" class="d-none d-md-block" style="color: #1A3A71">
+                                <?= $this->translate('Selected Plan:') ?> <?= $this->selectedPlanName ?><br>
+                                <?= $this->translate('Pay Period:') ?> <?= $this->selectedPlanTerm ?> ($<?= $this->selectedPlanPrice ?> <?= $this->translate('+ applicable GST/HST)') ?>
+                            </td>
+                            <td id="backButtonContainer">
+                                <a href="<?= $this->layout()->baseUrl ?>/signup/index/step3?pkey=<?= $this->prospectKey ?>" id="previousBtn" class="btn btn-outline-primary" style="margin: 0 0 0 30px"><?= $this->translate('Back') ?></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            <?php endif; ?>
+        </div>
+    </nav>
+
+    <?php if (!empty($this->strError)): ?>
+        <div class="container">
+            <div class="alert alert-danger" style="margin-top: 120px;"><?= $this->strError ?></div>
+        </div>
+    <?php else: ?>
+        <div id="wizard_content" class="container content-container" style="padding-top:100px; margin-bottom: 15px;">
+            <div class="row justify-content-center w-100">
+                <ul id="progressbar" class="w-100">
+                    <li id="account" class="active"><strong><?= $this->translate('Create Admin Account') ?></strong></li>
+                    <li id="payment" class="active"><strong><?= $this->translate('Billing & Company Details') ?></strong></li>
+                    <li id="confirm"><strong><?= $this->translate('Finish') ?></strong></li>
+                </ul>
+            </div>
+
+            <div class="wizardcontent" id="step_3">
+                <form id="newCompanyForm" name="newCompanyForm" method="post" action="<?= $this->layout()->baseUrl . '/signup/index/step4' ?>" autocomplete="off">
+                    <input type="hidden" id="country_normal" name="country_normal" value=""/>
+                    <input type="hidden" id="pkey" name="pkey" value="<?= $this->prospectKey ?>"/>
+
+                    <div class="form-group">
+                        <label for="salutation" class="required required_not_mark"><?= $this->translate('Salutation') ?></label>
+                        <select class="form-control combo required required_not_mark" id="salutation" name="salutation">
+                            <option value=""><?= $this->translate('- Select -') ?></option>
+                            <option value="Mr." <?= $this->arrStep4Info['salutation'] == 'Mr.' ? 'selected="selected"' : '' ?>><?= $this->translate('Mr.') ?></option>
+                            <option value="Miss" <?= $this->arrStep4Info['salutation'] == 'Miss' ? 'selected="selected"' : '' ?>><?= $this->translate('Miss') ?></option>
+                            <option value="Ms." <?= $this->arrStep4Info['salutation'] == 'Ms.' ? 'selected="selected"' : '' ?>><?= $this->translate('Ms.') ?></option>
+                            <option value="Mrs." <?= $this->arrStep4Info['salutation'] == 'Mrs.' ? 'selected="selected"' : '' ?>><?= $this->translate('Mrs.') ?></option>
+                            <option value="Dr." <?= $this->arrStep4Info['salutation'] == 'Dr.' ? 'selected="selected"' : '' ?>><?= $this->translate('Dr.') ?></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="firstName" class="required required_not_mark"><?= $booAustralia ? $this->translate('Given Name') : $this->translate('Name') ?></label>
+                        <input id="firstName" name="firstName" type="text" class="form-control" value="<?= $this->arrStep4Info['name'] ?>"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName" class="required required_not_mark"><?= $booAustralia ? $this->translate('Family Name') : $this->translate('Last Name') ?></label>
+                        <input id="lastName" name="lastName" type="text" class="form-control" value="<?= $this->arrStep4Info['last_name'] ?>"/>
+                    </div>
+
+                    <?php if ($this->booShowABN) : ?>
+                        <div class="form-group">
+                            <label for="company_abn" class="required required_not_mark"><?= $this->translate('Company ABN') ?></label>
+                            <input id="company_abn" name="company_abn" type="text" class="form-control" value="<?= $this->arrStep4Info['company_abn'] ?>"/>
+                        </div>
+                    <?php endif ?>
+
+                    <div class="form-group">
+                        <label for="companyEmail" class="required required_not_mark"><?= $this->translate('Email') ?></label>
+                        <input id="companyEmail" name="companyEmail" type="text" class="form-control required email" value="<?= $this->arrStep4Info['email'] ?>"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address" class="required required_not_mark"><?= $this->translate('Address') ?></label>
+                        <textarea name="address" id="address" style="width:100%;" class="form-control"><?= $this->arrStep4Info['address'] ?></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city" class="required required_not_mark"><?= $this->layout()->settings->getSiteCityLabel() ?></label>
+                        <input name="city" id="city" type="text" class="form-control" value="<?= $this->arrStep4Info['city'] ?>"/>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="country" class="required required_not_mark"><?= $this->translate('Country') ?></label>
+                            <select class="form-control combo required required_not_mark" id="country" name="country">
+                                <?php
+                                foreach ($this->arrCountries as $key => $val) {
+                                    $arrExtraOption = array();
+
+                                    if (is_array($val) && isset($val['data'])) {
+                                        $arrExtraOption[] = 'data-val="' . $val['data'] . '"';
+                                    }
+
+                                    $label = is_array($val) ? $val['label'] : $val;
+
+                                    $booSelected = false;
+                                    if (!empty($this->arrStep4Info['country'])) {
+                                        $booSelected = $key == $this->arrStep4Info['country'];
+                                    } else {
+                                        $booSelected = $key == $this->defaultCountryId;
+                                    }
+
+                                    if ($booSelected) {
+                                        $arrExtraOption[] = 'selected="selected"';
+                                    }
+
+                                    $arrExtraOption = implode(' ', $arrExtraOption);
+
+                                    $option = "<option value='$key' $arrExtraOption>" . htmlspecialchars($label) . "</option>\n";
+
+                                    echo $option;
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <div id="provinces-div">
+                                <label for="province" class="required required_not_mark"><?= $this->translate('Province/State') ?></label>
+                                <select class="form-control combo required required_not_mark" id="province" name="province">
+                                    <?php
+                                    foreach ($this->arrProvinces as $key => $val) {
+                                        $arrExtraOption = array();
+
+                                        if (is_array($val) && isset($val['data'])) {
+                                            $arrExtraOption[] = 'data-val="' . $val['data'] . '"';
+                                        }
+
+                                        $label = is_array($val) ? $val['label'] : $val;
+                                        if (!empty($this->arrStep4Info['state']) && $label == $this->arrStep4Info['state']) {
+                                            $arrExtraOption[] = 'selected="selected"';
+                                        }
+
+                                        $arrExtraOption = implode(' ', $arrExtraOption);
+
+                                        $option = "<option value='$key' $arrExtraOption>" . htmlspecialchars($label) . "</option>\n";
+
+                                        echo $option;
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div id="state-div" style="display: none;">
+                                <label for="state" class="required required_not_mark"><?= $this->translate('Province/State') ?></label>
+                                <input name="state" id="state" type="text" class="form-control" value="<?= $this->arrStep4Info['state'] ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zip"><?= $this->translate('Postal Code/Zip') ?></label>
+                        <input name="zip" id="zip" type="text" class="form-control" value="<?= $this->arrStep4Info['zip'] ?>"/>
+                    </div>
+
+
+                    <br>
+                    <h4><?= $this->translate('Payment Details') ?></h4>
+
+                    <div class="d-none form-group">
+                        <label for="ccType" class=""><?= $this->translate('Credit Card Type') ?></label>
+                        <select class="form-control combo" id="ccType" name="ccType">
+                            <option value="visa" <?= $this->arrStep4Info['ccType'] == 'visa' ? 'selected="selected"' : '' ?>>Visa</option>
+                            <option value="mastercard" <?= $this->arrStep4Info['ccType'] == 'mastercard' ? 'selected="selected"' : '' ?>>MasterCard</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ccNumber" class="required required_not_mark"><?= $this->translate('Credit Card Number') ?></label>
+                        <input name="ccNumber" id="ccNumber" type="text" class="form-control" value="<?= $this->arrStep4Info['ccNumber'] ?>"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ccName" class="required required_not_mark"><?= $this->translate('Name on the Card') ?></label>
+                        <input id="ccName" name="ccName" type="text" class="form-control" value="<?= $this->arrStep4Info['ccName'] ?>"/>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="ccExpMonth" class="required required_not_mark"><?= $this->translate('Expiry Month') ?></label>
+                            <select class="form-control combo required required_not_mark" id="ccExpMonth" name="ccExpMonth">
+                                <option value=""><?= $this->translate('Month') ?></option>
+                                <option value="01" <?= $this->arrStep4Info['ccExpMonth'] == '01' ? 'selected="selected"' : '' ?>>01 - <?= $this->translate('January') ?></option>
+                                <option value="02" <?= $this->arrStep4Info['ccExpMonth'] == '02' ? 'selected="selected"' : '' ?>>02 - <?= $this->translate('February') ?></option>
+                                <option value="03" <?= $this->arrStep4Info['ccExpMonth'] == '03' ? 'selected="selected"' : '' ?>>03 - <?= $this->translate('March') ?></option>
+                                <option value="04" <?= $this->arrStep4Info['ccExpMonth'] == '04' ? 'selected="selected"' : '' ?>>04 - <?= $this->translate('April') ?></option>
+                                <option value="05" <?= $this->arrStep4Info['ccExpMonth'] == '05' ? 'selected="selected"' : '' ?>>05 - <?= $this->translate('May') ?></option>
+                                <option value="06" <?= $this->arrStep4Info['ccExpMonth'] == '06' ? 'selected="selected"' : '' ?>>06 - <?= $this->translate('June') ?></option>
+                                <option value="07" <?= $this->arrStep4Info['ccExpMonth'] == '07' ? 'selected="selected"' : '' ?>>07 - <?= $this->translate('July') ?></option>
+                                <option value="08" <?= $this->arrStep4Info['ccExpMonth'] == '08' ? 'selected="selected"' : '' ?>>08 - <?= $this->translate('August') ?></option>
+                                <option value="09" <?= $this->arrStep4Info['ccExpMonth'] == '09' ? 'selected="selected"' : '' ?>>09 - <?= $this->translate('September') ?></option>
+                                <option value="10" <?= $this->arrStep4Info['ccExpMonth'] == '10' ? 'selected="selected"' : '' ?>>10 - <?= $this->translate('October') ?></option>
+                                <option value="11" <?= $this->arrStep4Info['ccExpMonth'] == '11' ? 'selected="selected"' : '' ?>>11 - <?= $this->translate('November') ?></option>
+                                <option value="12" <?= $this->arrStep4Info['ccExpMonth'] == '12' ? 'selected="selected"' : '' ?>>12 - <?= $this->translate('December') ?></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="ccExpYear" class="required required_not_mark"><?= $this->translate('Expiry Year') ?></label>
+                            <select class="form-control combo required required_not_mark" id="ccExpYear" name="ccExpYear">
+                                <option value=""><?= $this->translate('Year') ?></option>
+                                <?php
+                                $currentYear = date('Y');
+                                $maxYear     = (date('Y', strtotime('+10 years')));
+                                for ($i = $currentYear; $i <= $maxYear; $i++) {
+                                    echo sprintf(
+                                        "<option value='%s' %s>%s</option>",
+                                        substr($i, 2, 2),
+                                        $this->arrStep4Info['ccExpYear'] == substr($i, 2, 2) ? 'selected="selected"' : '',
+                                        $i
+                                    );
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <?php if ($this->layout()->site_version === 'australia') : ?>
+                        <div class="form-group">
+                            <label for="ccCVN" class="required required_not_mark"><?= $this->translate('CVN') ?></label>
+                            <input id="ccCVN" name="ccCVN" type="text" maxlength="4" class="form-control" value="<?= $this->arrStep4Info['ccCVN'] ?>"/>
+                        </div>
+                    <?php endif ?>
+
+                    <?php if(!empty($this->googleRecaptchaKey)) : ?>
+                    <div class="row justify-content-center" style="margin-top: 20px; margin-bottom: 10px;">
+                        <div id='recaptcha' class="g-recaptcha"
+                             data-sitekey="<?= $this->googleRecaptchaKey ?>"
+                             data-callback="sendCCInfo"
+                             data-size="invisible"></div>
+                    </div>
+                    <?php endif; ?>
+
+                    <div id="divError" class="alert alert-danger" style="display: none"></div>
+
+                    <div class="row justify-content-center" style="margin-top: 20px; margin-bottom: 10px;">
+                        <div style="float: none; margin: 0 auto">
+                            <button id="nextBtn" type="button" class="btn btn-primary orange-btn" style="width: 235px;"><?= $this->booProspectCharged ? $this->translate('Create a Company') : $this->translate('Pay and Create a Company') ?></button>
+                            <img src="<?= $this->imgUrl('loading.gif') ?>" alt="<?= $this->translate('Loading') ?>" width="16" height="16" id="loadingImage" style="display: none;"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="success_message" class="card w-75 mx-auto" style="margin-top: 20px; display: none">
+                <div class="card-body">
+                    <h5 class="card-title"><?= $this->translate('Thank you for joining Officio.') ?></h5>
+                    <p class="card-text"><?= $this->translate('Your receipt and confirmation of your registration is emailed to you.<br>Please login to Officio to continue your setup.') ?></p>
+
+                    <div class="row justify-content-center" style="margin-top: 20px; margin-bottom: 10px;">
+                        <a href="<?= $this->layout()->baseUrl ?>" class="btn btn-primary orange-btn"><?= $this->translate('Login') ?></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif ?>
+
+    <footer class="mt-auto">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="footer-col-lf col-md-6 text-center">
+                    <ul class="vertical-links small">
+                        <li><a class="inline_footer" href="<?= $this->layout()->baseUrl ?>/default/index/privacy"><?= $this->translate('Privacy Policy') ?></a></li>
+                        <li><a class="inline_footer" href="<?= $this->layout()->baseUrl ?>/default/index/terms"><?= $this->translate('Terms of Use') ?></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col-rt col-md-6 text-center">
+                    <ul class="vertical-links small">
+                        <li>
+                            <?= $this->translate('Copyright') ?> &copy; <?= ($this->layout()->site_version == 'australia' ? '2013-' . date('Y') : '1996-' . date('Y')) ?>, <?= $this->layout()->site_company_name ?>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>

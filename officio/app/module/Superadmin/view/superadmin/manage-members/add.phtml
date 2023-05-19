@@ -1,0 +1,625 @@
+<?php
+
+use Officio\Common\Json;
+
+$bgClass = '';
+if (!function_exists('getBgColor')) {
+    function getBgColor()
+    {
+        global $bgClass;
+        $bgClass = ($bgClass == "evenRow") ? "oddRow" : "evenRow";
+        return $bgClass;
+    }
+}
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headScript()->captureStart();
+echo 'var baseUrl = ' . Json::encode($this->layout()->baseUrl) . ';';
+echo 'var edit_member_id = ' . Json::encode($this->edit_member_id) . ';';
+echo 'var curr_member_id = ' . Json::encode($this->edit_member_id) . ';';
+echo 'var mail_settings = ' . Json::encode($this->arrMailSettings) . ';';
+echo "var passwordMinLength = " . Json::encode($this->passwordMinLength) . ";";
+echo "var passwordMaxLength = " . Json::encode($this->passwordMaxLength) . ";";
+echo "var booCanAddMailAccount = " . Json::encode($this->booCanAddMailAccount) . ";";
+echo "var booCanChangePassword = " . Json::encode($this->booCanChangePassword) . ";";
+echo "var booCanEditMember = " . Json::encode($this->booCanEditMember) . ";";
+echo "var arrActiveUsers = " . Json::encode($this->arrActiveUsers) . ";";
+echo "var arrVevoMemberIds = " . Json::encode($this->arrMemberInfo['vevo_members']) . ";";
+echo "var arrDivisions = " . Json::encode($this->arrDivisions) . ";";
+echo "var arrMemberDivisionsAccessTo = " . Json::encode($this->arrMemberInfo['divisions_access_to']) . ";";
+echo "var arrMemberDivisionsResponsibleFor = " . Json::encode($this->arrMemberInfo['divisions_responsible_for']) . ";";
+echo "var arrMemberDivisionsPullFrom = " . Json::encode($this->arrMemberInfo['divisions_pull_from']) . ";";
+echo "var arrMemberDivisionsPushTo = " . Json::encode($this->arrMemberInfo['divisions_push_to']) . ";";
+echo "var arrBusinessHoursAccess = " . Json::encode($this->arrBusinessHoursAccess) . ";";
+$this->headScript()->captureEnd();
+?>
+
+<?php $this->headScript()->captureStart(); ?>
+if(typeof(autoshow_error) == "undefined") {
+var autoshow_error = [];
+}
+autoshow_error.push('<?= $this->escapeHtml(addslashes($this->edit_error_message)) ?>');
+
+if(typeof(autoshow_info) == "undefined") {
+var autoshow_info = [];
+}
+autoshow_info.push('<?= $this->escapeHtml(addslashes($this->confirmation_message)) ?>');
+
+<?php $this->headScript()->captureEnd();
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/mail.css');
+$this->headScript()->appendFile($this->layout()->topJsUrl . '/mail/MailSettingsTokensDialog.js');
+$this->headScript()->appendFile($this->layout()->topJsUrl . '/mail/MailSettingsDialog.js');
+$this->headScript()->appendFile($this->layout()->topJsUrl . '/mail/MailSettingsGrid.js');
+$this->headScript()->appendFile($this->layout()->topJsUrl . '/mail/MailImapFoldersDialog.js');
+$this->headScript()->appendFile($this->layout()->topJsUrl . '/mail/MailImapFoldersTree.js');
+
+if ($this->booShowBusinessHoursTab) {
+    $this->headLink()->appendStylesheet($this->layout()->cssUrl . '/manage_business_hours.css');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/business-hours/workdays/panel.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/business-hours/holidays/dialog.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/business-hours/holidays/grid.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/business-hours/panel.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/business-hours/init.js');
+}
+
+$this->headScript()->appendFile($this->layout()->assetsUrl . '/jquery-validation/dist/jquery.validate.min.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/main.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/generatePasswordButton.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/changeVevoCredentialsDialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/edit_member.js');
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/themes/' . $this->layout()->theme . '.css');
+
+$booNewUser = empty($this->edit_member_id);
+$action     = $booNewUser ? $this->layout()->baseUrl . "/manage-members/add" : $this->layout()->baseUrl . "/manage-members/edit?member_id=" . $this->edit_member_id;
+
+$this->headStyle()->captureStart() ?>
+
+#email-accounts td {
+color:#000;
+}
+
+#member-details input {
+width: 270px;
+}
+
+#memberTable td {
+padding: 5px;
+}
+
+.bold-row .x-grid3-cell-inner {
+font-weight:bold;
+}
+
+.x-fieldset {
+padding-top: 0px;
+margin-bottom: 0px;
+}
+
+.radio-no-bottom-padding {
+padding-top: 0 !important;
+padding-bottom: 0 !important;
+margin-bottom: 0 !important;
+}
+
+.disabled label {
+color: #9C9C9C;
+}
+
+#email-accounts {
+padding: 0;
+}
+
+#email-accounts .x-toolbar {
+border: none;
+margin-bottom: 10px;
+}
+<?php $this->headStyle()->captureEnd(); ?>
+
+<div id="manage-members-content">
+    <div id="edit_members_container">
+        <ul style="background: none;">
+            <li><a href="#member-details" class="main-members-tabs"><span>User Details</span></a></li>
+            <?php if ($this->booShowBusinessHoursTab): ?>
+                <li><a href="#schedule-container" class="main-members-tabs"><span>Business Hours</span></a></li><?php endif; ?>
+            <?php if ($this->booShowEmailTab): ?>
+                <li><a href="#email-accounts" class="main-members-tabs"><span>Email Accounts</span></a></li><?php endif; ?>
+        </ul>
+    </div>
+
+    <form name="editMemberForm" id="editMemberForm" action="<?= $action ?>#updateMembersBtn" method="post" enctype="multipart/form-data">
+        <div id="member-details">
+            <?php if (!empty($this->edit_member_id)): ?>
+                <input type="hidden" id="member_id" name="member_id" value="<?= $this->edit_member_id; ?>"/>
+            <?php endif; ?>
+
+            <table id="memberTable" width="80%" border="0" cellspacing="1" cellpadding="4" align=center bgcolor="#D8D8D8">
+                <tr align="left">
+                    <td class='header_bg' colspan="2" valign="top"><?= ($booNewUser ? '<i class="las la-plus"></i>' : '<i class="las la-edit"></i>') . ' ' . $this->layout()->title; ?></td>
+                </tr>
+
+                <?php if ($this->booShowEnableLMSUser) : ?>
+                    <tr bgcolor="#ffffff">
+                        <td colspan="2" style="padding: 10px">
+                            <a href="#" class="blulinkunb" onclick="enableLMSUser(); return false;">Enable the one time of user details on Officio Studio</a>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+                <tr class="evenRow">
+                    <td colspan="2" class="field_name" align="right">
+                        <div align="right"><em class="required">*</em><span class="field_name"><span class="featured"> indicates mandatory fields </span></span></div>
+                    </td>
+                </tr>
+
+                <tr bgcolor="#ffffff">
+                    <td colspan="2" class="gray-text18 padd-left5 field_name" align="left" valign="bottom" height="40">User Details</td>
+                </tr>
+
+                <tr class="<?= getBgColor() ?>">
+                    <td align="right" class="field_name">First Name : <em class="required">*</em></td>
+                    <td align="left"><input type="text" name="fName" id="fName" value="<?= $this->arrMemberInfo['fName']; ?>" size="50" class="textbox"/><br/></td>
+                </tr>
+                <tr class="<?= getBgColor() ?>">
+                    <td align="right" class="field_name">Last Name : <em class="required">*</em></td>
+                    <td align="left"><input type="text" name="lName" id="lName" value="<?= $this->arrMemberInfo['lName']; ?>" size="50" class="textbox"/><br/></td>
+                </tr>
+
+                <?php if ($booNewUser || $this->userDoesntHaveEmailTab): ?>
+                    <tr class="<?= getBgColor() ?>">
+                        <td align="right" class="field_name">Email Address : <em class="required">*</em></td>
+                        <td align="left"><input type="text" name="emailAddress" id="emailAddress" value="<?= $this->arrMemberInfo['emailAddress']; ?>" size="50" class="textbox"/><br/></td>
+                    </tr>
+                <?php endif; ?>
+
+                <?php if ($booNewUser): ?>
+                    <tr class="<?= getBgColor() ?>" style="display: none;">
+                        <td align="right" class="field_name">Send Emails as :</td>
+                        <td align="left"><input type="text" name="emailsign" id="emailsign" value="<?= $this->arrMemberInfo['emailsign']; ?>" size="50" class="textbox"/><br/></td>
+                    </tr>
+
+                    <tr class="<?= getBgColor() ?>" style="display: none;">
+                        <td align="right" class="field_name">Email Signature :</td>
+                        <td align="left"><textarea id="email_signature" name="email_signature" rows="3" cols="20" class="textbox" style="width: 270px;"><?= $this->arrMemberInfo['email_signature']; ?></textarea></td>
+                    </tr>
+                <?php endif; ?>
+
+                <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                    <td align="right" class="field_name">Time Zone : <em class="required">*</em></td>
+                    <td align="left">
+                        <?= $this->formDropdown('timeZone', $this->arrTimeZones, (int)$this->arrMemberInfo['timeZone'], ' class="drop_down" style="width:270px;"'); ?>
+                    </td>
+                </tr>
+
+                <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                    <td align="right" class="field_name">
+                        <?php
+                        $label = $this->layout()->site_version == 'canada' ? $this->translate('This user is a Regulated/Licensed Immigration Practitioner') : $this->translate('This user is a Registered Migration Agent (RMA)');
+                        ?>
+                        <label for="user_is_rma"><?= $label ?> :</label>
+                    </td>
+                    <td align="left">
+                        <input type="checkbox" name="user_is_rma" id="user_is_rma" <?= $this->arrMemberInfo['user_is_rma'] == 'Y' ? 'checked="checked"' : '' ?> style="width: 21px;" value="Y"/>
+                    </td>
+                </tr>
+
+                <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                    <td align="right" class="field_name">
+                        <?php
+                        $label = $this->layout()->site_version == 'canada' ? $this->translate('RCIC Number or Provincial Law Society Number') : $this->translate("MARN (Migration Agent's Registration Number)");
+                        ?>
+                        <label for="user_migration_number"><?= $label ?> :</label>
+                    </td>
+                    <td align="left">
+                        <input type="text" name="user_migration_number" id="user_migration_number" value="<?= $this->arrMemberInfo['user_migration_number']; ?>" size="15" maxlength="15" class="textbox"/><br/>
+                    </td>
+                </tr>
+
+                <tr bgcolor="#ffffff">
+                    <td colspan="2" class="gray-text18 padd-left5 field_name" align="left" valign="bottom" height="40">Access Level</td>
+                </tr>
+
+                <tr class="<?= getBgColor() ?>">
+                    <td align="right" class="field_name">Username : <em class="required">*</em></td>
+                    <td align="left"><input type="text" name="username" id="username" value="<?= $this->arrMemberInfo['username']; ?>" size="50" class="textbox" autocomplete="off"/><br/></td>
+                </tr>
+
+                <?php if ($this->booCanChangePassword) : ?>
+                    <tr class="<?= getBgColor() ?>">
+                        <td align="right" class="field_name"><?= $booNewUser ? 'Password : <em class="required">*</em>' : 'New Password : ' ?></td>
+                        <td align="left">
+                            <input type="text" name="password" id="password" size="50" maxlength="<?= $this->passwordMaxLength ?>" class="textbox" autocomplete="off" style="float: left;"/>
+                            <div <?= (!$this->booCanEditMember) ? 'hidden' : '' ?> id="generatePassword" style="float: left; margin-left: 10px"></div>
+                            <br style="clear: both"/>
+                            <label for="password" generated="true" class="error" style="padding: 10px 0;"></label>
+                        </td>
+                    </tr>
+                <?php endif ?>
+
+                <?php if ($this->booUseOAuth) : ?>
+                    <tr class="<?= getBgColor() ?>">
+                        <td align="right" class="field_name"><label for="oauth_idir"><?= $this->oAuthSSOFieldLabel ?> : <em class="required">*</em></label></td>
+                        <td align="left"><input type="text" name="oauth_idir" id="oauth_idir" value="<?= $this->arrMemberInfo['oauth_idir']; ?>" size="255" class="textbox" autocomplete="off"/><br/></td>
+                    </tr>
+
+                    <tr class="<?= getBgColor() ?>">
+                        <td align="right" class="field_name"><label for="oauth_guid"><?= $this->oAuthGUIDFieldLabel ?> :</label></td>
+                        <td align="left"><div style="padding: 10px 0" id="oauth_guid"><?= $this->arrMemberInfo['oauth_guid']; ?></div></td>
+                    </tr>
+                <?php endif ?>
+
+                <?php if (count($this->RolesList) > 0) : ?>
+                    <tr class="<?= getBgColor() ?>">
+                        <td align="right" class="field_name">Role : <em class="required">*</em>
+                            <i class='las la-info-circle' ext:qwidth='620' style='cursor: help; margin-left: 10px; vertical-align: text-bottom; font-size: 18px'
+                               ext:qtip='This user will be granted access to all client files available under the assigned role.<br>To review the case access restrictions for this Role:
+                                <ol>
+                                <li>1. Go to <b>Admin</b>.</li>
+                                <li>2. Click on <b>Roles</b> and select a particular role to review.</li>
+                                <li>3. Review and confirm the case access restrictions.</li>
+                                </ol>'></i>
+                        </td>
+                        <td align="left">
+                            <table border="0" cellspacing="1" cellpadding="1" style="width: 100%">
+                                <?php
+                                $count    = 0;
+                                $colCount = 2;
+                                foreach ($this->RolesList as $roleInfo) :
+                                    if ($count == 0) {
+                                        echo "<tr>";
+                                    }
+                                    if (is_array($this->arrMemberInfo['arrRoles']) && in_array($roleInfo['role_id'], $this->arrMemberInfo['arrRoles'])) {
+                                        $checked = 'checked="checked"';
+                                    } else {
+                                        $checked = '';
+                                    }
+                                    ?>
+                                    <td align="left" width="5%">
+                                        <input <?php if ($roleInfo['role_type'] == 'admin'): ?>class="adminCheckbox"<?php endif;
+                                        ?> type="checkbox" style="width: 21px;" name="arrRoles[]" id="role_<?= $roleInfo['role_id'] ?>" value="<?= $roleInfo['role_id'] ?>" <?= $checked ?>/>
+                                    </td>
+                                    <td align="left" class="field_name" width="45%">
+                                        <label for="role_<?= $roleInfo['role_id'] ?>" style="width: 150px;"><?= trim($roleInfo['role_name'] ?? '') ?></label>
+                                    </td>
+                                    <?php
+                                    $count++;
+                                    if ($count % $colCount == 0) {
+                                        echo "</tr>";
+                                        $count = 0;
+                                    }
+                                endforeach; ?>
+                            </table>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+                <?php if (count($this->arrDivisions) > 0) : ?>
+                    <tr bgcolor="#ffffff">
+                        <td colspan="2" class="gray-text18 padd-left5 field_name" align="left" valign="bottom" height="40"><?= $this->officeLabel . ' Management' ?></td>
+                    </tr>
+
+                    <tr class="<?= getBgColor() ?>">
+                        <td align="right" class="field_name">This user has access to : <em class="required">*</em></td>
+                        <td align="left">
+                            <table border="0" cellspacing="1" cellpadding="1" style="width: 100%">
+                                <tr>
+                                    <td width="50%">
+                                        <div id="userDivisionsAccessTo"></div>
+                                        <div id="userDivisionsAccessToMessage" style="display: none; clear:both; padding-top: 5px;">Admin Role has full access to all <?= $this->officeLabel . 's' ?></div>
+                                    </td>
+                                    <td width="50%">
+                                        <input type="checkbox" name="userDivisionsAccessToCheckbox" id="userDivisionsAccessToCheckbox" style="width: 21px;" onclick="selectAllLovCombo(this);"/>
+                                        <label for="userDivisionsAccessToCheckbox">Select all</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                        <td align="right" class="field_name">This user can pull cases from :</td>
+                        <td align="left">
+                            <table border="0" cellspacing="1" cellpadding="1" style="width: 100%">
+                                <tr>
+                                    <td width="50%">
+                                        <div id="userDivisionsPullFrom" style="float: left;"></div>
+                                    </td>
+                                    <td width="50%">
+                                        <input type="checkbox" name="userDivisionsPullFromCheckbox" id="userDivisionsPullFromCheckbox" style="width: 21px;" onclick="selectAllLovCombo(this);"/>
+                                        <label for="userDivisionsPullFromCheckbox">Select all</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                        <td align="right" class="field_name">
+                            <div style="float: right;">
+                                <span class="field_name">This user can push cases to :</span>
+                            </div>
+
+                        </td>
+                        <td align="left">
+                            <table border="0" cellspacing="1" cellpadding="1" style="width: 100%">
+                                <tr>
+                                    <td width="50%">
+                                        <div id="userDivisionsPushTo" style="float: left;"></div>
+                                    </td>
+                                    <td width="50%">
+                                        <input type="checkbox" name="userDivisionsPushToCheckbox" id="userDivisionsPushToCheckbox" style="width: 21px;" onclick="selectAllLovCombo(this);"/>
+                                        <label for="userDivisionsPushToCheckbox">Select all</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                        <td align="right" class="field_name">
+                            <div style="float: right;">
+                                <span class="field_name">Personal <?= $this->officeLabel . 's' ?> :</span>
+                            </div>
+                        </td>
+                        <td align="left">
+                            <table border="0" cellspacing="1" cellpadding="1" style="width: 100%">
+                                <tr>
+                                    <td width="50%">
+                                        <div id="userDivisionsResponsibleFor" style="float: left;"></div>
+                                        <div style="float: left; padding-top: 5px;">
+                                            <span><?= 'Personal ' . $this->officeLabel . ' is used as the destination ' . $this->officeLabel . ' for cases that are pulled from other ' . $this->officeLabel . 's. You can also set notifications every time you receive cases in these ' . $this->officeLabel . 's' ?></span>
+                                        </div>
+                                    </td>
+                                    <td width="50%">
+                                        <input type="checkbox" name="userDivisionsResponsibleForCheckbox" id="userDivisionsResponsibleForCheckbox" style="width: 21px;" onclick="selectAllLovCombo(this);"/>
+                                        <label for="userDivisionsResponsibleForCheckbox">Select all</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+                <?php if ($this->booIsCurrentMemberSuperAdmin) : ?>
+                    <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                        <td width="40%" align="right" class="field_name">Company : <em class="required">*</em></td>
+                        <td align="left" width="60%">
+                            <?php if (count($this->CompaniesList) > 0) : ?>
+                                <select name="company_id" id="company_id" class="drop_down" style="width:274px;" <?php if (!$booNewUser): ?>disabled="disabled"<?php endif; ?>>
+                                    <?php foreach ($this->CompaniesList as $companyInfo) :
+                                        $company_id = $companyInfo['company_id'];
+                                        $companyName = $companyInfo['companyName'];
+                                        $selected = '';
+                                        if ($company_id == $this->arrMemberInfo['company_id']) {
+                                            $selected = 'selected="selected"';
+                                        }
+                                        ?>
+                                        <option <?= $selected; ?> value="<?= $company_id ?>"><?= $this->escapeHtml($companyName) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+
+
+                <?php if ($this->booEnabledTimeTracker): ?>
+                    <tr bgcolor="#ffffff" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                        <td colspan="2" class="gray-text18 padd-left5 field_name" align="left" valign="bottom" height="40">Time Tracker</td>
+                    </tr>
+
+                    <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                        <td align="right" class="field_name">
+                            <label for="time_tracker_enable">Enable time tracker :</label>
+                            <img src="<?= $this->layout()->imagesUrl ?>/icons/help.png" width="16" height="16" alt="Print" ext:qwidth="360" ext:qtip="If enabled, the hours worked by this user on cases' files are recorded."/>
+                        </td>
+                        <td align="left"><input type="checkbox" name="time_tracker_enable" id="time_tracker_enable" <?= $this->arrMemberInfo['time_tracker_enable'] == 'Y' ? 'checked="checked"' : '' ?> style="width: 21px;" value="Y"/></td>
+                    </tr>
+
+                    <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                        <td align="right" class="field_name">
+                            <label for="time_tracker_disable_popup">Disable time tracker popup :</label>
+                            <img src="<?= $this->layout()->imagesUrl ?>/icons/help.png" width="16" height="16" alt="Print" ext:qwidth="330" ext:qtip="By default a window will popup upon closing a case's file and prompts you to explain the work done on that file.<br/><br/>Disabling popup still keeps track of your time in the background. But, no window will popup prompting to document your activity."/>
+                        </td>
+                        <td align="left"><input type="checkbox" name="time_tracker_disable_popup" id="time_tracker_disable_popup" <?= $this->arrMemberInfo['time_tracker_disable_popup'] == 'Y' ? 'checked="checked"' : '' ?> style="width: 21px;" value="Y"/></td>
+                    </tr>
+
+                    <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                        <td align="right" class="field_name">
+                            <label for="time_tracker_rate">Rate per hour :</label>
+                            <img src="<?= $this->layout()->imagesUrl ?>/icons/help.png" width="16" height="16" alt="Print" ext:qwidth="340" ext:qtip="This is the per hour $ value of this user's time charged to the case."/>
+                        </td>
+                        <td align="left"><input type="text" name="time_tracker_rate" id="time_tracker_rate" value="<?= $this->arrMemberInfo['time_tracker_rate'] ?>" size="10" class="textbox" style="width: 120px;"/></td>
+                    </tr>
+
+                    <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                        <td align="right" class="field_name">
+                            <label for="time_tracker_round_up">Round up to :</label>
+                            <img src="<?= $this->layout()->imagesUrl ?>/icons/help.png" width="16" height="16" alt="Print" ext:qtip="This defines how your billable hours should be calculated."/>
+                        </td>
+                        <td align="left">
+                            <?php
+                            $arrRoundUpOptions = array(
+                                0  => 'None',
+                                15 => 'Closest quarter hour',
+                                30 => 'Closest half hour',
+                                60 => 'Closest hour'
+                            );
+                            echo $this->formDropdown('time_tracker_round_up', $arrRoundUpOptions, (int)$this->arrMemberInfo['time_tracker_round_up'], ' class="drop_down" style="width:270px;"');
+                            ?>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+                <?php if ($this->layout()->site_version == 'australia'): ?>
+                    <tr bgcolor="#ffffff" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                        <td colspan="2" class="gray-text18 padd-left5 field_name" align="left" valign="bottom" height="40">ImmiAccount</td>
+                    </tr>
+
+                    <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                        <td align="right" style="padding: 0;">
+                            <table style="border-spacing: 0;">
+                                <tr>
+                                    <td align="right" class="field_name" style="padding: 0 5px 10px 5px;">
+                                        <label for="vevo_login">Username :</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="field_name" style="padding: 0 5px 20px 5px;">
+                                        <label for="vevo_password">Password :</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="padding: 0;">
+                            <table style="border-spacing: 0;">
+                                <tr>
+                                    <td style="padding: 0;">
+                                        <table style="border-spacing: 0;">
+                                            <tr>
+                                                <td align="left">
+                                                    <input type="text" name="vevo_login" id="vevo_login" value="<?= $this->arrMemberInfo['vevo_login']; ?>" size="15" class="textbox" <?php if (!$this->booEmptyVevoCredentials): ?>style="display: none;"<?php endif; ?>/>
+                                                    <span id="vevo_login_text" class="vevo-change-field" style="float: left; width: 150px; <?php if ($this->booEmptyVevoCredentials): ?>display: none;<?php endif; ?>"><?= $this->arrMemberInfo['vevo_login']; ?></span><br/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left">
+                                                    <input type="text" name="vevo_password" id="vevo_password" size="50" maxlength="<?= $this->passwordMaxLength ?>" class="textbox" autocomplete="off" style="float: left; <?php if (!$this->booEmptyVevoCredentials): ?>display: none;<?php endif; ?>"/>
+                                                    <span id="vevo_password_text" class="vevo-change-field" style="float: left; width: 150px; <?php if ($this->booEmptyVevoCredentials): ?>display: none;<?php endif; ?>">********</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td style="padding: 0;">
+                                        <table style="border-spacing: 0;">
+                                            <tr>
+                                                <td align="left" style="padding: 0;">
+                                                    <?php if ($this->booCanEditMember): ?>
+                                                        <div id="checkAccount" style="float: left; margin-left: 10px"></div>
+                                                        <div id="changeAccount" class="vevo-change-field" style="float: left; margin-left: 10px; <?php if ($this->booEmptyVevoCredentials): ?>display: none;<?php endif; ?>"></div>
+                                                        <div id="clearAccount" class="vevo-change-field" style="float: left; margin-left: 10px; <?php if ($this->booEmptyVevoCredentials): ?>display: none;<?php endif; ?>"></div>
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" class="show_vevo_password" id="show_vevo_password" checked="checked" style="width: 21px; <?php if (!$this->booEmptyVevoCredentials): ?>display: none;<?php endif; ?>"/>
+                                        <label for="show_vevo_password" class="show_vevo_password" <?php if (!$this->booEmptyVevoCredentials): ?>style="display: none;"<?php endif; ?>>Show Password</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                        <td align="right" class="field_name">
+                            <label for="vevo_user">Other users authorised to access ImmiAccount :</label>
+                        </td>
+                        <td align="left">
+                            <div id="vevoUsers" style="float: left;"></div>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+                <tr bgcolor="#ffffff" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                    <td colspan="2" class="gray-text18 padd-left5 field_name" align="left" valign="bottom" height="40">Address details</td>
+                </tr>
+                <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                    <td align="right" class="field_name">Address :</td>
+                    <td align="left"><textarea id="address" name="address" rows="3" cols="20" class="textbox" style="width: 270px;"><?= $this->arrMemberInfo['address']; ?></textarea></td>
+                </tr>
+
+                <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                    <td align="right" class="field_name">
+                        <?= $this->layout()->settings->getSiteCityLabel() ?> :
+                    </td>
+                    <td align="left"><input type="text" name="city" id="city" value="<?= $this->arrMemberInfo['city']; ?>" size="50" class="textbox"/></td>
+                </tr>
+
+                <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                    <td align="right" class="field_name">Province/State :</td>
+                    <td align="left"><input type="text" name="state" id="state" value="<?= $this->arrMemberInfo['state']; ?>" size="50" class="textbox"/></td>
+                </tr>
+
+                <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                    <td width="40%" align="right" class="field_name">Country :</td>
+                    <td align="left">
+                        <?= $this->formDropdown('country', $this->arrCountry, (int)$this->arrMemberInfo['country'], ' class="drop_down" style="width:270px;"'); ?>
+                    </td>
+                </tr>
+                <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                    <td width="40%" align="right" class="field_name">Postal Code/Zip : &nbsp;&nbsp;</td>
+                    <td align="left"><input type="text" name="zip" value="<?= $this->arrMemberInfo['zip']; ?>" size="50" id="zip" class="textbox"/><br/></td>
+                </tr>
+
+
+                <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                    <td width="40%" align="right" class="field_name">Phone (W) :</td>
+                    <td align="left"><input type="text" name=workPhone value="<?= $this->arrMemberInfo['workPhone']; ?>" size="50" id="workPhone" class="textbox"/><br/></td>
+                </tr>
+                <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                    <td width="40%" align="right" class="field_name">Phone (H) : &nbsp;&nbsp;</td>
+                    <td align="left"><input type="text" name="homePhone" value="<?= $this->arrMemberInfo['homePhone']; ?>" size="50" id="homePhone" class="textbox"/><br/></td>
+                </tr>
+                <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                    <td width="40%" align="right" class="field_name">Phone (M) : &nbsp;&nbsp;</td>
+                    <td align="left"><input type="text" name="mobilePhone" value="<?= $this->arrMemberInfo['mobilePhone']; ?>" size="50" id="mobilePhone" class="textbox"/><br/></td>
+                </tr>
+                <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                    <td width="40%" align="right" class="field_name">Fax : &nbsp;&nbsp;</td>
+                    <td align="left"><input type="text" name="fax" value="<?= $this->arrMemberInfo['fax']; ?>" size="50" id="fax" class="textbox"/><br/></td>
+                </tr>
+                <tr class="<?= getBgColor() ?>" <?php if ($this->booAgentRole): ?>style="display: none;"<?php endif; ?>>
+                    <td align="right" class="field_name">Notes :</td>
+                    <td align="left"><textarea id="notes" name="notes" rows="3" cols="20" class="textbox" style="width: 270px;"><?= $this->arrMemberInfo['notes']; ?></textarea></td>
+                </tr>
+
+                <tr class="<?= getBgColor() ?>">
+                    <td align="right" class="field_name">
+                        <label for="enable_daily_notifications">Receive Daily Email Notification :</label>
+                    </td>
+                    <td align="left">
+                        <input type="checkbox" name="enable_daily_notifications" id="enable_daily_notifications" <?= $this->arrMemberInfo['enable_daily_notifications'] == 'Y' ? 'checked="checked"' : '' ?> style="width: 21px;" value="Y"/>
+                    </td>
+                </tr>
+
+                <?php if ($this->booCanEditMember): ?>
+                    <tr class="<?= getBgColor() ?>">
+                        <td align="center" colspan="2">
+                            <div style="padding-bottom: 10px;">
+                                <i class="las la-exclamation-triangle" style="font-size: 18px"></i>
+                                <?php
+                                if (!$booNewUser) {
+                                    echo $this->translate('By updating this user, you are confirming that this user has client permission to access all client files available under the assigned department/office.');
+                                } else {
+                                    echo $this->translate('By adding this user, you are confirming that this user has client permission to access all client files available under the assigned department/office.');
+                                }
+                                ?>
+                            </div>
+
+                            <input style="width: 225px;" id="updateMembersBtn" name="Submit" type="submit" class="orange-save-btn" value="<?= $this->btnHeading; ?>">
+                            <div style="padding-top: 10px;">Updates made to the user's account will be applied the next time this user logs in.</div>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+            </table>
+            <input type="hidden" name="smtp-count" value="1"/>
+
+            <div>&nbsp;</div>
+        </div>
+
+    </form>
+
+    <?php if ($this->booShowBusinessHoursTab): ?>
+        <div id="schedule-container">Loading...</div>
+    <?php endif; ?>
+
+    <?php if ($this->booShowEmailTab): ?>
+        <div id="email-accounts">Loading...</div>
+    <?php endif; ?>
+</div>

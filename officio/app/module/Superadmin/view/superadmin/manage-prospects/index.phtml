@@ -1,0 +1,19 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->layout()->useExtjs  = true;
+$this->layout()->useJQuery = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/prospects.js');
+
+$this->headScript()->captureStart();
+echo "var intShowProspectsPerPage = " . Json::encode($this->intShowProspectsPerPage) . ";";
+echo "var booHasAccessToMail = " . Json::encode($this->booHasAccessToMail) . ";";
+echo "var booHasAccessToManageTemplates = " . Json::encode($this->booHasAccessToManageTemplates) . ";";
+echo "var cityLabel = " . Json::encode($this->layout()->settings->getSiteCityLabel()) . ";";
+$this->headScript()->captureEnd();
+?>
+
+<div id="prospects-grid"></div>

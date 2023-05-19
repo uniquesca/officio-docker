@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES5" />
+  </component>
+  <component name="PhpEntryPointsManager">
+    <pattern value="\Api\Controller\*Controller" member="*Action" />
+    <pattern value="\Api\Controller\*Controller" />
+    <pattern value="\Applicants\Controller\*Controller" member="*Action" />
+    <pattern value="\Applicants\Controller\*Controller" />
+    <pattern value="\Calendar\Controller\*Controller" member="*Action" />
+    <pattern value="\Calendar\Controller\*Controller" />
+    <pattern value="\Clients\Controller\*Controller" member="*Action" />
+    <pattern value="\Clients\Controller\*Controller" />
+    <pattern value="\CmiSignup\Controller\*Controller" member="*Action" />
+    <pattern value="\CmiSignup\Controller\*Controller" />
+    <pattern value="\Companywizard\Controller\*Controller" member="*Action" />
+    <pattern value="\Companywizard\Controller\*Controller" />
+    <pattern value="\Documents\Controller\*Controller" member="*Action" />
+    <pattern value="\Documents\Controller\*Controller" />
+    <pattern value="\Forms\Controller\*Controller" member="*Action" />
+    <pattern value="\Forms\Controller\*Controller" />
+    <pattern value="\Freetrial\Controller\*Controller" member="*Action" />
+    <pattern value="\Freetrial\Controller\*Controller" />
+    <pattern value="\Help\Controller\*Controller" member="*Action" />
+    <pattern value="\Help\Controller\*Controller" />
+    <pattern value="\Homepage\Controller\*Controller" member="*Action" />
+    <pattern value="\Homepage\Controller\*Controller" />
+    <pattern value="\Links\Controller\*Controller" member="*Action" />
+    <pattern value="\Links\Controller\*Controller" />
+    <pattern value="\Mailer\Controller\*Controller" member="*Action" />
+    <pattern value="\Mailer\Controller\*Controller" />
+    <pattern value="\News\Controller\*Controller" member="*Action" />
+    <pattern value="\News\Controller\*Controller" />
+    <pattern value="\Notes\Controller\*Controller" member="*Action" />
+    <pattern value="\Notes\Controller\*Controller" />
+    <pattern value="\Officio\Controller\*Controller" member="*Action" />
+    <pattern value="\Officio\Controller\*Controller" />
+    <pattern value="\Profile\Controller\*Controller" member="*Action" />
+    <pattern value="\Profile\Controller\*Controller" />
+    <pattern value="\Prospects\Controller\*Controller" member="*Action" />
+    <pattern value="\Prospects\Controller\*Controller" />
+    <pattern value="\Qnr\Controller\*Controller" member="*Action" />
+    <pattern value="\Qnr\Controller\*Controller" />
+    <pattern value="\Rss\Controller\*Controller" member="*Action" />
+    <pattern value="\Rss\Controller\*Controller" />
+    <pattern value="\Signup\Controller\*Controller" member="*Action" />
+    <pattern value="\Signup\Controller\*Controller" />
+    <pattern value="\SpecialOffer\Controller\*Controller" member="*Action" />
+    <pattern value="\SpecialOffer\Controller\*Controller" />
+    <pattern value="\Superadmin\Controller\*Controller" member="*Action" />
+    <pattern value="\Superadmin\Controller\*Controller" />
+    <pattern value="\System\Controller\*Controller" member="*Action" />
+    <pattern value="\System\Controller\*Controller" />
+    <pattern value="\Tasks\Controller\*Controller" member="*Action" />
+    <pattern value="\Tasks\Controller\*Controller" />
+    <pattern value="\Templates\Controller\*Controller" member="*Action" />
+    <pattern value="\Templates\Controller\*Controller" />
+    <pattern value="\TrustAccount\Controller\*Controller" member="*Action" />
+    <pattern value="\TrustAccount\Controller\*Controller" />
+    <pattern value="\Websites\Controller\*Controller" member="*Action" />
+    <pattern value="\Websites\Controller\*Controller" />
+    <pattern value="\Wizard\Controller\*Controller" member="*Action" />
+    <pattern value="\Wizard\Controller\*Controller" />
+  </component>
+  <component name="WebPackConfiguration">
+    <option name="mode" value="DISABLED" />
+  </component>
+</project>

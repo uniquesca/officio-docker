@@ -1,0 +1,19 @@
+.member-icon-add {
+    background-image: url(../images/icons/user_add.png) !important;
+}
+
+.member-icon-edit {
+    background-image: url(../images/icons/user_edit.png) !important;
+}
+
+.member-icon-delete {
+    background-image: url(../images/icons/user_delete.png) !important;
+}
+
+.member-icon-change-status {
+    background-image: url(../images/icons/user_gray.png) !important;
+}
+
+.member-icon-login-as-user {
+    background-image: url(../images/icons/user_go.png) !important;
+}

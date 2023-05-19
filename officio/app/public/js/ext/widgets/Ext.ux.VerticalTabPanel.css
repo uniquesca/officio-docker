@@ -1,0 +1,9 @@
+/* Left Panel */
+.x-vr-tab-panel-header {
+    float: left;
+}
+
+/* Right Panel */
+.x-vr-tab-panel-bwrap {
+    float: right;
+}

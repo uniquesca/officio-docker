@@ -1,0 +1,21 @@
+<?php
+    $this->layout()->useJQuery = true;
+    $this->layout()->useExtjs = true;
+
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/company/edit/marketplace/MarketplaceGrid.js');
+    $this->headLink()->appendStylesheet($this->layout()->cssUrl . '/marketplace.css');
+?>
+
+<?php $this->headScript()->captureStart(); ?>
+    var company_id = <?=$this->company_id?>;
+    var arrMarketplaceAccessRights = <?=\Laminas\Json\Json::encode($this->arrMarketplaceAccessRights)?>;
+    $(document).ready(function() {
+        new MarketplaceGrid({
+            renderTo: 'marketplace_container_grid',
+            company_id: company_id
+        });
+    });
+<?php $this->headScript()->captureEnd(); ?>
+
+<div id="marketplace_container_grid"></div>

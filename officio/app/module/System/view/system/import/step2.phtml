@@ -1,0 +1,73 @@
+<h2>Step #2</h2>
+<?php if ($this->uploadResult): ?>
+    <style type="text/css">
+
+
+        table {
+            border-collapse: collapse;
+            padding: 0;
+            margin: 0;
+        }
+
+        table td {
+            border: 1px solid #ccc;
+            padding: 5px 8px;
+
+        }
+
+        table tr:nth-child(2n+1) {
+            background-color: #f1f1f1;
+        }
+
+        table th {
+            background-color: white;
+            padding: 5px 8px;
+        }
+
+        .field-naming-error {
+            color: red;
+            font-weight: bold;
+
+        }
+
+        .field-naming-error td {
+            background-color: #ffdedf;
+        }
+    </style>
+    File was uploaded successfully.<br/>
+    <h3>Please map fields:</h3>
+    <form action="<?= $this->layout()->baseUrl ?>/system/import/run-step/step/3" method="POST">
+        <table>
+            <tr>
+                <th>&nbsp;<!-- input type="checkbox" name=""/ --></th>
+                <th>XLS Fields:</th>
+                <th>&nbsp;</th>
+                <th>DB Fields:</th>
+            </tr>
+            <?php foreach ($this->fields as $field): ?>
+                <tr class="<?= $field['class'] ?>">
+                    <td><input id="<?= $field['id'] ?>" type="checkbox" name="" <?= empty($field['class']) ? 'checked="checked"' : '' ?>/></td>
+                    <td><?= $field['xlsField'] ?></td>
+                    <td>&rarr;</td>
+                    <td>
+                        <select name="<?= $field['xlsField'] ?>">
+                            <?php
+                            foreach ($this->dbFields as $dbFieldName) {
+                                $selected = '';
+                                if ($dbFieldName == $field['dbField']) {
+                                    $selected = 'selected="selected"';
+                                }
+                                echo "<option name=\"$dbFieldName\" $selected><label for=\"<?={$field['id']}?>\">$dbFieldName</label></option>";
+                            } ?>
+                        </select>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+        </table>
+        <br/>
+        <input type="submit"/>
+    </form>
+<?php else: ?>
+    Can't upload file!<br/>
+<?php endif ?>
+

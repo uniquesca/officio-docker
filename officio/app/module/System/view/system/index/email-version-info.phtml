@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title><?= $this->layout()->siteTitle . ' :: ' . $this->translate('Version Info Email') ?></title>
+    <style>
+        td {
+            vertical-align: top;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<h3>Version Info:</h3>
+
+<table border="1">
+    <tr>
+        <td width='100'><?= $this->translate('OS:') ?></td>
+        <td>__version_os__</td>
+    </tr>
+    <tr>
+        <td><?= $this->translate('Browser:') ?></td>
+        <td>__version_browser__</td>
+    </tr>
+    <tr>
+        <td><?= $this->translate('Acrobat:') ?></td>
+        <td>__version_pdf__</td>
+    </tr>
+    <tr>
+        <td><?= $this->translate('Additional info:') ?></td>
+        <td>__version_additional_info__</td>
+    </tr>
+    <tr>
+        <td><?= $this->translate('Comments:') ?></td>
+        <td>__version_comments__</td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title><?= $this->layout()->siteTitle . ' :: ' . $this->translate('Credit Card Info Email') ?></title>
+    <style>
+        td {
+            vertical-align: top;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<i><?= $this->translate('Company:') ?> __companyName__</i>
+
+<h3><?= $this->translate('Credit Card Info:') ?></h3>
+
+<table border="1">
+    <tr>
+        <td width='100'><?= $this->translate('Type:') ?></td>
+        <td>__ccType__</td>
+    </tr>
+    <tr>
+        <td><?= $this->translate('Name:') ?></td>
+        <td>__ccName__</td>
+    </tr>
+    <tr>
+        <td><?= $this->translate('Number:') ?></td>
+        <td>__ccNumber__</td>
+    </tr>
+    <tr>
+        <td><?= $this->translate('Expiry:') ?></td>
+        <td>__ccExpMonth__/__ccExpYear__</td>
+    </tr>
+</table>
+</body>
+</html>

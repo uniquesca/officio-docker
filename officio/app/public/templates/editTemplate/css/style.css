@@ -1,0 +1,34 @@
+html,
+#gjs,
+body {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    margin: 0;
+}
+
+.gjs-cv-canvas {
+    background-color: rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    width: 85%;
+    height: calc(100% - 95px);
+    bottom: 0;
+    overflow: hidden;
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    top: 40px;
+}
+
+iframe {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.container {
+    min-height: 75px;
+}
+
+.gjs-pn-views-container {
+    height: calc(100% - 60px);
+}

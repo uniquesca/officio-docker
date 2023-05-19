@@ -1,0 +1,53 @@
+/* CSS Document */
+.tab-row01{
+    width:931px;
+    float:left;
+    }
+/* ----------------------For Tab--------------------------------- */
+
+.tab-row01 ul{
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+    }
+    
+.tab-row01 li{
+    display:inline;
+    margin:0pt;
+    padding:0pt;;
+    }
+    
+.tab-row01 a{
+    background:transparent url(../images/tab-bg03.gif) no-repeat scroll 100% -29px;
+    float:left;
+    text-decoration:none;
+    color:#1a3a71;
+    }
+
+.tab-row01 a span{
+    background:transparent url(../images/tab-bg04.gif) no-repeat scroll 0% -29px;
+    display:block;
+    float:left;
+    font-size-adjust:none;
+    font-stretch:normal;
+    font-style:normal;
+    font-variant:normal;
+    font-weight:bold;
+    line-height:1.5em;
+    padding:4px 10px;
+    width:auto;
+    text-align:center;
+    cursor:pointer;
+    }
+    
+.tab-row01 a:hover, .tab-row01 .selected a {
+    background-position:100% 0px;
+    color:#fff;
+    }
+    
+.tab-row01 a:hover span, .tab-row01 .selected a span {
+    background-position:0% 0px;
+    color:#fff;
+    }
+    
+/* ----------------------For Tab--------------------------------- */

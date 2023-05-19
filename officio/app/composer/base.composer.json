@@ -1,0 +1,151 @@
+{
+    "name": "uniquesca/officio",
+    "description": "Officio",
+    "type": "project",
+    "require": {
+        "php": "^7.4 | ^8.0 | ^8.1",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-mailparse": "*",
+        "ext-iconv": "*",
+        "ext-gd": "*",
+        "ext-zlib": "*",
+        "ext-curl": "*",
+        "ext-xml": "*",
+        "ext-simplexml": "*",
+        "ext-dom": "*",
+        "ext-calendar": "*",
+        "ext-gettext": "*",
+        "ext-zip": "*",
+        "ext-tidy": "*",
+        "ext-intl": "*",
+        "php-mime-mail-parser/php-mime-mail-parser": "^7.0.0",
+        "uniquesca/php-stdlib": "~1.0.9",
+        "uniquesca/officio-common": "~0.5.27",
+        "uniquesca/officio-comms": "~0.5.14",
+        "uniquesca/officio-templates": "~0.6.5",
+        "uniquesca/officio-auth": "~0.5.1",
+        "uniquesca/officio-email": "~0.3.24",
+        "pensiero/php-openssl-cryptor": "^0.1.0",
+        "mrclay/jsmin-php": "^2.4.0",
+        "tholu/php-packer": "^0.2.0",
+        "mrclay/minify": "^3.0.11",
+        "nadar/stemming": "^1.1.0",
+        "aws/aws-sdk-php": "^3.208.0",
+        "phpoffice/phpspreadsheet": "^1.20.0",
+        "tecnickcom/tcpdf": "^6.4.4",
+        "mpdf/mpdf": "^8.0.15",
+        "spatie/icalendar-generator": "^2.3.2",
+        "simshaun/recurr": "^4.0.5",
+        "rlanvin/php-rrule": "^2.3.0",
+        "owasp/csrf-protector-php": "dev-master-stateless",
+        "robmorgan/phinx": "~0.12.9",
+        "composer/composer": "2.1.14",
+        "laminas/laminas-mvc": "^3.3.0",
+        "laminas/laminas-modulemanager": "^2.11.0",
+        "laminas/laminas-eventmanager": "^3.4.0",
+        "laminas/laminas-servicemanager": "^3.10.0",
+        "laminas/laminas-db": "^2.13.4",
+        "laminas/laminas-log": "^2.14.0",
+        "laminas/laminas-authentication": "^2.8.0",
+        "laminas/laminas-cache": "^3.1.2",
+        "laminas/laminas-cache-storage-adapter-memory": "^2.0.0",
+        "laminas/laminas-filter": "^2.13.0",
+        "laminas/laminas-mail": "^2.21.1",
+        "laminas/laminas-mime": "^2.11.0",
+        "laminas/laminas-permissions-acl": "^2.9.0",
+        "laminas/laminas-captcha": "^2.11.0",
+        "laminas/laminas-session": "^2.12.0",
+        "laminas/laminas-uri": "^2.9.1",
+        "laminas/laminas-http": "^2.15.1",
+        "laminas/laminas-feed": "^2.15.0",
+        "laminas/laminas-serializer": "^2.11.0",
+        "laminas/laminas-file": "^2.9.0",
+        "laminas/laminas-validator": "^2.15.1",
+        "laminas/laminas-inputfilter": "^2.13.0",
+        "laminas/laminas-crypt": "^3.5.1",
+        "laminas/laminas-xmlrpc": "^2.11.0",
+        "laminas/laminas-json": "^3.3.0",
+        "laminas/laminas-router": "^3.5.0",
+        "laminas/laminas-development-mode": "^3.6.0",
+        "laminas/laminas-navigation": "^2.11.1",
+        "laminas/laminas-escaper": "^2.9.0"
+    },
+    "repositories": [
+        {
+            "type": "github",
+            "url": "git@github.com:uniquesca/csrf-protector-php.git"
+        },
+        {
+            "type": "github",
+            "url": "git@github.com:uniquesca/php-stdlib.git"
+        },
+        {
+            "type": "github",
+            "url": "git@github.com:uniquesca/officio-common.git"
+        },
+        {
+            "type": "github",
+            "url": "git@github.com:uniquesca/officio-auth.git"
+        },
+        {
+            "type": "github",
+            "url": "git@github.com:uniquesca/officio-comms.git"
+        },
+        {
+            "type": "github",
+            "url": "git@github.com:uniquesca/officio-templates.git"
+        },
+        {
+            "type": "github",
+            "url": "git@github.com:uniquesca/officio-email.git"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Accounting\\": "module/Accounting/src/",
+            "Api\\": "module/Api/src/",
+            "Applicants\\": "module/Applicants/src/",
+            "Calendar\\": "module/Calendar/src/",
+            "UformsV2\\": "module/UformsV2/src/",
+            "Clients\\": "module/Clients/src/",
+            "CmiSignup\\": "module/CmiSignup/src/",
+            "Companywizard\\": "module/Companywizard/src/",
+            "Documents\\": "module/Documents/src/",
+            "Files\\": "module/Files/src/",
+            "Forms\\": "module/Forms/src/",
+            "Freetrial\\": "module/Freetrial/src/",
+            "Help\\": "module/Help/src/",
+            "Homepage\\": "module/Homepage/src/",
+            "Links\\": "module/Links/src/",
+            "Mailer\\": "module/Mailer/src/",
+            "News\\": "module/News/src/",
+            "Notes\\": "module/Notes/src/",
+            "Officio\\": "module/Officio/src/",
+            "Profile\\": "module/Profile/src/",
+            "Prospects\\": "module/Prospects/src/",
+            "Qnr\\": "module/Qnr/src/",
+            "Rss\\": "module/Rss/src/",
+            "Signup\\": "module/Signup/src/",
+            "SpecialOffer\\": "module/SpecialOffer/src/",
+            "Superadmin\\": "module/Superadmin/src/",
+            "System\\": "module/System/src/",
+            "Tasks\\": "module/Tasks/src/",
+            "Templates\\": "module/Templates/src/",
+            "TrustAccount\\": "module/TrustAccount/src/",
+            "Websites\\": "module/Websites/src/",
+            "Wizard\\": "module/Wizard/src/"
+        }
+    },
+    "config": {
+        "htaccess-protect": false
+    },
+    "scripts": {
+        "build-officio-phar": "php scripts/deployment/build_phar.php",
+        "post-update-cmd": "php scripts/composer.php --update",
+        "post-install-cmd": "php scripts/composer.php --install"
+    }
+}

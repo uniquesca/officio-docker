@@ -1,0 +1,22 @@
+nav {
+    float: right;
+}
+
+.sf-menu > li {
+    position: relative;
+    float: left;
+    font: normal 14px/17px Arial, Helvetica, sans-serif;
+    margin-right: 6px;
+}
+
+.sf-menu > li > a {
+    display: block;
+    padding: 26px 10px 27px;
+    color: #7b7473;
+}
+
+.sf-menu > li.sfHover > a, .sf-menu > li > a:hover, .sf-menu > li.current > a {
+    text-decoration: none;
+    color: #6c90ba !important;
+    background: #ededed !important;
+}

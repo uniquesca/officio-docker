@@ -1,0 +1,110 @@
+<?php
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+?>
+
+<?php $this->headStyle()->captureStart() ?>
+    .left {
+        float:left;
+        display: block;
+    }
+    .right {
+        display: block;
+        float:right;
+    }
+    .without-dots {
+        list-style: none;
+    }
+    .without-dots li:not(:last-of-type) {
+        margin-bottom: 8px;
+    }
+    .content_container_body input.buttons[type="file"] {
+        padding: 0px !important;
+    }
+    ::-webkit-file-upload-button {
+        height: 35px;
+        border: none;
+        border-right: solid 1px #bdc1c6;
+        text-decoration: none;
+        padding: 0 15px;
+        margin-right: 15px;
+    }
+<?php
+$this->headStyle()->captureEnd();
+$this->headScript()->appendFile($this->layout()->jsUrl . '/import-bcpnp.js');
+?>
+
+<?php $this->headScript()->captureStart();?>
+    $(document).ready(function(){
+        $('.remove_xls_file').click(function(){
+            var img = $(this);
+            img.attr('src', topBaseUrl+'/images/ajax-loader-white.gif');
+
+            var xls_id=$(this).attr('id').replace('xls_file_', '');
+
+            // Fix issue with JQuery 1.5 with json
+            jQuery.ajaxSetup({ jsonp: null, jsonpCallback: null});
+
+            $.ajax({
+                type: 'POST',
+                url: baseUrl+'/import-bcpnp/delete-xls-file/',
+                data: {xls_id: xls_id},
+                dataType: "json",
+                success: function(data) {
+                    if (data.status == 'success')
+                        $('#xls_file_'+xls_id).parent().fadeOut(500, function(){$(this).remove();});
+                    else {
+                        img.attr('src', topBaseUrl+'/images/icons/delete.png');
+                        alert(data.error_message);
+                    }
+                },
+                error: function() {
+                    img.attr('src', topBaseUrl+'/images/icons/delete.png');
+                    alert('An error occurred!');
+}
+});
+});
+});
+<?php $this->headScript()->captureEnd(); ?>
+
+<div id="import-bcpnp-content">
+    <h2><?= $this->translate('Step #1') ?></h2>
+    <hr/>
+    <div class="clear" style="width:70%">
+        <div class="left">
+            <h3><?= $this->translate('Choose import file from the list') ?>:</h3>
+            <br />
+            <form action="<?= $this->layout()->baseUrl ?>/import-bcpnp/step2" method="POST">
+                <ul class="without-dots">
+                    <?php if (empty($this->storedFiles)): ?>
+                        <li>&nbsp;</li>
+                    <?php else : ?>
+                        <?php foreach ($this->storedFiles as $key => $file): ?>
+                            <li>
+                                <?php $checked = !empty($this->fileName) && $key == $this->fileName ? 'checked = "checked"' : '' ?>
+                                <input type="radio" name="file_name" id="import_file_<?= $key ?>" value="<?= $key ?>" <?= $checked ?> style="margin-right: 5px" /><label for="import_file_<?= $key ?>"><?= $file ?></label>
+                                <img alt='delete' src="<?= $this->layout()->baseUrl ?>/images/icons/delete.png" id="xls_file_<?= $key ?>" class="remove_xls_file" style="cursor:pointer;" title="<?= $this->translate('delete') ?>"/>
+                            </li>
+                        <?php endforeach ?>
+                    <?php endif ?>
+                </ul>
+                <div class="error" style="color: <?= $this->select_file_error ? 'red' : 'green' ?>;"><?= $this->select_file_message ?></div>
+                <br/>
+                <?php if (!empty($this->storedFiles)): ?>
+                    <input type="submit" class="buttons" value="<?= $this->translate('Next Step') ?>"/>
+                <?php endif ?>
+            </form>
+        </div>
+        <div class="right">
+            <h3><?= $this->translate('or upload a new file') ?>:</h3>
+            <form action="<?= $this->layout()->baseUrl ?>/import-bcpnp/step1" method="POST" enctype="multipart/form-data">
+                <label for="xls">File to upload (.xls or .xlsx) *</label><br /><br />
+                <input type="file" id="xls" name="xls" class="buttons"/><br/>
+                <small class="description">Note that .xls files saved by Office 365 might cause import problems.</small>
+                <div class="error" style="color:<?= $this->upload_error ? 'red' : 'green' ?>;"><?= $this->upload_message ?></div>
+                <br/>
+                <input type="submit" class="buttons" value="<?= $this->translate('Upload') ?>"/>
+            </form>
+        </div>
+
+    </div>
+</div>

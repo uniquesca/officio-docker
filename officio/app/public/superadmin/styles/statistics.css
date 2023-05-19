@@ -1,0 +1,16 @@
+.statistics_chart_icon {
+    background-image: url(../images/icons/chart_bar.png) !important;
+}
+
+.statistics_run_search_icon {
+    background-image: url(../images/icons/bullet_go.png) !important;
+}
+
+.statistics_delete_icon {
+    background-image: url(../images/icons/bullet_delete.png) !important;
+}
+
+.trial_company
+{
+    background-color:#FFE7E7;
+}

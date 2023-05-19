@@ -1,0 +1,26 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-company-case-statuses/CaseStatusDialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-company-case-statuses/CaseStatusesManageDialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-company-case-statuses/CaseStatusesListDialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-company-case-statuses/CaseStatusesListsGrid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-company-case-statuses/CaseStatusesInit.js');
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/themes/' . $this->layout()->theme . '.css');
+
+$arrInlineScript[] = "var boo_hide_default_column = " . Json::encode($this->booHideDefaultColumn) . ";";
+$arrInlineScript[] = "var case_type_field_label_plural = " . Json::encode($this->caseTypeFieldLabelPlural) . ";";
+$arrInlineScript[] = "var statuses_field_label_singular = " . Json::encode($this->statusesFieldLabelSingular) . ";";
+$arrInlineScript[] = "var statuses_field_label_plural = " . Json::encode($this->statusesFieldLabelPlural) . ";";
+$arrInlineScript[] = "var categories_field_label_singular = " . Json::encode($this->categoriesFieldLabelSingular) . ";";
+$arrInlineScript[] = "var categories_field_label_plural = " . Json::encode($this->categoriesFieldLabelPlural) . ";";
+$this->headScript()->prependScript(implode("\n", $arrInlineScript));
+?>
+
+<div id="company-case-statuses-container"></div>

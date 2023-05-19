@@ -6,65 +6,92 @@ services:
     build:
       context: ./officio
       dockerfile: Dockerfile
-    image: docker-officio-app
+      args:
+        - CLIENT_CONFIG=${CLIENT_CONFIG}
+        - GIT_PERSONAL_ACCESS_TOKEN=${GIT_PERSONAL_ACCESS_TOKEN}
+        - MYSQL_OFFICIO_DATABASE=${MYSQL_OFFICIO_DATABASE}
+        - MYSQL_OFFICIO_STATISTICS_DATABASE=${MYSQL_OFFICIO_STATISTICS_DATABASE}
+        - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_HOST=${MYSQL_HOST}
+        - MYSQL_PORT=${MYSQL_PORT}
+    image: docker-officio-app:${OFFICIO_VERSION_RELEASE}
     container_name: app
     restart: always
     tty: true
     environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
+      - GIT_PERSONAL_ACCESS_TOKEN=${GIT_PERSONAL_ACCESS_TOKEN}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_OFFICIO_DATABASE=${MYSQL_OFFICIO_DATABASE}
+      - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
+      - MYSQL_OFFICIO_STATISTICS_DATABASE=${MYSQL_OFFICIO_STATISTICS_DATABASE}
+      - APP_URL=${APP_URL}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_PORT=${MYSQL_PORT}
     working_dir: /var/www
+    env_file:
+    - .env
     volumes:
       - ./officio/app:/var/www
-      - ./officio/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./officio/config/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./officio/config/global.php:/var/www/config/autoload/global.php
+      - ./officio/config/ca.local.php.dist:/var/www/config/autoload/stubs/ca.local.php.dist
+      - ./officio/config/auth.json:/var/www/auth.json
     networks:
-      - officio-network
+      officio-network:
+        ipv4_address: 192.168.0.4
 
   # Apache Service
   webserver:
     build:
         context: ./apache
         dockerfile: Dockerfile
-    image:  docker-officio-apache
+    image:  docker-officio-apache:${APACHE_VERSION_RELEASE}
     container_name: webserver
     restart: always
-    environment:
-      - HOSTNAME=docker-officio.com
     tty: true
     ports:
-      - "8080:80"
+      - "8000:80"
+      - "8002:443"
     volumes:
       - ./officio/app:/var/www
     networks:
-      - officio-network
+      officio-network:
+        ipv4_address: 192.168.0.3
 
   # MySQL Service
   db:
     build:
       context: ./mysql
       dockerfile: Dockerfile
-    image: docker-officio-mysql
+    image: docker-officio-mysql:${MYSQL_VERSION_RELEASE}
     container_name: mysql
     restart: always
     tty: true
     ports:
-      - "3306:3306"
+      - 3306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: 'test'
-      MYSQL_DATABASE: officio
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_OFFICIO_DATABASE}
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
       - officio-mysql:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
+      - ./mysql/db/:/docker-entrypoint-initdb.d/
     networks:
-      - officio-network
+      officio-network:
+        ipv4_address: 192.168.0.2
 
 # Docker Networks
 networks:
   officio-network:
     name: officio-network
     driver: bridge
+    ipam:
+      config:
+        - subnet: "192.168.0.0/24"
+          gateway: "192.168.0.1"
 
 # Volumes
 volumes:

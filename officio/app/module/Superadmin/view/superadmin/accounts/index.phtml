@@ -1,0 +1,89 @@
+<div id="accounts_superadmin_container" style="background-color:#fff !important;"></div>
+
+<!-- tab: Manage PT Invoices -->
+
+<?php
+
+use Officio\Common\Json;
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/billing/pt-invoices.js');
+
+$this->headScript()->captureStart();
+echo "var arrInvoicesConfig = " . Json::encode($this->arrInvoicesConfig) . ";";
+echo "var arrAccountsAccessRights = " . Json::encode($this->arrAccountsAccessRights) . ";";
+echo "var arrModes = " . Json::encode($this->arrModes) . ";";
+echo "var arrProducts = " . Json::encode($this->arrProducts) . ";";
+$this->headScript()->captureEnd();
+$this->headStyle()->captureStart() ?>
+.no-padding-top, #x-form-el-invoice_filter_date_from, #x-form-el-invoice_filter_date_to {
+padding-top:0 !important;
+margin-top:0 !important;
+}
+
+.no-padding-bottom {
+padding-bottom:0 !important;
+margin-bottom:0 !important;
+}
+
+
+<?php $this->headStyle()->captureEnd();?>
+
+<div id="invoices_container" style="width: 100%;"></div>
+
+<!-- tab: Bad debts log -->
+
+<?php
+$this->headScript()->appendFile($this->layout()->jsUrl . '/billing/bad-debts-log.js');
+
+$this->headScript()->captureStart();
+echo "var countInvoicesOnPage = " . Json::encode($this->countInvoicesOnPage) . ";";
+$this->headScript()->captureEnd();
+
+$this->headStyle()->captureStart() ?>
+.invoice_company_name_suspended, .invoice_company_suspended .x-grid3-cell-inner{
+    color: #ccc;
+}
+<?php $this->headStyle()->captureEnd();?>
+
+<!-- tab: Automated billing log -->
+
+<?php
+$this->headScript()->appendFile($this->layout()->jsUrl . '/billing/automated/logNavigation.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/billing/automated/logView.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/billing/automated/logInit.js');
+
+$this->headStyle()->captureStart() ?>
+.automated-log-panel .tabs-second-level .x-tab-panel-body {
+    background-color: #fff;
+}
+
+.automated-log-panel a {
+    text-decoration: none !important;
+    font-size: 11px;
+}
+
+.automated-log-panel .with-border .x-tree .x-panel-body {
+    background-color: #fff;
+    border: 1px solid #99BBE8 !important;
+}
+<?php $this->headStyle()->captureEnd();?>
+
+<!-- tab: Manage PT Error codes -->
+
+<?php
+$this->headScript()->appendFile($this->layout()->jsUrl . '/billing/pt-error-codes.js');
+
+$this->headScript()->captureStart();
+echo "var countErrorsOnPage = " . Json::encode($this->countErrorsOnPage) . ";";
+$this->headScript()->captureEnd();
+
+?>
+
+<!-- end of the day -->
+
+<?php
+$this->headScript()->appendFile($this->layout()->jsUrl . '/accounts.js');
+?>

@@ -1,0 +1,275 @@
+html{
+    width:100%;
+}
+
+body html {
+    width:100%;
+    height:100%;
+}
+
+body  {
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+}
+
+.wrapper {
+    font-size: 12px;
+    font-family: Arial,Tahoma,Helvetica,sans-serif;
+    color: #677788;
+
+    width: 800px;
+    margin: 0 auto;
+}
+
+.q_applicant_name {
+    width: 50%;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
+}
+
+.q_please_answer_all {
+    width: 50%;
+    text-align: right;
+    padding: 10px;
+    color: red;
+}
+
+.buttons {
+    width: 250px;
+    margin: 0 auto;
+    padding: 20px;
+    direction: ltr;
+}
+
+.buttons img {
+    vertical-align: text-bottom;
+}
+
+#previous {
+    float: left;
+}
+
+#next {
+    float: right;
+}
+
+#progress {
+    display: none;
+    margin: 0 auto;
+    text-align: center;
+    width: 120px;
+    background:url(../images/loading.gif) no-repeat left;
+}
+
+.qnr-section {
+    width: 100%;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+}
+
+.qnr-section-header {
+    padding: 5px;
+}
+
+.qnr-section td {
+    padding: 10px 5px;
+}
+
+.no-top-padding td {
+    padding: 0 5px 5px 5px;
+}
+
+.qnr-section .first_col {
+    vertical-align: top;
+    width: 40%;
+}
+
+
+.spacer {
+    background-color: #fff;
+    padding: 0 !important;
+}
+
+label.error {
+    color: red;
+    padding: 0 10px;
+}
+
+input[type="text"].error {
+    background: url("../images/icons/exclamation.png") no-repeat right transparent;
+}
+
+input[type="text"].dir-rtl {
+    background-position: left;
+}
+
+.modal {
+    -moz-border-radius:6px 6px 6px 6px;
+    -moz-box-shadow:0 0 50px #CCCCCC;
+    background-color:#F2F9FE;
+    border:2px solid #2C65A8;
+    display:none;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:12px;
+    padding:10px;
+    text-align:left;
+    width:250px;
+}
+
+.modal h2 {
+    background:url("../images/32x32/success.png") no-repeat scroll 0 50% transparent;
+    border-bottom:1px solid #333333;
+    font-size:20px;
+    margin:0;
+    padding:10px 0 10px 45px;
+}
+
+#modal_confirmation.error h2 {
+    background:url("../images/32x32/action_fail.png") no-repeat scroll 0 50% transparent;
+}
+
+.x-window-dlg .ext-mb-success {
+    background:url("../images/32x32/success.png") no-repeat scroll 0 50% transparent;
+}
+
+
+.result_msg {
+    padding: 10px 0;
+    text-align: left;
+}
+
+.btn-job-search {
+    background-image:url(../images/icons/add.png) !important;
+    padding-left: 20px !important;
+}
+
+.job_section_table {
+    width: 100%;
+    margin: 10px 0;
+    padding:0;
+    border-spacing:0;
+    border: 1px solid #DDDDDD;
+}
+
+.job_section_header {
+    padding: 5px !important;
+    margin: 0 !important;
+    background:url("../images/bg-jobs-top.gif") repeat-x scroll 0 50% transparent;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* Fields */
+.profile-text, .profile-country, .profile-phone, .profile-money, .profile-number, .profile-age, .profile-percentage {
+    padding: 2px;
+}
+
+.profile-text, .profile-country {
+    width: 300px;
+}
+
+.profile-textarea {
+    width: 95%;
+    height: 100px;
+}
+
+.profile-phone, .profile-money, .profile-number {
+    width: 150px;
+}
+
+.profile-age, .profile-percentage {
+    width: 40px;
+}
+
+/* = STEPS CONTAINER
+----------------------------*/
+.wizard-steps {
+    margin: 0 0 0 24px;
+    padding:0;
+    position: relative;
+    clear:both;
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+.wizard-steps div {
+    position:relative;
+}
+/* = DEFAULT STEPS
+----------------------------*/
+.wizard-steps a {
+    width: 163px;
+    position:relative;
+    display:block;
+
+    height:24px;
+    margin-right: 18px;
+    padding: 0 10px 0 3px;
+    float: left;
+    font-size:11px;
+    line-height:24px;
+    color:#666;
+    background: #EBEBEB;
+    text-decoration:none;
+    text-shadow:1px 1px 1px rgba(255,255,255, 0.8);
+}
+
+.wizard-steps a:before {
+    width: 0;
+    height:0;
+    border-top: 12px solid #EBEBEB;
+    border-bottom: 12px solid #EBEBEB;
+    border-left:12px solid transparent;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: -12px;
+}
+
+.wizard-steps a:after {
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left:12px solid #EBEBEB;
+    position: absolute;
+    content: "";
+    top: 0;
+    right: -12px;
+}
+
+.bottom_copyright
+{
+    text-align:center;
+    padding-top:45px;
+    padding-bottom:10px;
+    color:gray;
+    width:800px;
+}
+
+.bottom_copyright A
+{
+    color:gray;
+    text-decoration:none;
+}
+
+.bottom_copyright A:hover
+{
+    color:blue;
+    text-decoration:underline;
+}
+
+/* Fix: issue in Chrome 25 when showing calendar datepicker */
+/* Chrome 29+ (Only) */
+@supports (-webkit-appearance:none) and (not (overflow:-webkit-marquee))
+and (not (-ms-ime-align:auto)) and (not (-moz-appearance:none)) {
+    .x-date-picker {
+        border-color: #1b376c;
+        background-color: #fff;
+        position: relative;
+        width: 185px;
+    }
+}

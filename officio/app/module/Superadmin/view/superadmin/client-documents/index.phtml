@@ -1,0 +1,28 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->topBaseUrl . '/assets/plugins/@fortawesome/fontawesome-free/css/all.min.css');
+
+$this->headScript()->appendFile($this->layout()->topBaseUrl . '/assets/plugins/dropzone/dist/min/dropzone.min.js');
+$this->headLink()->appendStylesheet($this->layout()->topBaseUrl . '/assets/plugins/dropzone/dist/min/dropzone.min.css');
+$this->headScript()->appendFile($this->layout()->topJsUrl . '/documents/MultiUploadDialog.js');
+$this->headScript()->appendFile($this->layout()->topJsUrl . '/documents/FilesPreviewDialog.js');
+$this->headScript()->appendFile($this->layout()->topJsUrl . '/documents/documents.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/client-documents/tree.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/client-documents/init.js');
+
+$arrInlineScript   = array();
+$arrInlineScript[] = "var is_authorized_agent_enabled = " . Json::encode($this->isAuthorizedAgentsManagementEnabled) . ";";
+$arrInlineScript[] = "var post_max_size = " . Json::encode($this->layout()->settings->returnBytes(ini_get('post_max_size'))) . ";";
+
+if (!empty($arrInlineScript)) {
+    $this->headScript()->appendScript(implode(PHP_EOL, $arrInlineScript));
+}
+?>
+
+<div align="left" id="admin-client-documents-content"></div>

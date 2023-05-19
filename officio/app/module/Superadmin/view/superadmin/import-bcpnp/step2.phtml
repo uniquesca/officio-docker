@@ -1,0 +1,128 @@
+<?php
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/import-bcpnp.js');
+?>
+
+<?php $this->headStyle()->captureStart(); ?>
+table.columns-mapping
+{
+    border-collapse:collapse;
+    padding:0;
+    margin:0;
+}
+
+table.columns-mapping td
+{
+    border:1px solid #CCCCCC;
+    padding:5px 8px;
+}
+
+table.columns-mapping tr:nth-child(2n+1)
+{
+    background-color:#F1F1F1;
+}
+
+table.columns-mapping tr:nth-child(2n)
+{
+    background-color:#FEFEFE;
+}
+
+table.columns-mapping th
+{
+    background-color:transparent;
+    padding:5px 8px;
+}
+
+.field-naming-error
+{
+    color:red;
+    font-weight:bold;
+}
+
+.field-naming-error td
+{
+    background-color:#FFDEDF;
+}
+<?php $this->headStyle()->captureEnd(); ?>
+
+<div id="import-bcpnp-content">
+    <h2>Step #2</h2>
+
+    <div id="step2_container">
+        <h3><?=$this->translate('Please map fields') ?>:</h3>
+        
+        <form id="form_step3" action="<?=$this->layout()->baseUrl?>/import-bcpnp/step3?page=0" method="POST">
+            <div style="margin-bottom:10px;">
+                <?=$this->translate('Import only Excel rows') ?>:<br>
+                <select name="index_start">
+                    <?php foreach (range(2, $this->number_of_client_rows+1) as $i) { ?>
+                    <option value="<?=$i ?>"><?=$i ?></option>
+                    <?php } ?>
+                </select>
+                -
+                <select name="index_finish">
+                    <?php foreach (range(2, $this->number_of_client_rows+1) as $i) { ?>
+                    <option value="<?=$i ?>" <?=($i==$this->number_of_client_rows+1) ? 'selected' : '' ?>><?=$i ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+
+            <table class="columns-mapping">
+                <tr>
+                    <th><input type="checkbox" id="check_all_fields"></th>
+                    <th>XLS Fields:</th>
+                    <th>&nbsp;</th>
+                    <th colspan="<?=1+(int)($this->importErrors!==null) ?>">DB Fields:</th>
+                </tr>
+                <?php  foreach($this->fields as $fieldNumber => $field):?>
+                <tr class="<?=$field['class']?>">
+                    <td>
+                        <input id="<?=$field['id']?>" type="checkbox" name="<?= 'fields_to_map[' . $fieldNumber . ']' ?>" <?=empty($field['class']) ? 'checked="checked"' : ''?>/>
+                    </td>
+                    <td>
+                        <label for="<?=$field['id']?>"><?=$field['xlsField']?></label>
+                    </td>
+                    <td>
+                        &rarr;
+                    </td>
+                    <td>
+                        <select name="<?= 'excel_field_' . $fieldNumber ?>">
+                            <?php
+                            foreach($this->dbFields as $dbFieldName) {
+                                $selected='';
+                                if($dbFieldName==$field['dbField'])
+                                    $selected = 'selected="selected"';
+                                echo "<option value=\"$dbFieldName\" $selected>$dbFieldName</option>";
+                            }?>
+                        </select>
+                    </td>
+                </tr>
+                <?php  endforeach?>
+            </table>
+
+            <br/>
+            <input type="checkbox" name="trigger_autotasks" id="trigger_autotasks" value="1" /><label for="trigger_autotasks">Trigger Automatic Tasks</label><br />
+            <input type="hidden" name="file_name" value="<?=$this->fileName?>" />
+        </form>
+
+        <form id="form_step1" action="<?=$this->layout()->baseUrl?>/import-bcpnp/step1" method="POST">
+            <input type="hidden" name="file_name" value="<?=$this->fileName?>" />
+        </form>
+
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 50%; text-align: right; padding-right: 20px;">
+                    <input type="submit" class="buttons" value="<< Go Back" onclick="$('#form_step1').submit();" />
+                <td style="width: 50%; text-align: left;">
+                    <input type="submit" class="buttons" value="Next Step >>" onclick="$('#step2_container, #process_started').toggle(); $('#form_step3').submit();" <?=count($this->fields) ? '' : 'disabled="disabled"'?>/>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="display:none; color:green; font-weight:bold;" id="process_started">
+        <img src="<?=$this->layout()->topBaseUrl ?>/images/loadingAnimation.gif" vspace="3" alt="loading"/>
+        <br>
+        <?=$this->translate('Process started. Please, do not close or reload the page.') ?>
+    </div>
+</div>

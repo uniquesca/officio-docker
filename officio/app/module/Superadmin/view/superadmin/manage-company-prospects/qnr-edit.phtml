@@ -1,0 +1,338 @@
+<?php
+    $bgColor     = '#'.$this->qnr_info['q_section_bg_color'];
+    $textColor   = '#'.$this->qnr_info['q_section_text_color'];
+    $buttonColor = '#'.$this->qnr_info['q_button_color'];
+?>
+<div style="padding: 5px;">
+    <div class="qnr-section" style='border: 1px solid <?=$bgColor?>;'>
+        <div class="qnr-section-header" style='background-color: <?=$bgColor?>; color: <?=$textColor?>;'>Default Settings</div>
+        <div class="qnr-section-content">
+            <table>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Questionnaire name:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input id="qnr_name_<?=$this->qnr_id?>" type="text" value="<?=$this->qnr_info['q_name']?>" />
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>URL Location:</h2>
+                        You can use the following address on your website to guide applicants to your questionnaire page.
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px; font-size: 16px;">
+                        <a id="qnr_url_<?=$this->qnr_id?>" title="Open this questionnaire in new window" href="<?=$this->qnr_url?>" target="_blank">Preview Questionnaire</a>
+                        &nbsp;<i class="las la-external-link-square-alt"></i>
+                        <br/>
+                        <a href="#" onclick="copyToClipboard(); return false;" style="vertical-align:bottom;">Copy URL</a>
+                        &nbsp;<i class="las la-copy" style="cursor: pointer; vertical-align:bottom; padding-top: 4px;" onclick="copyToClipboard()"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2><?= $this->prospectOfficeLabel ?>:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <?php if(empty($this->arrOffices)):?>
+                            <div style="color: #FF6600;">There are no offices for this company.</div>
+                        <?php else:?>
+                            <?=$this->formDropdown("qnr_office_" . $this->qnr_id, $this->arrOffices, (int)$this->qnr_info['q_office_id']);?>
+                        <?php endif;?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Agent:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <?php if(empty($this->arrAgents)):?>
+                            <div style="color: #FF6600;">There are no agents for this company.</div>
+                        <?php else:?>
+                            <?=$this->formDropdown("qnr_agent_" . $this->qnr_id, $this->arrAgents, (int)$this->qnr_info['q_agent_id']);?>
+                        <?php endif;?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Preferred language:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input id="qnr_preferred_language_<?=$this->qnr_id?>" type="text" value="<?=$this->qnr_info['q_preferred_language']?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Simplified Questionnaire<?= $this->layout()->site_version == 'australia' ? '' : ' - No Assessment' ?>: </h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input id="qnr_simplified_<?=$this->qnr_id?>" type="checkbox" <?=$this->qnr_info['q_simplified']?'checked':''?> />
+                    </td>
+                </tr>
+            </table>
+            <div class="save_button_container_<?=$this->qnr_id?>"></div>
+
+            <div class="qnr-section-header" style='background-color: <?=$bgColor?>; color: <?=$textColor?>;'>Global Settings</div>
+            <table>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Layout direction:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input type="radio" name="q_rtl" id="q_rtl_no_<?=$this->qnr_id?>" <?php if($this->qnr_info['q_rtl'] == 'N') echo "checked='checked'"?>>
+                        <input type="radio" name="q_rtl" id="q_rtl_yes_<?=$this->qnr_id?>" <?php if($this->qnr_info['q_rtl'] == 'Y') echo "checked='checked'"?>>
+                    </td>
+                </tr>
+                <tr style="<?= $this->layout()->site_version == 'canada' ? '' : 'display: none'?>">
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>NOC:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input type="radio" name="q_noc" id="q_noc_en_<?=$this->qnr_id?>" <?php if($this->qnr_info['q_noc'] == 'en') echo "checked='checked'"?>>
+                        <input type="radio" name="q_noc" id="q_noc_fr_<?=$this->qnr_id?>" <?php if($this->qnr_info['q_noc'] == 'fr') echo "checked='checked'"?>>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Company logo on questionnaire top:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input id="qnr_logo_on_top_<?=$this->qnr_id?>" type="checkbox" <?=$this->qnr_info['q_logo_on_top']?'checked':''?> />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Applicant name:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input id="qnr_applicant_name_<?=$this->qnr_id?>" type="text" value="<?=$this->qnr_info['q_applicant_name']?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>'Please select' text:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input id="qnr_please_select_<?=$this->qnr_id?>" type="text" value="<?=$this->qnr_info['q_please_select']?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>'Please answer ALL questions' text:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input id="qnr_please_answer_all_<?=$this->qnr_id?>" type="text" value="<?=$this->qnr_info['q_please_answer_all']?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>'Please press Next Page to continue' text:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input id="qnr_please_press_next_<?=$this->qnr_id?>" type="text" value="<?=$this->qnr_info['q_please_press_next']?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Caption for 'Next Page' button:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input id="qnr_next_page_button_<?=$this->qnr_id?>" type="text" value="<?=$this->qnr_info['q_next_page_button']?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Caption for 'Previous Page' button:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input id="qnr_prev_page_button_<?=$this->qnr_id?>" type="text" value="<?=$this->qnr_info['q_prev_page_button']?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Caption for 'Step 1' navigation item:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input id="qnr_step1_<?=$this->qnr_id?>" type="text" value="<?=$this->qnr_info['q_step1']?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Caption for 'Step 2' navigation item:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input id="qnr_step2_<?=$this->qnr_id?>" type="text" value="<?=$this->qnr_info['q_step2']?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Caption for 'Step 3' navigation item:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input id="qnr_step3_<?=$this->qnr_id?>" type="text" value="<?=$this->qnr_info['q_step3']?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Caption for 'Step 4' navigation item:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <input id="qnr_step4_<?=$this->qnr_id?>" type="text" value="<?=$this->qnr_info['q_step4']?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Sections' Panel colour:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <div id="qnr_bg_title_<?=$this->qnr_id?>"></div>
+                        <input id="qnr_bg_title_hidden_<?=$this->qnr_id?>" type="hidden" value="<?=$this->qnr_info['q_section_bg_color']?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Text color of each section:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <div id="qnr_color_title_<?=$this->qnr_id?>"></div>
+                        <input id="qnr_color_title_hidden_<?=$this->qnr_id?>" type="hidden" value="<?=$this->qnr_info['q_section_text_color']?>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <h2>Next button color:</h2>
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <div id="qnr_button_color_<?=$this->qnr_id?>"></div>
+                        <input id="qnr_button_color_hidden_<?=$this->qnr_id?>" type="hidden" value="<?=$this->qnr_info['q_button_color']?>" />
+                    </td>
+                </tr>
+
+                <!-- Spacer -->
+                <tr>
+                    <td colspan="2"><div style="width: 100%; border-top: dashed 1px #e5e5e5;"></div></td>
+                </tr>
+
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <label for="qnr_script_google_analytics_<?=$this->qnr_id?>" style="font-weight: bold;">Google Analytics script:</label>
+
+                        <div style='display:none;'>
+                            <div id='content_qnr_script_google_analytics_<?=$this->qnr_id?>_help' class='field_help'>
+                                Please paste the Google Analytics javascript tracking snippet (including &lt;script&gt; and &lt;/script&gt; tags).
+                            </div>
+                        </div>
+                        &nbsp;<img id='qnr_script_google_analytics_<?=$this->qnr_id?>_help' src='<?=$this->layout()->imagesUrl?>/icons/help.png' width='16' height='16' alt='help' class='field-help-tip' style='vertical-align:bottom; cursor: help' />
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <textarea id="qnr_script_google_analytics_<?=$this->qnr_id?>" style="width: 450px; height: 250px;" placeholder="Optional"><?=htmlspecialchars($this->qnr_info['q_script_google_analytics'] ?? '')?></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <label for="qnr_script_facebook_pixel_<?=$this->qnr_id?>" style="font-weight: bold;">Facebook Pixel script:</label>
+                        <div style='display:none;'>
+                            <div id='content_qnr_script_facebook_pixel_<?=$this->qnr_id?>_help' class='field_help'>
+                                Please paste the Facebook Pixel javascript tracking snippet (including &lt;script&gt; and &lt;/script&gt; tags).
+                            </div>
+                        </div>
+                        &nbsp;<img id='qnr_script_facebook_pixel_<?=$this->qnr_id?>_help' src='<?=$this->layout()->imagesUrl?>/icons/help.png' width='16' height='16' alt='help' class='field-help-tip' style='vertical-align:bottom; cursor: help' />
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <textarea id="qnr_script_facebook_pixel_<?=$this->qnr_id?>" style="width: 450px; height: 250px;" placeholder="Optional"><?=htmlspecialchars($this->qnr_info['q_script_facebook_pixel'] ?? '')?></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="first_col" style="padding-top: 10px;">
+                        <label for="qnr_script_analytics_on_completion_<?=$this->qnr_id?>" style="font-weight: bold;">Analytic script(s) on completion:</label>
+                        <div style='display:none;'>
+                            <div id='content_qnr_script_analytics_on_completion_<?=$this->qnr_id?>_help' class='field_help'>
+                                Please paste the Facebook Pixel javascript tracking snippet (including &lt;script&gt; and &lt;/script&gt; tags).
+                            </div>
+                        </div>
+                        &nbsp;<img id='qnr_script_analytics_on_completion_<?=$this->qnr_id?>_help' src='<?=$this->layout()->imagesUrl?>/icons/help.png' width='16' height='16' alt='help' class='field-help-tip' style='vertical-align:bottom; cursor: help' />
+                    </td>
+                    <td class="second_col" style="padding-left: 20px; padding-top: 10px;">
+                        <textarea id="qnr_script_analytics_on_completion_<?=$this->qnr_id?>" style="width: 450px; height: 250px;" placeholder="Optional"><?=htmlspecialchars($this->qnr_info['q_script_analytics_on_completion'] ?? '')?></textarea>
+                    </td>
+                </tr>
+
+            </table>
+            <div class="save_button_container_<?=$this->qnr_id?>"></div>
+
+            <div style="display: <?= ( ($this->layout()->site_version != 'australia' && !$this->qnr_info['q_simplified']) ? 'block' : 'none') ?>">
+                <div class="qnr-section-header" style='background-color: <?=$bgColor?>; color: <?=$textColor?>;'>Automated Responses</div>
+                <table>
+                    <tr>
+                        <td class="first_col">
+                            <h2>Response Template</h2>
+                            Please choose a Response for each category.
+                            If a prospect is found qualified in a category, the appropriate Response will be automatically emailed to that prospect.<br/>
+                            Click on <b>Prospects Templates</b> to define your responses.
+                        </td>
+                        <td class="second_col" id="response_template_td">
+                            <table>
+                                <?php
+                                $arrTemplateCategoryKeys = array_keys($this->arrQnrTemplates);
+                                foreach ($this->arrCategories as $arrCategoryInfo) {
+                                    $id = 'q_' . $this->qnr_id . 'template_category_' . $arrCategoryInfo['prospect_category_id'];
+                                    $val = in_array($arrCategoryInfo['prospect_category_id'], $arrTemplateCategoryKeys) ?
+                                           $this->arrQnrTemplates[$arrCategoryInfo['prospect_category_id']] : '0';
+
+                                    echo '<tr>';
+                                    echo "<td style='width: 230px;'><label for='$id'>$arrCategoryInfo[prospect_category_name]</label></td> ";
+                                    echo "<td style='padding-left: 10px !important;'><input type='text' id='$id' class='q_template_combo' value='$val' /></td>";
+                                    echo '</tr>';
+                                }?>
+                            </table>
+                        </td>
+                    </tr>
+
+
+                    <tr><td colspan="2" class="spacer">&nbsp;</td></tr>
+
+                    <tr>
+                        <td class="first_col">
+                            <h2>Negative Response Template</h2>
+                            Please choose the response you would like to be automatically emailed when a prospect is <b>NOT</b> qualified in any of the above categories.
+                        </td>
+                        <td class="second_col">
+                            <table>
+                                <tr>
+                                    <td style="padding-left: 0; width: 230px;"><label for="template_negative_<?=$this->qnr_id?>">Unqualified Prospects</label></td>
+                                    <td><input type="text" id="template_negative_<?=$this->qnr_id?>" value="<?=(empty($this->qnr_info['q_template_negative']) ? 0 : $this->qnr_info['q_template_negative'])?>" /></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <div class="save_button_container_<?=$this->qnr_id?>"></div>
+            </div>
+
+            <div class="qnr-section-header" style='background-color: <?=$bgColor?>; color: <?=$textColor?>;'>Closing Template</div>
+            <table>
+                <tr>
+                    <td class="first_col">
+                        <h2>Closing Template</h2>
+                        Please choose the template you would like to be displayed to prospects once their questionnaire is completed.
+                    </td>
+                    <td class="second_col">
+                        <table>
+                            <tr>
+                                <td style="padding-left: 0; width: 230px;"><label for="template_thank_you_<?=$this->qnr_id?>">&nbsp;</label></td>
+                                <td><input type="text" id="template_thank_you_<?=$this->qnr_id?>" value="<?=(empty($this->qnr_info['q_template_thank_you']) ? 0 : $this->qnr_info['q_template_thank_you'])?>" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div class="save_button_container_<?=$this->qnr_id?>"></div>
+
+        </div>
+    </div>
+    
+    <?=$this->strQnrView?>
+</div>

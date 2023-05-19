@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pdx:document xmlns:pdx="http://www.phpdocx.com/main" >
+    <pdx:content>
+        <pdx:customizeWordContent>
+            <pdx:referenceNode pdx:target="footer" pdx:type="paragraph" pdx:referenceTypes="default" />
+            <pdx:options>
+                <pdx:backgroundColor pdx:value="FFFF00" />
+            </pdx:options>
+        </pdx:customizeWordContent>
+    </pdx:content>
+</pdx:document>

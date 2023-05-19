@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pdx:document xmlns:pdx="http://www.phpdocx.com/main" >
+    <pdx:content>
+        <pdx:addText>
+            <pdx:textRun>
+                <pdx:data pdx:dataId="" pdx:dataType="text">Chart with custom colors:</pdx:data>
+            </pdx:textRun>
+        </pdx:addText>
+        <pdx:addChart pdx:chartType="colChart">
+            <pdx:data pdx:dataId="" pdx:type="chart">
+                <pdx:legend>
+                    <pdx:seriesLegend pdx:value="Series 1" />
+                    <pdx:seriesLegend pdx:value="Series 2" />
+                    <pdx:seriesLegend pdx:value="Series 3" />
+                </pdx:legend>
+                <pdx:chartData>
+                    <pdx:series pdx:name="data 1">
+                        <pdx:dataValue pdx:value="10" />
+                        <pdx:dataValue pdx:value="7" />
+                        <pdx:dataValue pdx:value="5" />
+                    </pdx:series>
+                    <pdx:series pdx:name="data 2">
+                        <pdx:dataValue pdx:value="20" />
+                        <pdx:dataValue pdx:value="60" />
+                        <pdx:dataValue pdx:value="3" />
+                    </pdx:series>
+                    <pdx:series pdx:name="data 3">
+                        <pdx:dataValue pdx:value="50" />
+                        <pdx:dataValue pdx:value="33" />
+                        <pdx:dataValue pdx:value="7" />
+                    </pdx:series>
+                    <pdx:series pdx:name="data 4">
+                        <pdx:dataValue pdx:value="25" />
+                        <pdx:dataValue pdx:value="0" />
+                        <pdx:dataValue pdx:value="14" />
+                    </pdx:series>
+                </pdx:chartData>
+            </pdx:data>
+            <pdx:color pdx:value="3" />
+            <pdx:perspective pdx:value="10" />
+            <pdx:rotX pdx:value="10" />
+            <pdx:rotY pdx:value="10" />
+            <pdx:chartAlign pdx:value="center" />
+            <pdx:sizeX pdx:value="10" />
+            <pdx:sizeY pdx:value="10" />
+            <pdx:legendPos pdx:value="b" />
+            <pdx:legendOverlay pdx:value="0" />
+            <pdx:border pdx:value="1" />
+            <pdx:hgrid pdx:value="3" />
+            <pdx:vgrid pdx:value="0" />
+            <pdx:groupBar pdx:value="stacked" />
+            <pdx:theme>
+                <pdx:serRgbColors>
+                    <pdx:dataValue pdx:value="" />
+                    <pdx:dataValue pdx:value="FF00FF" />
+                    <pdx:dataValue pdx:value="00FFFF" />
+                </pdx:serRgbColors>
+                <pdx:valueRgbColors>
+                    <pdx:valueRgbColorsValues>
+                        <pdx:dataValue pdx:value="FF0000" />
+                    </pdx:valueRgbColorsValues>
+                    <pdx:valueRgbColorsValues>
+                    </pdx:valueRgbColorsValues>
+                    <pdx:valueRgbColorsValues>
+                        <pdx:dataValue pdx:value="" />
+                        <pdx:dataValue pdx:value="" />
+                        <pdx:dataValue pdx:value="00FF00" />
+                    </pdx:valueRgbColorsValues>
+                </pdx:valueRgbColors>
+            </pdx:theme>
+        </pdx:addChart>
+    </pdx:content>
+</pdx:document>

@@ -1,0 +1,17 @@
+.case_template_checkbox_group {
+    padding-top: 7px;
+}
+
+.case_template_checkbox_group.x-form-invalid {
+    border: 1px solid #c30;
+    padding-left: 10px;
+    border-radius: 3px;
+}
+
+.case_template_checkbox_group .x-form-checkbox {
+    vertical-align: top;
+}
+
+#case-templates-container .tabs-second-level .x-tab-panel-body {
+    background-color: #fff;
+}

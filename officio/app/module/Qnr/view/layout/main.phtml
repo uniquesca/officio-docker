@@ -1,0 +1,76 @@
+<?php
+
+use Officio\Common\Json;
+
+?>
+<?= $this->doctype() . "\n"; ?>
+<html <?php if ($this->booRtl) echo 'dir="rtl"' ?>>
+<head>
+    <?= $this->headTitle() . "\n" ?>
+    <?= $this->headMeta() . "\n" ?>
+
+    <!-- jQuery -->
+    <?= $this->minifier()->minify('jq') . "\n"; ?>
+    <?= $this->minifier()->minify('jquery-ui') . "\n"; ?>
+    <?= $this->minifier()->minify('jquery-ui-css') . "\n"; ?>
+    <!-- jQuery -->
+
+    <!-- ExtJS -->
+    <?= $this->minifier()->minify('ext_css') . "\n"; ?>
+    <?= $this->minifier()->minify('ext') . "\n"; ?>
+    <!-- / ExtJS -->
+
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var passwordValidationRegexp = '<?=$this->site_password_regex?>';
+        var passwordValidationRegexpMessage = '<?=$this->site_password_regex_message?>';
+        var baseUrl = '<?=$this->baseUrl;?>';
+        var topBaseUrl = '<?=$this->topBaseUrl;?>';
+        var dateFormatShort = '<?=$this->settings->variable_get("dateFormatShort"); ?>';
+        var dateFormatFull = '<?=$this->settings->variable_get("dateFormatFull"); ?>';
+        var todayDate = '<?=date($this->settings->variable_get("dateFormatShort")); ?>';
+        var site_version = '<?=$this->site_version?>';
+        var site_currency = '<?=strtolower($this->site_currency)?>';
+        var site_currency_label = '<?=$this->site_currency_label?>';
+        var site_company_phone = '<?=$this->site_company_phone?>';
+        var site_company_name = <?=Json::encode($this->site_company_name)?>;
+        var FROALA_SETTINGS = <?= Json::encode($this->froala_settings); ?>;
+        /* ]]> */
+    </script>
+
+    <?= $this->minStyleSheets() . "\n"; ?>
+    <?= $this->headStyle() . "\n" ?>
+    <?= $this->minJs() . "\n"; ?>
+
+    <?= $this->arrQnrInfo['q_script_google_analytics'] ?>
+    <?= $this->arrQnrInfo['q_script_facebook_pixel'] ?>
+</head>
+
+<body>
+<noscript>
+    <div style="padding-top: 250px;">
+        <div style="padding: 0 .7em; margin: 10px auto; width: 520px; background-color: #FFF; border-radius: 10px;">
+            <table style="padding: 10px 5px 5px; font-size: small;">
+                <tr>
+                    <td colspan="2" style="font-size: 18px; margin: 26px 0 12px 0; font-weight: bold; text-align: center;"><?= $this->translate('Enable JavaScript to use Officio') ?></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; vertical-align: top;"><img alt="Alert" src="<?= $this->imgUrl('alert.png') ?>" width="64" height="64"/></td>
+                    <td>
+                        <div><?= $this->translate("In order to experience Officio, you'll need to enable JavaScript.") ?></div>
+                        <div><?= $this->translate('To find out how, view the instruction for your browser:') ?></div>
+
+                        <ul>
+                            <li><a class="bluelink" target="_blank" rel="noopener noreferrer" href="https://support.mozilla.org/en-US/kb/javascript-settings-for-interactive-web-pages">Mozilla Firefox</a></li>
+                            <li><a class="bluelink" target="_blank" rel="noopener noreferrer" href="https://support.microsoft.com/en-us/office/enable-javascript-7bb9ee74-6a9e-4dd1-babf-b0a1bb136361">Microsoft Edge</a></li>
+                            <li><a class="bluelink" target="_blank" rel="noopener noreferrer" href="https://support.apple.com/en-ca/guide/safari/ibrw1074/mac">Apple Safari</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</noscript>
+<div class="wrapper"><?= $this->layout()->content; ?></div>
+</body>
+</html>

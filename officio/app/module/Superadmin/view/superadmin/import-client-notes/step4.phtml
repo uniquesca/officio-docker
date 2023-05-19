@@ -1,0 +1,44 @@
+<?php
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/import-clients/notes/step4.js');
+?>
+<div id="import-client-notes-container">
+    <form action="<?= $this->layout()->baseUrl ?>/import-client-notes/step3" autocomplete="off" method="POST">
+        <input type="hidden" name="file_id" value="<?= $this->fileId ?>"/>
+
+        <?php
+        foreach ($this->arrDefaultSettings as $fieldId => $fieldVal) {
+            echo "<input type='hidden' name='note_$fieldId' value='$fieldVal' />" . PHP_EOL;
+        }
+        ?>
+        <input type="submit" class="buttons" value="<?= $this->translate('<< Go Back') ?>"/>
+    </form>
+
+    <br>
+
+    <div style="width:400px; height:17px; border:1px solid grey; background-color:white; text-align:center; position:relative;">
+        <span id="import-notes-percent-progress-span" style="position:absolute; z-index:50; left:<?= $this->percent >= 100 ? 30 : 46 ?>%; top:2px; color:<?= $this->percent > 50 ? 'white' : '#006400' ?>;">
+            <?= $this->percent ?>% <?= $this->percent >= 100 ? 'Successfully completed!' : '' ?>
+        </span>
+        <div id="import-notes-percent-progress-div" style="position:absolute; left:0; top:0; height:17px; width:<?= round(400 * $this->percent / 100) ?>px; background-color:#006400; z-index:10;"></div>
+    </div>
+
+    <br>
+
+    <div id="import-notes-log">
+        <?php if (isset($this->additionalOutput)): ?>
+            <?= $this->additionalOutput; ?>
+        <?php endif; ?>
+    </div>
+
+    <?php if (!is_null($this->commandNextPage)): ?>
+        <script type='text/javascript'>setTimeout(function () {
+                step4(<?= $this->commandNextPage ?>);
+            }, 1500);</script>
+    <?php endif; ?>
+
+</div>

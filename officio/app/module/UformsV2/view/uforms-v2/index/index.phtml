@@ -1,0 +1,7 @@
+<div style="display:flex;flex-direction:column;height:100%;">
+    <?php if ($this->uformEnabled): ?>
+        <?= $this->content; ?>
+    <?php else: ?>
+        <p><?= $this->translate('uForms in this version of the site is disabled.') ?></p>
+    <?php endif; ?>
+</div>

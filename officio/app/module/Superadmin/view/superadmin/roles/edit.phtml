@@ -1,0 +1,485 @@
+<?php
+
+// TODO PHP7 Get rid of this evil!
+global $idOfStaffTabsRule, $idOfHomePageRule, $editAssignedRules, $booEditMyself, $officeLabel, $taLabel;
+
+// @NOTE: These ids must be changed if they'll be changed in DB
+use Officio\Common\Service\Settings;
+
+$idOfStaffTabsRule = 5;
+$idOfHomePageRule  = 6;
+$booEditMyself     = $this->booEditMyself;
+$officeLabel       = $this->officeLabel;
+$taLabel           = $this->taLabel;
+
+$editAssignedRules = $this->edit_assigned_rules;
+
+$bgClass = '';
+if (!function_exists('getBgColor')) {
+    function getBgColor()
+    {
+        global $bgClass;
+        $bgClass = ($bgClass == "evenRow") ? "oddRow" : "evenRow";
+        return 'highlightedRow ' . $bgClass;
+    }
+}
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs = true;
+
+$this->headScript()->appendFile($this->layout()->assetsUrl . '/jquery-validation/dist/jquery.validate.min.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/edit_role.js');
+
+$this->headStyle()->captureStart();
+echo '#editRoleForm td { padding: 5px; }';
+$this->headStyle()->captureEnd();
+
+if (empty($this->edit_role_id)) {
+    $action    = $this->layout()->baseUrl . "/roles/add?" . http_build_query(['type' => $this->type]);
+    $mode      = '<i class="las la-plus">';
+    $booUpdate = false;
+} else {
+    $action    = $this->layout()->baseUrl . "/roles/edit?" . http_build_query(['roleid' => $this->edit_role_id, 'type' => $this->type]);
+    $mode      = '<i class="las la-edit"></i>';
+    $booUpdate = true;
+}
+
+
+function hasAccess($roleId, $arrAssignedAccess, $booDisplay = false) {
+    $result = '';
+    global $idOfStaffTabsRule;
+    if (in_array($roleId, $arrAssignedAccess) && !empty($roleId) || $roleId == $idOfStaffTabsRule) {
+        $result = 'checked="checked"';
+    }
+
+    if ($booDisplay) {
+        $result = empty($result) ? 'display: none;' : '';
+    }
+
+    return $result;
+}
+
+function isParentEnabled($parentRoleId, $arrAssignedAccess) {
+    $result = '';
+    if (!in_array($parentRoleId, $arrAssignedAccess) && !empty($parentRoleId)) {
+        $result = 'disabled="disabled"';
+    }
+
+    return $result;
+}
+
+function echoRulesTable($arrRuleInfo, $arrParentIds, $type = 'company')
+{
+    global $idOfHomePageRule;
+    global $editAssignedRules;
+    global $booEditMyself;
+    global $officeLabel;
+    global $taLabel;
+    $level = count($arrParentIds);
+
+    //ruleIds for edit superadmins by superadmin - that we have to omit
+    $superAdminAllowedRules = array('index-view', 'clients-view', 'trust-account-view', 'templates-view', 'help-view', 'help-public-view', 'prospects-view', 'contacts-view', 'marketplace-view');
+
+    // Rule ids that we have to disable if we manage ourselves
+    $ruleToDisable = array(2211, 2212, 2213, 2214);
+
+    if (is_array($arrRuleInfo['children']) && !empty($arrRuleInfo['children'])) {
+        foreach ($arrRuleInfo['children'] as $subRules) :
+            $ruleId = $subRules['rule_id'];
+
+            // Each company can use own Office label - replace the variable
+            $subRules['rule_description'] = preg_replace('/%office_label%/', $officeLabel, $subRules['rule_description']);
+            $subRules['rule_description'] = preg_replace('/%ta_label%/', $taLabel, $subRules['rule_description']);
+
+            // Skip the modules that we don't want in superadmin panel
+            if (in_array($subRules['rule_check_id'], $superAdminAllowedRules) && $type == 'superadmin') {
+                continue;
+            }
+
+            // Home page must be checked and disabled (minimum access rights)
+            $booHomePage = ($ruleId == $idOfHomePageRule);
+
+            // Calculate padding for each rule name
+            $strPadding = $level <= 1 ? 10 : $level * 20;
+            $strStyleBold = !empty($subRules['children']) || $level == 1 ? ' font-weight: bold;' : '';
+
+            // Generate classes which will be used by javascript
+            $parentClasses = '';
+            foreach ($arrParentIds as $parentId) {
+                $parentClasses .= ' subRule_' . $parentId;
+            }
+            $strClasses = "class='rule_$arrRuleInfo[rule_id] mainparentrule_$arrRuleInfo[rule_id] $parentClasses'";
+
+            // Other attributes
+            $strChecked = $booHomePage ? 'checked="checked"' : hasAccess($ruleId, $editAssignedRules);
+            if ($booHomePage) {
+                $strDisabled = 'disabled="disabled"';
+            } else {
+                if ($level == 1 || $idOfHomePageRule == $arrParentIds[count($arrParentIds) - 1]) {
+                    $strDisabled = '';
+                } else {
+                    $strDisabled = isParentEnabled($arrParentIds[count($arrParentIds) - 1], $editAssignedRules);
+                }
+            }
+
+            if ($booEditMyself && in_array($ruleId, $ruleToDisable)) {
+                $strDisabled = 'disabled="disabled"';
+            }
+
+            $strOnClick = $booHomePage ? '' : "onclick='disableChildCheckboxes(\"$subRules[rule_id]\");'";
+            $strValue = "value='$ruleId'";
+            $strId = "rule_".$ruleId;
+            $arrForEditMyselfCheck = array_intersect($editAssignedRules, $ruleToDisable);
+            ?>
+            <tr style="height: 20px;" class="<?=getBgColor() ?>" >
+                <td style="text-align: left; vertical-align: bottom; padding-left: <?=$strPadding?>px;<?=$strStyleBold?>">
+                    <label for="<?=$strId?>"><?= ucfirst($subRules['rule_description'] ?? '');?></label>
+                </td>
+                <td valign="bottom" align="center">
+                    <input type="checkbox" name="add[]" id="<?=$strId?>" <?=$strValue?> <?=$strClasses?>  <?=$strOnClick?> <?=$strDisabled?> <?=$strChecked?> />
+                    <?php if ($booHomePage):?>
+                        <input type="hidden" name="add[]" value="<?= $idOfHomePageRule ?>"/>
+                    <?php endif; ?>
+                    <?php if ($booEditMyself):?>
+                        <?php if ( in_array($ruleId, $arrForEditMyselfCheck) ):?>
+                            <input type="hidden" name="add[]" value="<?=$ruleId ?>"/>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <?php
+            // Show all child access rights
+            if (array_key_exists('children', $subRules) && count($subRules)) {
+                $arrNewParentIds = $arrParentIds;
+                $arrNewParentIds[] = $ruleId;
+                echoRulesTable($subRules, $arrNewParentIds, $type);
+            }
+        endforeach;
+    }
+}
+
+function echoFoldersTable($arrFolderInfo, $arrParentIds)
+{
+    $level = count($arrParentIds);
+    if (is_array($arrFolderInfo['children']) && !empty($arrFolderInfo['children'])) {
+        foreach ($arrFolderInfo['children'] as $folder) :
+            $folderId = $folder['folder_id'];
+
+            // Calculate padding for each rule name
+            $strPadding = 40 + $level <= 1 ? 10 : $level * 30;
+            $strStyleBold = !empty($folder['children']) || $level == 1 ? ' font-weight: bold;' : '';
+
+            ?>
+            <tr class="<?=getBgColor()?>">
+                <td style="text-align: left; vertical-align: bottom; padding-left: <?=$strPadding?>px;<?=$strStyleBold?>"><?=htmlentities(ucfirst($folder['folder_name'] ?? ''));?></td>
+                <td valign="bottom" align="center"><input type="radio" name="<?= 'folder-' . $folder['folder_id'] ?>" value="0" <?=$folder['access'] ? '' : 'checked="checked"'?> /></td>
+                <td valign="bottom" align="center"><input type="radio" name="<?= 'folder-' . $folder['folder_id'] ?>" value="1" <?=$folder['access'] == 'R' ? 'checked="checked"' : ''?> /></td>
+                <td valign="bottom" align="center"><input type="radio" name="<?= 'folder-' . $folder['folder_id'] ?>" value="2" <?=$folder['access'] == 'RW' ? 'checked="checked"' : ''?> /></td>
+            </tr>
+
+            <?php
+            // Show all child access rights
+            if (array_key_exists('children', $folder) && count($folder)) {
+                $arrNewParentIds = $arrParentIds;
+                $arrNewParentIds[] = $folderId;
+                echoFoldersTable($folder, $arrNewParentIds);
+            }
+        endforeach;
+    }
+}
+?>
+
+<?php $this->headScript()->captureStart();?>
+var booCanEditRole = '<?=$this->booCanEditRole?>';
+if(typeof(autoshow_error) == "undefined") {
+var autoshow_error = [];
+}
+autoshow_error.push('<?=$this->escapeHtml(addslashes($this->edit_error_message))?>');
+
+if(typeof(autoshow_info) == "undefined") {
+var autoshow_info = [];
+}
+autoshow_info.push('<?=$this->escapeHtml(addslashes($this->confirmation_message))?>');
+<?php $this->headScript()->captureEnd();?>
+
+<div id="manage-roles-content">
+    <form name="editRoleForm" id="editRoleForm" action="<?=$action?>#fields-level-access-by-type-cases" method="post">
+
+        <input type="hidden" name="subFrm" value="1">
+
+        <?php if (!empty($this->edit_role_id)): ?>
+            <input type="hidden" name="roleId" value="<?=$this->edit_role_id; ?>" />
+        <?php endif; ?>
+
+        <table width="95%" border="0" cellspacing="1" cellpadding="4" align=center  bgcolor="#D8D8D8">
+            <tr align="left">
+                <td class='header_bg' colspan="2"><?= $mode; ?><?= $this->layout()->title; ?></td>
+            </tr>
+            <tr class="evenRow">
+                <td colspan="2" class="field_name" align="right"> <div align="right"><em class="required">*</em><span class="field_name"><span class="featured"> indicates mandatory fields </span></span></div>
+                </td>
+            </tr>
+            <tr bgcolor="#ffffff">
+                <td width="30%" align="right" class="field_name"><label for="roleName">Role Title:</label> <em class="required">*</em></td>
+                <td align="left"><input type="text" name="roleName" id="roleName" value="<?=$this->arrRoleInfo['role_name']?>" size="50" style="width: 250px;" <?php if(!$this->booCanRenameRole):?>disabled="disabled"<?php endif;?>/></td>
+            </tr>
+        </table>
+
+        <?php if(in_array($this->role_type, array('individual_client', 'employer_client'))) echo $this->messageBox('This role is used by Officio system to control the access level for your client login.', 2);?>
+
+
+        <div id="edit_role_access_container" style="width:95%; margin: 0 auto; padding-top: 15px;">
+            Set the details of access level/rights for this role in the following tabs:
+            <ul>
+                <li><a href="#modules-level-access" class="main-role-tabs"><span>Modules</span></a></li>
+                <?php if ($this->type != 'superadmin'): ?>
+                    <li><a href="#fields-level-access-by-type-cases" class="main-role-tabs"><span><?=$this->caseTypeFieldLabel?> Fields</span></a></li>
+                    <?php foreach ($this->arrApplicantFields as $arrFieldsData) : ?>
+                        <li><a href="#fields-level-access-by-type-<?= $arrFieldsData['tab_text_id'] ?>" class="main-role-tabs"><span><?= $arrFieldsData['tab_title'] ?></span></a></li>
+                    <?php endforeach; ?>
+                    <li><a href="#folders-level-access" class="main-role-tabs"><span>Default Documents</span></a></li>
+                <?php endif; ?>
+            </ul>
+
+            <?php if ($this->type != 'superadmin') :?>
+                <div id="fields-level-access">
+                    <?php foreach ($this->arrApplicantFields as $arrFieldsData) : ?>
+                        <div id="fields-level-access-by-type-<?=$arrFieldsData['tab_text_id']?>" class="with_tabs" >
+                            <?php if (count($arrFieldsData['grouped_fields']) > 1) : ?>
+                                <ul>
+                                    <?php foreach ($arrFieldsData['grouped_fields'] as $arrGroupInfo) : ?>
+                                        <li><a href="#applicant-fields-level-access-<?=$arrGroupInfo['type_id']?>" class="main-role-tabs"><span><?=$arrGroupInfo['type_name']?></span></a></li>
+                                    <?php endforeach;?>
+                                </ul>
+                            <?php endif; ?>
+
+                            <?php foreach ($arrFieldsData['grouped_fields'] as $arrGroupInfo) : ?>
+                                <div id="applicant-fields-level-access-<?=$arrGroupInfo['type_id']?>" >
+                                    <table border="0" cellspacing="1" cellpadding="4" align="center" bgcolor="#D8D8D8" class="greytxt" style="width:100%;">
+                                        <tr align="center">
+                                            <td class="header_bg" style="text-align:left; height:25px;">Field Name</td>
+                                            <td class="header_bg" style="width:15%;">
+                                                No Access
+                                                <br>
+                                                <input type="button" class="check_all_radio" style="margin-top:3px; font-size:10px;" value="check all">
+                                            </td>
+                                            <td class="header_bg" style="width:15%;">
+                                                Read
+                                                <br>
+                                                <input type="button" class="check_all_radio" style="margin-top:3px; font-size:10px;" value="check all">
+                                            </td>
+                                            <td class="header_bg" style="width:15%;">
+                                                Read &amp; Write
+                                                <br>
+                                                <input type="button" class="check_all_radio" style="margin-top:3px; font-size:10px;" value="check all">
+                                            </td>
+                                        </tr>
+                                        <?php foreach ($arrGroupInfo['fields'] as $group_id => $group) { ?>
+                                            <tr align="left" class="<?= getBgColor() ?>">
+                                                <td><label style="font-weight: bold" for="group-<?= $arrFieldsData['tab_text_id'] ?>-<?= $group_id ?>"><?= htmlspecialchars($group[0]['group_title'] ?? '') ?></label></td>
+                                                <td colspan="3">
+                                                    <?php
+                                                        $checked = '';
+                                                        if (empty($this->edit_role_id) || count(array_filter(Settings::arrayColumnAsKey(false, $group, 'rights')))) {
+                                                            $checked = 'checked';
+                                                        }
+                                                    ?>
+                                                    <input type="checkbox" class="group-checkbox" id="group-<?= $arrFieldsData['tab_text_id'] ?>-<?= $group_id ?>"
+                                                           name="<?= 'group-' . $arrFieldsData['tab_text_id'] . '-' . $group_id ?>" <?= $checked ?> />
+                                                    <label for="group-<?= $arrFieldsData['tab_text_id'] ?>-<?= $group_id ?>">Group Visible</label>
+                                                </td>
+                                            </tr>
+                                            <?php foreach ($group as $f) {
+                                                $fieldName = 'applicant_field_' . $arrFieldsData['tab_id'] . '_' . $group_id . '_' . $f['applicant_field_id'];
+                                                ?>
+                                                <tr align="center" class="<?= getBgColor() ?> tr-group-<?= $arrFieldsData['tab_text_id'] ?>-<?= $f['group_id'] ?>">
+                                                    <td align="left" style="padding-left:30px;"><?= $f['label'] ?></td>
+                                                    <td>
+                                                        <input type="radio" name="<?= $fieldName ?>" value="0" <?= in_array($f['rights'], ['R', 'F']) ? '' : 'checked' ?> />
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="<?=$fieldName?>" value="R" <?=$f['rights']==='R' ? 'checked' : '' ?> />
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="<?=$fieldName?>" value="F" <?=$f['rights']==='F' ? 'checked' : '' ?> />
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </table>
+                                </div>
+                            <?php endforeach;?>
+                        </div>
+                    <?php endforeach;?>
+                    <div id="fields-level-access-by-type-cases">
+                        <div style="padding-bottom: 10px">
+                            <input type="checkbox" id="toggle_grouped_names"><label for="toggle_grouped_names" style="padding-left: 5px">Show <?=$this->caseTypeFieldLabelPlural?> &amp; Groups for each field</label>
+                        </div>
+
+                        <table border="0" cellspacing="1" cellpadding="4" align="center"  bgcolor="#D8D8D8" class="greytxt" style="width: 100%;">
+                            <tr>
+                                <td class="header_bg" style="text-align: left; height: 25px;">Field Name</td>
+                                <td class="header_bg case_type_and_group_name_column" style="width: 40%; text-align: left; height: 25px;"><?=$this->caseTypeFieldLabel?> - Group Name</td>
+                                <td class="header_bg" style="width: 10%; text-align: center;">
+                                    No Access
+                                    <br>
+                                    <input type="button" class="check_all_radio" style="margin-top:3px; font-size:10px;" value="check all">
+                                </td>
+                                <td class="header_bg" style="width: 10%; text-align: center;">
+                                    Read
+                                    <br>
+                                    <input type="button" class="check_all_radio" style="margin-top:3px; font-size:10px;" value="check all">
+                                </td>
+                                <td class="header_bg" style="width: 10%; text-align: center;">
+                                    Read &amp; Write
+                                    <br>
+                                    <input type="button" class="check_all_radio" style="margin-top:3px; font-size:10px;" value="check all">
+                                </td>
+                            </tr>
+
+                            <?php if (count($this->arrAllCaseFieldsFields)) : ?>
+                                <?php foreach ($this->arrAllCaseFieldsFields as $arrCaseFieldInfo) : ?>
+                                    <?php
+                                        $viewSelected = $fullSelected = $zeroSelected = '';
+                                        if (in_array($arrCaseFieldInfo['field_id'], $this->arrRoleInfo['arrFullFieldsIds'])) {
+                                            $fullSelected = 'checked="checked"';
+                                        } elseif (in_array($arrCaseFieldInfo['field_id'], $this->arrRoleInfo['arrViewFieldsIds'])) {
+                                            $viewSelected = 'checked="checked"';
+                                        } else {
+                                            $zeroSelected = 'checked="checked"';
+                                        }
+
+                                        $highLightField = in_array($arrCaseFieldInfo['field_id'], $this->arrMarkFields) ? 'style = "background-color: #FFA5A5;"' : '';
+
+                                        $fieldName = 'case_field_' . $arrCaseFieldInfo['field_id'];
+                                    ?>
+                                    <tr class="<?=getBgColor()?>" <?=$highLightField?>>
+                                        <td style="padding-left: 5px; text-align: left; vertical-align: center;"><?=htmlentities(ucfirst($arrCaseFieldInfo['field_label'] ?? ''));?></td>
+                                        <td class="case_type_and_group_name_column" style="padding-left: 5px; text-align: left; vertical-align: center;"><?= implode('<br>', $arrCaseFieldInfo['case_type_and_group_name']); ?></td>
+                                        <td valign="center" align="center"><input type="radio" name="<?=$fieldName?>" value="0" <?=$zeroSelected?>  /></td>
+                                        <td valign="center" align="center"><input type="radio" name="<?=$fieldName?>" value="1" <?=$viewSelected?>  /></td>
+                                        <td valign="center" align="center"><input type="radio" name="<?=$fieldName?>" value="2" <?=$fullSelected?>  /></td>
+                                    </tr>
+                                <?php endforeach;?>
+                            <?php else :?>
+                                <tr style="height: 30px; background-color: #FFF;">
+                                    <td valign="bottom" colspan="5" align="center">There are no created fields</td>
+                                </tr>
+                            <?php endif; ?>
+
+                        </table>
+                    </div>
+            <?php endif;?>
+
+            <div id="modules-level-access">
+
+                <?php if (count($this->arrRules) > 0) : ?>
+
+
+                    <?php foreach ($this->arrRules as $rule) : ?>
+                        <?php
+                        // Show 'Superadmin's Section' not for client's role only
+                        if($booUpdate && in_array($this->role_type, array('individual_client', 'employer_client')) && $rule['module_id'] == 'superadmin') continue;
+                        ?>
+                        <table id="parent-rule-<?=$rule['rule_id']?>" width="100%" border="0" cellspacing="0" cellpadding="4" align=center  bgcolor="#D8D8D8">
+                            <tr bgcolor="#ffffff" style="border-top: none;">
+                                <td align='left' valign=top colspan=2 style="border-top: none;">
+                                    <h2 style="margin-bottom: 0;">
+                                        <?php if($rule['rule_id'] == $idOfStaffTabsRule):?>
+                                            <input type="hidden" name="add[]" value="<?=$idOfStaffTabsRule?>" />
+                                        <?php else : ?>
+                                            <input type="checkbox" name="add[]" id="<?="parentrule_".$rule['rule_id'];?>" value="<?=$rule['rule_id'];?>" <?=hasAccess($rule['rule_id'], $this->edit_assigned_rules);?> onclick="hideShowSectionData(<?=$rule['rule_id'];?>);" class="parentrule"/>
+                                            <?php if ($this->type == 'superadmin') {$idForShow = $rule['rule_id'];}?>
+                                        <?php endif; ?>
+                                        <?php $for = $rule['rule_id'] == $idOfStaffTabsRule ? '' : 'for="parentrule_' . $rule['rule_id'] . '"'; ?>
+                                        <label <?=$for?>><?=$rule['module_name'];?></label>
+                                    </h2>
+                                </td>
+                            </tr>
+
+                            <tr bgcolor="#ffffff">
+                                <td align='right' valign=top colspan=2>
+                                    <table border="0" cellspacing="1" cellpadding="4" align="center"  bgcolor="#D8D8D8" class="greytxt" id="section_<?=$rule['rule_id'];?>" style="width: 90%; margin-left: 30px; <?=hasAccess($rule['rule_id'], $this->edit_assigned_rules, true);?>">
+                                        <tr bgcolor="#ffffff">
+                                            <td height="25" class="header_bg" align="left" style="width: 70%;">Module Name &amp; Detail Features</td>
+                                            <td class="header_bg" align="center" style="width: 30%;">
+                                                <input type="checkbox" id="top_rule_<?=$rule['rule_id'];?>" onclick="checkAllChild(<?=$rule['rule_id'];?>);" title="Click to check/uncheck all checkboxes" />
+                                                <label for="top_rule_<?=$rule['rule_id'];?>" style="text-decoration: underline;" title="Click to check/uncheck all checkboxes">Allow Access</label>
+                                            </td>
+                                        </tr>
+
+                                        <?php
+                                        if (!empty($rule['children'])) :
+                                            echoRulesTable($rule, array($rule['rule_id']), $this->type);
+                                        else :?>
+                                            <tr style="height: 30px;" bgcolor="#ffffff">
+                                                <td valign="bottom" colspan="2" align="center">There are no access rights for this section</td>
+                                            </tr>
+                                        <?php endif;?>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+            <?php if ($this->type != 'superadmin') :?>
+                <div id="folders-level-access">
+                    <table border="0" cellspacing="1" cellpadding="4" align="center"  bgcolor="#D8D8D8" class="greytxt" style="width: 100%;">
+                        <tr>
+                            <td class="header_bg" style="width: 55%; text-align: left; height: 25px;" >Folder</td>
+                            <td class="header_bg" style="width: 15%; text-align: center;">
+                                No Access
+                                <br>
+                                <input type="button" class="check_all_radio" style="margin-top:3px; font-size:10px;" value="check all">
+                            </td>
+                            <td class="header_bg" style="width: 15%; text-align: center;">
+                                Read-Only
+                                <br>
+                                <input type="button" class="check_all_radio" style="margin-top:3px; font-size:10px;" value="check all">
+                            </td>
+                            <td class="header_bg" style="width: 15%; text-align: center;">
+                                Read &amp; Write Access
+                                <br>
+                                <input type="button" class="check_all_radio" style="margin-top:3px; font-size:10px;" value="check all">
+                            </td>
+                        </tr>
+                        <?php if (count($this->arrFolders) > 0) : ?>
+                            <?php foreach ($this->arrFolders as $folder) : ?>
+                                <tr class="<?=getBgColor()?>">
+                                    <td style="text-align: left; vertical-align: bottom; font-weight: bold; padding-left: 10px;"><?=htmlentities(ucfirst($folder['folder_name'] ?? ''));?></td>
+                                    <td valign="bottom" align="center"><input type="radio" name="<?= 'folder-' . $folder['folder_id'] ?>" value="0" <?= in_array($folder['access'], ['R', 'RW']) ? '' : 'checked="checked"'?> /></td>
+                                    <td valign="bottom" align="center"><input type="radio" name="<?= 'folder-' . $folder['folder_id'] ?>" value="1" <?=$folder['access'] == 'R' ? 'checked="checked"' : ''?> /></td>
+                                    <td valign="bottom" align="center"><input type="radio" name="<?= 'folder-' . $folder['folder_id'] ?>" value="2" <?=$folder['access'] == 'RW' ? 'checked="checked"' : ''?> /></td>
+                                </tr>
+                                <?php   echoFoldersTable($folder, array($folder['folder_id'])); ?>
+                            <?php endforeach; ?>
+                        <?php else :?>
+                            <tr style="height: 30px; background-color: #FFF;">
+                                <td valign="bottom" colspan="4" align="center">There are no created folders</td>
+                            </tr>
+                        <?php endif; ?>
+                    </table>
+                </div>
+            <?php endif;?>
+
+
+        </div>
+        <?php if ($this->booCanEditRole) :?>
+            <div style="padding-top: 15px; text-align: center;">
+                <input id="updateRoleBtn" name="Submit" type="submit" class="orange-save-btn" value="<?=$this->btnHeading; ?>" />
+            </div>
+        <?php endif;?>
+
+        <?php if ($this->type == 'superadmin') :?>
+            <script type="text/javascript">
+                if( !$('#section_' + <?=$idForShow?>).is(":visible") ){
+                    hideShowSectionData(<?=$idForShow?>);
+                    document.getElementById('parentrule_4').checked = true;
+                }
+                document.getElementById('parentrule_4').style.visibility = "hidden";
+                $('label[for="parentrule_4"]').hide ();
+            </script>
+        <?php endif;?>
+    </form>
+</div>

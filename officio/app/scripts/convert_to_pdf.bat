@@ -1,0 +1,1 @@
+@soffice --headless --convert-to pdf %1 --outdir %2

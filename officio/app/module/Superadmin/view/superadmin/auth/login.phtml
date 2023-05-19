@@ -1,0 +1,106 @@
+<?php
+
+$this->layout()->useJQuery = true;
+
+$this->headScript()->captureStart(); ?>
+$(document).ready(function(){
+// set focus to one of these fields
+if($('#username').val() !== '') {
+$('#password').focus();
+} else {
+$('#username').focus();
+}
+});
+
+// If this is in frame - that's mean that currently admin tab is opened
+try{
+if (parent.frames.length > 0) {
+if (parent.frames[0].frameElement.id == 'admin_section_frame') {
+parent.location.href = parent.baseUrl + '/auth/login';
+}
+}
+}catch(e){
+}
+<?php $this->headScript()->captureEnd(); ?>
+<tr align="center">
+    <td colspan="2">
+        <table width="576" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="7"><img src="<?= $this->imgUrl('tabletoplt.gif') ?>" width="7" height="5" alt=""/></td>
+                <td class="table-top_bg"><img src="<?= $this->imgUrl('trans.gif') ?>" width="1" height="1" alt=""/></td>
+                <td width="8"><img src="<?= $this->imgUrl('tabletoprt.gif') ?>" width="8" height="5" alt=""/></td>
+            </tr>
+            <tr>
+                <td class="table-lt_bg">&nbsp;</td>
+                <td height="56" align="center" valign="middle">
+                    <table width="98%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td rowspan="2" align="left" valign="top"><img src="<?= $this->imgUrl('button1.gif') ?>" width="21" height="22" hspace="2" alt=""/></td>
+                            <td align="left" valign="top" class="blue_heading">Welcome to <a href="<?= $this->layout()->topBaseUrl ?>"><?= $this->layout()->siteTitle ?></a> - Secure Administration Suite</td>
+                        </tr>
+                        <tr>
+                            <td align="left" valign="top" class="greytext12">Please enter a valid username and password to gain access to the administration console.</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="table-rt_bg">&nbsp;</td>
+            </tr>
+            <tr>
+                <td><img src="<?= $this->imgUrl('tablebotlt.gif') ?>" width="7" height="6" alt=""/></td>
+                <td class="table-bot_bg"><img src="<?= $this->imgUrl('trans.gif') ?>" width="1" height="1" alt=""/></td>
+                <td><img src="<?= $this->imgUrl('tablebotrt.gif') ?>" width="8" height="6" alt=""/></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr align="center">
+    <td colspan="2">&nbsp;</td>
+</tr>
+<tr align="center">
+    <td colspan="2">
+        <table width="575" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td align="right" valign="top" class="login_bg paddrt10">
+                    <form action="<?= $this->layout()->baseUrl ?>/auth/login" method="POST" name="details" class="form">
+                        <table width="45%" border="0" cellspacing="0" cellpadding="1" class="greytext12">
+                            <tr class="greytext12">
+                                <td height="25" align="center" valign="top" class="gray_txt">&nbsp;</td>
+                            </tr>
+                            <tr class="greytext12">
+                                <td align="left" valign="top" class="gray_txt"><span class="msg"><?= $this->errorMessage; ?></span></td>
+                            </tr>
+
+                            <tr>
+                                <td align="left" class="greytext12"><strong>Username</strong></td>
+                            </tr>
+                            <tr>
+                                <td align="left"><input id="username" name="username" type="text" <?= (empty($this->autocomplete)) ? 'autocomplete="off"' : '' ?> class="black_text" size="38" value="<?= $this->userName; ?>"></td>
+                            </tr>
+                            <tr>
+                                <td align="left" class="greytext12"><strong>Password</strong></td>
+                            </tr>
+                            <tr>
+                                <td align="left"><input id="password" name="password" type="password" <?= (empty($this->autocomplete)) ? 'autocomplete="new-password"' : '' ?> class="black_text" size="38"
+                                                        maxlength="<?= $this->passwordMaxLength ?>"></td>
+                            </tr>
+                            <tr class="greytext12">
+                                <td height="25" align="left" valign="middle" class="greytext12">&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                                <td align="left"><input type="hidden" name="login" value="login"> <input type="image" name="Submit2" src="<?= $this->imgUrl('submit-btn.gif') ?>" alt="Submit" style="border: none;"></td>
+                            </tr>
+                            <tr>
+                                <td align="left">&nbsp;</td>
+                            </tr>
+
+                            <tr class="greytext12">
+                                <td align="left" class="horizontal-bg">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>

@@ -1,0 +1,17 @@
+.url_add_icon {
+    background-image: url(../images/icons/add.png) !important;
+}
+
+.url_edit_icon {
+    background-image: url(../images/icons/pencil.png) !important;
+}
+
+.url_delete_icon {
+    background-image: url(../images/icons/delete.png) !important;
+}
+.url_update_hash_icon {
+    background-image: url(../images/icons/disk.png) !important;
+}
+.url_check_icon {
+    background-image: url(../images/icons/magnifier.png) !important;
+}

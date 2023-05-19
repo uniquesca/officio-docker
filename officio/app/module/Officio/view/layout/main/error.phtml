@@ -1,0 +1,16 @@
+<?= $this->doctype() . "\n"; ?>
+<html>
+<head>
+    <?= $this->headTitle()      . "\n" ?>
+    <?= $this->headMeta()       . "\n" ?>
+    <?= $this->minStyleSheets() . "\n"; ?>
+    <?= $this->headStyle()      . "\n" ?>
+    <link href="<?=$this->assetsUrl;?>jquery-ui/themes/base/theme.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+
+<body style="padding:0px 18px;">
+    <div id="content">
+    <?=$this->messageBox($this->layout()->content, true);?>
+    </div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<?php
+if (!function_exists('printQuotedValue')) {
+    function printQuotedValue($arrData, $key)
+    {
+        return isset($arrData[$key]) ? htmlspecialchars($arrData[$key], ENT_QUOTES) : '';
+    }
+}
+?>
+<div class="designation_form_content">
+    <form action="#" id="designation_form_content">
+
+        <h1 style="text-align: center; font-size: 16px;">Designation Form</h1>
+
+        <div style="padding: 10px 0">
+            According to Section 3.2.b of the Planned or Unplanned Absence Regulation (the "PUA Regulation") of Immigration Consultants of Canada Regulatory Council (the
+            "Council"),
+            an Authorized Representative "means an individual who can offer immigration/citizenship advice and/or service for a fee or other consideration,
+            including a Member in good standing with a Canadian provincial or territorial law society (including paralegals within their authorized scope of practice),
+            the Chambres des notaires du Québec or CICC."
+        </div>
+
+        <div style="padding: 10px 0">
+            And according to Section 3.2.s of the PUA Regulation, a Responsible Person "means an individual over the age of majority who has immediate access to the jurisdiction where
+            the Member's office is located." Furthermore, the "Responsible Person is not an Authorized Representative and as such, must not perform tasks which may only be performed by
+            an Authorized Representative."
+        </div>
+
+        <div style="padding: 10px 0">
+            In this Designation Form, capitalized terms, unless otherwise defined in this Designation Form, have the same meaning as they do in the PUA Regulation.
+        </div>
+
+        <div style="padding: 30px 0 5px 0">
+            I, <input type="text" name="pua_designated_person_full_name" class="required" style="width: 550px" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_full_name') ?>"
+                      placeholder="Insert first and last name of Designated Authorized Representative or Responsible Person"> declare that I am an/a:<br>
+        </div>
+
+        <div style="padding: 5px 0;">
+            <div>
+                <input type="radio" id="pua_designated_person_type_representative" name="pua_designated_person_type" value="authorized_representative" <?= isset($this->arrData['pua_designated_person_type']) && $this->arrData['pua_designated_person_type'] === 'authorized_representative' ? 'checked="checked"' : '' ?> >
+                <label for="pua_designated_person_type_representative" style="padding-left: 5px;">Authorized Representative (as defined above)</label>
+            </div>
+
+            <div style="padding-top: 5px;">
+                <input type="radio" id="pua_designated_person_type_person" name="pua_designated_person_type" value="responsible_person" <?= isset($this->arrData['pua_designated_person_type']) && $this->arrData['pua_designated_person_type'] === 'responsible_person' ? 'checked="checked"' : '' ?>>
+                <label for="pua_designated_person_type_person" style="padding-left: 5px;">Responsible Person (as defined above)</label>
+            </div>
+        </div>
+
+
+        <div style="padding: 30px 0 10px 0">
+            I verify that
+            <input type="text" name="pua_designated_person_primary_rcic_full_name" class="required" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_primary_rcic_full_name') ?>" placeholder="Insert first and last name of primary RCIC">
+            has shared his/her Contingency Plan with me prior to the signing of this Designation Form.
+        </div>
+
+        <div style="padding: 10px 0;">
+            And I agree to serve as the primary contact for the Client and the Council in the event
+            <input type="text" name="pua_designated_person_primary_rcic_full_name" class="required" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_primary_rcic_full_name') ?>" placeholder="Insert first and last name of primary RCIC">
+            is unable to do so himself/herself.
+        </div>
+
+
+        <h1 style="font-size: 16px; padding-top: 30px;">Contact Information</h1>
+
+        <table style="margin-top: 15px;">
+            <tr>
+                <td colspan="4" style=" font-weight: bold;">Primary RCIC</td>
+            </tr>
+            <tr>
+                <td>Given Name</td>
+                <td><input type="text" name="pua_designated_person_primary_rcic_given_name" class="required" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_primary_rcic_given_name') ?>"></td>
+                <td>Family Name</td>
+                <td><input type="text" name="pua_designated_person_primary_rcic_family_name" class="required" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_primary_rcic_family_name') ?>"></td>
+            </tr>
+            <tr>
+                <td>Primary Address</td>
+                <td colspan="3"><input type="text" name="pua_designated_person_primary_rcic_primary_address" class="required" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_primary_rcic_primary_address') ?>"></td>
+            </tr>
+            <tr>
+                <td>Secondary Address</td>
+                <td colspan="3"><input type="text" name="pua_designated_person_primary_rcic_secondary_address" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_primary_rcic_secondary_address') ?>"></td>
+            </tr>
+            <tr>
+                <td>Telephone Number</td>
+                <td colspan="3"><input type="text" name="pua_designated_person_primary_rcic_phone" class="required" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_primary_rcic_phone') ?>"></td>
+            </tr>
+            <tr>
+                <td>E-mail Address</td>
+                <td colspan="3"><input type="text" name="pua_designated_person_primary_rcic_email" class="required" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_primary_rcic_email') ?>"></td>
+            </tr>
+        </table>
+
+        <table style="margin-top: 15px;">
+            <tr>
+                <td colspan="4" style=" font-weight: bold;">Designated Authorized Representative or Responsible Person</td>
+            </tr>
+            <tr>
+                <td>Given Name</td>
+                <td><input type="text" name="pua_designated_person_given_name" class="required" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_given_name') ?>"></td>
+                <td>Family Name</td>
+                <td><input type="text" name="pua_designated_person_family_name" class="required" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_family_name') ?>"></td>
+            </tr>
+            <tr>
+                <td>Primary Address</td>
+                <td colspan="3"><input type="text" name="pua_designated_person_primary_address" class="required" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_primary_address') ?>"></td>
+            </tr>
+            <tr>
+                <td>Secondary Address</td>
+                <td colspan="3"><input type="text" name="pua_designated_person_secondary_address" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_secondary_address') ?>"></td>
+            </tr>
+            <tr>
+                <td>Telephone Number</td>
+                <td colspan="3"><input type="text" name="pua_designated_person_phone" class="required" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_phone') ?>"></td>
+            </tr>
+            <tr>
+                <td>E-mail Address</td>
+                <td colspan="3"><input type="text" name="pua_designated_person_email" class="required" value="<?= printQuotedValue($this->arrData, 'pua_designated_person_email') ?>"></td>
+            </tr>
+        </table>
+
+        <div style="padding: 10px 0">
+            NOTES: The primary RCIC must:
+            <ol style="list-style-type: decimal; list-style-position: inside;">
+                <li>provide the Registrar with a completed and signed Designation Form as per the <i>Planned or Unplanned Absence Regulation</i>,</li>
+                <li>confirm the information provided in the Designation Form annually thereafter when submitting his/her compliance audit on July 1, and</li>
+                <li>update the Registrar within fifteen (15) calendar days if there are any changes to the contact information of the aforementioned Authorized
+                    Representative/Responsible Person.
+                </li>
+            </ol>
+        </div>
+    </form>
+</div>

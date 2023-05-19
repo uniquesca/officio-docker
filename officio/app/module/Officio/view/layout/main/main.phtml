@@ -1,0 +1,180 @@
+<?php
+
+use Officio\Common\Json;
+
+?>
+<?= $this->doctype() . "\n"; ?>
+<html>
+<head>
+    <?= $this->headTitle() . "\n" ?>
+    <?= $this->headMeta() . "\n" ?>
+    <link rel="gettext" type="application/x-po" href="<?= $this->baseUrl ?>/lang/<?= $this->current_locale ?>.po"/>
+
+    <!-- jQuery -->
+    <?= $this->minifier()->minify('jq') . "\n"; ?>
+    <?= $this->minifier()->minify('jquery-ui') . "\n"; ?>
+    <?= $this->minifier()->minify('jquery-ui-css') . "\n"; ?>
+    <!-- jQuery -->
+
+    <!-- ExtJS -->
+    <?= $this->minifier()->minify('ext_css') . "\n"; ?>
+    <?= $this->minifier()->minify('ext') . "\n"; ?>
+    <!-- / ExtJS -->
+
+    <?= $this->minStyleSheets() . "\n"; ?>
+    <?= $this->headStyle() . "\n" ?>
+
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var passwordValidationRegexp = '<?=$this->site_password_regex?>';
+        var passwordValidationRegexpMessage = '<?=$this->site_password_regex_message?>';
+        var curr_member_id = <?=(int)$this->current_member_id ?>;
+        var curr_member_name = <?=Json::encode($this->curr_member_name)?>;
+        var topBaseUrl = '<?=$this->topBaseUrl?>';
+        var baseUrl = '<?=$this->baseUrl?>';
+        var imagesUrl = '<?=$this->imagesUrl?>';
+        var zoho_enabled = <?= $this->zoho_enabled ? 1 : 0 ?>;
+        var dateFormatShort = '<?= $this->date_format_short ?>';
+        var dateFormatFull = '<?= $this->date_format_full ?>';
+        var todayDate = '<?= $this->today_date ?>';
+        var is_administrator = <?= (int)$this->is_administrator ?>;
+        var company_timezone = '<?= $this->company_timezone ?>';
+        var current_member_company_name = <?=Json::encode($this->current_member_company_name) ?>;
+        var site_version = '<?=$this->site_version?>';
+        var site_currency = '<?=strtolower($this->site_currency)?>';
+        var site_currency_label = '<?=$this->site_currency_label?>';
+        var site_company_phone = '<?=$this->site_company_phone?>';
+        var site_company_name = <?=Json::encode($this->site_company_name)?>;
+        var FROALA_SETTINGS = <?= Json::encode($this->froala_settings); ?>;
+        var calendly_enabled = <?= $this->calendly_enabled ? 1 : 0 ?>;
+        var dropbox_app_id = '<?= $this->dropbox_app_id ?>';
+        var google_drive_app_id = <?=Json::encode($this->google_drive_app_id)?>;
+        var google_drive_client_id = <?=Json::encode($this->google_drive_client_id)?>;
+        var google_drive_api_key = <?=Json::encode($this->google_drive_api_key)?>;
+        /* ]]> */
+    </script>
+
+    <?= $this->minifier()->minify('user_min_js') . "\n"; ?>
+    <?= $this->minJs() . PHP_EOL; ?>
+
+    <?php if (!empty($this->inline_manual_api_key)) : ?>
+        <script>window.inlineManualOptions = {language: 'en'};</script>
+        <script>!function () {
+                var e = document.createElement("script"), t = document.getElementsByTagName("script")[0];
+                e.async = 1, e.src = "https://cdn.inlinemanual.com/embed/player.<?=$this->inline_manual_api_key?>.js", e.charset = "UTF-8", t.parentNode.insertBefore(e, t)
+            }();</script>
+    <?php endif; ?>
+
+    <script type="text/template" id="qq-template">
+
+        <div class="qq-uploader-selector qq-uploader qq-gallery">
+            <div class="qq-upload-drop-area-selector qq-upload-drop-area" style="color: #ccc; border-radius: 2px" qq-hide-dropzone>
+                <span class="qq-upload-drop-area-text-selector">Drop files here</span>
+            </div>
+            <div id="attach-label">Attachments</div>
+            <div class="qq-upload-button-selector qq-upload-button">
+                <div><i class="las la-paperclip"></i>Attach from my computer</div>
+            </div>
+            <div id="attach-from-documents-button">
+                <div><i class="las la-paperclip"></i>Attach from the Documents tab</div>
+            </div>
+
+            <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
+                <li>
+                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                    <div class="qq-progress-bar-container-selector">
+                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                    </div>
+
+                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                    <div class="qq-thumbnail-wrapper" style="display: none;">
+                        <a class="preview-link" target="_blank">
+                            <img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale>
+                        </a>
+                    </div>
+                    <img src="<?=$this->topBaseUrl . '/images/deleteicon.gif';?>" class="attachment-cancel" onclick="Ext.getCmp('mail-create-dialog').removeAttachment(this); return false;" alt="Cancel" />
+                    <div class="qq-file-info">
+                        <div class="qq-file-name">
+                            <span class="qq-upload-file-selector qq-upload-file"></span>
+                            <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
+                        </div>
+                        <span class="qq-upload-size-selector qq-upload-size"></span>
+                    </div>
+                </li>
+            </ul>
+
+            <dialog class="qq-alert-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Close</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-confirm-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">No</button>
+                    <button type="button" class="qq-ok-button-selector">Yes</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-prompt-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <input type="text">
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                    <button type="button" class="qq-ok-button-selector">Ok</button>
+                </div>
+            </dialog>
+        </div>
+    </script>
+</head>
+
+<body style="overflow-x: hidden">
+<table width="100%" cellpadding="0" cellspacing="0">
+<tr>
+    <td class="head-td">
+        <?php if(!empty($this->site_top_warning_message)): ?>
+            <div style="position: absolute; top: 0; left: 50%; transform: translate(-50%, 0%); border: 1px solid red; padding: 0 10px; color: red; background-color: white; font-size: 9px"><?= $this->site_top_warning_message ?></div>
+        <?php endif ?>
+
+        <table cellpadding="0" cellspacing="0" style="width: 100%">
+            <tr>
+                <td id="officio-menu-dashboard">
+                    <?php if(!empty($this->companyLogoLink)) : ?>
+                        <img id="companyImageLogo" src="<?=$this->companyLogoLink?>" hspace="2" vspace="2"  border="0" align="bottom" alt="<?= $this->translate('Company Logo') ?>" />
+                    <?php else: ?>
+                        <img src="<?= $this->imgUrl($this->imgThemeUrl . $this->logoFileName) ?>" alt="<?= $this->translate('Go to Dashboard') ?>"/>
+                    <?php endif; ?>
+                </td>
+                <td id="officio-quick-links"></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+    <tr>
+        <td>
+            <div style="float: right; position: absolute; top: 9px; width: 99%;">
+                <div class="system-menu">
+                    <?php if ($this->booShowHelpTab) : ?>
+                        <a href="#" onclick="addHelpPage(); return false;"><?= $this->translate('Help') ?></a>
+                    <?php endif ?>
+
+                    <?php if ($this->booShowAdminTab) : ?>
+                        <a href="#" onclick="addAdminPage(); return false;"><?= $this->translate('Admin') ?></a>
+                    <?php endif ?>
+
+                    <a id="user-navigation-button" href="#" onclick="return false;"><img src="<?= $this->imgUrl('icons/profile.png') ?>" align="top" title="Click to open the Profile dialog" alt="Profile" width="16" height="16"/><span
+                                class="user-name"><?= $this->curr_member_name ?></span><img class="dropdown_menu" src="<?= $this->imgUrl('blue-arrow-down.gif') ?>" align="top" alt="Arrow" width="11" height="11"/></a><a
+                            href="<?= $this->baseUrl ?>/auth/logout" class="logout-link"><?= $this->translate('Logout') ?></a>
+                </div>
+            </div>
+
+            <!-- body -->
+            <div id="main-tabs" style="min-height: 25px;"></div>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

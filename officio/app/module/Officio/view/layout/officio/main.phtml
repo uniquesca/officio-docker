@@ -1,0 +1,79 @@
+<?= $this->doctype() . "\n"; ?>
+<html>
+<head>
+    <?= $this->headTitle() . "\n" ?>
+    <?= $this->headMeta() . "\n" ?>
+
+    <?php if ($this->booUseExtJs): ?>
+        <?= $this->minifier()->minify('ext_css') . "\n"; ?>
+        <?= $this->minifier()->minify('ext') . "\n"; ?>
+    <?php endif ?>
+
+    <?= $this->minStyleSheets() . "\n"; ?>
+    <?= $this->headStyle() . "\n" ?>
+    <?= $this->minJs() . "\n"; ?>
+</head>
+
+<body id="<?=$this->bodyId?>">
+<div id="wrap">
+        <!--Header-->
+        <div class="header">
+                <div class="logo">
+                    <a href="<?=$this->officioBaseUrl?>/index.php">
+                        <?php if($this->site_version == 'australia') : ?>
+                            <img src="<?=$this->officioImagesUrl?>/logo-officio-au.jpg" height="68" width="147" alt="<?=$this->officio_domain ?>" title="<?=$this->officio_domain ?>" border="0"/>
+                        <?php else : ?>
+                            <img src="<?=$this->officioImagesUrl?>/logo-officio.jpg" height="68" width="147" alt="<?=$this->officio_domain ?>" title="<?=$this->officio_domain ?>" border="0"/>
+                        <?php endif ?>
+                    </a>
+                </div>
+                <div class="log-menu">
+                    <div class="login-row">
+                        <div style="float:right; margin-right:80px;">
+                            <a id="officio_login_open" href="//<?=$this->officio_domain_secure ?>" style="color: #ffffff; text-decoration:none;"><img border="0" height="12" width="12" src="<?=$this->officioImagesUrl?>/key.png" alt=""/> <?=$this->translate('Client Login')?></a>
+                            <span style="padding-left:40px; color:#ffffff;">
+                                <?php if($this->site_version == 'australia') : ?>
+                                    <?=$this->site_company_phone?>
+                                <?php else : ?>
+                                    <?=$this->translate('Toll free: ') . $this->site_company_phone?>
+                                <?php endif ?>
+                            </span>
+                        </div>
+                        <div class='hidden'><div id="officio_login_div"></div></div>
+                    </div>
+                    
+                    <div class="menu-row">
+                        <ul>
+                            <li class="nav01"><a href="<?=$this->officioBaseUrl?>/index.php"><?=$this->translate('Home')?></a></li>
+                            <li class="nav02"><a href="<?=$this->officioBaseUrl?>/product.phtml"><?=$this->translate('Product Details')?></a></li>
+                            <li class="nav03"><a href="<?=$this->officioBaseUrl?>/new_pricing_1.php"><?=$this->translate('Pricing')?></a></li>
+                            <li class="nav04"><a href="<?=$this->officioBaseUrl?>/company.phtml"><?=$this->translate('Company')?></a></li>
+                            <li class="nav05"><a href="<?=$this->officioBaseUrl?>/new_signup_1.php"><?=$this->translate('Sign Up')?></a></li>
+                            <li class="nav06"><a href="<?=$this->officioBaseUrl?>/contacts.phtml"><?=$this->translate('Contact')?></a></li>
+                        </ul>
+                    </div>
+                    
+                        <div class="menu-row-addthis">
+                          <!-- AddThis Button BEGIN -->
+                          <a class="addthis_button" href="https://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4b0a9b020c06c844"><img src="https://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="<?=$this->translate('Bookmark and Share')?>" style="border:0"/></a><script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js#pub=xa-4b0a9b020c06c844"></script>
+                          <!-- AddThis Button END -->
+                        </div>
+                </div>
+        </div>
+        <!--Body-->
+        <div id="main-in-window" class="clearfix" style="padding-top:10px;"><?=$this->layout()->content;?></div>
+</div>
+<!--Footer-->
+<div id="footer-window">
+        <div class="footer-row">
+                <div class="footercol01"><?=$this->translate('Copyright')?> &copy; <?=($this->site_version == 'australia' ? '2013-' . date('Y') : '1996-' . date('Y'))?>, <?=$this->site_company_name ?></div>
+                <div class="footercol02">
+                        <ul>
+                            <li><a class="inline_footer" href="<?=$this->baseUrl?>/index/privacy"><?=$this->translate('Privacy Policy')?></a></li>
+                            <li><a class="inline_footer" href="<?=$this->baseUrl?>/index/terms"><?=$this->translate('Terms of Use')?></a></li>
+                        </ul>
+                </div>
+        </div>
+</div>
+</body>
+</html>

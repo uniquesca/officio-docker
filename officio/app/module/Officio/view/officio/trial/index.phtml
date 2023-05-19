@@ -1,0 +1,140 @@
+<div id="trial_change_plan">
+    <input type="hidden" id="trial_selected_plan" />
+    <input type="hidden" id="trial_expired"                  value="<?=($this->booExpired ? '1' : '0')?>" />
+    <input type="hidden" id="trial_free_users"               value="<?=$this->freeUsers?>" />
+    <input type="hidden" id="trial_active_users"             value="<?=$this->activeUsers?>" />
+    <input type="hidden" id="trial_fee_annual"               value="<?=$this->feeAnnual?>" />
+    <input type="hidden" id="trial_fee_monthly"              value="<?=$this->feeMonthly?>" />
+    <input type="hidden" id="trial_license_annual"           value="<?=$this->licenseAnnual?>" />
+    <input type="hidden" id="trial_license_monthly"          value="<?=$this->licenseMonthly?>" />
+    <input type="hidden" id="trial_company_gst"              value="<?=$this->companyGst?>" />
+    <input type="hidden" id="trial_company_gst_tax_label"    value="<?=$this->companyGstTaxLabel?>" />
+    <input type="hidden" id="trial_company_gst_type"         value="<?=$this->companyGstType?>" />
+    <input type="hidden" id="trial_company_gst_default_type" value="<?=$this->companyGstDefaultType?>" />
+
+
+    <div id="trial_plan_selection" class="trial_wrapper">
+        <div style="padding: 10px 0;">
+            <?=($this->booExpired ? $this->translate('Your trial period has expired on') : $this->translate('Your trial period is expiring on'))?> <span style="color: #f00;"><?=$this->expirationDate?></span>. <?=$this->translate('We hope you have enjoyed your experience with Officio.')?><br/>
+            <?=$this->discountLabel?>
+        </div>
+
+        <div class="trial_container">
+            <div id="standard" class="col3">
+                <div class="black-wrap">
+                    <div class="plan-title"><div><?=$this->translate('Monthly Plan')?></div></div>
+                    <div class="plan-price">
+                        <div style="padding-top: 20px;"><span class="trial_price">$<?=$this->feeMonthly?></span><span class="trial_price_label"><?=$this->translate('/month')?></span></div>
+                        <div>&nbsp;</div>
+                        <div class="plan-savings"></div>
+                    </div>
+
+                    <div class="plan-desc"><button onclick="showPlan(true);"><?=$this->translate('Select')?></button></div>
+                </div>
+            </div>
+
+            <div id="advanced" class="col3">
+                <div class="black-wrap">
+                    <div class="plan-title"><div><?=$this->translate('Annual Plan')?></div><div class="ribbon"></div></div>
+                    <div class="plan-price">
+                        <div style="padding-top: 20px;"><span class="trial_price">$<?=$this->feeAnnual?></span><span class="trial_price_label"><?=$this->translate('/year')?></span></div>
+                        <div><?=sprintf($this->translate('equivalent to %s/month'), $this->feeAnnualPerMonthFormatted)?></div>
+                        <div class="plan-savings">
+                            <?php if(!$this->booExpired):?><span class="y1"><?=sprintf($this->translate('Offer is valid until %s'), $this->expirationDate)?>.</span><?php endif;?>
+                        </div>
+                    </div>
+
+                    <div class="plan-desc"><button onclick="showPlan(false);"><?=$this->translate('Select')?></button></div>
+                </div>
+            </div>
+        </div>
+        <div style="margin: 0 auto; padding: 10px; width: 300px;">
+            <?php if($this->layout()->site_version == 'australia') : ?>
+                <?=$this->translate('Have any questions? Call us:')?> <b><?=$this->layout()->site_company_phone?></b>
+            <?php else : ?>
+                <?=$this->translate('Have any questions? Call us toll free:')?> <b><?=$this->layout()->site_company_phone?></b>
+            <?php endif ?>
+        </div>
+    </div>
+
+    <div id="trial_details" style="display: none; margin:0 auto; width: 550px;">
+        <div style="margin: 0 auto; padding: 5px; width: 300px;">
+            <?php if($this->layout()->site_version == 'australia') : ?>
+                <?=$this->translate('Have any questions? Call us:')?> <b><?=$this->layout()->site_company_phone?></b>
+            <?php else : ?>
+                <?=$this->translate('Have any questions? Call us toll free:')?> <b><?=$this->layout()->site_company_phone?></b>
+            <?php endif ?>
+        </div>
+        <table>
+            <tr>
+                <th></th>
+                <th>
+                    <span class="trial_annual_plan"><?=$this->translate('Annual Plan')?></span>
+                    <span class="trial_monthly_plan"><?=$this->translate('Monthly Plan')?></span>
+                </th>
+            </tr>
+            <tr>
+                <td class="trial_first_col"><?=$this->translate('Subscription:')?></td>
+                <td class="trial_second_col">
+                    <span class="trial_annual_plan"><?=$this->feeAnnualFormatted?></span>
+                    <span class="trial_monthly_plan"><?=$this->feeMonthlyFormatted?></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="trial_first_col">
+                    <?=$this->translate('Number of user licenses needed:')?><br/>
+                    <em>
+                        <?=sprintf($this->plural(['Your subscription includes %s user license.', 'Your subscription includes %s user licenses.'], $this->freeUsers), $this->freeUsers)?><br/>
+                        <?=$this->translate('Additional users are charged at')?> <span id="trial_user_license_price"></span>.
+                    </em>
+                </td>
+                <td class="trial_second_col">
+                    <div style="float: right; width: 60px;">
+                        <select id="trial_user_licenses" name="trial_user_licenses">
+                            <?php
+                                for ($i = 1; $i <= 35; $i++) {
+                                    $selected = $i == $this->activeUsers ? 'selected="selected"' : '';
+                                    echo sprintf("<option value='%s' %s>%s</option>", $i, $selected, $i);
+                                }
+                            ?>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="trial_first_col"><?=$this->translate('Additional user licenses:')?> <span id="trial_additional_user_licenses"></span></td>
+                <td class="trial_second_col">
+                    <span id="trial_licenses_calculated">$0.00</span>
+                </td>
+            </tr>
+            <tr class="gst_row">
+                <td class="trial_first_col"><?=$this->translate('GST/HST:')?></td>
+                <td class="trial_second_col">
+                    <span id="trial_gst_calculated">$0.00</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="trial_first_col"><?=$this->translate('Total:')?></td>
+                <td class="trial_second_col">
+                    <span id="trial_total_calculated">$0.00</span>
+                </td>
+            </tr>
+            <tr class="gst_row_included">
+                <td colspan="2">
+                    <em>Total fee includes <span id="renew_gst_included_percents"></span> of <span id="renew_gst_included">$0.00</span></em>
+                </td>
+            </tr>
+        </table>
+
+        <div style="margin-top: 20px; width: 100%; height: 130px;">
+            <?= $this->partial('officio/partials/cc-section.phtml'); ?>
+        </div>
+
+        <div style="margin: 0 auto; padding: 10px; width: 450px;"><em><?= sprintf($this->translate('By pressing submit, you authorize %s to charge the credit card above.'), $this->layout()->site_company_name) ?></em></div>
+
+        <div style="margin: 0 auto; width: 98%;">
+            <button onclick="showPlanSelection();">&lt;&lt;&nbsp;<?= $this->translate('Back') ?></button>
+            <a href="#" onclick="submitSubscriptionData('trial'); return false;" style="float: right;" class="large orange awesome"><?= $this->translate('Submit') ?></a>
+        </div>
+    </div>
+</div>

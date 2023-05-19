@@ -1,0 +1,23 @@
+<?php
+
+namespace Forms\Controller\Factory;
+
+use Forms\Service\Forms;
+use Psr\Container\ContainerInterface;
+use Officio\BaseControllerFactory;
+
+/**
+ * This is the factory for FormsFoldersController. Its purpose is to instantiate the controller
+ * and inject dependencies into its constructor.
+ */
+class FormsFoldersControllerFactory extends BaseControllerFactory
+{
+
+    protected function retrieveAdditionalServiceList(ContainerInterface $container)
+    {
+        return [
+            Forms::class => $container->get(Forms::class)
+        ];
+    }
+
+}

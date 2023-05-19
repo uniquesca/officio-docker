@@ -1,0 +1,169 @@
+<?php
+
+use Officio\Common\Json;
+
+?>
+<?= $this->doctype() . "\n"; ?>
+<html>
+<head>
+    <?= $this->headTitle()      . "\n" ?>
+    <?= $this->headMeta()       . "\n" ?>
+    <link rel="gettext" type="application/x-po" href="<?=$this->topBaseUrl?>/lang/<?=$this->current_locale?>.po" />
+
+    <!-- jQuery -->
+    <?= $this->minifier()->minify('jq') . "\n"; ?>
+    <?= $this->minifier()->minify('jquery-ui') . "\n"; ?>
+    <?= $this->minifier()->minify('jquery-ui-css') . "\n"; ?>
+    <!--[if IE]><link rel="stylesheet" type="text/css" href="<?=$this->topCssUrl;?>/ie_fix.css" /><![endif]-->
+    <!-- jQuery -->
+
+    <!-- ExtJS -->
+    <?= $this->minifier()->minify('ext_css') . "\n"; ?>
+    <?= $this->minifier()->minify('ext') . "\n"; ?>
+    <!-- / ExtJS -->
+
+    <?= $this->minStyleSheets() . "\n"; ?>
+    <?= $this->headStyle()      . "\n" ?>
+
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        // Settings
+        var topBaseUrl = '<?=$this->topBaseUrl;?>';
+        var baseUrl = '<?=$this->baseUrl;?>';
+        var imagesUrl = '<?=$this->imagesUrl;?>';
+        var dateFormatShort = '<?=$this->settings->variable_get("dateFormatShort"); ?>';
+        var dateFormatFull = '<?=$this->settings->variable_get("dateFormatFull"); ?>';
+        var site_version = '<?=$this->site_version?>';
+        var site_currency = '<?=strtolower($this->site_currency)?>';
+        var site_currency_label = '<?=$this->site_currency_label?>';
+        var site_company_phone = '<?=$this->site_company_phone?>';
+        var site_company_name = <?= Json::encode($this->site_company_name); ?>;
+        var FROALA_SETTINGS = <?= Json::encode($this->froala_settings); ?>;
+        var booShowHelpIcon = <?= Json::encode($this->layout()->acl->isAllowed('help-view')); ?>;
+        /* ]]> */
+    </script>
+
+    <?= $this->minifier()->minify('superadmin_min_js') . "\n"; ?>
+    <?= $this->minJs() . "\n"; ?>
+
+    <script type="text/template" id="qq-template">
+
+        <div class="qq-uploader-selector qq-uploader qq-gallery">
+            <div class="qq-upload-drop-area-selector qq-upload-drop-area" style="color: #ccc; border-radius: 2px" qq-hide-dropzone>
+                <span class="qq-upload-drop-area-text-selector">Drop files here</span>
+            </div>
+            <div class="qq-upload-button-selector qq-upload-button">
+                <div><i class="las la-paperclip"></i>Attach from my computer</div>
+            </div>
+            <div id="attach-from-documents-button">
+                <div><i class="las la-paperclip"></i>Attach from the Documents tab</div>
+            </div>
+
+            <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
+                <li>
+                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                    <div class="qq-progress-bar-container-selector">
+                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                    </div>
+
+                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                    <div class="qq-thumbnail-wrapper" style="display: none;">
+                        <a class="preview-link" target="_blank">
+                            <img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale>
+                        </a>
+                    </div>
+                    <img src="<?=$this->topBaseUrl . '/images/deleteicon.gif';?>" class="attachment-cancel" onclick="Ext.getCmp('mail-create-dialog').removeAttachment(this); return false;" alt="Cancel" />
+                    <div class="qq-file-info">
+                        <div class="qq-file-name">
+                            <span class="qq-upload-file-selector qq-upload-file"></span>
+                            <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
+                        </div>
+                        <span class="qq-upload-size-selector qq-upload-size"></span>
+                    </div>
+                </li>
+            </ul>
+
+            <dialog class="qq-alert-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Close</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-confirm-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">No</button>
+                    <button type="button" class="qq-ok-button-selector">Yes</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-prompt-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <input type="text">
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                    <button type="button" class="qq-ok-button-selector">Ok</button>
+                </div>
+            </dialog>
+        </div>
+    </script>
+</head>
+
+<body style="overflow-x: hidden">
+<table width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+        <td class="head-td">
+            <!-- header -->
+            <?php if(!empty($this->site_top_warning_message)): ?>
+                <div style="position: absolute; top: 10px; left: 270px; border: 1px solid grey; padding: 5px; color: grey; background-color: white; font-size: 12px"><?= $this->site_top_warning_message ?></div>
+            <?php endif ?>
+
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td id="superadmin-menu-dashboard">
+                        <img src="<?=$this->imgUrl($this->imgThemeUrl . $this->logoFileName)?>" usemap="#logo_map" alt="<?=$this->translate('Officio Logo')?>" /><map name="logo_map" id="logo_map"><area shape="rect" coords="0,0,108,33" href="//<?=$this->officio_domain ?>" target="_blank" alt="" /></map>
+                        <span style="margin-left: 10px; margin-top: 15px; font-size: 23px; position: absolute">Super Admin</span>
+                    </td>
+                    <td style="padding-top: 2px; padding-right: 20px; width:50%" align="left" class='content_container_header_left'>
+                        <input type="text" name="company_search" id="company_search" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div style="float: right; position: absolute; top: 5px; right: 0; width: 100%;">
+               <div class="system-menu">
+                   <span class="user-name"><?=$this->layout()->curr_member_name?></span>
+                   <?php if ($this->layout()->acl->isAllowed('user-profile-view')) : ?>
+                       <img id="user-navigation-button" src="<?= $this->imgUrl('icons/cog.png') ?>" align="top" title="Click to open the Profile dialog" alt="Profile" width="16" height="16"/>
+                   <?php else: ?>
+                       <span>&nbsp;</span>
+                   <?php endif ?>
+
+                   <a href="<?=$this->baseUrl?>/auth/logout" class="logout-link"><?=$this->translate('Logout')?></a>
+               </div>
+            </div>
+
+            <!-- body -->
+            <div id="main-tabs" style="min-height: 25px;"></div>
+        </td>
+    </tr>
+    <tr class="footer-tr">
+        <td style="padding:8px 8px 0 8px;">
+            <!-- footer -->
+            <table width="100%" align="center" cellpadding="0" cellspacing="0">
+            <tr>
+            <td class="footertxt" valign="top" align="left" style="padding-bottom:10px;"><strong><?=$this->translate('Copyright')?> &copy; <?=($this->site_version == 'australia' ? '2013-' . date('Y') : '1996-' . date('Y'))?> <?=$this->site_company_name ?></strong>&nbsp;&nbsp;<span><?=$this->translate('Reproduction in any form is prohibited.')?></span><br /></td>
+            <?php if ($this->site_version=='canada') { ?>
+            <td class="footertxt" valign="top" align="right" style="padding-bottom:10px;"><a href="http://www.uniques.ca/" target="_blank" style="color: #848A8D"><?=$this->translate('Powered by Uniques Software Corp.')?></a></td>
+            <?php } ?>
+            </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

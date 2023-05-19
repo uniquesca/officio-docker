@@ -1,0 +1,507 @@
+<?php
+
+$show_corners = $this->mode == 'add';
+if ($show_corners) {
+?>
+
+<table cellspacing="0" cellpadding="0" width="100%">
+    <tr>
+        <td align="left" width="5" valign="top"><img src="<?= $this->imgUrl('cor-left-top.gif') ?>" alt=""/></td>
+        <td bgcolor="#ffffff" width="100%" class="brbluetop"><img height="1" width="1" src="<?= $this->imgUrl('spacer.gif') ?>" alt=""/></td>
+        <td align="right" width="5" valign="top"><img height="6" width="5" src="<?= $this->imgUrl('cor-right-top.gif') ?>" alt=""/></td>
+    </tr>
+    <tr>
+        <td bgcolor="#ffffff" class="brblueleft">&nbsp;</td>
+        <td valign="top" class="tablebg" style="height:500px; min-height:500px;">
+
+            <?php } ?>
+
+            <table id="<?= $this->tabId ?>-profile" cellpadding="0" cellspacing="0" width="100%" style="background-color:#FFF; padding:0 4px; margin-top: 55px;">
+                <?php if ($this->booProspectConverted) : ?>
+                    <tr>
+                        <td>
+                            <div class="ui-widget">
+                                <div class="ui-corner-all ui-state-highlight" style="padding: 0 .7em; margin: 10px auto; width: 360px;">
+                                    <div style="padding: 5px;">
+                                        <span class="ui-msg-info">This prospect profile has been awarded.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+                <tr>
+                    <td style="padding-bottom:6px;">
+
+                        <form id="<?= $this->tabId ?>-prospects" action="#">
+                            <input type="hidden" name="pid" value="<?= $this->pid ?>"/>
+
+                            <table cellpadding="0" cellspacing="0" width="100%" style="background-color:#FFF; padding: 4px 20px;">
+                                <tr>
+                                    <td class="garytxt14" style="padding-bottom: 6px; padding-top: 6px;" align="right">
+                                        <table width="100%">
+                                            <tr>
+                                                <td><?php if ($this->panelType == 'marketplace' && !empty($this->prospectInfo['mp_prospect_expiration_date']) && date('Y-m-d') <= date($this->prospectInfo['mp_prospect_expiration_date'])) {
+                                                        echo "<b class='premium-member'>" . "&nbsp;" . $this->translate('Premium Member') . "&nbsp;" . "</b>";
+                                                    } ?></td>
+                                                <td align="right"><span class="error">*</span> <b><?= $this->translate('indicates mandatory fields') ?></b></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" valign="top">
+                                        <div id="<?= $this->tabId ?>-divSuccess" style="display:none;" class="confirmation">&nbsp;</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" valign="top">
+
+                                        <table cellspacing="0" cellpadding="0" width="100%">
+                                            <?php
+                                            $currentSectionNum = 0;
+                                            $currentSectionId  = 0;
+
+                                            // Describe which fields we need show in 'Other Info' section
+                                            $arrOtherInfoFields = array(
+                                                'qf_country_of_citizenship',
+                                                'qf_country_of_residence',
+                                                'preferred_language',
+                                                'qf_email',
+                                                'qf_phone',
+                                                'qf_fax',
+                                                'office_id',
+                                                'agent_id',
+                                                'qf_referred_by',
+                                                'seriousness',
+                                                'qf_further_information',
+                                                'status',
+                                                'qf_did_not_arrive',
+                                            );
+
+                                            // Don't show Office/Seriousness fields for MP tab
+                                            if ($this->panelType == 'marketplace') {
+                                                foreach ($arrOtherInfoFields as $key => $otherInfoFieldId) {
+                                                    if (in_array($otherInfoFieldId, array('office_id', 'seriousness'))) {
+                                                        unset($arrOtherInfoFields[$key]);
+                                                    }
+                                                }
+                                            }
+
+                                            $languageSectionId  = $this->qnr->getQuestionnaireSectionLanguageId();
+                                            $educationSectionId = $this->qnr->getQuestionnaireSectionEducationId();
+
+                                            $date_format = $this->layout()->settings->variable_get('dateFormatFull');
+
+                                            $currentSectionNum++;
+                                            foreach ($this->qnrFields as $sectionLabel => $arrFields) {
+                                                $currentSectionId = is_array($arrFields) && count($arrFields) ? $arrFields[0]['q_section_id'] : 0;
+                                                $currentSection   = ucwords(strtolower($sectionLabel));
+
+                                                echo "<tr><td class='padtopbtm3 job-section-" . $currentSectionId . "' onclick=\"toggleDiv('$this->panelType', '$this->tabId', $currentSectionNum); return false;\" style='cursor:pointer;'><a href='#' id='arw" . $this->tabId . $currentSectionNum . "' class='bluetxtdark blue-arrow-down'>$currentSection</a></td></tr>";
+
+                                                if (is_array($arrFields) && count($arrFields)) {
+                                                    $strTableWidth = in_array($currentSectionNum, array(3, 4)) ? '' : "width='100%'";
+
+                                                    echo "<tr>" .
+                                                        "<td class='padtopbtm3 job-section-" . $currentSectionId . "' valign='top'>" .
+                                                        "<div id='dv" . $this->tabId . $currentSectionNum . "' class='" . $this->tabId . "profile_section_content'>";
+
+                                                    if ($currentSectionNum != 4) {
+                                                        echo "<table $strTableWidth cellspacing='0' cellpadding='0'>";
+                                                    }
+
+                                                    $currentFieldCount         = 0;
+                                                    $totalFieldsCountInSection = 0;
+                                                    foreach ($arrFields as $arrField) {
+                                                        // Some fields we don't need to show in sections
+                                                        if (in_array($arrField['q_field_unique_id'], $arrOtherInfoFields)) {
+                                                            continue;
+                                                        }
+
+                                                        if ($arrField['q_field_unique_id'] == 'qf_language_your_label') {
+                                                            echo "<table cellspacing='0' cellpadding='0'><tr><td valign='top' width='50%'>";
+                                                        }
+
+                                                        if ($arrField['q_field_unique_id'] == 'qf_language_spouse_label') {
+                                                            echo "<td valign='top' width='50%'>";
+                                                        }
+
+                                                        if ($arrField['q_field_unique_id'] == 'qf_language_french_done') {
+                                                            echo "<tr><td valign='top' width='50%'>";
+                                                        }
+
+                                                        if ($arrField['q_field_unique_id'] == 'qf_language_spouse_french_done') {
+                                                            echo "<td valign='top' width='50%'>";
+                                                        }
+
+                                                        if (in_array($arrField['q_field_unique_id'], array('qf_language_your_label', 'qf_language_french_done', 'qf_language_spouse_label', 'qf_language_spouse_french_done'))) {
+                                                            echo "<table $strTableWidth cellspacing='0' cellpadding='0'>";
+                                                        }
+
+                                                        // Check how much fields we need show in the row
+                                                        switch ($arrField['q_section_id']) {
+                                                            case $languageSectionId:
+                                                                $fieldsInRow = 1;
+                                                                break;
+
+                                                            case $educationSectionId:
+                                                                $fieldsInRow = 2;
+                                                                break;
+
+                                                            default:
+                                                                $fieldsInRow = 3;
+                                                                break;
+                                                        }
+
+                                                        // Don't mark specific fields as required
+                                                        if ($arrField['q_field_unique_id'] == 'qf_family_sponsor_income') {
+                                                            $arrField['q_field_required'] = 'N';
+                                                        }
+
+                                                        $label = empty($arrField['q_field_prospect_profile_label']) ? $arrField['q_field_label'] : $arrField['q_field_prospect_profile_label'];
+                                                        if ($this->qnr->isFieldRequiredForSave($arrField['q_field_unique_id']) && !empty($label)) {
+                                                            $label .= '<span class="error" style="padding-left: 5px; cursor: help;" title="Required Field">*</span>';
+                                                        }
+
+                                                        // Show label in the whole row
+                                                        if ($arrField['q_field_type'] == 'label' && !in_array($arrField['q_section_id'], array($educationSectionId, $languageSectionId))) {
+                                                            echo "<tr>";
+                                                            echo "<td align='left' class='garytxt11 padbtm4' valign='top' colspan='$fieldsInRow'>";
+                                                            echo "<div class='field-label'>$label</div>";
+                                                            echo "</td>";
+                                                            echo "</tr>";
+
+                                                            continue;
+                                                        }
+
+                                                        // Start a new row
+                                                        if ($currentFieldCount == 0) {
+                                                            echo "<tr>";
+                                                        }
+
+                                                        // Display the field
+
+                                                        // In special cases we need show one field in several columns
+                                                        $strColSpan = '';
+                                                        $strTdStyle = '';
+                                                        //                            if (in_array($arrField['q_field_unique_id'], array('qf_language_your_label', 'qf_language_spouse_label'))) {
+                                                        //                                $strColSpan = 'colspan="3"';
+                                                        //                                $strTdStyle .= 'padding-left: 100px; font-size: 12px; font-weight: bold; font-style: italic;';
+                                                        //                                $currentFieldCount += 2;
+                                                        //                            }
+
+                                                        // In special cases we need show additional column before the field
+                                                        //                            if (in_array($arrField['q_field_unique_id'], array('qf_language_eng_label', 'qf_language_spouse_eng_label'))) {
+                                                        //                                echo "<td></td>";
+                                                        //                                $currentFieldCount++;
+                                                        //                            }
+
+                                                        // In special cases we need increase the width of the column
+                                                        //                            if ($arrField['q_field_unique_id'] == 'qf_language_fr_label') {
+                                                        //                                $strTdStyle .= 'width: 320px;';
+                                                        //                            }
+
+                                                        if (in_array($currentSectionNum, array(1, 2, 5, 6, 7))) {
+                                                            $strTdStyle .= 'width: 33%;';
+                                                        } elseif (in_array($currentSectionNum, array(3, 4))) {
+                                                            $strTdStyle .= 'width: 457px;';
+                                                        }
+
+                                                        $strTdStyle = empty($strTdStyle) ? '' : "style='$strTdStyle'";
+
+                                                        $strTdClass = '';
+                                                        // if (preg_match('/^qf_language_spouse_/', $arrField['q_field_unique_id'])) {
+                                                        if (preg_match('/^qf_(.*)spouse_/', $arrField['q_field_unique_id'])) {
+                                                            $strTdClass = 'spouse_field';
+                                                        }
+
+
+                                                        $strTdClass .= ' ' . $arrField['q_field_unique_id'];
+
+
+                                                        echo "<td align='left' class='garytxt11 padbtm4 $strTdClass' valign='top' $strColSpan $strTdStyle>";
+
+                                                        if ($arrField['q_field_type'] == 'label' && ($arrField['q_section_id'] == $educationSectionId || $arrField['q_section_id'] == $languageSectionId)) {
+                                                            echo "<div style='padding-left: 120px; font-size: 12px; font-weight: bold; font-style: italic;'>$label</div>";
+                                                        } else {
+                                                            if (in_array($arrField['q_field_unique_id'], array('qf_language_spouse_french_done', 'qf_language_french_done'))) {
+                                                                echo "<br /><br /><br />";
+                                                            }
+                                                            echo empty($label) ? '' : "<div class='field-label'>$label</div>";
+                                                        }
+
+
+                                                        $fieldValue = '';
+                                                        if(!empty($this->prospectInfo)) {
+
+                                                            switch ($arrField['q_field_unique_id']) {
+                                                                case 'qf_age':
+                                                                    $fieldValue = \Officio\Common\Service\Settings::isDateEmpty($this->prospectInfo['date_of_birth']) ? '' : date($date_format, strtotime($this->prospectInfo['date_of_birth']));
+                                                                   break;
+
+                                                                case 'qf_spouse_age':
+                                                                    $fieldValue = \Officio\Common\Service\Settings::isDateEmpty($this->prospectInfo['spouse_date_of_birth']) ? '' : date($date_format, strtotime($this->prospectInfo['spouse_date_of_birth']));
+                                                                   break;
+
+                                                                case 'qf_first_name':
+                                                                    $fieldValue = empty($this->prospectInfo['fName']) ? '' : $this->prospectInfo['fName'];
+                                                                    break;
+
+                                                                case 'qf_last_name':
+                                                                    $fieldValue = empty($this->prospectInfo['lName']) ? '' : $this->prospectInfo['lName'];
+                                                                    break;
+
+                                                                case 'qf_email':
+                                                                    $fieldValue = $this->prospectInfo['email'];
+                                                                    break;
+
+                                                                default:
+                                                                    if (isset($this->prospectData[$arrField['q_field_id']])) {
+                                                                        $fieldValue = $this->prospectData[$arrField['q_field_id']];
+
+                                                                        if (!empty($fieldValue) && $arrField['q_field_type'] == 'age') {
+                                                                            $fieldValue = (int)date('Y') - $fieldValue;
+                                                                        }
+                                                                    }
+                                                                    break;
+                                                            }
+                                                        }
+
+                                                        echo $this->qnr->generateQnrField(
+                                                            true,
+                                                            'p_' . $this->pid . '_field_' . $arrField['q_field_id'],
+                                                            'p2_' . $this->pid . '_field_' . $arrField['q_field_id'], // Used for options
+                                                            $this->pid,
+                                                            $arrField,
+                                                            $this->qnrFieldsOptions,
+                                                            $this->arrCountries,
+                                                            $fieldValue,
+                                                            'ltr',
+                                                            true,
+                                                            '',
+                                                            $this->panelType
+                                                        );
+                                                        echo "</td>";
+
+                                                        // Finish a row if X fields are already showed
+                                                        if ($currentFieldCount == $fieldsInRow - 1) {
+                                                            echo "</tr>";
+                                                            $currentFieldCount = 0;
+                                                        } else {
+                                                            $currentFieldCount++;
+                                                        }
+
+                                                        $totalFieldsCountInSection++;
+
+                                                        if (in_array(
+                                                            $arrField['q_field_unique_id'],
+                                                            array('qf_language_english_general_score_listen', 'qf_language_french_general_score_listen', 'qf_language_spouse_english_general_score_listen')
+                                                        )) {
+                                                            echo "</table>";
+                                                        }
+
+                                                        if ($arrField['q_field_unique_id'] == 'qf_language_english_general_score_listen') {
+                                                            echo "</td>";
+                                                        }
+
+                                                        if ($arrField['q_field_unique_id'] == 'qf_language_spouse_english_general_score_listen') {
+                                                            echo "</td></tr>";
+                                                        }
+
+                                                        if ($arrField['q_field_unique_id'] == 'qf_language_french_general_score_listen') {
+                                                            echo "</td>";
+                                                        }
+
+                                                        if ($arrField['q_field_unique_id'] == 'qf_language_spouse_french_general_score_listen') {
+                                                            echo "</td></tr></table>";
+                                                        }
+                                                    } // foreach
+
+                                                    echo "</table></div></td></tr>";
+                                                }
+
+                                                $currentSectionNum++;
+                                            }
+
+                                            $strOtherTDStyle = count($arrOtherInfoFields) ? '' : 'style="display: none;"';
+                                            echo "<tr><td class='padtopbtm3' $strOtherTDStyle onclick=\"toggleDiv('$this->panelType', '$this->tabId', $currentSectionNum); return false;\" style='cursor:pointer;'><a href='#' id='arw" . $this->tabId . $currentSectionNum . "' class='bluetxtdark blue-arrow-down'>" . $this->translate(
+                                                    'Other Info'
+                                                ) . "</a></td></tr>";
+                                            echo "<tr>" .
+                                                "<td class='padtopbtm3' valign='top'>" .
+                                                "<div id='dv" . $this->tabId . $currentSectionNum . "' class='" . $this->tabId . "profile_section_content'>" .
+                                                "<table width='100%' cellspacing='0' cellpadding='0'>";
+
+                                            $currentFieldCount = 0;
+                                            foreach ($arrOtherInfoFields as $fieldUniqueId) {
+                                                $booFound   = false;
+                                                $fieldValue = '';
+                                                switch ($fieldUniqueId) {
+                                                    // Custom fields
+                                                    case 'office_id':
+                                                        $fieldValue = $this->prospectOffices;
+                                                        $arrField   = array(
+                                                            'q_field_id'        => $fieldUniqueId,
+                                                            'q_field_label'     => $this->prospectOfficeLabel,
+                                                            'q_field_unique_id' => $fieldUniqueId,
+                                                            'q_field_type'      => 'office_multi',
+                                                            'q_field_required'  => 'Y'
+                                                        );
+                                                        $booFound   = true;
+                                                        break;
+
+                                                    case 'agent_id':
+                                                        $fieldValue = isset($this->prospectInfo['agent_id']) && $this->prospectInfo['agent_id'] != '' ? (int)$this->prospectInfo['agent_id'] : '';
+                                                        $arrField   = array(
+                                                            'q_field_id'        => $fieldUniqueId,
+                                                            'q_field_label'     => $this->layout()->site_version == 'australia' ? 'Sales Agent' : 'Agent',
+                                                            'q_field_unique_id' => $fieldUniqueId,
+                                                            'q_field_type'      => 'agent',
+                                                            'q_field_required'  => 'N'
+                                                        );
+                                                        $booFound   = true;
+                                                        break;
+
+                                                    case 'status':
+                                                        $fieldValue = empty($this->pid) ? 'active' : ($this->prospectInfo['status'] ?? 'inactive');
+                                                        $arrField   = array(
+                                                            'q_field_id'        => $fieldUniqueId,
+                                                            'q_field_label'     => 'Status',
+                                                            'q_field_unique_id' => $fieldUniqueId,
+                                                            'q_field_type'      => 'status',
+                                                            'q_field_required'  => 'N'
+                                                        );
+                                                        $booFound   = true;
+                                                        break;
+
+                                                    case 'preferred_language':
+                                                        $fieldValue = $this->prospectInfo['preferred_language'] ?? '';
+                                                        $arrField   = array(
+                                                            'q_field_id'        => $fieldUniqueId,
+                                                            'q_field_label'     => 'Preferred Language',
+                                                            'q_field_unique_id' => $fieldUniqueId,
+                                                            'q_field_type'      => 'textfield',
+                                                            'q_field_required'  => 'N',
+                                                        );
+                                                        $booFound   = true;
+                                                        break;
+
+                                                    case 'seriousness':
+                                                        $fieldValue = $this->prospectInfo['seriousness'] ?? '';
+                                                        $arrField   = array(
+                                                            'q_field_id'        => $fieldUniqueId,
+                                                            'q_field_label'     => 'Level of Seriousness',
+                                                            'q_field_unique_id' => $fieldUniqueId,
+                                                            'q_field_type'      => 'seriousness',
+                                                            'q_field_required'  => 'N',
+                                                        );
+                                                        $booFound   = true;
+                                                        break;
+
+                                                    // All other fields, not showed before
+                                                    default:
+                                                        // Find field data in already loaded array
+                                                        foreach ($this->qnrFields as $arrFields) {
+                                                            foreach ($arrFields as $arrField) {
+                                                                if ($fieldUniqueId == $arrField['q_field_unique_id']) {
+                                                                    // Check if there is a saved value
+                                                                    switch ($fieldUniqueId) {
+                                                                        case 'qf_referred_by':
+                                                                            $fieldValue = $this->prospectInfo['referred_by'] ?? '';
+                                                                            break;
+
+                                                                        case 'qf_did_not_arrive':
+                                                                            $fieldValue = $this->prospectInfo['did_not_arrive'] ?? '';
+                                                                            break;
+
+                                                                        case 'qf_email':
+                                                                            $fieldValue = $this->prospectInfo['email'] ?? '';
+                                                                            break;
+
+                                                                        default:
+                                                                            if (isset($this->prospectData[$arrField['q_field_id']])) {
+                                                                                $fieldValue = $this->prospectData[$arrField['q_field_id']];
+                                                                            }
+                                                                            break;
+                                                                    }
+
+                                                                    $booFound = true;
+                                                                    break 2;
+                                                                }
+                                                            }
+                                                        }
+                                                        break;
+                                                }
+
+                                                // Still not found? Skip it.
+                                                if (!$booFound) {
+                                                    continue;
+                                                }
+
+                                                // Start a new row
+                                                if ($currentFieldCount == 0) {
+                                                    echo "<tr>";
+                                                }
+
+                                                // Display the field
+                                                echo "<td width='33%' align='left' class='garytxt11 padbtm4' valign='top'>";
+
+                                                $label = empty($arrField['q_field_prospect_profile_label']) ? $arrField['q_field_label'] : $arrField['q_field_prospect_profile_label'];
+                                                if ($this->qnr->isFieldRequiredForSave($arrField['q_field_unique_id']) && !empty($label)) {
+                                                    $label .= '<span class="error" style="padding-left: 5px; cursor: help;" title="Required Field">*</span>';
+                                                }
+                                                echo "<div class='field-label'>$label</div>";
+
+                                                echo $this->qnr->generateQnrField(
+                                                    true,
+                                                    'p_' . $this->pid . '_field_' . $arrField['q_field_id'],
+                                                    'p2_' . $this->pid . '_field_' . $arrField['q_field_id'], // Used for options
+                                                    $this->pid,
+                                                    $arrField,
+                                                    $this->qnrFieldsOptions,
+                                                    $this->arrCountries,
+                                                    $fieldValue,
+                                                    'ltr',
+                                                    true,
+                                                    '',
+                                                    $this->panelType
+                                                );
+                                                echo "</td>";
+
+                                                // Finish a row if 3 fields are already showed
+                                                if ($currentFieldCount == 2) {
+                                                    echo "</tr>";
+                                                    $currentFieldCount = 0;
+                                                } else {
+                                                    $currentFieldCount++;
+                                                }
+                                            }
+
+                                            echo "</table></div></td></tr>";
+
+                                            ?>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </form>
+
+                    </td>
+                </tr>
+            </table>
+
+            <?php if ($show_corners) { ?>
+        </td>
+        <td bgcolor="#ffffff" class="brblueright">&nbsp;</td>
+    </tr>
+    <tr>
+        <td align="left" valign="bottom"><img src="<?= $this->imgUrl('cor-left-bottom.gif') ?>" alt=""/></td>
+        <td bgcolor="#ffffff" class="brbluebtm"><img height="1" width="1" src="<?= $this->imgUrl('spacer.gif') ?>" alt=""/></td>
+        <td align="right" valign="bottom"><img src="<?= $this->imgUrl('cor-right-bottom.gif') ?>" alt=""/></td>
+    </tr>
+</table>
+<?php } ?>

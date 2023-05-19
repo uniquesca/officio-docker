@@ -1,0 +1,140 @@
+<?php
+$bgClass  = '';
+function getBgColor() {
+    global $bgClass;
+    $bgClass =($bgClass == "evenRow") ? "oddRow" : "evenRow";
+    return $bgClass;
+}
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs = true;
+$this->headScript()->appendFile($this->layout()->assetsUrl . '/jquery-validation/dist/jquery.validate.min.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/generatePasswordButton.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/edit_admin_user.js');
+
+$action = empty($this->edit_admin_user_id) ? $this->layout()->baseUrl . "/manage-admin-users/add" : $this->layout()->baseUrl . "/manage-admin-users/edit?member_id=" . $this->edit_admin_user_id;
+$mode = empty($this->edit_admin_user_id) ? '<i class="las la-plus">' : '<i class="las la-edit"></i>';
+
+$this->headScript()->captureStart();
+echo "var passwordMinLength = " . \Laminas\Json\Json::encode($this->passwordMinLength) . ";";
+echo "var passwordMaxLength = " . \Laminas\Json\Json::encode($this->passwordMaxLength) . ";";
+$this->headScript()->captureEnd();
+?>
+
+<?php $this->headScript()->captureStart();?>
+if(typeof(autoshow_error) == "undefined") {
+var autoshow_error = [];
+}
+autoshow_error.push('<?=$this->escapeHtml(addslashes($this->edit_error_message))?>');
+
+if(typeof(autoshow_info) == "undefined") {
+var autoshow_info = [];
+}
+autoshow_info.push('<?=$this->escapeHtml(addslashes($this->confirmation_message))?>');
+<?php $this->headScript()->captureEnd();
+
+$this->headStyle()->captureStart() ?>
+#users-details td {
+padding: 5px;
+}
+
+#users-details .textbox {
+padding: 3px;
+}
+
+input {
+width: 270px;
+}
+<?php $this->headStyle()->captureEnd();?>
+
+<div id="manage-admin-users-content">
+
+    <form name="editAdminUserForm" id="editAdminUserForm" action="<?=$action?>" method="post"  enctype="multipart/form-data">
+        <?php if (!empty($this->edit_admin_user_id)): ?>
+            <input type="hidden" name="member_id" value="<?=$this->edit_admin_user_id; ?>" />
+        <?php endif;?>
+
+        <table id="users-details" width="80%" border="0" cellspacing="1" cellpadding="4" align=center  bgcolor="#D8D8D8">
+            <tr align="left">
+                <td class='header_bg' colspan="2" valign="top"><?=$mode;?><?=$this->layout()->title; ?></td>
+            </tr>
+
+            <tr class="evenRow">
+                <td colspan="2" class="field_name" align="right"> <div align="right"><em class="required">*</em><span class="field_name"><span class="featured"> indicates mandatory fields </span></span></div>
+                </td>
+            </tr>
+
+            <tr bgcolor="#ffffff">
+                <td colspan="2" class="gray-text18 padd-left5 field_name" align="left" valign="bottom" height="40">Admin User Details</td>
+            </tr>
+            <tr class="<?=getBgColor()?>">
+                <td align="right" class="field_name">Username : <em class="required">*</em></td>
+                <td align="left"><input type="text" name="username" id="username" value="<?=$this->arrAdminUserInfo['username'];?>" size="50" class="textbox" autocomplete="off" /><br /></td>
+            </tr>
+            <tr class="<?=getBgColor()?>">
+                <td align="right" class="field_name">
+                    <!-- TODO Fix this - $mode will never be 'add' -->
+                    <?= $mode == 'add' ? 'Password: <em class="required">*</em>' : 'New Password: '?>
+                </td>
+                <td align="left">
+                    <input type="text" name="password" id="password" value="" size="50" maxlength="<?=$this->passwordMaxLength?>" class="textbox" autocomplete="off" style="float: left;" />
+                    <div id="generatePassword" style="float: left; margin-left: 10px"></div>
+                    <br style="clear: both"/>
+                    <label for="password" generated="true" class="error" style="padding: 10px 0;"></label>
+                </td>
+            </tr>
+
+            <tr class="<?=getBgColor()?>">
+                <td align="right" class="field_name">Role : <em class="required">*</em></td>
+                <td align="left">
+                    <?=$this->formDropdown('memberRole', $this->arrRoles, (int)$this->arrAdminUserInfo['memberRole'],' class="drop_down" style="width:270px;"');?>
+                </td>
+            </tr>
+
+            <tr bgcolor="#ffffff">
+                <td colspan="2" class="gray-text18 padd-left5 field_name" align="left" valign="bottom" height="40">Admin Contact Details</td>
+            </tr>
+
+            <tr class="<?=getBgColor()?>">
+                <td align="right" class="field_name">First Name : <em class="required">*</em></td>
+                <td align="left"><input type="text" name="fName" id="fName" value="<?=$this->arrAdminUserInfo['fName'];?>" size="50" class="textbox"  /><br /></td>
+            </tr>
+            <tr class="<?=getBgColor()?>">
+                <td align="right" class="field_name">Last Name : <em class="required">*</em></td>
+                <td align="left"><input type="text" name="lName" id="lName" value="<?=$this->arrAdminUserInfo['lName'];?>" size="50" class="textbox"  /><br /></td>
+            </tr>
+            <tr class="<?=getBgColor()?>">
+                <td align="right" class="field_name">Email Address : <em class="required">*</em></td>
+                <td align="left"><input type="text" name="emailAddress" id="emailAddress" value="<?=$this->arrAdminUserInfo['emailAddress'];?>" size="50" class="textbox"  /><br /></td>
+            </tr>
+            <tr class="<?=getBgColor()?>">
+                <td align="right" class="field_name">Time Zone : <em class="required">*</em></td>
+                <td align="left">
+                    <?=$this->formDropdown('timeZone', $this->arrTimeZones, (int)$this->arrAdminUserInfo['timeZone'],' class="drop_down" style="width:270px;"');?>
+                </td>
+            </tr>
+            <tr class="<?=getBgColor()?>">
+                <td align="right" class="field_name">Work Phone : </td>
+                <td align="left"><input type="text" name="workPhone" id="workPhone" value="<?=$this->arrAdminUserInfo['workPhone'];?>" size="50" class="textbox"  /><br /></td>
+            </tr>
+            <tr class="<?=getBgColor()?>">
+                <td align="right" class="field_name">Home Phone : </td>
+                <td align="left"><input type="text" name="homePhone" id="homePhone" value="<?=$this->arrAdminUserInfo['homePhone'];?>" size="50" class="textbox"  /><br /></td>
+            </tr>
+            <tr class="<?=getBgColor()?>">
+                <td align="right" class="field_name">Mobile : </td>
+                <td align="left"><input type="text" name="mobilePhone" id="mobilePhone" value="<?=$this->arrAdminUserInfo['mobilePhone'];?>" size="50" class="textbox"  /><br /></td>
+            </tr>
+            <tr class="<?=getBgColor()?>">
+                <td valign="top" align="right" class="field_name">Notes : </td>
+                <td align="left"><textarea name="notes" id="notes" class="textbox" rows="4" cols="47" style="width:272px;"><?=$this->arrAdminUserInfo['notes'];?></textarea><br /></td>
+            </tr>
+
+            <tr class="<?=getBgColor()?>">
+                <td align="center" colspan="2">
+                    <input style="width: 170px;" name="Submit" type="submit" class="orange-save-btn" value="<?=$this->btnHeading; ?>">
+                </td>
+            </tr>
+        </table><br />
+    </form>
+</div>

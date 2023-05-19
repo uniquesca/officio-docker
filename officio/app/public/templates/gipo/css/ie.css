@@ -1,0 +1,11 @@
+#block-views-smart-moves-block .views-field-field-image img {
+    height: 180px !important;
+}
+
+.pane-node .field-type-image img {
+    height: 180px !important;
+}
+
+.node-blog .field-name-field-blog-image img {
+    height: 220px !important;
+}

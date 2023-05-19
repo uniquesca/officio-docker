@@ -1,0 +1,14 @@
+File: Zend/Mime/Decode.php
+Method: splitMime()
+Was:
+    throw new Zend_Exception('Not a valid Mime Message: End Missing');
+Is:
+    /**
+     * Fix by Uniques Team.
+     * If part hasn't end boundary then return all text from start boundary to end of body
+     *    instead throw new Zend_Exception('Not a valid Mime Message: End Missing');
+     */
+    #throw new Zend_Exception('Not a valid Mime Message: End Missing');
+    $res[] = substr($body, $start);
+    return $res;
+Note: isn't applied to Laminas. Will see if it's needed.

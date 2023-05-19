@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title></title>
+    <?= $this->minifier()->minify('ext_css') . "\n"; ?>
+    <?= $this->minifier()->minify('ext') . "\n"; ?>
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->jsUrl; ?>/plugin_detector.js"></script>
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->jsUrl; ?>/browser_detector.js"></script>
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->jsUrl; ?>/check_version.js"></script>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        var baseUrl = '<?= $this->layout()->baseUrl; ?>';
+        //]]>
+    </script>
+
+    <style type="text/css">
+        table, td, th {
+            padding: 0;
+            margin: 0;
+        }
+
+        #version_table {
+            padding: 0;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th.version {
+            font-weight: bold;
+        }
+
+        td.version, th.version {
+            text-align: left;
+            padding: 5px;
+            margin: 0;
+            border: 1px solid #ccc;
+        }
+
+        #version_comments {
+            float: left;
+            padding-right: 10px;
+        }
+
+        #submit_btn_container {
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<table id="version_table">
+    <tr>
+        <th class="version"><?= $this->translate('Application') ?></th>
+        <th class="version"><?= $this->translate('Version/name') ?></th>
+    </tr>
+    <tr>
+        <td class="version"><?= $this->translate('OS:') ?></td>
+        <td id="version_os" class="version"></td>
+    </tr>
+    <tr>
+        <td class="version"><?= $this->translate('Browser:') ?></td>
+        <td id="version_browser" class="version"></td>
+    </tr>
+    <tr>
+        <td class="version"><?= $this->translate('Acrobat:') ?></td>
+        <td id="version_acrobat" class="version"></td>
+    </tr>
+    <tr>
+        <td class="version"><?= $this->translate('Additional info:') ?></td>
+        <td id="version_other" class="version"><?= $_SERVER['HTTP_USER_AGENT'] ?></td>
+    </tr>
+    <tr>
+        <td class="version"><?= $this->translate('Comments:') ?></td>
+        <td class="version">
+            <div id="version_comments"></div>
+            <div id="submit_btn_container"></div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

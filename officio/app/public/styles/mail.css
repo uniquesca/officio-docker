@@ -1,0 +1,491 @@
+#mail-container {
+    background-color: #CEDDEF;
+}
+
+#mail-container .x-panel-body {
+    padding: 0 !important;
+    background-color: #fff;
+}
+
+#mail-container .x-tree .x-panel-body {
+    padding: 10px 0 0 !important;
+}
+
+#mail-container .x-tree .x-panel-bbar .x-panel-body {
+    padding-top: 0 !important;
+}
+
+#mail-container a:link,
+#mail-container a:visited {
+    font-size: 14px;
+}
+
+#mail-container .toolbar-noborder {
+    border: none !important;
+    background-image: none;
+    padding: 0 !important;
+}
+
+#mail-messages-panel {
+    padding-top: 9px;
+}
+
+#mail-main-toolbar {
+    margin: 0 !important;
+}
+
+#mail-toolbar-account-group .x-btn-group-tl,
+#mail-toolbar-account-group .x-btn-group-bl,
+#mail-main-toolbar .x-btn-group-tl,
+#mail-main-toolbar .x-btn-group-bl {
+    display: none;
+}
+
+#mail-toolbar-account-group .x-btn-group-mr,
+#mail-toolbar-account-group .x-btn-group-ml,
+#mail-main-toolbar .x-btn-group-mr,
+#mail-main-toolbar .x-btn-group-ml {
+    background-image: none;
+}
+
+#mail-toolbar-account {
+    margin-left: -3px;
+}
+
+label#mail-toolbar-account {
+    margin-left: 3px;
+    color: #3B74BE;
+    padding: 7px 0;
+}
+
+#mail-toolbar-account td {
+    text-align: left;
+}
+
+label#mail-toolbar-account,
+#mail-toolbar-account td button {
+    font-size: 18px;
+}
+
+#mail-settings-tb-back-to-email {
+    margin-right: 20px;
+}
+
+#mail-ext-folders-tree .x-tree-node-icon {
+    display: none !important;
+}
+
+#mail-ext-folders-tree .x-tree-node a span,
+#mail-ext-folders-tree .x-tree-node i {
+    color: gray;
+}
+
+#mail-ext-folders-tree .x-tree-ec-icon,
+#mail-ext-folders-tree .x-tree-node-anchor {
+    vertical-align: middle;
+}
+
+#mail-container .mail-item-preview .x-panel-body {
+    background-color: #FFFFFF;
+    border: 1px solid #99BBE8 !important;
+    padding: 5px !important;
+    overflow: hidden !important;
+}
+
+#mail-container ul.x-tab-strip li:first-child {
+    margin-left: 5px;
+}
+
+#mail-container .mail-preview-section .x-panel-body {
+    background-color: #FFFFFF !important;
+    border: 1px solid #99BBE8 !important;
+    padding: 5px !important;
+}
+
+#mail-left-side,
+#mail-folders-tree-bbar,
+#mail-folders-tree-bbar .x-toolbar,
+#mail-left-side .x-panel-body {
+    background-color: #E8E9EB;
+}
+
+#mail-left-side .update-emails-icon {
+    margin: 14px auto;
+}
+
+.mail-item-preview-body a, .mail-preview-section a {
+    color: #4C83C5;
+    font-size: 12px;
+}
+
+.mail-tabpanel .x-tab-panel-header {
+    display: none !important;
+}
+
+.display-none {
+    display: none !important;
+}
+
+#mail-flag-context-menu .x-menu-item-checked {
+    font-weight: bold;
+}
+
+.mail-flag {
+    width: 16px;
+    height: 16px;
+}
+
+#mail-ext-emails-grid .x-grid3-td-6 {
+    vertical-align: middle;
+}
+
+.mail-flag-red {
+    color: red;
+}
+
+.mail-flag-blue {
+    color: blue;
+}
+
+.mail-flag-yellow {
+    color: yellow;
+}
+
+.mail-flag-green {
+    color: green;
+}
+
+.mail-flag-orange {
+    color: orange;
+}
+
+.mail-flag-purple {
+    color: purple;
+}
+
+.mail-flag-empty {
+    color: gray;
+}
+
+.mail-flag-complete {
+    color: green;
+}
+
+.mail-flag-icon {
+    padding: 0;
+}
+
+#mail-tabpanel #mail-ext-emails-grid .x-grid3-header {
+    padding: 0 0 9px 9px;
+}
+
+#mail-tabpanel #mail-ext-emails-grid .x-grid3-row {
+    padding: 0 0 0 9px;
+}
+
+.mail-flag-loading {
+    background-image: url("../images/loading.gif") !important;
+}
+
+.mail-with-attachment {
+    background-image: url("../images/mail/16x16/attachment.png") !important;
+    background-repeat: no-repeat;
+}
+
+.x-window-dlg .dlg-folder-new {
+    background: url("../images/mail/32x32/folder_add.png") no-repeat scroll 0 50% transparent;
+}
+
+.mail-folder-new {
+    background-image: url("../images/icons/folder_add.png") !important;
+}
+
+.mail-folder-open {
+    background-image: url("../images/icons/folder_go.png") !important;
+}
+
+.mail-folder-rename {
+    background-image: url("../images/icons/folder_edit.png") !important;
+}
+
+.mail-folder-delete {
+    background-image: url("../images/icons/folder_delete.png") !important;
+}
+
+.mail-folder-collapse-all {
+    background-image: url("../images/mail/16x16/collapse-all.gif") !important;
+}
+
+.mail-folder-expand-all {
+    background-image: url("../images/mail/16x16/expand-all.gif") !important;
+}
+
+.mail-send {
+    background-image: url("../images/mail/16x16/email_go.png") !important;
+}
+
+.mail-send-save {
+    background-image: url("../images/mail/16x16/email_transfer.png") !important;
+    color: #FF3800 !important;
+}
+
+.mail-send-save-prospect {
+    background-image: url("../images/mail/16x16/email_transfer.png") !important;
+}
+
+.mail-save-draft {
+    background-image: url("../images/mail/16x16/draft.png") !important;
+}
+
+#mail-container .x-tree-node-el {
+    line-height: 42px;
+    border-left: 4px solid #E8E9EB;
+}
+
+#mail-container .x-tree-selected {
+    background-color: #FFF;
+    color: #2F6BBA;
+    border-color: #2F6BBA !important;
+}
+
+#mail-container .x-tree-node-over {
+    background-color: #D4E6FF;
+    border-color: #D4E6FF;
+}
+
+#mail-container .x-tree-node a span {
+    font-size: 14px;
+}
+
+#mail-container .x-tree-node .x-tree-selected a span {
+    color: #2F6BBA;
+}
+
+#mail-container .x-tree-node-over a span {
+    color: #082040 !important;
+}
+
+
+.mail-manage-imap-folders {
+    background-image: url("../images/icons/folder_wrench.png") !important;
+}
+
+.mail-folder-loading-tab {
+    background-image: url("../images/mail/16x16/loading.gif") !important;
+}
+
+.mail-tb-check {
+    background-image: url(../images/mail/16x16/mail_receive.png) !important;
+}
+
+.mail-tb-check-inbox {
+    background-image: url(../images/mail/16x16/mail_receive.png) !important;
+}
+
+.mail-tb-check-all {
+    background-image: url(../images/mail/16x16/mail_get.png) !important;
+}
+
+.mail-tb-print {
+    background-image: url(../images/mail/16x16/mail_print.png) !important;
+}
+
+.mail-tb-mark-as {
+    background-image: url(../images/mail/16x16/mail_mark_unread_new.png) !important;
+}
+
+.mail-tb-save {
+    background-image: url(../images/mail/16x16/mail_mark_task.png) !important;
+}
+
+.mail-tb-mark-as-read {
+    background-image: url(../images/mail/16x16/mail_mark_read.png) !important;
+}
+
+.mail-tb-mark-as-unread {
+    background-image: url(../images/mail/16x16/mail_mark_unread.png) !important;
+}
+
+.mail-tb-account {
+    background-image: url("../images/mail/16x16/user.png") !important;
+}
+
+.mail-tb-account-item {
+    background-image: url("../images/mail/16x16/user.png") !important;
+}
+
+.mail-tb-system {
+    background-image: url("../images/mail/16x16/gear.png") !important;
+}
+
+.mail-tb-create {
+    background-image: url(../images/mail/16x16/mail_new.png) !important;
+}
+
+.mail-tb-reply {
+    background-image: url(../images/mail/16x16/mail_reply.png) !important;
+}
+
+.mail-tb-reply-all {
+    background-image: url(../images/mail/16x16/mail_reply_all.png) !important;
+}
+
+.mail-tb-forward {
+    background-image: url(../images/mail/16x16/mail_forward.png) !important;
+}
+
+.mail-tb-delete-selected {
+    background-image: url(../images/mail/16x16/mail_delete.png) !important;
+}
+
+.mail-tb-address-book {
+    background-image: url(../images/mail/16x16/kontact_contacts.png) !important;
+}
+
+.mail-tb-search {
+    background-image: url(../images/mail/16x16/find.png) !important;
+}
+
+.icon-preview-bottom {
+    background-image: url(../images/mail/16x16/preview-bottom.gif) !important;
+}
+
+.icon-preview-right {
+    background-image: url(../images/mail/16x16/preview-right.gif) !important;
+}
+
+.icon-preview-hide {
+    background-image: url(../images/mail/16x16/preview-hide.gif) !important;
+}
+
+.icon-open-all {
+    background-image: url(../images/mail/16x16/tabs.gif) !important;
+}
+
+.icon-summary {
+    background-image: url(../images/mail/16x16/details.gif) !important;
+}
+
+.mail-attachment-cancel {
+    background-image: url(../images/default/close-button-dark-blue.png) !important;
+    background-size: 20px 20px !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.mail-item-from {
+    color: #333;
+}
+
+.mail-item-unread td {
+    font-weight: bold;
+}
+
+.x-grid3-row-body p {
+    margin: 5px 20px 10px 25px !important;
+    color: #555;
+}
+
+
+/* Settings */
+#mail-settings-tab .x-panel-body {
+    background-color: #ffffff;
+}
+
+#mail-settings-tab .x-grid-panel .x-panel-body {
+    border: none !important;
+}
+
+#mail-settings-dialog .x-form-checkbox {
+    vertical-align: top;
+}
+
+#mail-settings-dialog .x-form-item.no-bottom-padding {
+    margin-bottom: 1px;
+    padding-bottom: 0;
+}
+
+#mail-settings-dialog .x-form-item.small-top-padding {
+    padding-top: 5px;
+}
+
+.bold-row .x-grid3-cell-inner {
+    color: #000;
+    font-weight: bold !important;
+}
+
+.radio-no-bottom-padding {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+}
+
+.mail-unread-messages-folder span, .mail-unread-messages-folder i {
+    color: black !important;
+    font-weight: bold;
+}
+
+.x-tree-ec-icon {
+    margin: 8px 5px 8px 10px;
+    width: 11px;
+    background-size: contain;
+    height: 11px;
+}
+
+.x-tree-no-lines .x-tree-elbow-end-plus,
+.x-tree-no-lines .x-tree-elbow-plus {
+    background-image: url('../images/arrow_right2.png');
+}
+
+.x-tree-no-lines .x-tree-elbow-end-minus,
+.x-tree-no-lines .x-tree-elbow-minus {
+    background-image: url('../images/arrow_down.png');
+}
+
+a .las.las-icon-folder {
+    font-size: 18px;
+    padding-right: 0;
+}
+
+#mail-send-save-dialog .x-form-item {
+    margin-bottom: 5px;
+}
+
+#mail-send-save-dialog .x-form-checkbox {
+    vertical-align: sub;
+}
+
+#mail-toolbar-save {
+    padding: 3px;
+    margin-left: 5px;
+    border: 2px solid #4B7FC3;
+}
+
+#mail-toolbar-save .x-btn-text .las {
+    font-size: 20px;
+    padding-left: 0;
+    padding-right: 5px;
+}
+
+#mail-left-side-xsplit {
+    background-color: #FFF;
+}
+
+#mail-toolbar-account, #mail-toolbar-account * {
+    opacity: 1;
+    color: #3B74BE !important;
+}
+
+#mail-toolbar-check-mail-splitbutton .x-btn-mc em.x-btn-split {
+    background-image: url(/js/ext/resources/images/default/button/s-arrow-noline.gif);
+}
+
+#mail-create-dialog .x-form-item {
+    overflow: hidden;
+}
+
+#mail-create-dialog .x-form-field {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+}

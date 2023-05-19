@@ -1,0 +1,8 @@
+<?php
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/last-logged-in.js');
+?>
+<div align="left" id="admin-last-logged-in-content"> </div>

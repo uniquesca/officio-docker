@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title><?= $this->layout()->siteTitle . ' :: ' . $this->translate('Company Info Details Email') ?></title>
+    <style>
+        td {
+            vertical-align: top;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<h3>Company Info:</h3>
+    
+    <table border="1">
+        <tr><td width='100'><?=$this->translate('Name:')?></td><td>__companyName__</td></tr>
+        <tr><td><?=$this->translate('Time Zone:')?></td><td>__companyTimeZone__</td></tr>
+        <tr><td><?=$this->translate('Email:')?></td><td>__companyEmail__</td></tr>
+        <tr><td><?=$this->translate('Address:')?></td><td>__companyAddress__</td></tr>
+        <tr><td>__companyCityLabel__</td><td>__companyCity__</td></tr>
+        <tr><td><?=$this->translate('State:')?></td><td>__companyState__</td></tr>
+        <tr><td><?=$this->translate('Country:')?></td><td>__companyCountry__</td></tr>
+        <tr><td><?=$this->translate('Zip:')?></td><td>__companyZip__</td></tr>
+        <tr><td><?=$this->translate('Phone (w):')?></td><td>__companyPhone1__</td></tr>
+        <tr><td><?=$this->translate('Phone (h):')?></td><td>__companyPhone2__</td></tr>
+        <tr><td><?=$this->translate('Fax:')?></td><td>__companyFax__</td></tr>
+    </table>
+</body>
+</html>

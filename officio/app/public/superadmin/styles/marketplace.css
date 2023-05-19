@@ -1,0 +1,17 @@
+#marketplace_container_grid .x-btn-mc {
+    padding: 0 10px !important;
+}
+
+#marketplace_container_grid .x-btn-noicon .x-btn-small .x-btn-text {
+    height: 22px;
+}
+
+#marketplace_container_grid .x-btn-text-icon .x-btn-icon-small-left .x-btn-text {
+    background-size: 19px 19px;
+    padding-left: 26px;
+    height: 22px;
+}
+
+#marketplace_container_grid .x-toolbar .x-btn.x-btn-text-icon {
+    margin-bottom: 5px;
+}

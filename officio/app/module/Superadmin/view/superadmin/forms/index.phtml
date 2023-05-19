@@ -1,0 +1,16 @@
+<?php
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/themes/' . $this->layout()->theme . '.css');
+    
+    $this->layout()->useJQuery = true;
+    $this->layout()->useExtjs = true;
+
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/forms/pdf2xod-converter.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/forms/pdf2html-converter.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/forms/forms-fields-mapping.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/forms/forms.js');
+?>
+<script type="text/javascript">
+    var booShowLandingTab = <?php echo $this->booShowLandingTab ? 'true': 'false';?>;
+</script>
+<div id="forms_superadmin_container"></div>

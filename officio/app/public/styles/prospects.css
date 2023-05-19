@@ -1,0 +1,310 @@
+#prospects-tab .x-panel-body,
+#marketplace-tab .x-panel-body,
+.main-tabs #prospects-tab-panel .x-panel-body,
+.main-tabs #marketplace-tab-panel .x-panel-body {
+    padding: 0;
+}
+
+#prospects-tab .x-layout-split,
+#marketplace-tab .x-layout-split {
+    background-color: #FFF;
+}
+
+#prospects-tab-panel ul.x-tab-strip-top,
+#marketplace-tab-panel ul.x-tab-strip-top {
+    margin-right: 0;
+    height: auto;
+}
+
+#prospects-prospects-west-panel .x-panel-body,
+#prospects-prospects-west-panel .x-grid3-scroller,
+#marketplace-prospects-west-panel .x-panel-body,
+#marketplace-prospects-west-panel .x-grid3-scroller {
+    background-color: #F7F8FA !important;
+}
+
+#marketplace-tab-panel .clients-sub-tab-panel,
+#prospects-tab-panel .clients-sub-tab-panel {
+    background-color: #E8E9EB !important;
+}
+
+#prospects-prospects-west-panel input[type="checkbox"],
+#marketplace-prospects-west-panel input[type="checkbox"] {
+    vertical-align: top;
+}
+
+.prospects-search-and-tasks {
+    color: #2F6BBA;
+    font-size: 14px;
+}
+
+#prospects-tab .search-button-container,
+#marketplace-tab .search-button-container {
+    width: 40px;
+}
+
+.icon-prospects-search {
+    background-image: url("../images/icons/search.gif") !important;
+}
+
+.icon-prospects-email {
+    background-image: url("../images/email.png") !important;
+}
+
+.icon-prospects-delete {
+    background-image: url("../images/delete.png") !important;
+}
+
+.icon-prospects-refresh {
+    background-image: url("../images/refresh.png") !important;
+}
+
+.icon-prospects-convert-to-client {
+    background-image: url("../images/icons/user_go.png") !important;
+}
+
+.icon-marketplace-agreement-dialog {
+    background-image: url(../images/icons/information.png);
+}
+
+#marketplace-ptab-marketplace .x-panel-body,
+#marketplace-ptab-marketplace .x-border-layout-ct,
+#prospects-ptab-prospects .x-border-layout-ct,
+#prospects-ptab-prospects .x-panel-body,
+#prospects-ptab-new-prospect .x-panel-body,
+#marketplace-ptab-advanced-search .x-panel-body,
+#prospects-ptab-advanced-search .x-panel-body {
+    background-color: #ffffff;
+}
+
+.prospect-item-unread .x-grid3-cell {
+    font-weight: bold;
+}
+
+.prospect-item-invited .x-grid3-cell {
+    color: #787878;
+}
+
+.prospects-label {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#marketplace-tab-panel .profile-select,
+#marketplace-tab-panel .editable-combo,
+#prospects-tab-panel .profile-select,
+#prospects-tab-panel .editable-combo {
+    width: 85%;
+}
+
+#marketplace-tab-panel .job_section .profile-select,
+#marketplace-tab-panel .job_section .editable-combo,
+#prospects-tab-panel .job_section .profile-select,
+#prospects-tab-panel .job_section .editable-combo {
+    width: 90%;
+}
+
+#marketplace-tab-panel .job_section .prospect-profile-text,
+#prospects-tab-panel .job_section .prospect-profile-text {
+    width: 85%;
+}
+
+#marketplace-tab-panel .padbtm4,
+#prospects-tab-panel .padbtm4 {
+    padding-bottom: 16px;
+}
+
+#marketplace-tab-panel .field-label,
+#prospects-tab-panel .field-label {
+    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    display: block;
+}
+
+.prospect-profile-text {
+    width: 80%;
+}
+
+.prospect-profile-text:focus {
+    box-shadow: 0 0 5px #6593CF;
+    border: 1px solid #6593CF;
+}
+
+.prospect-profile-date {
+    width: 120px;
+}
+
+.prospects-assessment-table {
+    border-radius: 6px;
+    width: 300px;
+    margin: 20px 0 0 20px;
+}
+
+.prospects-assessment-table tr:first-child td:first-child {
+    border-top-left-radius: 6px;
+}
+
+.prospects-assessment-table tr:first-child td:last-child {
+    border-top-right-radius: 6px;
+}
+
+.prospects-assessment-table tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+}
+
+.prospects-assessment-table tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+}
+
+.prospects-assessment-td {
+    padding: 6px 10px;
+}
+
+.prospects-assessment-td-even {
+    background-color: #fff;
+}
+
+.prospects-assessment-td-odd {
+    background-color: #F4F6F8;
+}
+
+.prospects-assessment-td-group {
+    font-size: 14px;
+    color: #033876;
+    font-weight: bold;
+    padding: 5px 5px 5px 0;
+}
+
+.prospects-assessment-td-header {
+    padding: 10px;
+    font-weight: bold;
+    background-color: #77A2DA;
+    color: white !important;
+}
+
+.prospects-assessment-td-header-dark {
+    background-color: #2F6BBA;
+}
+
+.prospects-assessment-td-total {
+    padding: 6px 10px;
+    font-weight: bold;
+    color: #4D5053;
+}
+
+.prospects-assessment-td-total-qualified {
+    color: #ff0000;
+    background-color: #ffe8ec !important;
+}
+
+.prospects-assessment-td-total-notqualified {
+    color: #009900;
+}
+
+.button-prospect-add-prospect {
+    background-image: url(../images/icons/user_add.png) !important;
+}
+
+.button-prospect-save {
+    background-image: url(../images/icons/disk.png) !important;
+}
+
+.button-prospect-assess {
+    background-image: url(../images/icons/table_save.png) !important;
+}
+
+.button-prospect-email {
+    background-image: url(../images/icons/email.png) !important;
+}
+
+.button-prospect-print {
+    background-image: url(../images/icons/printer.png) !important;
+}
+
+.button-prospect-convert {
+    background-image: url(../images/icons/user_go.png) !important;
+}
+
+.button-prospect-delete {
+    background-image: url(../images/icons/user_delete.png) !important;
+}
+
+/* Advanced Search */
+.advanced-search-hide-row {
+    background: transparent url(../images/icons/delete.png) no-repeat scroll left center !important;
+}
+
+.advanced-search-print {
+    background: transparent url(../images/icons/printer.png) no-repeat scroll left center !important;
+}
+
+.advanced-search-export {
+    background: transparent url(../images/icons/page_excel.png) no-repeat scroll left center !important;
+}
+
+.prospects-advanced-search-columns,
+.marketplace-advanced-search-columns {
+    background: transparent url(../js/ext/resources/images/default/grid/columns.gif) no-repeat scroll left center !important;
+}
+
+.prospects-advanced-search-help,
+.marketplace-advanced-search-help {
+    background: transparent url(../images/icons/help.png) no-repeat scroll left center !important;
+}
+
+/* Advanced Search */
+
+.jobs_section_hide {
+    cursor: pointer;
+    padding-right: 25px;
+}
+
+label.uf-checkbox, label.uf-radio {
+    display: flex;
+    margin: 0;
+    font-size: 14px;
+}
+
+label.uf-checkbox input[type=checkbox], label.uf-radio input[type=radio] {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+label.uf-checkbox input[type=checkbox]::before {
+    top: 3px;
+    left: 8px;
+}
+
+.form-control-file {
+    padding: 0.32rem 0.75rem;
+}
+
+.job_container .x-form-field-wrap {
+    width: 100% !important;
+}
+
+@media (min-width: 800px) {
+    .job_container .profile-select {
+        width: 50% !important;
+    }
+    .job_container .prospect-profile-text:not(.profile-job-noc-search),
+    #prospects-tab-panel .job_section .prospect-profile-text:not(.profile-job-noc-search),
+    .job_container input.form-control-file:not([type="button"]) {
+        width: 51.5% !important;
+    }
+}
+
+.job_container .qf_job_title .job_search, .job_container .qf_job_title .profile-job-search,
+.job_container .qf_job_spouse_title .job_search, .job_container .qf_job_spouse_title .profile-job-search {
+    width: 90% !important;
+}
+
+.job_container .qf_job_noc {
+    width: 55% !important;
+}
+
+.job_container .qf_job_noc .prospect-profile-text {
+    width: 67px !important;
+}

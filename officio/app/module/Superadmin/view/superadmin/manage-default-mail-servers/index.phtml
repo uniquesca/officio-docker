@@ -1,0 +1,15 @@
+<?php
+$this->layout()->title = "Manage default mail servers";
+$this->headTitle("Manage default mail servers");
+
+$this->layout()->useExtjs = true;
+$this->layout()->useJQuery = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-default-mail-servers/init.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-default-mail-servers/DefaultMailServersGrid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-default-mail-servers/DefaultMailServerDialog.js');
+
+?>
+
+<div id="admin-manage-default-mail-servers"></div>

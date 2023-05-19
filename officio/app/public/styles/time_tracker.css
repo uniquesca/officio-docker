@@ -1,0 +1,11 @@
+.time-tracker-container .x-panel-body {
+    background-color: #CEDDEF;
+}
+
+.time-tracker-filter .x-panel-body {
+    background-color: #fff;
+}
+
+.time-tracker-grid .x-panel-body {
+    padding: 1px;
+}

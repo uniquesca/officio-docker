@@ -1,0 +1,35 @@
+<div id="admin_help_icon"></div>
+<table style="border: none;" cellspacing="0" cellpadding="0">
+    <?php foreach ($this->container as $page) : ?>
+        <?php if (!$page->isVisible()) continue ?>
+        <tr>
+            <td height="10" align="left">&nbsp;</td>
+        </tr>
+        <tr>
+            <td height="17" align="left" class="h1"><?= $page->getLabel() ?></td>
+        </tr>
+        <tr>
+            <td height="1" align="left" bgcolor="#E0E0E0"></td>
+        </tr>
+
+
+        <?php if (is_array($page->getPages()) && count($page->getPages())) : ?>
+            <?php foreach ($page->getPages() as $subPage) : ?>
+                <?php if (!$subPage->isVisible()) continue ?>
+                <tr>
+                    <td align="left" class="blue_txt">
+                        <a href="<?= $subPage->getHref() ?>" class="leftnav <?= $subPage->getClass() ?>">
+                            <img src="<?= $this->layout()->baseUrl ?>/images/arrow2.gif" width="9" height="9" border="0" alt=""/> &nbsp;<?= $subPage->getLabel() ?>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="1" align="left" bgcolor="#E0E0E0"></td>
+                </tr>
+            <?php endforeach ?>
+        <?php endif ?>
+    <?php endforeach ?>
+    <tr>
+        <td height="15" align="left" valign="middle" colspan=2></td>
+    </tr>
+</table>

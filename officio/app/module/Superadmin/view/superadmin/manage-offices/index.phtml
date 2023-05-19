@@ -1,0 +1,21 @@
+<?php
+    $this->layout()->useJQuery = true;
+    $this->layout()->useExtjs = true;
+
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+    $this->headLink()->appendStylesheet($this->layout()->cssUrl . '/manage_offices.css');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/manage-offices/dialog.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/manage-offices/grid.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/manage-offices/init.js');
+
+$this->headScript()->captureStart();
+    echo "var officeLabel = " . \Laminas\Json\Json::encode($this->officeLabel) . ";";
+    echo "var booAuthorizedAgentsManagementEnabled = " . \Laminas\Json\Json::encode($this->booAuthorizedAgentsManagementEnabled) . ";";
+    echo "var arrRoles = " . \Laminas\Json\Json::encode($this->arrRoles) . ";";
+    echo "var arrFolders = " . \Laminas\Json\Json::encode($this->arrFolders) . ";";
+$this->headScript()->captureEnd();
+?>
+
+<div class="admin-tab-content">
+    <div id="offices_list_container"></div>
+</div>

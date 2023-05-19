@@ -1,0 +1,16 @@
+<?php
+    $this->layout()->useJQuery = true;
+    $this->layout()->useExtjs = true;
+
+$this->headScript()->captureStart() ?>
+    var arrSalutations = <?=\Laminas\Json\Json::encode($this->arrSalutations)?>;
+<?php $this->headScript()->captureEnd();
+
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/clipboard.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/manage-divisions-groups/dialog.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/manage-divisions-groups/grid.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/manage-divisions-groups/init.js');
+
+    $this->headLink()->appendStylesheet($this->layout()->cssUrl . '/manage_divisions_groups.css');
+?>
+<div id="divisions_groups_container"></div>

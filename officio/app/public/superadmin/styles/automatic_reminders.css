@@ -1,0 +1,40 @@
+.automatic_reminder_trigger_label .x-form-cb-label,
+.automatic_reminder_condition_items_form .x-form-cb-label,
+input[name=automatic_reminder_trigger_type_radio] {
+    vertical-align: top;
+}
+
+.x-table-layout-cell-top-align td.x-table-layout-cell {
+    vertical-align: top;
+}
+
+.automatic_reminder_label {
+    color: #2F6BBA;
+    font-size: 18px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+
+.automatic_reminder_label_warning {
+    color: #616366;
+    float: right;
+    padding-top: 18px;
+    padding-bottom: 5px;
+}
+
+.automatic_reminder_label_warning .las {
+    font-size: 18px;
+    padding-right: 5px;
+}
+
+.clients-tab-panel .x-toolbar {
+    background-image: none !important;
+    border: none !important;
+    border-bottom: 1px solid #E9EAEC !important;
+    padding-bottom: 5px !important;
+    margin-bottom: 11px;
+}
+
+.x-grid-panel {
+    border: 1px solid #e9e9e9;
+}

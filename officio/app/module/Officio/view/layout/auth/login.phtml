@@ -1,0 +1,191 @@
+<?= $this->doctype() ?>
+<html>
+<head>
+    <?= $this->headTitle() . PHP_EOL ?>
+    <?= $this->headMeta() . PHP_EOL ?>
+
+    <?= $this->minifier()->minify('jq_login'); ?>
+
+    <?php
+    // We don't want to use other css files, only these.
+    $this->headLink()->exchangeArray(array());
+    $this->headLink()->appendStylesheet($this->cssUrl . '/main.css');
+    $this->headLink()->appendStylesheet($this->cssUrl . '/themes/' . $this->theme . '.css');
+    $this->headLink()->appendStylesheet($this->cssUrl . '/login.css');
+
+    echo $this->minStyleSheets();
+    ?>
+
+    <?php
+    // We don't want to use other js files, only these.
+    $this->headScript()->exchangeArray(array());
+
+    $this->headScript()->captureStart();
+    echo "var baseUrl = '" . $this->baseUrl . "';" . PHP_EOL;
+    $this->headScript()->captureEnd();
+
+    if (!empty($this->googleTagManagerContainerId)) {
+        $this->headScript()->captureStart();
+        echo "var googleTagManagerContainerId = '" . $this->googleTagManagerContainerId . "';" . PHP_EOL;
+        $this->headScript()->captureEnd();
+        $this->headScript()->appendFile($this->jsUrl . '/google_tag_manager.js');
+    }
+
+    $this->headScript()->appendFile($this->jsUrl . '/auth.js');
+
+    echo $this->minJs() . PHP_EOL;
+    ?>
+
+    <?php if ($this->showSSLCertificateCheckImage): ?>
+        <script type="text/javascript"> //<![CDATA[
+            var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+            document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+            //]]>
+        </script>
+    <?php endif; ?>
+</head>
+
+<?php
+$username = $_COOKIE["lastUserName"] ?? '';
+?>
+
+<body>
+<noscript>
+    <div style="padding-top: 250px;">
+        <div style="padding: 0 .7em; margin: 10px auto; width: 520px; background-color: #FFF; border-radius: 10px;">
+            <table style="padding: 10px 5px 5px; font-size: small;">
+                <tr>
+                    <td colspan="2" style="font-size: 18px; margin: 26px 0 12px 0; font-weight: bold; text-align: center;"><?= $this->translate('Enable JavaScript to use Officio') ?></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; vertical-align: top;"><img alt="Alert" src="<?= $this->imgUrl('alert.png') ?>" width="64" height="64"/></td>
+                    <td>
+                        <div><?= $this->translate("In order to experience Officio, you'll need to enable JavaScript.") ?></div>
+                        <div><?= $this->translate('To find out how, view the instruction for your browser:') ?></div>
+
+                        <ul>
+                            <li><a class="bluelink" target="_blank" rel="noopener noreferrer" href="https://support.mozilla.org/en-US/kb/javascript-settings-for-interactive-web-pages">Mozilla Firefox</a></li>
+                            <li><a class="bluelink" target="_blank" rel="noopener noreferrer" href="https://support.microsoft.com/en-us/office/enable-javascript-7bb9ee74-6a9e-4dd1-babf-b0a1bb136361">Microsoft Edge</a></li>
+                            <li><a class="bluelink" target="_blank" rel="noopener noreferrer" href="https://support.apple.com/en-ca/guide/safari/ibrw1074/mac">Apple Safari</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</noscript>
+
+<div id="login_container">
+    <div id="loginTable">
+        <?php if (!empty($this->companyInfo)): ?>
+            <div class="title title-company">
+                <h2 style="margin: 0"><?= $this->companyInfo['companyName'] ?></h2>
+                <?php if (!empty($this->companyInfo['companyLogo'])): ?>
+                    <img src="<?= $this->companyInfo['companyLogoUrl'] ?>" style="margin-top: 10px; max-width: 100%" alt="Company Logo" height="65"/>
+                <?php endif; ?>
+            </div>
+        <?php else: ?>
+            <div class="title">
+                <?php if ($this->showTopLogo): ?>
+                    <a href="//<?= $this->layout()->officio_domain ?>" target="_blank"><img src="<?= $this->imgUrl($this->imgThemeUrl . $this->logoFileName) ?>" alt="Officio Logo" height="65"/></a>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($this->booUseOAuth) : ?>
+            <div class="login-row" style="text-align: center">
+                <label style="font-size: 24px;"><?= $this->translate('Log in with') . ' ' . $this->oAuthIDIRLabel ?></label>
+            </div>
+
+            <div class="login-button-container" style="margin-top: 15px; width: auto">
+                <a id="login_button_link" href="<?= $this->baseUrl ?>/auth/oauth-login"><?= $this->oAuthLoginButtonLabel ?></a>
+            </div>
+        <?php else: ?>
+            <form method="post" action="#">
+                <div class="login-row">
+                    <label for="username_login" class="login_label"><?= $this->translate('Username') ?></label>
+                    <input type="text" name="username_login" class="logininput" id="username_login" value="<?= $username ?>" autocomplete="username"/>
+                </div>
+
+                <div class="login-row">
+                    <label for="password_login" class="login_label"><?= $this->translate('Password') ?></label>
+                    <input name="password_login" type="password" class="logininput" maxlength="<?= $this->passwordMaxLength ?>" id="password_login" autocomplete="current-password"/>
+                </div>
+            </form>
+
+            <div class="login-button-container">
+                <button id="login_button" type="button" name="login"><?= $this->translate('Login') ?></button>
+                <img id="loadingImage" src="<?= $this->imgUrl('loading.gif') ?>" align="middle" alt="Loading" width="16" height="16"/>
+                <div class="forgot-pass"><a href="#" onclick="showRetrievePass(); return false;"><?= $this->translate('Forgot your login info?') ?></a></div>
+            </div>
+        <?php endif; ?>
+
+        <div id="divError" class="divErrorBox"><img src="<?= $this->imgUrl('error.gif') ?>" align="middle" alt="" width="12" height="12"/><span id="errorDescription"></span></div>
+
+        <?php if ($this->showSSLCertificateCheckImage): ?>
+            <div class="login-row" style="text-align: center;">
+                <script language="JavaScript" type="text/javascript">
+                    TrustLogo("<?=$this->imgUrl('comodo_secure_seal_113x59_transp.png')?>", "CL1", "none");
+                </script>
+                <a href="https://www.positivessl.com/" id="comodoTL" style="padding-left: 0">Positive SSL Wildcard</a>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($this->showPositivesslSSLCertificateCheckImage): ?>
+            <div class="login-row" style="text-align: center;">
+                <script type="text/javascript"> //<![CDATA[
+                    var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+                    document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+                    //]]></script>
+                <script language="JavaScript" type="text/javascript">
+                    TrustLogo("https://www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+                </script>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <div id="divRedirection">
+        <img alt="Loading..." src="<?= $this->imgUrl('loadingAnimation.gif') ?>" width="208" height="13"/>
+        <div><?= $this->translate('Loading, please wait...') ?></div>
+    </div>
+</div>
+
+<!-- retrieve password modal window -->
+<div class="forgot-pass-modal" id="retrieve" style="display: none;">
+    <h2><?= $this->translate('Retrieve Login Info') ?></h2>
+
+    <div id="retrieve-email-dlg" align="left">
+        <form action="">
+            <p><label for="retrieve-input"><?= $this->translate('Please enter the email address used in your user profile') ?>:</label></p>
+
+            <div align="center"><input id="retrieve-input" style="width:220px;"/>&nbsp;</div>
+            <br/>
+
+            <div align="center" id="captcha-content" style="padding-bottom:5px; height:80px;"><img src="<?= $this->baseUrl ?>/images/loading.gif" alt=""/> <?= $this->translate('Loading...') ?></div>
+            <div style="padding:5px 0;">
+                <label for="captcha-input"><?= $this->translate('Please type the above text:') ?></label>
+                <input type="text" id="captcha-input" style="width:75px"/>
+            </div>
+            <div class="divErrorBox" id="retrieve-error-msg">&nbsp;</div>
+            <div align="center">
+                <button type="submit" onclick="retrievePass(); return false;"> OK</button>
+                <button type="button" onclick="restoreRetrieveData(); return false;" class="close"> <?= $this->translate('Cancel') ?></button>
+            </div>
+        </form>
+    </div>
+
+    <div style="display:none;" id="retrieve-result-dlg">
+        <div id="retrieve-result-msg" style="padding:8px 0; text-align: left;">&nbsp;</div>
+        <div style="margin: 0 auto; width: 50px;">
+            <button onclick="restoreRetrieveData(); return false;"> OK</button>
+        </div>
+    </div>
+</div>
+
+<?php if (!empty($this->companyInfo)): ?>
+    <footer class="login-footer">
+        <div class="logo">Powered by <a href="//<?= $this->layout()->officio_domain ?>" target="_blank" style="vertical-align: bottom"><img src="<?= $this->imgUrl($this->imgThemeUrl . $this->logoFileName) ?>" alt="Officio Logo" height="24"/></a></div>
+    </footer>
+<?php endif; ?>
+</body>
+</html>

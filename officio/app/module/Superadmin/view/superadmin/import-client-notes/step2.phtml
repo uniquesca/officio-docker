@@ -1,0 +1,65 @@
+<?php
+    $this->layout()->useJQuery = true;
+    $this->layout()->useExtjs = true;
+
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/import-clients/notes/step2.js');
+?>
+
+<?php $this->headScript()->captureStart();?>
+    var errorMessage = <?= \Laminas\Json\Json::encode($this->errorMessage) ?>;
+<?php $this->headScript()->captureEnd();?>
+
+<div id="import-client-notes-container">
+    <div id="step2_container">
+        <h3><?=$this->translate('Default settings') ?>:</h3><br />
+
+        <form id="form_step3" action="<?=$this->layout()->baseUrl?>/import-client-notes/step3" method="POST">
+            <input type="hidden" name="file_id" value="<?=$this->fileId?>" />
+            <div style="padding: 10px 0;">
+                <label style="font-weight: bold" for="note_author">Author:</label> <span class="error"> *</span><br/>
+                <select name="note_author" id="note_author">
+                    <?php
+                        foreach ($this->arrCompanyUsers as $arrUserInfo) {
+                            $selected = $this->arrDefaultSettings['author'] == $arrUserInfo[0] ? 'selected="selected"' : '';
+                            echo "<option value='$arrUserInfo[0]' " . $selected . ">$arrUserInfo[1]</option>";
+                        }
+                    ?>
+                </select>
+            </div>
+
+            <div style="padding: 10px 0;">
+                <label for="note_create_date" style="font-weight: bold">Date of note creation:</label> <span class="error"> *</span><br/>
+                <input name="note_create_date" id="note_create_date" type="text" class="datepicker" value="<?=$this->arrDefaultSettings['create_date']?>" />
+            </div>
+
+            <div style="padding: 10px 0;">
+                <label style="font-weight: bold">Visible to clients:</label> <span class="error"> *</span><br/>
+                <input type="radio" name="note_visible_to_clients" id="note_visible_to_clients_yes" value="Y" <?= $this->arrDefaultSettings['visible_to_clients'] == 'Y' ? 'checked="checked"' : ''?>> <label for="note_visible_to_clients_yes" style="padding-right: 15px">Yes</label>
+                <input type="radio" name="note_visible_to_clients" id="note_visible_to_clients_no" value="N" <?= $this->arrDefaultSettings['visible_to_clients'] == 'N' ? 'checked="checked"' : ''?>> <label for="note_visible_to_clients_no">No</label>
+            </div>
+
+            <div style="padding: 10px 0;">
+                <label style="font-weight: bold">Direction (right to left):</label> <span class="error"> *</span><br/>
+                <input type="radio" name="note_rtl" id="note_rtl_yes" value="Y" <?= $this->arrDefaultSettings['rtl'] == 'Y' ? 'checked="checked"' : ''?>> <label for="note_rtl_yes" style="padding-right: 15px">Yes</label>
+                <input type="radio" name="note_rtl" id="note_rtl_no" value="N" <?= $this->arrDefaultSettings['rtl'] == 'N' ? 'checked="checked"' : ''?>> <label for="note_rtl_no">No</label>
+            </div>
+
+            <input type="hidden" name="file_id" value="<?=$this->fileId?>" />
+        </form>
+
+        <form id="form_step1" action="<?=$this->layout()->baseUrl?>/import-client-notes/step1" method="POST">
+            <input type="hidden" name="file_id" value="<?=$this->fileId?>" />
+        </form>
+
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 50%; text-align: right; padding-right: 20px;">
+                    <input type="submit" class="buttons" value="<< Go Back" onclick="$('#form_step1').submit();" />
+                <td style="width: 50%; text-align: left;">
+                    <input type="submit" class="buttons" value="Next Step >>" onclick="$('#form_step3').submit();" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

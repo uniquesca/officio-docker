@@ -1,0 +1,37 @@
+.x-edit-insertimage {background: url(image_link.png) 0 0 no-repeat !important;}
+.x-edit-wordpaste {background: url(document-word-text.png) 0 0 no-repeat !important;}
+.x-edit-table {background: url(table.png) 0 0 no-repeat !important;}
+.x-edit-hr {background: url(edit-rule.png) 0 0 no-repeat !important;}
+.x-edit-indent {background: url(edit-indent.png) 0 0 no-repeat !important;}
+.x-edit-char {background: url(char.png) 0 0 no-repeat !important;}
+.x-edit-outdent {background: url(edit-outdent.png) 0 0 no-repeat !important;}
+.x-edit-subscript {background: url(text_subscript.png) 0 0 no-repeat !important;}
+.x-edit-superscript {background: url(text_superscript.png) 0 0 no-repeat !important;}
+.x-edit-removeFormat {background: url(exclamation.png) 0 0 no-repeat !important;}
+
+/*
+    These styles are used for the character map
+*/
+.char-item {
+    float: left; 
+    border: 1px solid #99BBE8; 
+    margin: 3px; 
+    text-align: center; 
+    vertical-align: middle; 
+    width: 20px; 
+    height: 20px; 
+    font-size: 14px;
+    color: #15428B;
+    cursor: pointer;
+}
+
+.char-item.x-view-selected {
+    background-color: #777;
+}
+
+.char-over {
+    border: 1px solid #15428B;
+    background-color:#d0def0;
+}
+
+.insert-image-msg-box{z-index:9113 !important;}

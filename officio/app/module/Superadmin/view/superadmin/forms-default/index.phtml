@@ -1,0 +1,15 @@
+<?php
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/themes/' . $this->layout()->theme . '.css');
+    
+    $this->layout()->useExtjs = true;
+    $this->layout()->useJQuery = true;
+    
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/forms/default/init.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/forms/default/grid.js');
+
+    $this->headScript()->captureStart();
+        echo "var forms_perpage = ".$this->intShowFormsPerPage.";";
+    $this->headScript()->captureEnd();
+?>
+<div id="forms_default_container"></div>

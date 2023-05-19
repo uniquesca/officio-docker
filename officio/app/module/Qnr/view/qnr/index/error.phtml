@@ -1,0 +1,7 @@
+<?php
+
+$this->headStyle()->captureStart();
+echo '.ui-icon-alert { margin-top: 6px;}';
+$this->headStyle()->captureEnd();
+
+echo $this->messageBox($this->errorMsg, true);

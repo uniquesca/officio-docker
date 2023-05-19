@@ -1,0 +1,48 @@
+<?= $this->doctype() ?>
+<html>
+
+<head>
+    <?= $this->headTitle() . "\n" ?>
+    <?= $this->headMeta() . "\n" ?>
+    <?= $this->minifier()->minify('ext_css') . "\n"; ?>
+    <?= $this->minifier()->minify('ext') . "\n"; ?>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        var baseUrl = '<?= $this->layout()->baseUrl; ?>';
+        var pdf_id = <?= $this->pdfId; ?>;
+        var booError = <?= $this->booError; ?>;
+
+        Ext.onReady(function () {
+            var msg = Ext.get('confirmationMsg');
+            if (msg) {
+                var buttons = booError ? {no: 'Ok'} : {yes: 'Back to the form', no: 'Close'};
+                var icon = booError ? Ext.Msg.WARNING : Ext.Msg.INFO;
+                var title = booError ? 'Error' : 'Confirmation';
+                Ext.Msg.show({
+                    title: title,
+                    msg: msg.dom.innerHTML,
+                    minWidth: 400,
+                    modal: true,
+                    buttons: buttons,
+                    icon: icon,
+                    fn: function (btn) {
+                        if (btn == 'yes') {
+                            var pdf_url = baseUrl + '/forms/index/open-assigned-pdf?pdfid=' + pdf_id;
+                            var xfdf_url = baseUrl + '/forms/index/open-assigned-xfdf?merge=1&pdfid=' + pdf_id;
+                            window.location = pdf_url + '#FDF=' + xfdf_url;
+                        } else {
+                            window.close();
+                        }
+                    }
+                });
+            }
+        });
+        //]]>
+    </script>
+</head>
+
+<body>
+<div id="confirmationMsg" style="display: none;"><?= $this->msgConfirmation ?></div>
+</body>
+</html>

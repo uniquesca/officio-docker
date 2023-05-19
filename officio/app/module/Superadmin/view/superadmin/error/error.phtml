@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * Default error view
+ *  
+ * @author
+ * @version
+ */
+
+$this->headTitle('Error Page');
+$this->placeholder('title')->set($this->title);
+$this->booShowLeftPanel = false;
+?>
+
+<h1>Error!</h1>
+<p><?= $this->message ?></p>
+<?php   if (!empty($this->info)): ?>
+    <?php   if (404 == $this->code): ?>
+        <p>
+            <b>Reason:</b> <?= $this->info ?>
+        </p>
+    <?php   elseif (500 == $this->code): ?>
+        <h2>Exception information:</h2>
+        <p>
+            <b>Message:</b> <?= $this->info->getMessage() ?> at <?= $this->info->getFile(); ?>:<?= $this->info->getLine(); ?>
+        </p>
+        <h4>Stack trace:</h4>
+        <pre>
+        <?= $this->info->getTraceAsString() ?>
+        </pre>
+    <?php   endif ?>
+<?php   endif ?>

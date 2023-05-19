@@ -1,0 +1,143 @@
+.form {
+    width: 350px;
+}
+
+.form input,
+.form textarea {
+    width: 100px;
+    padding: 5px 7px 5px;
+    margin: 0;
+    font: 14px Arial, Helvetica, sans-serif;
+    color: #797979;
+    background: #fff;
+    outline: none;
+    border: 1px solid #ccc;
+}
+
+.form label {
+    display: block;
+}
+
+.form a.button,
+.login-txt a.button {
+    padding: 4px 12px 4px;
+    margin-top: 19px;
+    margin-right: 35px;
+}
+
+.login-txt {
+    color: #fff;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+/***** contact form *****/
+#contact-form {
+    position: relative;
+    vertical-align: top;
+    width: 100%;
+    z-index: 1;
+}
+
+#contact-form fieldset {
+    border: none;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+#contact-form label {
+    display: block;
+    min-height: 46px;
+    position: relative;
+}
+
+#contact-form .message {
+    min-height: 259px;
+}
+
+#contact-form input, #contact-form textarea {
+    padding: 10px 15px 10px;
+    margin: 0;
+    font: 14px Arial, Helvetica, sans-serif;
+    color: #797979;
+    background: #fff;
+    outline: none;
+    border: 1px solid #ccc;
+    width: 337px;
+}
+
+#contact-form .area .error {
+    float: none;
+}
+
+#contact-form textarea {
+    width: 588px;
+    height: 198px;
+    overflow: auto;
+    resize: none;
+}
+
+#contact-form .success {
+    display: none;
+    margin-bottom: 20px;
+}
+
+#contact-form .error,
+#contact-form .empty {
+    color: #f00;
+    font-size: 11px;
+    line-height: 1.27em;
+    display: none;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.buttons-wrapper {
+    text-align: right;
+    position: relative;
+}
+
+.buttons-wrapper a {
+    cursor: pointer;
+    margin-left: 20px;
+    background-color: #f0f0f0;
+    color: #191919;
+}
+
+.buttons-wrapper a:first-child {
+    margin-left: 0px;
+}
+
+.buttons-wrapper a:hover {
+    background-color: #2b2b2b;
+    color: #fff;
+}
+
+@media only screen and (max-width: 995px) {
+    #contact-form .message {
+        min-height: 235px;
+    }
+
+    #contact-form input, #contact-form textarea {
+        width: 460px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    #contact-form input, #contact-form textarea {
+        width: 388px;
+    }
+}
+
+@media only screen and (max-width: 479px) {
+    #contact-form input, #contact-form textarea {
+        width: 268px;
+    }
+}

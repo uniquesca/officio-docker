@@ -1,0 +1,354 @@
+<?php
+
+use Officio\Common\Json;
+
+function adjustBrightness($hexCode, $adjustPercent) {
+    $hexCode = ltrim($hexCode ?? '', '#');
+
+    if (strlen($hexCode ?? '') == 3) {
+        $hexCode = $hexCode[0] . $hexCode[0] . $hexCode[1] . $hexCode[1] . $hexCode[2] . $hexCode[2];
+    }
+
+    $hexCode = array_map('hexdec', str_split($hexCode, 2));
+
+    foreach ($hexCode as & $color) {
+        $adjustableLimit = $adjustPercent < 0 ? $color : 255 - $color;
+        $adjustAmount = ceil($adjustableLimit * $adjustPercent);
+
+        $color = str_pad(dechex($color + $adjustAmount), 2, '0', STR_PAD_LEFT);
+    }
+
+    return '#' . implode($hexCode);
+}
+
+$currentStepColor = '#' . $this->arrQnrInfo['q_section_bg_color'];
+$backgroundColor  = adjustBrightness($this->arrQnrInfo['q_section_bg_color'], 0.35);
+$textColor        = '#' . $this->arrQnrInfo['q_section_text_color'];
+$buttonColor      = '#' . $this->arrQnrInfo['q_button_color'];
+$buttonColorHover = adjustBrightness($this->arrQnrInfo['q_button_color'], 0.35);
+
+$arrSteps = array(
+    $this->arrQnrInfo['q_step1'],
+    $this->arrQnrInfo['q_step2'],
+    $this->arrQnrInfo['q_step3'],
+    $this->arrQnrInfo['q_step4'],
+);
+
+$this->headStyle()->captureStart(); ?>
+
+* {
+    font-family: Metropolis, Arial, Helvetica, sans-serif;
+}
+
+.completed-step {
+    color: <?= $textColor ?>;
+    text-shadow: none;
+}
+
+.wizard-steps:not(.wizard-steps-rtl) > div:first-child a {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+.wizard-steps:not(.wizard-steps-rtl) > div:last-child a {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.wizard-steps.wizard-steps-rtl > div:first-child a {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+.wizard-steps.wizard-steps-rtl > div:last-child a {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.wizard-steps {
+    color: <?= $textColor ?>;
+}
+
+.wizard-steps > div:not(.completed-step) a {
+    cursor: alias;
+}
+.wizard-steps .completed-step a {
+    color: <?= $textColor ?>;
+    background-color: <?= $backgroundColor ?>;
+    text-shadow: none;
+}
+.wizard-steps .current-step a {
+    background-color: #63aae7;
+}
+.wizard-steps:not(.wizard-steps-rtl) .completed-step:not(:first-child) a:before {
+    border-top-color: <?= $backgroundColor ?>;
+    border-bottom-color: <?= $backgroundColor ?>;
+}
+.wizard-steps:not(.wizard-steps-rtl) .completed-step:not(:last-child) a:after {
+    border-left-color: <?= $backgroundColor ?>;
+}
+.wizard-steps.wizard-steps-rtl .completed-step:not(:first-child) a:after {
+    border-top-color: <?= $backgroundColor ?>;
+    border-bottom-color: <?= $backgroundColor ?>;
+}
+.wizard-steps.wizard-steps-rtl .completed-step:not(:last-child) a:before {
+    border-right-color: <?= $backgroundColor ?>;
+}
+
+.wizard-steps .current-step a {
+    background-color: <?= $currentStepColor ?> !important;
+}
+.wizard-steps:not(.wizard-steps-rtl) .current-step a:before {
+    border-top-color: <?= $currentStepColor ?> !important;
+    border-bottom-color: <?= $currentStepColor ?> !important;
+}
+.wizard-steps:not(.wizard-steps-rtl) .current-step a:after {
+    border-left-color: <?= $currentStepColor ?> !important;
+}
+.wizard-steps.wizard-steps-rtl .current-step a:after {
+    border-top-color: <?= $currentStepColor ?> !important;
+    border-bottom-color: <?= $currentStepColor ?> !important;
+}
+.wizard-steps.wizard-steps-rtl .current-step a:before {
+    border-right-color: <?= $currentStepColor ?> !important;
+}
+
+.wizard-steps-long a {
+    min-width: 130px;
+}
+.wizard-steps-long a h5 {
+    margin: 12px 6px !important;
+    font-size: 20px !important;
+}
+
+form[dir="rtl"] .questionnaire-title > div:first-child h5 {
+    float: unset !important;
+}
+
+form[dir="rtl"] .questionnaire-title > div:last-child div {
+    float: left !important;
+}
+
+.field-container-limit-width {
+    max-width: 500px !important;
+}
+
+.uf-checkbox-group {
+    flex-direction: unset !important;
+}
+
+.uf-checkbox, .uf-radio {
+    display: flex;
+    margin: 0;
+}
+
+.uf-checkbox input[type=checkbox], .uf-radio input[type=radio] {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.field_help {
+    margin-bottom: initial !important;
+}
+
+.ext-strict .x-form-text {
+    height: initial !important;
+}
+
+.btn-next {
+    border: 1px solid <?=$buttonColor?> !important;
+    border-radius: 3px !important;
+    background-color: <?=$buttonColor?> !important;
+    padding: 3px 12px 3px 12px !important;
+}
+.btn-next:hover {
+    background-color: <?=$buttonColorHover?> !important;
+}
+.tab-pane {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.tab-pane .btn {
+    font-size: 1.3rem;
+}
+
+.field-container input[type="file"]::-webkit-file-upload-button {
+    padding: 1px 16px;
+    margin-right: 8px;
+}
+.field-container input[type="file"] {
+    height: 44px;
+}
+
+.uf-label-title label {
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+.step-dropdown > button {
+    background-color: <?= $currentStepColor ?> !important;
+    border-color: <?= $currentStepColor ?> !important;
+    color: <?= $textColor ?> !important;
+    width: 100%;
+    text-align: left;
+}
+.step-dropdown > button:hover {
+    background-color: <?= $currentStepColor ?> !important;
+}
+.dropdown-menu {
+    width: 100% !important;
+}
+.dropdown-toggle {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.qf_job_title .field-container input.job_search {
+    padding-right: 30px;
+    z-index: 0 !important;
+}
+.qf_job_title .field-container:after {
+    font-weight: 900;
+    font-family: "Font Awesome 5 Free";
+    color: gray;
+    content: '\f002';
+    position: absolute;
+    right: 8px;
+    top: 8px;
+}
+
+<?php if ($this->layout()->site_version == 'australia') : ?>
+    .wrapper {
+    font-size: 14px;
+    }
+<?php endif ?>
+
+<?php $this->headStyle()->captureEnd(); ?>
+<?php $this->headScript()->captureStart(); ?>
+var arrSteps = <?= Json::encode($arrSteps) ?>;
+var qnrLang = <?= Json::encode($this->arrQnrInfo['q_noc']) ?>;
+<?php $this->headScript()->captureEnd(); ?>
+
+<?php
+$this->headScript()->appendFile($this->layout()->jsUrl . '/qnr/bootstrap/global.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/qnr/bootstrap/main.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/qnr/iframeResizer.contentWindow.min.js');
+$this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1, maximum-scale=1');
+
+$this->headLink()->appendStylesheet($this->layout()->topBaseUrl . '/assets/plugins/@fortawesome/fontawesome-free/css/all.min.css');
+?>
+<link rel="stylesheet" href="<?= $this->layout()->topBaseUrl ?>/assets/plugins/bootstrap/dist/css/bootstrap.min.css" type="text/css"/>
+<link rel="stylesheet" href="<?= $this->layout()->topBaseUrl ?>/assets/plugins/gijgo/css/gijgo.min.css" type="text/css"/>
+<link rel="stylesheet" href="<?= $this->layout()->topBaseUrl ?>/assets/plugins/select2/dist/css/select2.min.css" type="text/css"/>
+<link rel="stylesheet" href="<?= $this->layout()->topCssUrl ?>/bootstrap-qnr.css" type="text/css"/>
+
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script type="text/javascript" src="<?= $this->layout()->topBaseUrl ?>/assets/plugins/tether/dist/js/tether.min.js"></script>
+<script type="text/javascript" src="<?= $this->layout()->topBaseUrl ?>/assets/plugins/popper.js/dist/umd/popper.min.js"></script>
+<script type="text/javascript" src="<?= $this->layout()->topBaseUrl ?>/assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?= $this->layout()->topBaseUrl ?>/assets/plugins/gijgo/js/gijgo.min.js"></script>
+<script type="text/javascript" src="<?= $this->layout()->topBaseUrl ?>/assets/plugins/select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="<?= $this->layout()->topBaseUrl ?>/assets/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.min.js"></script>
+
+<script type="text/javascript" src="<?= $this->layout()->assetsUrl ?>/jquery-validation/dist/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<?= $this->layout()->assetsUrl ?>/jquery-validation/dist/additional-methods.min.js"></script>
+<script type="text/javascript" src="<?= $this->layout()->jqueryUrl ?>/jquery.metadata.js"></script>
+
+<?php if($this->logoOnTop == 'Y' && !empty($this->companyLogoLink)) { ?>
+    <div class="company-logo">
+        <img id="companyImageLogo" src="<?=$this->companyLogoLink?>" class="m-2" alt="<?= $this->translate('Company Logo') ?>" />
+    </div>
+<?php } ?>
+
+<form action="<?= $this->layout()->topBaseUrl ?>/qnr/index/save" id="saveQnrForm" enctype="multipart/form-data" name="saveQnrForm" <?php if ($this->booRtl) echo 'dir="rtl"' ?>>
+    <input type="hidden" name="q_id" id="next_section_id" value="<?= $_GET['id'] ?>"/>
+    <input type="hidden" name="hash" id="submit_hash" value="<?= $_GET['hash'] ?>"/>
+    <input type="hidden" name="qnr_flag" id="qnr_flag" value="<?= 'qnr' ?>"/>
+
+    <div id='wizard' class="container" style="margin: 20px auto;">
+        <div class="row no-gutters questionnaire-title">
+            <div class="col">
+                <h5 style="float: left;"><?= $this->arrQnrInfo['q_applicant_name'] ?></h5>
+            </div>
+            <div class="col">
+                <div style="float: right; color: red;"><?= $this->arrQnrInfo['q_please_answer_all'] ?></div>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-12 d-none d-lg-block">
+                <div class="wizard-steps <?php if ($this->booRtl) echo 'wizard-steps-rtl' ?>"></div>
+            </div>
+            <div class="dropdown step-dropdown col-12 p-0 d-flex d-lg-none mt-1" style="display: none !important;">
+                <button id="dropdownMenuStep" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuStep"></div>
+            </div>
+        </div>
+
+        <div class="row no-gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <?php
+                echo $this->strQnrView ?? '';
+                ?>
+            </div>
+
+            <div class="row col-md-12" style="margin-top: 10px;">
+                <div class="container tab-pane" id="buttonsContainer">
+                    <div>
+                        <a id="previous" class="btn btn-secondary move" style="color:white;"><?= $this->arrQnrInfo['q_prev_page_button'] ?></a>
+                    </div>
+                    <div>
+                        <a id="next" class="btn btn-primary move btn-next" style="color:white;"><?= $this->arrQnrInfo['q_next_page_button'] ?></a>
+                    </div>
+                </div>
+            </div>
+
+            <?php if (!empty($this->arrQnrInfo['q_please_press_next'])): ?>
+                <div class="q_please_press_next_message row col-md-12" style="margin-top: 10px;">
+                    <div style="float: none; margin: 0 auto">
+                        <p><?= $this->arrQnrInfo['q_please_press_next'] ?></p>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+        </div>
+    </div>
+</form>
+
+<div id="confirmation_message" class="container" style="display: none; color: #000;"></div>
+
+<div class="modal fade" id="modalDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalDialogTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalDialogContent">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bottom_copyright">
+    Powered by
+    <?php
+        if ($this->layout()->officio_domain) {
+            ?><a href="//<?= $this->layout()->officio_domain ?>" target="_blank">Officio</a><?php
+        } else {
+            echo "Officio";
+        }
+    ?>,
+    Copyright &copy;
+    <?= (
+        $this->layout()->site_version == 'australia'
+        ? '2013-' . date('Y')
+        : '1996-' . date('Y')
+    ) ?>,
+    <?= $this->layout()->site_company_name . (substr($this->layout()->site_company_name, -1) == '.' ? '' : '.') ?>
+</div>

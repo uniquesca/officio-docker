@@ -1,0 +1,196 @@
+<?php
+
+use Officio\Common\Json;
+
+?>
+<?= $this->doctype() . "\n"; ?>
+<html>
+<head>
+    <?= $this->headTitle() . "\n" ?>
+    <?= $this->headMeta() . "\n" ?>
+    <link rel="gettext" type="application/x-po" href="<?= $this->topBaseUrl ?>/lang/<?= $this->current_locale ?>.po"/>
+
+    <?php if ($this->useJQuery): ?>
+        <!-- jQuery -->
+        <?= $this->minifier()->minify('jq') . "\n"; ?>
+        <?= $this->minifier()->minify('jquery-ui') . "\n"; ?>
+        <?= $this->minifier()->minify('jquery-ui-css') . "\n"; ?>
+        <!--[if IE]><link rel="stylesheet" type="text/css" href="<?=$this->topCssUrl;?>/ie_fix.css" /><![endif]-->
+        <!-- / jQuery -->
+    <?php endif;?>
+
+    <?php if($this->useExtjs): ?>
+        <!-- ExtJS -->
+        <?= $this->minifier()->minify('ext_css') . "\n"; ?>
+        <?= $this->minifier()->minify('ext') . "\n"; ?>
+        <?php
+            $this->headScript()->prependFile($this->jsUrl . '/init_extjs.js');
+            $this->headScript()->appendFile($this->topJsUrl . '/help/HelpContextWindow.js');
+        ?>
+        <!-- / ExtJS -->
+    <?php endif;?>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        // Settings
+        var passwordValidationRegexp = '<?=$this->site_password_regex?>';
+        var passwordValidationRegexpMessage = '<?=$this->site_password_regex_message?>';
+        var baseUrl = '<?=$this->baseUrl;?>';
+        var topBaseUrl = '<?=$this->topBaseUrl?>';
+        var dateFormatShort = '<?=$this->settings->variable_get("dateFormatShort"); ?>';
+        var dateFormatFull = '<?=$this->settings->variable_get("dateFormatFull"); ?>';
+        var site_version = '<?=$this->site_version?>';
+        var site_currency = '<?=strtolower($this->site_currency)?>';
+        var site_currency_label = '<?=$this->site_currency_label?>';
+        var site_company_phone = '<?=$this->site_company_phone?>';
+        var site_company_name = <?=Json::encode($this->site_company_name)?>;
+        var FROALA_SETTINGS = <?= Json::encode($this->froala_settings); ?>;
+        var booShowHelpIcon = <?= Json::encode($this->layout()->acl->isAllowed('help-view')); ?>;
+        //]]>
+    </script>
+
+    <?php
+    // Used on the login page only
+    if (isset($this->booShowHeaderAndFooter)) {
+        $this->headStyle()->captureStart();
+        echo 'body { background-color: #94A1B0; }';
+        $this->headStyle()->captureEnd();
+    }
+    ?>
+
+    <?= $this->minStyleSheets() . "\n"; ?>
+    <?= $this->headStyle()  . "\n" ?>
+    <?= $this->minJs() . "\n"; ?>
+</head>
+
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="wtbgcolor">
+    <?php if (isset($this->booShowHeaderAndFooter)): ?>
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="wtbgcolor">
+                    <tr>
+                        <td align="left" valign="top" class="logo_bg">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td height="23">&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td width="255" height="38" align="right" valign="middle"><a href="<?= $this->baseUrl ?>"><img src="<?= $this->imgUrl('logo.gif') ?>" border="0" alt=""/></a></td>
+                                    <td width="106" align="left" valign="bottom"><img src="<?= $this->imgUrl('logo-line.gif') ?>" width="106" height="4" hspace="3" vspace="5" alt=""/></td>
+
+                                    <td align="right" valign="top" class="paddingright15">
+                                        <?php if (!empty($this->layout()->auth->getCurrentUserId())): ?>
+                                            <table border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td width="10"><img src="<?= $this->imgUrl('bottonlt.gif') ?>" width="10" height="38" alt=""/></td>
+                                                    <td width="122" align="center" valign="middle" class="button_bg"><a href="<?= $this->baseUrl ?>/index" class="whiteTxtlink1">Super Admin Home </a></td>
+                                                    <td width="15"><img src="<?= $this->imgUrl('buttonmid.gif') ?>" width="15" height="38" alt=""/></td>
+                                                    <td width="50" align="center" valign="middle" class="button_bg"><a href="<?= $this->baseUrl ?>/auth/logout" class="whiteTxtlink1">Logout</a></td>
+                                                    <td width="10"><img src="<?= $this->imgUrl('buttonrt.gif') ?>" width="10" height="38" alt=""/></td>
+                                                </tr>
+                                            </table>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="8" align="left" valign="top" bgcolor="#5E9CDB"><img src="<?= $this->imgUrl('trans.gif') ?>" width="1" height="1" alt=""/></td>
+                    </tr>
+                    <tr>
+                        <td align="left" valign="top" class="text_bg">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    <?php endif; ?>
+
+    <tr>
+        <td class="superadmin-iframe-header" colspan="2">&nbsp;</td>
+    </tr>
+
+    <?php if (!isset($this->booUseOtherContent) || !$this->booUseOtherContent) :?>
+
+        <tr align="center">
+            <td colspan="2"><table width="98%"  border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <?php if (!isset($this->booShowLeftPanel) || $this->booShowLeftPanel) : ?>
+                            <!-- LEFT PANEL -->
+
+                            <td valign="top" id="pleft" class="padingleft10">
+                                <div id="admin-left-panel" style="height: auto">
+                                    <a href="<?= $this->baseUrl . '/manage-company' ?>"><img src="<?= $this->imgUrl('back_to_super.gif') ?>" border="0" alt=""/></a>
+                                    <?= $this->adminNavigation; ?>
+                                </div>
+                            </td>
+                            <!-- WHITE SPACE -->
+                            <td width="15" id="pspacing"><img src="<?= $this->imgUrl('spacer.gif') ?>" width="15" border="0" alt=""/></td>
+                            <!-- BODY START-->
+                            <td width="1" style="border:1px solid #D0D8DD;background-color:#f7f7f7">
+                                <div id="sign"></div>
+                            </td>
+                        <?php endif;?>
+
+                        <td width="100%" valign="top" class="contentPaneBdr">
+                            <table cellpadding="0" cellspacing="0" class="content_container">
+                                <tr>
+                                    <td class="h1 content_container_header_left"><i class="las la-cube"></i><?= $this->escapeHtml($this->title); ?></td>
+                                    <td class="content_container_header_right"><?=$this->top_menu;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="content_container_body">
+                                        <?=$this->layout()->content;?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    <?php else :?>
+        <?=$this->layout()->content;?>
+    <?php endif;?>
+
+    <?php if (isset($this->booShowHeaderAndFooter)) :?>
+        <tr>
+            <td height="1" colspan="2">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="wtbgcolor">
+                    <tr>
+                        <td align="left" valign="top" class="footer_bg">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td height="21">&nbsp;</td>
+                                    <td width="40" rowspan="3" align="right" valign="top"></td>
+                                </tr>
+                                <tr>
+                                    <td height="27" align="left" valign="bottom" class="whiteTxt paddingleft15">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td height="42" align="left" valign="bottom" class="whiteTxt paddingleft15">
+                                        <table width="100%" align="center" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td class="footertxt whiteTxt paddingleft15" valign="top" align="left" style="padding-bottom:10px;"><strong>Copyright &copy; <?= ($this->site_version == 'australia' ? '2013-' . date('Y') : '1996-' . date('Y')) ?> <?= $this->site_company_name ?></strong>&nbsp;&nbsp;<span>Reproduction in any form is prohibited.</span><br/>
+                                                </td>
+                                                <?php if ($this->site_version == 'canada'): ?>
+                                                    <td class="footertxt whiteTxt paddingleft15" valign="top" align="right" style="padding-bottom:10px;"><a href="http://www.uniques.ca/" target="_blank" style="color: #fff">Powered by Uniques Software Corp.</a></td>
+                                                <?php endif; ?>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    <?php endif;?>
+</table>
+</body>
+</html>

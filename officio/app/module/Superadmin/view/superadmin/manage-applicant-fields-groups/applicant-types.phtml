@@ -1,0 +1,12 @@
+<?php
+    $this->layout()->useJQuery = true;
+    $this->layout()->useExtjs = true;
+
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+    $this->headLink()->appendStylesheet($this->layout()->cssUrl . '/applicant_types.css');
+
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/manage-applicant-fields-groups/applicant-types/tab_panel.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/manage-applicant-fields-groups/applicant-types/grid.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/manage-applicant-fields-groups/applicant-types/init.js');
+?>
+<div id="applicant-types-container"></div>

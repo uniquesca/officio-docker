@@ -1,0 +1,103 @@
+name: NTNP
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          extensions: json, mbstring, openssl, pdo, pdo_mysql, mailparse, iconv, gd, zlib, curl, xml, simplexml, dom, calendar, gettext, zip, tidy, intl
+
+      - name: Checkout main repository
+        if: (github.event_name == 'push') || (github.event.pull_request.merged == true)
+        uses: actions/checkout@v2
+        with:
+          path: main
+
+      - name: Checkout NTNP repository
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        uses: actions/checkout@v2
+        with:
+          repository: "uniquesca/ntnp-backend"
+          ref: latest
+          token: ${{ secrets.ACCESS_TOKEN }}
+          path: ntnp
+
+      - name: Prepare main code for copying - configs, composer and DB scripts
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: main
+        run: |
+          php officio.phar select_project ntnp
+          php officio.phar cleanup_project ntnp
+          rm .git -rf
+
+      # IMPORTANT: This has to be maintained well in order to prevent loss of important files
+      - name: Preserve NTNP-specific project files and delete everything else
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: ntnp
+        run: |
+          mkdir preserve/public/pdf -p
+          rsync -aE public/pdf preserve/public
+          rsync -aE .git preserve
+          find . -mindepth 1 -maxdepth 1 -type d -not -name 'preserve' -exec rm -rf {} \;
+          find . -maxdepth 1 -type f -delete
+
+      - name: Copying main code into NTNP project
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        run: rsync -aE main/ ntnp/
+
+      - name: Restoring NTNP-specific files
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: ntnp
+        run: |
+          rsync -aE --ignore-existing preserve/ ./
+          rm preserve -rf
+          rm .officioproject
+
+      - name: Cache PHP dependencies
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        uses: actions/cache@v2
+        with:
+          path: |
+            ntnp/vendor
+          key: ${{ runner.OS }}-build-${{ hashFiles('ntnp/composer.lock') }}
+
+      - name: Cache Yarn dependencies
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        uses: actions/cache@v2
+        with:
+          path: |
+            ntnp/public/assets/plugins
+          key: ${{ runner.OS }}-build-${{ hashFiles('ntnp/yarn.lock') }}
+
+      - name: Composer and Yarn install
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: ntnp
+        run: |
+          php composer.phar config github-oauth.github.com ${{ secrets.ACCESS_TOKEN }}
+          php composer.phar install --no-dev --prefer-dist -o
+          echo "@uniquesca:registry=https://npm.pkg.github.com" >> ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.ACCESS_TOKEN }}" >> .npmrc
+          echo "always_auth=true" >> .npmrc
+          yarn install
+
+      - name: Commit changes
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: ntnp
+        run: |
+          git add .
+
+          git config --local user.email "gha@uniques.ca"
+          git config --local user.name "GitHub Actions"
+
+          git commit -a -m "Automatic commit from main repository: #${GITHUB_SHA}"
+
+          git push

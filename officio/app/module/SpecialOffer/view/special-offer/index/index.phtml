@@ -1,0 +1,121 @@
+<?php
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/bootstrap-signup.css');
+
+$this->headScript()->captureStart(); ?>
+var payment_term = <?php echo $_POST['payment_term'] ?? 1; ?>;
+
+$(document).ready(function() {
+    if (payment_term == 2){
+        $('#radio_payment_term_2').prop('checked', true);
+    } else {
+        $('#radio_payment_term_1').prop('checked', true);
+    }
+
+    $("#nextBtn").click(function(event){
+        $("#price_submit").submit();
+    });
+});
+<?php $this->headScript()->captureEnd(); ?>
+
+<?php $this->headStyle()->captureStart(); ?>
+.crossed {
+    text-decoration: line-through;
+}
+
+.comment {
+    color: #707273;
+}
+<?php $this->headStyle()->captureEnd(); ?>
+
+<div id="page-container" class="container-fluid pr-0 pl-0 h-100 d-flex flex-column">
+
+    <nav class="header navbar fixed-top navbar-expand-md navbar-dark">
+        <div class="container">
+            <a href="<?= $this->layout()->officioBaseUrl ?>/index.php">
+                <img src="<?= $this->layout()->imagesUrl ?>/default/logo.png" height="65" width="174" alt="<?= $this->layout()->officio_domain ?>" title="<?= $this->layout()->officio_domain ?>" border="0"/>
+            </a>
+        </div>
+    </nav>
+
+    <?php if (!empty($this->strError)): ?>
+        <div class="container">
+            <div class="alert alert-danger" style="margin-top: 120px;"><?= $this->strError ?></div>
+        </div>
+    <?php else: ?>
+        <div id="wizard_content" class="container content-container" style="padding-top:100px; margin-bottom: 15px;">
+
+            <div class="wizardcontent" id="step_3">
+                <div style="padding-bottom: 20px;">
+                    <div style="font-weight: bold; font-size: 15px;"><?= $this->translate('Officio Ultimate Plus') ?></div>
+                    <div style="color: #ff0000;">For a limited time only.</div>
+                    <div><?= $this->settings['discountLabel'] ?></div>
+                </div>
+
+                <form id="price_submit" method="post" action="<?= $this->layout()->baseUrl ?>/signup/index/payment">
+                    <input id="special_offer" type="hidden" name="special_offer" value="1" />
+
+
+                    <div style="font-weight: bold;"><?= $this->translate('Please select the payment term:') ?></div>
+                    <table>
+                        <tr>
+                            <td style="width: 150px;">
+                                <input class="radio_payment_term" id="radio_payment_term_1" type="radio" name="payment_term" value="1" checked="checked"/>
+                                <label for="radio_payment_term_1">Monthly: $<?= round($this->settings['feeMonthly']) ?></label>
+                            </td>
+                            <td class="comment">
+                                (regular pricing: <span class="crossed">$<?= round($this->settings['packageUltimateFeeMonthly']) ?></span>)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input class="radio_payment_term" id="radio_payment_term_2" type="radio" name="payment_term" value="2"/>
+                                <label for="radio_payment_term_2">Annually: $<?= round($this->settings['feeAnnual']) ?></label>
+                            </td>
+                            <td class="comment">
+                                (regular pricing: <span class="crossed">$<?= round($this->settings['packageUltimateFeeAnnual']) ?></span>)
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <div class="comment" style="padding-top: 20px;">
+                        <?= $this->translate('<b>Can I start on a monthly plan now, and later upgrade to an annual plan?</b><br />
+                            Yes. Obviously annual packages are better value for your ongoing requirements. You can always upgrade to enjoy additional saving.<br />
+                            <br />
+                            <b>How will I be billed?</b><br />
+                            Your credit card will be billed upon signing up and automatically thereafter at the end of each payment term.<br/>
+                            For example, if you are on a monthly plan, your card will be charged every month. There are no contracts or hidden fees.<br />') ?>
+                        <div style="padding: 10px 0;"><?= $this->translate('* GST/HST is charged on all Canadian sales.') ?></div>
+                    </div>
+
+                    <div class="row justify-content-center" style="margin-top: 10px; margin-bottom: 10px;">
+                        <div style="float: none; margin: 0 auto">
+                            <button id="nextBtn" type="button" class="btn btn-primary orange-btn" style="width: 125px;"><?= $this->translate('Next') ?></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <?php endif ?>
+
+    <footer class="mt-auto">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="footer-col-lf col-md-6 text-center">
+                    <ul class="vertical-links small">
+                        <li><a class="inline_footer" href="<?= $this->layout()->baseUrl ?>/default/index/privacy"><?= $this->translate('Privacy Policy') ?></a></li>
+                        <li><a class="inline_footer" href="<?= $this->layout()->baseUrl ?>/default/index/terms"><?= $this->translate('Terms of Use') ?></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col-rt col-md-6 text-center">
+                    <ul class="vertical-links small">
+                        <li>
+                            <?= $this->translate('Copyright') ?> &copy; <?= ($this->layout()->site_version == 'australia' ? '2013-' . date('Y') : '1996-' . date('Y')) ?>, <?= $this->layout()->site_company_name ?>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>

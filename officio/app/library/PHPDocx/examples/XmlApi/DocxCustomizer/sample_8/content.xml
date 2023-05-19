@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pdx:document xmlns:pdx="http://www.phpdocx.com/main" >
+    <pdx:content>
+        <pdx:wordFragments>
+            <pdx:wordFragment pdx:wordFragmentName="textFragment" pdx:target="defaultHeader">
+                <pdx:content>
+                    <pdx:addText>
+                        <pdx:textRun>
+                            <pdx:data pdx:dataId="" pdx:dataType="text">Text header.</pdx:data>
+                        </pdx:textRun>
+                    </pdx:addText>
+                </pdx:content>
+            </pdx:wordFragment>
+        </pdx:wordFragments>
+        <pdx:addHeader>
+            <pdx:default pdx:wordFragmentName="textFragment" />
+        </pdx:addHeader>
+        <pdx:addText>
+            <pdx:textRun>
+                <pdx:data pdx:dataId="" pdx:dataType="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</pdx:data>
+                <pdx:textRunStyle>
+                    <pdx:bold pdx:value="true" />
+                    <pdx:font pdx:value="Arial" />
+                </pdx:textRunStyle>
+            </pdx:textRun>
+        </pdx:addText>
+        <pdx:customizeWordContent>
+            <pdx:referenceNode pdx:target="header" pdx:type="paragraph" />
+            <pdx:options>
+                <pdx:bold pdx:value="true" />
+                <pdx:font pdx:value="Arial" />
+                <pdx:fontSize pdx:value="14" />
+                <pdx:italic pdx:value="true" />
+            </pdx:options>
+        </pdx:customizeWordContent>
+    </pdx:content>
+</pdx:document>

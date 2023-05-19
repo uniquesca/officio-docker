@@ -1,0 +1,141 @@
+<div id="renew_change_plan">
+    <input type="hidden" id="renew_expired" value="<?= ($this->booExpired ? '1' : '0') ?>"/>
+    <input type="hidden" id="renew_selected_plan" value="<?= $this->companyPlan ?>"/>
+    <input type="hidden" id="renew_free_users" value="<?= $this->freeUsers ?>"/>
+    <input type="hidden" id="renew_active_users" value="<?= $this->activeUsers ?>"/>
+    <input type="hidden" id="renew_active_storage" value="<?= $this->activeStorage ?>"/>
+    <input type="hidden" id="renew_free_storage" value="<?= $this->freeStorage ?>"/>
+    <input type="hidden" id="renew_fee_storage_monthly" value="<?= $this->feeStorageMonthly ?>"/>
+    <input type="hidden" id="renew_fee_storage_annual" value="<?= $this->feeStorageAnnual ?>"/>
+    <input type="hidden" id="renew_fee_annual" value="<?= $this->feeAnnual ?>"/>
+    <input type="hidden" id="renew_fee_monthly" value="<?= $this->feeMonthly ?>"/>
+    <input type="hidden" id="renew_license_annual" value="<?= $this->licenseAnnual ?>"/>
+    <input type="hidden" id="renew_license_monthly" value="<?= $this->licenseMonthly ?>"/>
+    <input type="hidden" id="renew_company_gst" value="<?= $this->companyGst ?>"/>
+    <input type="hidden" id="renew_company_gst_tax_label" value="<?= $this->companyGstTaxLabel ?>"/>
+    <input type="hidden" id="renew_company_gst_type" value="<?= $this->companyGstType ?>"/>
+    <input type="hidden" id="renew_company_gst_default_type" value="<?= $this->companyGstDefaultType ?>"/>
+    <input type="hidden" id="renew_currency" value="<?= $this->currentCurrency ?>"/>
+
+
+    <div id="renew_plan_selection" class="renew_wrapper">
+        <div style="padding: 20px 0 10px; margin: 0 0 0 80px; font-size: 16px; text-align: left; position: relative;">
+            <img src="images/clock.png" style="position: absolute; top: 23px; left: -60px;">
+            <b><?= ($this->booExpired ? $this->translate('Your subscription has expired on') : $this->translate('Your subscription is expiring on')) ?> <span style="color: #f00;"><?= $this->expirationDate ?></span></b>.<br/><br/>
+            <?= ($this->booExpired ? $this->translate('Renew your subscription now to continue using Officio.') : $this->translate('Renew your subscription now to enjoy an uninterrupted service.')) ?><br/><br/>
+        </div>
+    </div>
+
+
+    <div id="renew_details" style="display: none; margin:0 auto; width: 550px;">
+        <div style="margin: 0 auto; padding: 10px 5px; width: 100%; color: #000; font-size: 14px; text-align: center">
+            <?php if ($this->layout()->site_version == 'australia') : ?>
+                <?= $this->translate('Have any questions? Call us:') ?> <b><?= $this->layout()->site_company_phone ?></b>
+            <?php else : ?>
+                <?= $this->translate('Have any questions? Call us toll free:') ?> <b><?= $this->layout()->site_company_phone ?></b>
+            <?php endif ?>
+        </div>
+
+        <div style="padding: 10px; font-size: 14px;">
+            <div style="font-weight: bold;"><?= $this->translate('How would you like to renew your subscription?') ?></div>
+            <?php $strChecked = $this->companyPlan == 'monthly' ? 'checked="checked"' : '' ?>
+            <input id="renew_selected_plan_monthly" name="renew_selected_plan" type="radio" value="monthly" <?= $strChecked ?> onchange="updateSelectedPlan();"/><label for="renew_selected_plan_monthly"
+                                                                                                                                                                        style="padding: 10px 5px 5px 0; display: inline-block"><?= $this->translate(
+                    'Monthly'
+                ) ?></label><br/>
+
+            <?php $strChecked = $this->companyPlan != 'monthly' ? 'checked="checked"' : '' ?>
+            <input id="renew_selected_plan_annual" name="renew_selected_plan" type="radio" value="annual" <?= $strChecked ?> onchange="updateSelectedPlan();"/><label for="renew_selected_plan_annual"
+                                                                                                                                                                      style="padding: 10px 5px 5px 0; display: inline-block"><?= $this->translate(
+                    'Annually'
+                ) ?> <span style="color: #f00;"><?= $this->translate('(Save 17%)') ?></span></label><br/>
+        </div>
+
+        <table>
+            <tr>
+                <th></th>
+                <th>
+                    <span id="renew_selected_plan_name"><?= $this->translate('Annual Plan') ?></span>
+                </th>
+            </tr>
+            <tr>
+                <td class="renew_first_col"><?=$this->translate('Subscription:')?></td>
+                <td class="renew_second_col">
+                    <span id="renew_selected_plan_charge">$0.00</span>
+                </td>
+            </tr>
+
+
+            <?php $hideStorageRow = $this->activeUsers <= $this->freeUsers ? 'style="display: none;"' : '' ?>
+            <tr <?=$hideStorageRow?>>
+                <td class="renew_first_col">
+                    <label for="renew_user_licenses"><?=$this->translate('Number of user licenses needed:')?></label><br/>
+                    <em>
+                        <?=sprintf($this->translate('You currently have %s active users.'), $this->activeUsers)?><br/>
+                        <?=sprintf($this->translate('Your subscription includes %s user licenses.'),$this->freeUsers)?><br/>
+                        Additional users are charged at <span id="renew_user_license_price"></span>.
+                    </em>
+                </td>
+                <td class="renew_second_col">
+                    <div style="float: left; width: 45px;">
+                        <?php $users = max($this->activeUsers, $this->freeUsers); ?>
+                        <input id="renew_user_licenses" name="renew_user_licenses" type="text" value="<?=$users?>"/>
+                    </div>
+
+                    <span id="renew_licenses_calculated">$0.00</span>
+                </td>
+            </tr>
+
+            <?php $hideStorageRow = $this->activeStorage <= $this->freeStorage ? 'style="display: none;"' : '' ?>
+            <tr <?=$hideStorageRow?>>
+                <td class="renew_first_col">
+                    <label for="renew_storage_count">Storage needed:</label><br/>
+                    <em>
+                        <?=sprintf($this->translate('You are currently using %sGb of storage.'), $this->activeStorage)?><br/>
+                        <?=sprintf($this->translate('Your subscription includes %sGb of storage.'),$this->freeStorage)?><br/>
+                        <?=$this->translate('Additional storage will be charged at')?> <span id="renew_storage_price"></span>.
+                    </em>
+                </td>
+                <td class="renew_second_col">
+                    <div style="float: left; width: 60px;">
+                        <table>
+                            <tr>
+                                <td style="border: none; padding: 0;">
+                                    <?php $storage = max($this->activeStorage, $this->freeStorage); ?>
+                                    <input id="renew_storage_count" name="renew_storage_count" type="text" value="<?=$storage?>"/>
+                                </td>
+                                <td style="border: none; padding: 0 0 0 2px;">Gb</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <span id="renew_storage_calculated">$0.00</span>
+                </td>
+            </tr>
+
+            <tr class="gst_row">
+                <td class="renew_first_col">GST/HST:</td>
+                <td class="renew_second_col">
+                    <span id="renew_gst_calculated">$0.00</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="renew_first_col">Total:</td>
+                <td class="renew_second_col">
+                    <span id="renew_total_calculated">$0.00</span>
+                </td>
+            </tr>
+            <tr class="gst_row_included">
+                <td colspan="2">
+                    <em>Total fee includes <span id="renew_gst_included_percents"></span> of <span id="renew_gst_included">$0.00</span></em>
+                </td>
+            </tr>
+        </table>
+
+        <div style="margin-top: 20px; width: 100%; height: 130px;">
+            <?= $this->partial('officio/partials/cc-section.phtml'); ?>
+        </div>
+
+        <div style="margin: 0 auto; padding: 10px; width: 450px;"><em><?= $this->translate('By pressing submit, you authorize Uniques Software to charge the credit card above.') ?></em></div>
+    </div>
+</div>

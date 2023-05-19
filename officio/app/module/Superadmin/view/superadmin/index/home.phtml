@@ -1,0 +1,162 @@
+<?php
+
+use Officio\Common\Json;
+use Officio\Email\Models\MailAccount;
+
+$allowedPages = array();
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/tasks.css');
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/time_tracker.css');
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/mail.css');
+$this->headLink()->appendStylesheet($this->layout()->topJsUrl . '/fine-uploader/fine-uploader-gallery.css');
+
+// My docs + templates
+$allowedMyDocsSubTabs = array();
+if ($this->arrAccessRights['my-documents-view'] || $this->arrAccessRights['templates-manage']) {
+    $this->headScript()->appendFile($this->layout()->topBaseUrl . '/assets/plugins/dropzone/dist/min/dropzone.min.js');
+    $this->headLink()->appendStylesheet($this->layout()->topBaseUrl . '/assets/plugins/dropzone/dist/min/dropzone.min.css');
+
+    if ($this->arrAccessRights['my-documents-view']) {
+        $allowedMyDocsSubTabs[] = 'documents';
+    }
+
+    if ($this->arrAccessRights['templates-manage']) {
+        $allowedMyDocsSubTabs[] = 'templates';
+    }
+}
+
+
+// Email
+$extJsAccounts = array();
+
+if ($this->booHasAccessToMail) {
+    if ($this->booMailEnabled) {
+        $accounts = MailAccount::getAccounts($this->currentMemberId);
+
+        // Prepare array to special view
+        foreach ($accounts as $acc) {
+            $extJsAccounts [] = array(
+                'account_id'       => $acc['id'],
+                'account_name'     => $acc['email'],
+                'signature'        => $acc['signature'],
+                'is_default'       => $acc['is_default'],
+                'auto_check'       => $acc['auto_check'],
+                'auto_check_every' => $acc['auto_check_every'],
+                'per_page'         => $acc['per_page'],
+                'inc_enabled'      => $acc['inc_enabled'],
+            );
+        }
+    }
+
+    $allowedPages[] = 'email';
+}
+
+$arrMailSettings   = array(
+    'hide_send_button' => (bool)$this->layout()->config['mail']['hide_send_button'],
+    'accounts'         => $extJsAccounts
+);
+$arrInlineScript[] = "var dropbox_app_id = " . Json::encode($this->layout()->config['dropbox']['app_id']) . ";";
+$arrInlineScript[] = "var google_drive_app_id = " . Json::encode($this->layout()->config['google_drive']['app_id']) . ";";
+$arrInlineScript[] = "var google_drive_client_id = " . Json::encode($this->layout()->config['google_drive']['client_id']) . ";";
+$arrInlineScript[] = "var google_drive_api_key = " . Json::encode($this->layout()->config['google_drive']['api_key']) . ";";
+$arrInlineScript[] = "var mail_settings = " . Json::encode($arrMailSettings) . ";";
+$arrInlineScript[] = "var allowedPages = " . Json::encode($allowedPages) . ";";
+$arrInlineScript[] = "var is_authorized_agent_enabled = " . Json::encode($this->isAuthorizedAgentsManagementEnabled) . ";";
+$arrInlineScript[] = "var post_max_size = " . Json::encode($this->layout()->settings->returnBytes(ini_get('post_max_size'))) . ";";
+
+$arrHomepageSettings = [
+    'settings' => [
+        'mouse_over_settings' => ['application-menu', 'search-menu', 'recently-viewed-menu']
+    ]
+];
+$arrInlineScript[]  = "var arrHomepageSettings = " . Json::encode($arrHomepageSettings) . ";";
+
+if (!empty($arrInlineScript)) {
+    $this->headScript()->appendScript(implode(PHP_EOL, $arrInlineScript));
+}
+
+// General init
+$this->headScript()->appendFile($this->layout()->topJsUrl . '/iframe.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/index/home.js');
+$this->headScript()->appendFile($this->layout()->topBaseUrl . '/assets/notif/notif.js');
+$this->headLink()->appendStylesheet($this->layout()->topBaseUrl . '/assets/notif/notif.css');
+?>
+<?php $this->headScript()->captureStart(); ?>
+    var allowedMyDocsSubTabs            = <?= Json::encode($allowedMyDocsSubTabs) ?>;
+    var arrCompanies                    = <?= Json::encode($this->arrCompanies) ?>;
+    var arrCompanyUsers                 = <?= Json::encode($this->arrAllCompaniesUsers) ?>;
+    var arrTasksSettings                = <?= Json::encode($this->arrTasksSettings) ?>;
+    var arrAccessRights                 = <?= Json::encode($this->arrAccessRights) ?>;
+    var arrTicketsAccessRights          = <?= Json::encode($this->arrTicketsAccessRights) ?>;
+    var arrSearchFields                 = <?= Json::encode($this->arrSearchFields) ?>;
+    var arrSearchFilters                = <?= Json::encode($this->arrSearchFilters) ?>;
+    var company_timezone                = '<?= $this->currentMemberTimeZone ?>';
+    var current_member_company_name     = '';
+    var is_administrator                = false;
+    var is_superadmin                   = true;
+    var curr_member_id                  = <?= $this->currentMemberId ?>;
+    var is_client                       = false;
+    var zoho_enabled                    = '<?= $this->layout()->zoho_enabled ? true : false ?>';
+    var booPreviewFilesInNewBrowser     = <?= intval($this->layout()->config['site_version']['preview_files_in_new_browser']) ?>;
+    var booHasAccessToMail              = <?= intval($this->booHasAccessToMail) ?>;
+    var userProfileSettings             = <?= Json::encode($this->arrProfileSettings) ?>;
+    var passwordMinLength               = <?= Json::encode($this->passwordMinLength) ?>;
+    var passwordMaxLength               = <?= Json::encode($this->passwordMaxLength) ?>;
+    var passwordValidationRegexp        = '<?= $this->layout()->site_password_regex ?>';
+    var passwordValidationRegexpMessage = '<?= $this->layout()->site_password_regex_message ?>';
+<?php $this->headScript()->captureEnd(); ?>
+
+<?php $this->headStyle()->captureStart(); ?>
+    .clients-tab-panel .x-tab-panel-body {
+        min-height: calc(100vh - 155px);
+    }
+
+    #companies_advanced_search_container .x-panel-header-text {
+        font-size: 14px;
+    }
+
+    #companies_advanced_search_container .x-panel-header-text .las {
+        font-size: 18px;
+    }
+
+    /* Manage Companies */
+    #companies_list_container a, a.normal_link{
+        font-size: 14px;
+        color: #4C83C5;
+        text-decoration: none;
+    }
+
+    #companies_list_container a:hover, a.normal_link:hover {
+        text-decoration: underline;
+    }
+
+    .advanced-search-hide-row {
+        background:transparent url(../../images/icons/delete.png) no-repeat scroll left center !important;
+    }
+
+    .extjs-panel-with-border {
+        border: 1px solid #99BBE8; border-top: 0;
+    }
+
+    .x-combo-list-item a{
+        color: #1E518F;
+    }
+
+    .companies-advanced-search-hide-row {
+       padding-top: 3px;
+   }
+
+   .companies-advanced-search-hide-row .las{
+       font-size: 15px;
+       background-color: #77A2DA;
+       border-radius: 50%;
+       color: #FFF;
+       padding: 5px;
+   }
+
+   .x-item-disabled.companies-advanced-search-hide-row .las {
+       color: #EAEDF3 !important;
+   }
+    /* Manage Companies */
+<?php $this->headStyle()->captureEnd(); ?>

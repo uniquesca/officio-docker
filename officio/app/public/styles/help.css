@@ -1,0 +1,285 @@
+/* HELP */
+.help-header {
+    color: #1A3A71;
+    font-size: 18px;
+    padding: 4px 0 3px 16px;
+    background: url(../images/faq-bg.png) repeat-x;
+    border-bottom: 1px solid #C9D8DD;
+}
+
+.help-request-link {
+    background: transparent url(../images/icons/help.png) no-repeat 0 2px;
+    float: right;
+    padding: 0 8px 0 20px;
+}
+
+.sections-container {
+    background-color: #E8E9EB;
+}
+
+.sections-container, #answer_to_question {
+    max-height: 100%;
+    overflow-x: auto;
+    padding-top: 10px;
+}
+
+#answer_to_question img {
+    max-width: 100%;
+}
+
+.faq-content {
+    border: #C9D8DD solid 1px;
+}
+
+.faq-content A:link,
+.faq-content A:visited {
+    font-size: 13px;
+    padding-top: 2px;
+}
+
+.faq-section-name {
+    padding: 4px 0 4px 0;
+}
+
+.faq-section-name.expandable {
+    background: transparent url(../images/tool_expand.png) no-repeat 0 15px;
+    background-size: 13px;
+}
+
+.faq-section-name.expandable.expanded {
+    background: transparent url(../images/tool_collapse.png) no-repeat 0 15px;
+    background-size: 13px;
+}
+
+.faq-section-name a:link,
+.faq-section-name a:visited,
+.faq-section-title {
+    color: #2F6BBA;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    padding-left: 20px;
+}
+
+.faq-section-name.level1 a {
+    padding-left: 0;
+}
+
+.faq-section-name.level1 a i {
+    padding-right: 5px;
+}
+
+.faq-section-name A:hover {
+    text-decoration: underline;
+}
+
+.faq-section-title {
+    cursor: default;
+}
+
+a.faq-section-title:hover {
+    text-decoration: none;
+}
+
+.faq-section-content {
+    padding: 4px;
+}
+
+.faq-question {
+    color: #415CAF;
+    font-size: 16px;
+    padding: 0 0 3px 16px;
+}
+
+.faq-question a,
+.faq-question a:link,
+.faq-question a:visited {
+    color: #415CAF;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+}
+
+.faq-question A:hover {
+    text-decoration: underline;
+}
+
+.faq-question a:before {
+    content: '';
+    height: 8px;
+    width: 8px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #ccc;
+    position: absolute;
+    left: -15px;
+    top: 6px;
+}
+
+.faq-question a.active {
+    font-weight: bold;
+}
+
+.faq-question a.active:before {
+    background-color: orange;
+}
+
+.faq-answer {
+    font-size: 13px;
+    padding: 0 0 4px 8px;
+}
+
+.faq-answer DIV {
+    border-bottom: #D9E4EC dotted 1px;
+    padding-bottom: 4px;
+}
+
+.faq-hidden,
+.faq-section-hidden {
+    display: none;
+}
+
+.faq-empty {
+    font-size: 13px;
+}
+
+.support-content {
+    background-color: #fff;
+    border: #C9D8DD solid 1px;
+    width: 700px;
+}
+
+.support-form {
+    padding-top: 5px;
+}
+
+.support-item {
+    padding: 4px 8px;
+}
+
+.support-text,
+.support-label {
+    color: #1A3A71;
+    font-weight: bold;
+    padding-top: 4px;
+}
+
+.support-text {
+    font-size: 12px;
+}
+
+.support-label {
+    float: left;
+    width: 75px;
+    font-size: 11px;
+}
+
+.support-value INPUT,
+.support-value TEXTAREA {
+    border: 1px solid #C9D8DD;
+    padding: 2px 4px;
+    font-size: 11px;
+}
+
+.support-value INPUT {
+    width: 595px;
+}
+
+.support-value TEXTAREA {
+    width: 670px;
+    height: 140px;
+    margin-top: 2px;
+}
+
+.support-buttons {
+    padding: 5px 12px 10px 0;
+    text-align: right;
+}
+
+.support-buttons A:link,
+.support-buttons A:visited {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.support-submit {
+    background: transparent url(../images/icons/email_go.png) no-repeat;
+    padding: 0 10px 6px 20px;
+    float: right;
+}
+
+.support-cancel {
+    background: transparent url(../images/icons/cancel.png) no-repeat;
+    padding: 0 0 2px 20px;
+    float: right;
+}
+
+.has-search .form-control {
+    padding-left: 2.6rem;
+    font-size: larger;
+}
+
+.has-search .form-control-search {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.6rem;
+    height: 2.6rem;
+    line-height: 2.6rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+.article-icon-text {
+    background: transparent url(../images/icons/page_white_text.png) center right no-repeat;
+    padding-right: 25px;
+}
+
+.article-icon-video {
+    background: transparent url(../images/icons/online-video.png) center right no-repeat;
+    padding-right: 25px;
+}
+
+.article-icon-walkthrough {
+    background: transparent url(../images/icons/page_white_star.png) center right no-repeat;
+    padding-right: 25px;
+}
+
+.twitter-typeahead, .tt-hint, .tt-input, .tt-menu {
+    width: 100%;
+}
+
+.tt-hint {
+    color: #999999;
+}
+
+.tt-menu {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 5px;
+    padding: 8px 0;
+}
+
+.tt-suggestion {
+    font-size: 18px; /* Set suggestion dropdown font size */
+    padding: 3px 20px;
+}
+
+.tt-suggestion:hover {
+    cursor: pointer;
+    background-color: #0097CF;
+    color: #FFFFFF;
+}
+
+.tt-suggestion p {
+    margin: 0;
+}
+
+/* A fix with autoscroll to the top when open image in fancybox */
+.fancybox-active {
+    height: 100% !important;
+}

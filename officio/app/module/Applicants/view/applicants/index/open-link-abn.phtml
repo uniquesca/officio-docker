@@ -1,0 +1,12 @@
+<?=str_replace('<body', '<body style="display:none;"', file_get_contents($this->url)) ?>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var form = $('#AbnLookupForm');
+        form.find('input#MainSearchTextBox').val(<?= \Laminas\Json\Json::encode($this->search) ?>);
+        form.attr('action', '<?=$this->url?>');
+        form.find('input#MainSearchButton').click();
+    });
+</script>

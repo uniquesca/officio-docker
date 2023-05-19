@@ -1,0 +1,13 @@
+{
+  "modules": [
+    "Laminas\\Mvc\\I18n",
+    "Laminas\\ApiTools\\ApiProblem",
+    "Laminas\\ApiTools\\ContentNegotiation",
+    "Laminas\\ApiTools\\MvcAuth",
+    "Laminas\\ApiTools\\Hal",
+    "Laminas\\ApiTools\\Rest",
+    "Officio\\Api2",
+    "Officio\\Calendar",
+    "Officio\\PdfTron"
+  ]
+}

@@ -1,0 +1,140 @@
+<?php
+$this->layout()->useExtjs  = true;
+$this->layout()->useJQuery = true;
+
+$this->layout()->top_menu =
+'<table style="float: right">
+    <tr>
+        <td style="padding-right: 20px">
+            <i class="las la-edit" alt="Manage Tags">&nbsp;<a href="' . $this->layout()->topBaseUrl . '/superadmin/manage-faq/manage-tags" class="bluelinks">Edit Help Context ID\'s</a>
+        </td>
+        <td style="width: 150px; text-align: left; display: none">
+            <select id="help-type">
+                <option value="help" '. ($this->sectionType == 'help' ? 'selected' : '') .'>View iLearn</option>
+                <option value="ilearn" ' . ($this->sectionType == 'ilearn' ? 'selected' : '') . '>View iPractice</option>
+            </select>
+        </td>
+        <td>
+            <i class="las la-search" alt="Preview"></i>&nbsp;<a href="' . $this->layout()->topBaseUrl . '/help/index/index?type=' . $this->sectionType . '" class="bluelinks" target="_blank">Preview</a>
+        </td>
+    </tr>
+</table>';
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->topBaseUrl . '/assets/plugins/@fortawesome/fontawesome-free/css/all.min.css');
+
+$this->headScript()->appendFile($this->layout()->jsUrl . '/faq.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/iframe_height.js');
+
+function faq_question_view($faq, $faqSection, $j)
+{
+    ?>
+    <div class="faq">
+        <div>
+            <b><?= $faq['question'] ?></b>
+
+            <div style="float:right; width:220px;">
+                <div style="float:left; width:150px;">
+                    <a href="#" onclick="faq({action: 'edit', faq_id: <?= $faq['faq_id'] ?>, faq_section_id: <?= $faqSection['faq_section_id'] ?>}); return false;"><i class="las la-edit"></i> Edit</a>&nbsp;&nbsp;&nbsp;
+                    <a href="#" onclick="faq({action: 'delete', faq_id: <?= $faq['faq_id'] ?>}); return false;"><i class="las la-trash"></i> Delete</a>
+                </div>
+                <?php if($j > 0) {?>
+                &nbsp;<a href="#" onclick="faq({action: 'up', faq_id: <?=$faq['faq_id']?>}); return false;"><i class="las la-arrow-up"></i></a>
+                <?php } if($j < count($faqSection['faq']) - 1) {?>&nbsp;<a href="#" onclick="faq({action: 'down', faq_id: <?=$faq['faq_id']?>}); return false;"><i class="las la-arrow-down"></i></a>
+                <?php } ?>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+<?php
+}
+
+function faq_section_view($parentCategoryId, $faqSection, $i, $level, $total_sections_in_parent_section)
+{
+?>
+    <div class="faq-section-block faq-section-parent-block-<?= $parentCategoryId ?>" style="padding-left:<?= 7 + ($level - 1) * 30 ?>px; <?= $level > 1 ? 'display: none;' : '' ?>">
+        <div>
+            <div class="faq-section-name expandable">
+                <a href="#" class="faq-section-link" id="faq-section-id-<?= $faqSection['faq_section_id'] ?>"><?= $faqSection['section_name'] ?></a>
+            </div>
+            <div class="faq-section-block-content">
+                <div style="float:left; width:555px; text-align:right;">
+                    <?php if ($level === 1 && empty($faqSection['section_external_link'])) { ?>
+                        <a href="#" onclick="faq_section({action: 'add', parent_category_id: <?= $faqSection['faq_section_id'] ?>}); return false;"><i class="las la-plus"></i> Add Sub Category</a>&nbsp;&nbsp;&nbsp;
+                    <?php } ?>
+
+                    <?php if (empty($faqSection['section_external_link'])) : ?>
+                        <a href="#" onclick="faq({action: 'add', parent_category_id: <?= $parentCategoryId ?>, faq_section_id: <?= $faqSection['faq_section_id'] ?>}); return false;"><i class="las la-plus"></i> Add FAQ/Help Topic</a>&nbsp;&nbsp;&nbsp;
+                    <?php endif; ?>
+
+                    <?php $label = $level === 1 ? 'Edit Category' : 'Edit Sub Category'; ?>
+                    <a href="#" onclick="faq_section({action: 'edit', parent_category_id: <?= $parentCategoryId ?>, faq_section_id: <?= $faqSection['faq_section_id'] ?>}); return false;"><i class="las la-edit"></i> <?= $label ?></a>&nbsp;&nbsp;&nbsp;
+                    <a href="#" onclick="faq_section({action: 'delete', faq_section_id: <?= $faqSection['faq_section_id'] ?>}); return false;"><i class="las la-trash"></i> Delete</a>&nbsp;&nbsp;
+                </div>
+
+                <?php if ($i > 0) { ?>
+                    &nbsp;<a href="#" onclick="faq_section({action: 'up', faq_section_id: <?= $faqSection['faq_section_id'] ?>}); return false;"><i class="las la-arrow-up"></i></a>
+                <?php }
+                if ($i < $total_sections_in_parent_section - 1) { ?>
+                    &nbsp;<a href="#" onclick="faq_section({action: 'down', faq_section_id: <?= $faqSection['faq_section_id'] ?>}); return false;"><i class="las la-arrow-down"></i></a>
+                <?php } ?>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+
+        <div class="faq-section-content" style="display:none;">
+        <?php
+        if(!empty($faqSection['faq'])) {
+            $j = 0;
+            foreach($faqSection['faq'] as $faq)
+            {
+                faq_question_view($faq, $faqSection, $j);
+                $j++;
+            }
+        } else {
+            ?>
+            <div class="faq"><i>Section is empty</i></div>
+            <?php
+        }
+        ?>
+        </div>
+    </div>
+<?php
+}
+?>
+
+<div class="admin-tab-content">
+    <table style="width: 100%">
+        <tr>
+            <td class="faq-main-title">Help - <a href="#" onclick="faq_section({action: 'add'}); return false;">Add Category</a></td>
+        </tr>
+    </table>
+
+    <div class="admin-faq-sections" align="left">
+
+    <?php
+    if (count($this->faqArr)>0)
+    {
+        $i=0;
+        foreach ($this->faqArr as $faqSection)
+        {
+            faq_section_view(0, $faqSection, $i, 1, count($this->faqArr));
+            $i++;
+
+            if (isset($faqSection['subcategories']))
+            {
+                $j=0;
+                foreach ($faqSection['subcategories'] as $faqSubSection)
+                {
+                    faq_section_view($faqSection['faq_section_id'], $faqSubSection, $j, 2, count($faqSection['subcategories']));
+                    $j++;
+                }
+            }
+        }
+    }
+    else
+        echo '<i>No help sections found.</i>';
+    ?>
+
+    </div>
+</div>

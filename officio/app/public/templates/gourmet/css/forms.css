@@ -1,0 +1,186 @@
+/* Login form */
+.login-block {
+    float: right;
+    padding-top: 35px;
+}
+
+.login-block .error {
+    color: #46473e;
+    padding-top: 4px;
+    text-align: right;
+}
+
+.login-txt {
+    color: #46473e;
+}
+
+.login-block label {
+    float: left;
+    display: block;
+    padding: 4px 6px 0 0;
+}
+
+.login-block input {
+    float: left;
+    background: url(../images/serch-input-tail.gif) center top repeat #fcfdf9;
+    border: 1px solid #e4e5d7;
+    font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #b6b7a8;
+    margin: 0 12px 0 0;
+    padding: 6px 16px 7px;
+    outline: none;
+    width: 120px;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
+
+.login-block a {
+    height: 23px;
+    padding: 7px 10px 0;
+    background: #b8e300;
+    font: bold 12px Arial, Helvetica, sans-serif;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 17px;
+    -moz-border-radius: 17px;
+    -webkit-border-radius: 17px;
+}
+
+.login-block a:hover {
+    background-color: #6f694f;
+    text-decoration: none;
+}
+
+/**********Subscribe form**********/
+#subs-form {
+    position: relative;
+    vertical-align: top;
+    width: 100%;
+}
+
+#subs-form fieldset {
+    border: none;
+    padding: 0;
+}
+
+#subs-form label {
+    display: block;
+    min-height: 34px;
+}
+
+#subs-form input {
+    background: #fff;
+    border: none;
+    font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #a2a2a2;
+    margin: 0;
+    padding: 6px 14px;
+    outline: none;
+    width: 216px;
+    border-radius: 13px;
+    -moz-border-radius: 13px;
+    -webkit-border-radius: 13px;
+}
+
+#subs-form a {
+    display: inline-block;
+    background: url(../images/subs-button-tail.png) center top repeat;
+    font: normal 13px/16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #fff;
+    text-decoration: none;
+    padding: 7px 22px;
+    cursor: pointer;
+    border-radius: 14px;
+    -moz-border-radius: 14px;
+    -webkit-border-radius: 14px;
+}
+
+#subs-form a:hover {
+    background: #b0d50f;
+    text-decoration: none;
+}
+
+/******** contact form *********/
+#contact-form {
+    width: 280px;
+    float: left;
+    position: relative;
+}
+
+#contact-form fieldset {
+    border: none;
+    padding: 0 8px 0 3px;
+    overflow: hidden;
+}
+
+#contact-form label {
+    display: block;
+    min-height: 50px;
+    position: relative;
+}
+
+#contact-form .message {
+    min-height: 277px;
+}
+
+#contact-form input, #contact-form textarea {
+    padding: 6px 16px 7px;
+    margin: 0;
+    font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #a29f87;
+    background: #fefefd;
+    outline: none;
+    border: 1px solid #e1e2d2;
+    width: 230px;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
+
+#contact-form .area .error {
+    float: none;
+}
+
+#contact-form textarea {
+    height: 238px;
+    overflow: auto;
+    resize: none;
+}
+
+#contact-form .success {
+    display: none;
+    margin-bottom: 20px;
+}
+
+#contact-form .error,
+#contact-form .empty {
+    color: #f00;
+    font-size: 11px;
+    line-height: 1.27em;
+    display: none;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.buttons-wrapper {
+    text-align: right;
+    position: relative;
+    padding-right: 8px;
+}
+
+.buttons-wrapper a {
+    cursor: pointer;
+    margin-left: 13px;
+    background-color: #777262;
+}
+
+.buttons-wrapper a:first-child {
+    margin-left: 0px;
+}
+
+.buttons-wrapper a:hover {
+    background-color: #b0d50f;
+}

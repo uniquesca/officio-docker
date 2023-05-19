@@ -1,0 +1,319 @@
+<?php
+
+/**
+ * Local Configuration Override
+ *
+ * This configuration override file is for overriding environment-specific and
+ * security-sensitive configuration information. Copy this file without the
+ * .dist extension at the end and populate values as needed.
+ *
+ * NOTE: This file is ignored from Git by default with the .gitignore included
+ * in laminas-mvc-skeleton. This is a good practice, as it prevents sensitive
+ * credentials from accidentally being committed into version control.
+ */
+
+return [
+    'db' => [
+        'host'      => 'localhost',
+        'port'      => '3306',
+        'charset'   => 'utf8',
+        'collation' => 'utf8_general_ci',
+        'dbname'    => '',
+        'username'  => '',
+        'password'  => '',
+    ],
+
+    'db_stat' => [
+        'host'      => 'localhost',
+        'port'      => '3306',
+        'charset'   => 'utf8',
+        'collation' => 'utf8_general_ci',
+        'dbname'    => '',
+        'username'  => '',
+        'password'  => '',
+    ],
+
+    'settings' => [
+        'send_fatal_errors_to' => 'email@email.com',
+
+        // 1 - to show error details in error controller
+        'show_error_details'      => 0,
+
+        //  General php settings related to errors
+        'display_startup_errors'  => 0,
+        'display_errors'          => 0,
+        'error_reporting'      => E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE,
+
+        // BCPNP Import: field name used to identify a case to update
+        // @see docs/usage/bcpnp-import/readme.md
+        'bcpnp_import_identificator_field_name' => 'file_number',
+
+        // Turn on/off quick search to use a quick (quicker, but fewer details are checked) or detailed (slower) search
+        // Turn off only for BCPNP (or when there are too many clients/cases in the company)
+        'quick_search_use_detailed_search'      => 0,
+
+        // Turn on/off quick search to filter active clients only
+        'quick_search_active_clients_only'      => 0
+    ],
+
+    // Session configuration.
+    'session_config'  => [
+        'cookie_lifetime' => 0, // No expiration - will be checked in our plugins
+        'gc_maxlifetime'  => 60 * 60 * 24 * 7, // How long to store session data on server (for 1 week).
+    ],
+
+    // **** **** **** **** ****  Security settings **** **** **** ****
+    'security' => [
+        // A salt is used when 'default' or 'hash' selected (not used for 'password_hash', as salt is dynamic there)
+        // cannot be changed if data was already saved
+        // note that the max length is 32 chars
+        'encryption_key'             => 'officio',
+
+        // should we check password for mix case of characters + common passwords + etc...
+        'password_high_secure'        => 0,
+
+        // Determines if we need to check logged in user's password aging
+        'password_aging'              => [
+            // Also if enabled - we'll check if user have changed password at least once
+            'enabled'              => 0,
+        ],
+
+        // Enable Cross Site Request Forgery protection if 1
+        // Note that config file is here: /library/config/csrf_config.php
+        'csrf_protection'             => [
+            'enabled' => 1
+        ],
+
+        // For password autocomplete. 1 - on; 0 - off/new-password
+        'autocompletion'              => [
+            'enabled' => 1
+        ],
+
+        // Chmod for new directories created by Officio (local storage on *nix server only)
+        'new_directories_mode'        => 0755,
+
+        'oauth_login' => [
+            // If enabled - a link to the oAuth website will be shown,
+            // our login page will not work
+            'enabled'              => 1,
+
+            // Labels that we'll show on the user details page
+            'single_sign_on_label' => 'IDIR Username',
+            'guid_label'           => 'GUID',
+            // The label we'll use for the button on the login page
+            'login_button_label'   => 'BC Gov IDIR Single Sign On',
+
+            'provider' => 'keycloak',
+            'keycloak' => [
+                // Please note that the callback url is: https://officio_url/auth/oauth-callback and it must be added to the allowed list
+                'server-url'    => 'https://dev.loginproxy.gov.bc.ca/auth',
+                'realm'         => 'standard',
+                'client-id'     => '',
+                'client-secret' => '',
+                'proxy'         => '',
+                'verify'        => false,
+            ]
+        ]
+    ], // **** **** **** **** ****  Security settings **** **** **** ****
+
+    'site_version'   => [
+        // Different site versions settings
+        // This name will be used in support emails (e.g. in subject)
+        'name'                                         => 'Officio BC PNP',
+
+        // Default email address - will be used during system emails sending
+        'support_email'                                => '',
+        'sales_email'                                  => '',
+
+        'proxy' => [
+            // Determines if Officio is behind the proxy server
+            'enabled'                => 1,
+        ],
+
+        // Case Management Setting
+        // Used during new company creation
+        // If is set to 0 - only one case can be created for each client
+        'case_management_enable'                    => 1,
+
+        // If enabled - will be possible to use 'Check ABN' functionality
+        // Must be enabled for AU, disabled for CA/DM
+        'check_abn_enabled'                         => 0,
+
+        // Documents Checklist Setting
+        // If is set to 1 - it is possible to see and use 'Documents Checklist' tab
+        'documents_checklist_enabled'               => 0,
+
+        // Create note if file was uploaded
+        'create_note_on_file_upload'                => 1,
+
+        // Username of the API user - will be used to identify how we'll filter file notes
+        // If not set - we'll show all the file notes that are not system (if checkbox is not checked)
+        // If set - we'll show the file notes which author is not this user
+        'fe_api_username'                          => '',
+
+        // Google Maps key (used in the company website, contact us page in most templates)
+        'google_maps_key'                           => '',
+
+        // Supported: australia | canada
+        'version'                                   => 'canada',
+        'currency'                                  => 'CAD',
+        'title'                                     => 'BC PNP Online',
+        'company_phone'                             => '',
+        'company_name'                              => 'BC PNP Online',
+        'officio_domain'                            => '',
+        'officio_domain_secure'                     => '',
+
+        // If use static is enabled - for NON https requests we'll try to use up to 3 static subdomains to serve images
+        // e.g. if test.officio.com.au is set, we'll use such subdomains:
+        // test.officio.com.au
+        // test1.officio.com.au
+        // test2.officio.com.au
+        // test3.officio.com.au
+        'officio_domain_use_static'                 => 0,
+        'officio_domain_static'                     => '',
+
+        // Dependant's section settings
+        'dependants' => [
+            'fields' => [
+                'uci' => ['show' => 0],
+            ]
+        ],
+
+        // Labels of all blocks we show on the homepage
+        'homepage' => [
+            'announcements' => [
+                'label' => 'Announcements',
+                'help'  => '',
+            ],
+
+            'news' => [
+                'label' => 'Immigration News Feed',
+                'help'  => ''
+            ],
+        ],
+
+        // Show or hide "My Offices" link in the left Offices section/grid
+        // Show for gov websites only
+        'show_my_offices_link' => 1,
+
+        // Preview files (docs sub tab) in a new browser tab:
+        // If enabled - files will be opened in a new browser tab
+        // If disabled - files will be opened in a preview panel
+        'preview_files_in_new_browser' => 1,
+
+        // A field label for the Case Type / Immigration Program field - 'case_type' OR 'immigration_program'
+        // BCPNP - 'case_type', for all others - 'immigration_program'
+        'case_type_field_default_label' => 'case_type',
+
+        // If enabled - 'case_status' field is multiselect, if disabled - a simple combobox
+        'case_status_field_multiselect' => 0,
+    ],
+
+    // Language settings
+    'translator'           => [
+        // List of timezones is here: http://php.net/manual/en/timezones.php
+        'timezone'      => 'America/Vancouver',
+    ],
+
+    // Mail settings
+    'mail'           => [
+        'enabled'                => 0,
+        'calendar_enabled'       => 0,
+        'hide_send_button'       => 1
+    ],
+
+    // PDF to XOD
+    'pdf2xod'        => [
+        'use_local'  => 1,
+    ],
+
+    // Html editor (Froala) settings
+    'html_editor' => [
+        'froala_license_key' => '',
+
+        // Folder name, where editor images will be saved
+        // For the remote storage path will be: /{location}/{company_id}/
+        // For the local storage path will be: .../public/{location}/{company_id}/
+        // For the local storage please make sure that folder name is unique
+        'location'           => 'help_article_images',
+
+        // Storage location: 'remote' or 'local'
+        // If local - please make sure that apache has rw access rights to the {location}
+        'storage'            => 'local',
+
+        // Will be used only if a Storage location is 'remote'
+        'remote'             => [
+            'is_online'        => 0,
+            'aws_accesskey'    => 'key',
+            'aws_secretkey'    => 'secret',
+            'bucket_name'      => 'bucket',
+            'check_ssl'        => 0,
+            'use_secure_links' => 0,
+            'aws_region'       => 'us-east-1',
+            // Supported: 'AES256' or if empty - will be not encrypted
+            'encryption'       => 'AES256'
+        ],
+    ],
+
+    // Cache settings
+    'cache'          => [
+        'options' => [
+            'cache_dir'       => 'var/cache/',
+            'dir_permission'  => false,
+            'file_permission' => false
+        ],
+    ],
+
+    // RSS settings - news will be showed on the dashboard
+    'rss' => [
+        // RSS URLs that will be scanned and showed on the dashboard
+        'urls' => [
+            // in the key => url format
+            'google' => 'https://news.google.com/news/rss/search/section/q/canada%20immigration/canada%20immigration?hl=en&gl=GB&ned=us',
+            'canada_ca' => 'https://api.io.canada.ca/io-server/gc/news/en/v2?sort=publishedDate&orderBy=desc&publishedDate%3E=' . date('Y-m-d', strtotime('-1 year')) . '&pick=100&format=atom&atomtitle=National%20News'
+        ],
+
+        // RSS Cache settings
+        'cache' => [
+            'options' => [
+                'cache_dir'       => 'var/cache/',
+                'dir_permission'  => false,
+                'file_permission' => false,
+                'ttl'             => 3600 // 1 hour
+            ],
+        ],
+    ],
+
+    // Outbound requests proxy settings
+    'outbound_proxy' => [
+        'use'   => 1,
+        'host'  => '',
+        'port'  => '',
+        'login' => '',
+        'pass'  => ''
+    ],
+
+    // Minify settings
+    // Css/Js minification setting
+    'minify'         => [
+        // If enabled - all js/css files will be united in one 'minified file', e.g.: minify__a77d901b178b1666b80afc4ae1c35838.js
+        'enabled'                => 0,
+    ],
+
+    // Phinx related settings
+    'phinx'          => [
+        // Path to the migrations directory, where migrations are generated
+        'migrations_path' => 'scripts/migrations/',
+        'db' => [
+            'adapter'   => 'PDO_MYSQL',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_general_ci',
+            'host'      => 'localhost',
+            'port'      => '3306',
+            'dbname'    => '',
+            'username'  => '',
+            'password'  => '',
+        ]
+    ],
+
+];

@@ -1,0 +1,105 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="trust-account-toolbar">
+    <tr>
+        <td>
+            <a href="#" onClick="switchToTAHome(); return false;"><i class="las la-arrow-left"></i><?= $this->translate('Back to ') . $this->ta_label ?></a>
+        </td>
+        <td align="right">
+            <form action="" method="post">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td style="padding-right: 5px; padding-left: 2px; height: 41px">
+                            <?= $this->translate('Display transactions') ?>
+                        </td>
+                        <td id="filter_td_type_conatiner_<?= $this->ta_id ?>" style="padding-right: 5px; text-align: left;  visibility: hidden;">
+                            <select name="<?= 'filter_type' . $this->ta_id ?>" id="filter_type<?= $this->ta_id ?>" class="filter-ta-select">
+                                <option value="process"><?=$this->translate('Require Processing')?></option>
+                                <option value="all"><?=$this->translate('All')?></option>
+                                <option value="client_name"><?=$this->translate('Client Name')?></option>
+                                <option value="client_code"><?=$this->translate('Case File #')?></option>
+                                <option value="period"><?=$this->translate('For Selected Period')?></option>
+                                <option value="unassigned"><?=$this->translate('That are not assigned prior')?></option>
+                                <option value="today"><?=$this->translate('Today')?></option>
+                                <option value="30days"><?=$this->translate('For the Last 30 Days')?></option>
+                            </select>
+                        </td>
+                        <td id="filter_td_client_conatiner_<?=$this->ta_id?>" style="padding-right:5px; text-align: left; visibility: hidden;">
+                            <select name="<?= 'client_name' . $this->ta_id ?>" id="client_name<?=$this->ta_id?>" class="filter-ta-select" style="display:none;"></select>
+
+                            <input type="text" maxlength="30" class="x-form-text x-form-field" style="width: 150px; display:none;" name="client_code" id="client_code<?=$this->ta_id?>" />
+
+                            <table id="period<?=$this->ta_id?>" style="display:none;" >
+                                <tr>
+                                    <td>from</td>
+                                    <td style="width: 140px;"><input name="start-date" id="start-date<?=$this->ta_id?>" class="datepicker" style="width: 120px;" value="" /></td>
+                                    <td>to</td>
+                                    <td style="width: 140px;"><input name="end-date" id="end-date<?=$this->ta_id?>" class="datepicker" style="width: 120px;" value="" /></td>
+                                </tr>
+                            </table>
+
+                            <table id="unassigned<?= $this->ta_id ?>" style="display:none;">
+                                <tr>
+                                    <td>to</td>
+                                    <td style="width: 140px;"><input name="end-date" id="unassigned-end-date<?= $this->ta_id ?>" class="datepicker" style="width: 120px;" value=""/></td>
+                                </tr>
+                            </table>
+
+                        </td>
+                        <td style="padding-right: 10px;"><a href="#" onclick="FtaApplyFilter(<?= $this->ta_id ?>); return false;" style="font-size: 16px; font-weight: normal; color: #3B74BE" title="Select the criteria for displaying transactions from the drop-down menu, then click Apply filter.">Apply filter</a></td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="padding-bottom: 10px; margin-bottom: 15px; border-bottom: 1px solid #E9EAEC;" class="trust-account-toolbar">
+    <tr>
+        <td valign="top" align="left">
+            <!-- TAB MENU -->
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <?php if ($this->booCanImport) : ?>
+                        <td class="x-toolbar-cell"><div id="ta_import_<?= $this->ta_id ?>"></div></td>
+                        <td class="x-toolbar-cell"></td>
+                    <?php endif ?>
+                    <td class="x-toolbar-cell"><div id="reconcile-menu-<?= $this->ta_id ?>"></div></td>
+                    <td class="x-toolbar-cell"></td>
+                    <td class="x-toolbar-cell"><div id="ta_print_<?= $this->ta_id ?>"></div></td>
+                    <?php if ($this->booCanSeeHistory) : ?>
+                        <td class="x-toolbar-cell"><div id="ta_import_history_<?= $this->ta_id ?>"></div></td>
+                    <?php endif ?>
+                    <td class="x-toolbar-cell"><div id="export_ta_btn_<?= $this->ta_id ?>"></div></td>
+                    <?php if ($this->booCanEditTA) : ?>
+                        <td class="x-toolbar-cell"><div id="delete_transactions_menu_<?= $this->ta_id ?>"></div></td>
+                    <?php endif ?>
+                    <td class="x-toolbar-cell"><div id="select-columns-<?= $this->ta_id ?>"></div></td>
+                </tr>
+            </table>
+            <!-- / TAB MENU -->
+        </td>
+        <td align="right">
+            <div id="view-reports-<?= $this->ta_id ?>"></div>
+        </td>
+        <td align="right">
+            <?php if ($this->booShowHelp) : ?>
+                <a href="#" onclick="showHelpContextMenu(this, 'trust-account-details'); return false;" title="View the related help topics" class="help_context_menu_link"><i class="las la-question-circle" alt="Help" width="16" height="16"></i></a>
+            <?php endif ?>
+        </td>
+    </tr>
+</table>
+
+<div id="div-ta-grid<?=$this->ta_id?>"></div>
+<div id="ta-sample-<?= $this->ta_id ?>" class="ta-sample-message" style="display:none;">
+    <?= sprintf($this->translate('There are currently no %s entries uploaded to your account.'), $this->ta_label) ?><br>
+    <?= sprintf($this->translate('Sample %s entries are shown here.'), $this->ta_label) ?>
+
+    <div style="margin-top: 20px"><?= sprintf($this->translate('To add %s entries to your account:'), $this->ta_label) ?></div>
+    <ol>
+        <li><?= $this->translate('Log in to your online bank account.') ?></li>
+        <li><?= $this->translate("Download your transactions in QuickBooks format (i.e., QBW file).<br><i>(NOTE: You don't need to have QuickBooks software in order to create the QBW file.)</i>") ?></li>
+        <li><?= $this->translate('Log in to your Officio account.') ?></li>
+        <li><?= sprintf($this->translate('Click on <b>Import</b> under the <b>%s</b> module.'), $this->ta_label) ?></li>
+        <li><?= $this->translate('Select the QuickBooks file to upload.') ?></li>
+        <li><?= $this->translate('Click Continue.') ?></li>
+    </ol>
+</div>

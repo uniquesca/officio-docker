@@ -1,0 +1,614 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title><?= $this->layout()->siteTitle . ' :: ' . $this->translate('Free Trial') ?></title>
+
+    <meta name="viewport" content="width=850, initial-scale=1.0">
+
+    <link rel="stylesheet" href="<?= $this->topBaseUrl ?>/assets/plugins/bootstrap/dist/css/bootstrap.min.css" type="text/css"/>
+    <link href="<?= $this->layout()->assetsUrl; ?>@fortawesome/fontawesome-free/css/all.min.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="<?= $this->layout()->assetsUrl; ?>jquery-ui/themes/base/theme.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="<?= $this->layout()->officioCssUrl; ?>/colorbox.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="<?= $this->layout()->cssUrl; ?>/wizard.css" media="screen" rel="stylesheet" type="text/css"/>
+
+    <?php
+    $booAustralia = $this->layout()->site_version == 'australia';
+    ?>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        var baseUrl = '<?= $this->layout()->baseUrl; ?>';
+        var arrRoles = '<?= $this->arrRoles; ?>';
+        var site_version = '<?= $this->layout()->site_version; ?>';
+        var site_currency = '<?= strtolower($this->layout()->site_currency); ?>';
+        var site_currency_label = '<?= $this->layout()->site_currency_label; ?>';
+        var site_company_phone = '<?= $this->layout()->site_company_phone; ?>';
+        var site_company_name = <?= \Laminas\Json\Json::encode($this->layout()->site_company_name); ?>;
+        var defaultCountryId = <?= $this->defaultCountryId; ?>;
+        var defaultTimeZone = '<?= $this->defaultTimezone; ?>';
+        var maxUsersCount = 5;
+        var passwordHighSecurity = <?= $this->passwordHighSecurity; ?>;
+        var passwordMinLength = <?= $this->layout()->settings->passwordMinLength; ?>;
+        var passwordMaxLength = <?= $this->layout()->settings->passwordMaxLength; ?>;
+
+        var booAustralia = <?= \Laminas\Json\Json::encode($booAustralia); ?>;
+        var ta_label = '<?= $this->taLabel; ?>';
+        //]]>
+    </script>
+
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->officioJsUrl; ?>/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->assetsUrl; ?>/jquery-colorbox/jquery.colorbox-min.js"></script>
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->jqueryUrl; ?>/jquery.metadata.js"></script>
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->officioJsUrl; ?>/jquery.validate.js"></script>
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->jqueryUrl; ?>/jquery.json.js"></script>
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->jsUrl; ?>/wizard/global.js"></script>
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->jsUrl; ?>/wizard/free-trial.js"></script>
+</head>
+
+<body>
+<div id="header">
+    <div class="container-fluid">
+        <div id="top_nav"><a href="http://<?= $this->layout()->officio_domain ?>"><img src="<?= $this->imgUrl('default/logo.png') ?>" title="<?= $this->officio_domain ?>" alt="<?= $this->officio_domain ?>" /></a></div>
+    </div>
+</div>
+<div id="wizard">
+
+    <h3 id="pageTitle">Free Trial Setup</h3>
+    <ul id="mainNav" class="fourStep" style="display: none;">
+        <li><a title=""><em><?= $this->translate('1. Key Info') ?></em></a></li>
+        <li><a title=""><em><?= $this->translate('2. Define Company') ?></em></a></li>
+        <li><a title=""><em><?= $this->translate('3. Add Users') ?></em></a></li>
+        <li class="mainNavNoBg"><a title=""><em><?= $this->translate('4. Add Client/Trust Account') ?></em></a></li>
+    </ul>
+
+    <ul id="progressbar" class="w-100">
+        <li id="progress_key"><strong><?= $this->translate('Key Info') ?></strong></li>
+        <li id="progress_account"><strong><?= $this->translate('Define Company') ?></strong></li>
+        <li id="progress_users"><strong><?= $this->translate('Add Users') ?></strong></li>
+        <li id="progress_trust"><strong><?= $this->translate('Add Client/Trust Account') ?></strong></li>
+    </ul>
+
+
+    <div id="wizardcontentwrap">
+        <div id="wizardcontent">
+            <form id="newCompanyForm" name="newCompanyForm" action="#">
+                <input type="hidden" id="start_step" name="start_step" value="1"/>
+                <input type="hidden" id="stepsCount" name="stepsCount" value="4" />
+                <input type="hidden" id="users_count" name="users_count" value="1" />
+
+                <div class="wizardcontent" id="step_1">
+                    <h4><?= $this->translate('Key Info') ?></h4>
+
+                    <table>
+                        <tr>
+                            <td><label for="freetrial_key"><?= $this->translate('Please enter the activation key and click Next:') ?></label></td>
+                            <td><input id="freetrial_key" name="freetrial_key" type="text" class="form-control pageRequired"/></td>
+                        </tr>
+                    </table>
+
+                    <ul id="packages" style="display: none;">
+                        <li><input name="arrPackages[]" id="package1" type="checkbox" <?= $this->package1 ?> disabled="disabled" value="1"/><label for="package1"><?= $this->translate('Package 1') ?></label></li>
+                        <li><input name="arrPackages[]" id="package2" type="checkbox" <?= $this->package2 ?> value="2"/><label for="package2"><?= $this->translate('Package 2') ?></label></li>
+                        <li><input name="arrPackages[]" id="package3" type="checkbox" <?= $this->package3 ?> value="3"/><label for="package3"><?= $this->translate('Package 3') ?></label></li>
+                    </ul>
+                </div>
+
+                <div class="wizardcontent" id="step_2">
+                    <h4><?= $this->translate('Define Company') ?></h4>
+
+                    <p><?= $this->translate('Please enter company details') ?>. <em class="required">*</em><span class="field_name"> <?=$this->translate('indicates mandatory fields ')?></span></p>
+
+                    <table width="80%" border="0" cellspacing="1" cellpadding="4" style="margin-bottom: 30px;">
+                        <tr>
+                            <td width="25%" align="right" class="field_name"><label for="companyName" class="required"><?= $this->translate('Company Name :') ?></label></td>
+                            <td align="left"><input id="companyName" name="companyName" class="form-control" type="text" size="50"/></td>
+                        </tr>
+
+                        <?php if ($this->booShowABN) : ?>
+                            <tr>
+                                <td align="right" class="field_name"><label for="company_abn" class="required"><?= $this->translate('Company ABN :') ?></label></td>
+                                <td align="left"><input id="company_abn" name="company_abn" class="form-control" type="text" size="50"/></td>
+                            </tr>
+                        <?php endif ?>
+
+                        <tr>
+                            <td align="right" class="field_name"><label class="required" for="companyTimeZone"><?= $this->translate('Time Zone :') ?></label></td>
+                            <td align="left">
+                                <select name="companyTimeZone" class="form-control drop_down" id="companyTimeZone" style="width:280px;">
+                                    <option value="Kwajalein">(GMT-12:00) International Date Line West</option>
+                                    <option value="Pacific/Midway">(GMT-11:00) Midway Island</option>
+                                    <option value="Pacific/Samoa">(GMT-11:00) Samoa</option>
+                                    <option value="Pacific/Honolulu">(GMT-10:00) Hawaii</option>
+                                    <option value="America/Anchorage">(GMT-09:00) Alaska</option>
+                                    <option value="America/Los_Angeles">(GMT-08:00) Pacific Time (US &amp; Canada)
+                                    </option>
+                                    <option value="America/Tijuana">(GMT-08:00) Tijuana, Baja California</option>
+                                    <option value="America/Denver">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
+                                    <option value="America/Chihuahua">(GMT-07:00) Chihuahua</option>
+                                    <option value="America/Mazatlan">(GMT-07:00) Mazatlan</option>
+                                    <option value="America/Phoenix">(GMT-07:00) Arizona</option>
+                                    <option value="America/Regina">(GMT-06:00) Saskatchewan</option>
+                                    <option value="America/Tegucigalpa">(GMT-06:00) Central America</option>
+                                    <option value="America/Chicago">(GMT-06:00) Central Time (US &amp; Canada)</option>
+                                    <option value="America/Mexico_City">(GMT-06:00) Mexico City</option>
+                                    <option value="America/Monterrey">(GMT-06:00) Monterrey</option>
+                                    <option value="America/New_York">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
+                                    <option value="America/Bogota">(GMT-05:00) Bogota</option>
+                                    <option value="America/Lima">(GMT-05:00) Lima</option>
+                                    <option value="America/Rio_Branco">(GMT-05:00) Rio Branco</option>
+                                    <option value="America/Indiana/Indianapolis">(GMT-05:00) Indiana (East)</option>
+                                    <option value="America/Caracas">(GMT-04:30) Caracas</option>
+                                    <option value="America/Halifax">(GMT-04:00) Atlantic Time (Canada)</option>
+                                    <option value="America/Manaus">(GMT-04:00) Manaus</option>
+                                    <option value="America/Santiago">(GMT-04:00) Santiago</option>
+                                    <option value="America/La_Paz">(GMT-04:00) La Paz</option>
+                                    <option value="America/St_Johns">(GMT-03:30) Newfoundland</option>
+                                    <option value="America/Argentina/Buenos_Aires">(GMT-03:00) Georgetown</option>
+                                    <option value="America/Sao_Paulo">(GMT-03:00) Brasilia</option>
+                                    <option value="America/Godthab">(GMT-03:00) Greenland</option>
+                                    <option value="America/Montevideo">(GMT-03:00) Montevideo</option>
+                                    <option value="Atlantic/South_Georgia">(GMT-02:00) Mid-Atlantic</option>
+                                    <option value="Atlantic/Azores">(GMT-01:00) Azores</option>
+                                    <option value="Atlantic/Cape_Verde">(GMT-01:00) Cape Verde Is.</option>
+                                    <option value="Europe/Dublin">(GMT) Dublin</option>
+                                    <option value="Europe/Lisbon">(GMT) Lisbon</option>
+                                    <option value="Europe/London">(GMT) London</option>
+                                    <option value="Africa/Monrovia">(GMT) Monrovia</option>
+                                    <option value="Atlantic/Reykjavik">(GMT) Reykjavik</option>
+                                    <option value="Africa/Casablanca">(GMT) Casablanca</option>
+                                    <option value="Europe/Belgrade">(GMT+01:00) Belgrade</option>
+                                    <option value="Europe/Bratislava">(GMT+01:00) Bratislava</option>
+                                    <option value="Europe/Budapest">(GMT+01:00) Budapest</option>
+                                    <option value="Europe/Ljubljana">(GMT+01:00) Ljubljana</option>
+                                    <option value="Europe/Prague">(GMT+01:00) Prague</option>
+                                    <option value="Europe/Sarajevo">(GMT+01:00) Sarajevo</option>
+                                    <option value="Europe/Skopje">(GMT+01:00) Skopje</option>
+                                    <option value="Europe/Warsaw">(GMT+01:00) Warsaw</option>
+                                    <option value="Europe/Zagreb">(GMT+01:00) Zagreb</option>
+                                    <option value="Europe/Brussels">(GMT+01:00) Brussels</option>
+                                    <option value="Europe/Copenhagen">(GMT+01:00) Copenhagen</option>
+                                    <option value="Europe/Madrid">(GMT+01:00) Madrid</option>
+                                    <option value="Europe/Paris">(GMT+01:00) Paris</option>
+                                    <option value="Africa/Algiers">(GMT+01:00) West Central Africa</option>
+                                    <option value="Europe/Amsterdam">(GMT+01:00) Amsterdam</option>
+                                    <option value="Europe/Berlin">(GMT+01:00) Berlin</option>
+                                    <option value="Europe/Rome">(GMT+01:00) Rome</option>
+                                    <option value="Europe/Stockholm">(GMT+01:00) Stockholm</option>
+                                    <option value="Europe/Vienna">(GMT+01:00) Vienna</option>
+                                    <option value="Europe/Minsk">(GMT+02:00) Minsk</option>
+                                    <option value="Africa/Cairo">(GMT+02:00) Cairo</option>
+                                    <option value="Europe/Helsinki">(GMT+02:00) Helsinki</option>
+                                    <option value="Europe/Riga">(GMT+02:00) Riga</option>
+                                    <option value="Europe/Sofia">(GMT+02:00) Sofia</option>
+                                    <option value="Europe/Tallinn">(GMT+02:00) Tallinn</option>
+                                    <option value="Europe/Vilnius">(GMT+02:00) Vilnius</option>
+                                    <option value="Europe/Athens">(GMT+02:00) Athens</option>
+                                    <option value="Europe/Bucharest">(GMT+02:00) Bucharest</option>
+                                    <option value="Europe/Istanbul">(GMT+02:00) Istanbul</option>
+                                    <option value="Asia/Jerusalem">(GMT+02:00) Jerusalem</option>
+                                    <option value="Asia/Amman">(GMT+02:00) Amman</option>
+                                    <option value="Asia/Beirut">(GMT+02:00) Beirut</option>
+                                    <option value="Africa/Windhoek">(GMT+02:00) Windhoek</option>
+                                    <option value="Africa/Harare">(GMT+02:00) Harare</option>
+                                    <option value="Asia/Kuwait">(GMT+03:00) Kuwait</option>
+                                    <option value="Asia/Riyadh">(GMT+03:00) Riyadh</option>
+                                    <option value="Asia/Baghdad">(GMT+03:00) Baghdad</option>
+                                    <option value="Africa/Nairobi">(GMT+03:00) Nairobi</option>
+                                    <option value="Asia/Tbilisi">(GMT+03:00) Tbilisi</option>
+                                    <option value="Europe/Moscow">(GMT+03:00) Moscow</option>
+                                    <option value="Europe/Volgograd">(GMT+03:00) Volgograd</option>
+                                    <option value="Asia/Tehran">(GMT+03:30) Tehran</option>
+                                    <option value="Asia/Muscat">(GMT+04:00) Muscat</option>
+                                    <option value="Asia/Baku">(GMT+04:00) Baku</option>
+                                    <option value="Asia/Yerevan">(GMT+04:00) Yerevan</option>
+                                    <option value="Asia/Yekaterinburg">(GMT+05:00) Ekaterinburg</option>
+                                    <option value="Asia/Karachi">(GMT+05:00) Karachi</option>
+                                    <option value="Asia/Tashkent">(GMT+05:00) Tashkent</option>
+                                    <option value="Asia/Kolkata">(GMT+05:30) Calcutta</option>
+                                    <option value="Asia/Colombo">(GMT+05:30) Sri Jayawardenepura</option>
+                                    <option value="Asia/Katmandu">(GMT+05:45) Kathmandu</option>
+                                    <option value="Asia/Dhaka">(GMT+06:00) Dhaka</option>
+                                    <option value="Asia/Almaty">(GMT+06:00) Almaty</option>
+                                    <option value="Asia/Novosibirsk">(GMT+06:00) Novosibirsk</option>
+                                    <option value="Asia/Rangoon">(GMT+06:30) Yangon (Rangoon)</option>
+                                    <option value="Asia/Krasnoyarsk">(GMT+07:00) Krasnoyarsk</option>
+                                    <option value="Asia/Bangkok">(GMT+07:00) Bangkok</option>
+                                    <option value="Asia/Jakarta">(GMT+07:00) Jakarta</option>
+                                    <option value="Asia/Brunei">(GMT+08:00) Beijing</option>
+                                    <option value="Asia/Chongqing">(GMT+08:00) Chongqing</option>
+                                    <option value="Asia/Hong_Kong">(GMT+08:00) Hong Kong</option>
+                                    <option value="Asia/Urumqi">(GMT+08:00) Urumqi</option>
+                                    <option value="Asia/Irkutsk">(GMT+08:00) Irkutsk</option>
+                                    <option value="Asia/Ulaanbaatar">(GMT+08:00) Ulaan Bataar</option>
+                                    <option value="Asia/Kuala_Lumpur">(GMT+08:00) Kuala Lumpur</option>
+                                    <option value="Asia/Singapore">(GMT+08:00) Singapore</option>
+                                    <option value="Asia/Taipei">(GMT+08:00) Taipei</option>
+                                    <option value="Australia/Perth">(GMT+08:00) Perth</option>
+                                    <option value="Asia/Seoul">(GMT+09:00) Seoul</option>
+                                    <option value="Asia/Tokyo">(GMT+09:00) Tokyo</option>
+                                    <option value="Asia/Yakutsk">(GMT+09:00) Yakutsk</option>
+                                    <option value="Australia/Darwin">(GMT+09:30) Darwin</option>
+                                    <option value="Australia/Adelaide">(GMT+09:30) Adelaide</option>
+                                    <option value="Australia/Canberra">(GMT+10:00) Canberra</option>
+                                    <option value="Australia/Melbourne">(GMT+10:00) Melbourne</option>
+                                    <option value="Australia/Sydney">(GMT+10:00) Sydney</option>
+                                    <option value="Australia/Brisbane">(GMT+10:00) Brisbane</option>
+                                    <option value="Australia/Hobart">(GMT+10:00) Hobart</option>
+                                    <option value="Asia/Vladivostok">(GMT+10:00) Vladivostok</option>
+                                    <option value="Pacific/Guam">(GMT+10:00) Guam</option>
+                                    <option value="Pacific/Port_Moresby">(GMT+10:00) Port Moresby</option>
+                                    <option value="Asia/Magadan">(GMT+11:00) Magadan</option>
+                                    <option value="Pacific/Fiji">(GMT+12:00) Fiji</option>
+                                    <option value="Asia/Kamchatka">(GMT+12:00) Kamchatka</option>
+                                    <option value="Pacific/Auckland">(GMT+12:00) Auckland</option>
+                                    <option value="Pacific/Tongatapu">(GMT+13:00) Nukualofa</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="field_name"><label for="companyEmail" class="required"><?= $this->translate('Email :') ?></label></td>
+                            <td align="left"><input id="companyEmail" name="companyEmail" class="form-control" type="text" size="50"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="field_name"><label class="required" for="address"><?= $this->translate('Address :') ?></label></td>
+                            <td align="left"><textarea name="address" id="address" style="" class="form-control textbox"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="field_name">
+                                <label class="required" for="city"><?= $this->layout()->settings->getSiteCityLabel() . ' :' ?></label>
+                            </td>
+                            <td align="left"><input type="text" name="city" value="" size="50" id="city" class="form-control textbox"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="field_name"><label class="required" for="state"><?= $this->translate('Province/State :') ?></label></td>
+                            <td align="left">
+                                <input type="text" name="state" value="" size="50" id="state" class="form-control textbox"/>
+
+                                <select id="stateCombo" class="form-control drop_down" name="stateCombo" style="width:280px; display: none;">
+                                    <option value=""><?= $this->translate('-- Please select --') ?></option>
+                                    <?php foreach ($this->provincesList as $province) { ?>
+                                        <option value="<?= $province['state_name'] ?>"><?= $province['state_name'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="field_name"><label class="required" for="country"><?= $this->translate('Country :') ?></label></td>
+                            <td align="left">
+                                <select name="country" class="form-control drop_down" id="country" style="width:280px;">
+                                    <option value=""><?= $this->translate('-- Please select a country --') ?></option>
+                                    <option value="1">Afghanistan</option>
+                                    <option value="2">Albania</option>
+                                    <option value="3">Algeria</option>
+                                    <option value="4">American Samoa</option>
+                                    <option value="5">Andorra</option>
+                                    <option value="6">Angola</option>
+                                    <option value="7">Anguilla</option>
+                                    <option value="8">Antarctica</option>
+                                    <option value="9">Antigua and Barbuda</option>
+                                    <option value="10">Argentina</option>
+                                    <option value="11">Armenia</option>
+                                    <option value="12">Aruba</option>
+                                    <option value="13">Australia</option>
+                                    <option value="14">Austria</option>
+                                    <option value="15">Azerbaijan</option>
+                                    <option value="16">Bahamas</option>
+                                    <option value="17">Bahrain</option>
+                                    <option value="18">Bangladesh</option>
+                                    <option value="19">Barbados</option>
+                                    <option value="20">Belarus</option>
+                                    <option value="21">Belgium</option>
+                                    <option value="22">Belize</option>
+                                    <option value="23">Benin</option>
+                                    <option value="24">Bermuda</option>
+                                    <option value="25">Bhutan</option>
+                                    <option value="26">Bolivia</option>
+                                    <option value="27">Bosnia and Herzegowina</option>
+                                    <option value="28">Botswana</option>
+                                    <option value="29">Bouvet Island</option>
+                                    <option value="30">Brazil</option>
+                                    <option value="31">British Indian Ocean Territory</option>
+                                    <option value="32">Brunei Darussalam</option>
+                                    <option value="33">Bulgaria</option>
+                                    <option value="34">Burkina Faso</option>
+                                    <option value="35">Burundi</option>
+                                    <option value="36">Cambodia</option>
+                                    <option value="37">Cameroon</option>
+                                    <option value="38">Canada</option>
+                                    <option value="39">Cape Verde</option>
+                                    <option value="40">Cayman Islands</option>
+                                    <option value="41">Central African Republic</option>
+                                    <option value="42">Chad</option>
+                                    <option value="43">Chile</option>
+                                    <option value="44">China</option>
+                                    <option value="45">Christmas Island</option>
+                                    <option value="46">Cocos (Keeling) Islands</option>
+                                    <option value="47">Colombia</option>
+                                    <option value="48">Comoros</option>
+                                    <option value="49">Congo</option>
+                                    <option value="50">Cook Islands</option>
+                                    <option value="51">Costa Rica</option>
+                                    <option value="52">Cote D'Ivoire</option>
+                                    <option value="53">Croatia</option>
+                                    <option value="54">Cuba</option>
+                                    <option value="55">Cyprus</option>
+                                    <option value="56">Czech Republic</option>
+                                    <option value="57">Denmark</option>
+                                    <option value="58">Djibouti</option>
+                                    <option value="59">Dominica</option>
+                                    <option value="60">Dominican Republic</option>
+                                    <option value="61">East Timor</option>
+                                    <option value="62">Ecuador</option>
+                                    <option value="63">Egypt</option>
+                                    <option value="64">El Salvador</option>
+                                    <option value="65">Equatorial Guinea</option>
+                                    <option value="66">Eritrea</option>
+                                    <option value="67">Estonia</option>
+                                    <option value="68">Ethiopia</option>
+                                    <option value="69">Falkland Islands (Malvinas)</option>
+                                    <option value="70">Faroe Islands</option>
+                                    <option value="71">Fiji</option>
+                                    <option value="72">Finland</option>
+                                    <option value="73">France</option>
+                                    <option value="74">France, Metropolitan</option>
+                                    <option value="75">French Guiana</option>
+                                    <option value="76">French Polynesia</option>
+                                    <option value="77">French Southern Territories</option>
+                                    <option value="78">Gabon</option>
+                                    <option value="79">Gambia</option>
+                                    <option value="80">Georgia</option>
+                                    <option value="81">Germany</option>
+                                    <option value="82">Ghana</option>
+                                    <option value="83">Gibraltar</option>
+                                    <option value="84">Greece</option>
+                                    <option value="85">Greenland</option>
+                                    <option value="86">Grenada</option>
+                                    <option value="87">Guadeloupe</option>
+                                    <option value="88">Guam</option>
+                                    <option value="89">Guatemala</option>
+                                    <option value="90">Guinea</option>
+                                    <option value="91">Guinea-bissau</option>
+                                    <option value="92">Guyana</option>
+                                    <option value="93">Haiti</option>
+                                    <option value="94">Heard and Mc Donald Islands</option>
+                                    <option value="95">Honduras</option>
+                                    <option value="96">Hong Kong</option>
+                                    <option value="97">Hungary</option>
+                                    <option value="98">Iceland</option>
+                                    <option value="99">India</option>
+                                    <option value="100">Indonesia</option>
+                                    <option value="101">Iran</option>
+                                    <option value="102">Iraq</option>
+                                    <option value="103">Ireland</option>
+                                    <option value="104">Israel</option>
+                                    <option value="105">Italy</option>
+                                    <option value="106">Jamaica</option>
+                                    <option value="107">Japan</option>
+                                    <option value="108">Jordan</option>
+                                    <option value="109">Kazakhstan</option>
+                                    <option value="110">Kenya</option>
+                                    <option value="111">Kiribati</option>
+                                    <option value="112">Korea, Democratic People's Republic of</option>
+                                    <option value="113">Korea, Republic of</option>
+                                    <option value="114">Kuwait</option>
+                                    <option value="115">Kyrgyzstan</option>
+                                    <option value="116">Lao People's Democratic Republic</option>
+                                    <option value="117">Latvia</option>
+                                    <option value="118">Lebanon</option>
+                                    <option value="119">Lesotho</option>
+                                    <option value="120">Liberia</option>
+                                    <option value="121">Libya</option>
+                                    <option value="122">Liechtenstein</option>
+                                    <option value="123">Lithuania</option>
+                                    <option value="124">Luxembourg</option>
+                                    <option value="125">Macau</option>
+                                    <option value="126">Macedonia, The Former Yugoslav Republic of</option>
+                                    <option value="127">Madagascar</option>
+                                    <option value="128">Malawi</option>
+                                    <option value="129">Malaysia</option>
+                                    <option value="130">Maldives</option>
+                                    <option value="131">Mali</option>
+                                    <option value="132">Malta</option>
+                                    <option value="133">Marshall Islands</option>
+                                    <option value="134">Martinique</option>
+                                    <option value="135">Mauritania</option>
+                                    <option value="136">Mauritius</option>
+                                    <option value="137">Mayotte</option>
+                                    <option value="138">Mexico</option>
+                                    <option value="139">Micronesia, Federated States of</option>
+                                    <option value="140">Moldova, Republic of</option>
+                                    <option value="141">Monaco</option>
+                                    <option value="142">Mongolia</option>
+                                    <option value="143">Montserrat</option>
+                                    <option value="144">Morocco</option>
+                                    <option value="145">Mozambique</option>
+                                    <option value="146">Myanmar</option>
+                                    <option value="147">Namibia</option>
+                                    <option value="148">Nauru</option>
+                                    <option value="149">Nepal</option>
+                                    <option value="150">Netherlands</option>
+                                    <option value="151">Netherlands Antilles</option>
+                                    <option value="152">New Caledonia</option>
+                                    <option value="153">New Zealand</option>
+                                    <option value="154">Nicaragua</option>
+                                    <option value="155">Niger</option>
+                                    <option value="156">Nigeria</option>
+                                    <option value="157">Niue</option>
+                                    <option value="158">Norfolk Island</option>
+                                    <option value="159">Northern Mariana Islands</option>
+                                    <option value="160">Norway</option>
+                                    <option value="161">Oman</option>
+                                    <option value="162">Pakistan</option>
+                                    <option value="163">Palau</option>
+                                    <option value="164">Panama</option>
+                                    <option value="165">Papua New Guinea</option>
+                                    <option value="166">Paraguay</option>
+                                    <option value="167">Peru</option>
+                                    <option value="168">Philippines</option>
+                                    <option value="169">Pitcairn</option>
+                                    <option value="170">Poland</option>
+                                    <option value="171">Portugal</option>
+                                    <option value="172">Puerto Rico</option>
+                                    <option value="173">Qatar</option>
+                                    <option value="174">Reunion</option>
+                                    <option value="175">Romania</option>
+                                    <option value="176">Russian Federation</option>
+                                    <option value="177">Rwanda</option>
+                                    <option value="178">Saint Kitts and Nevis</option>
+                                    <option value="179">Saint Lucia</option>
+                                    <option value="180">Saint Vincent and the Grenadines</option>
+                                    <option value="181">Samoa</option>
+                                    <option value="182">San Marino</option>
+                                    <option value="183">Sao Tome and Principe</option>
+                                    <option value="184">Saudi Arabia</option>
+                                    <option value="185">Senegal</option>
+                                    <option value="186">Seychelles</option>
+                                    <option value="187">Sierra Leone</option>
+                                    <option value="188">Singapore</option>
+                                    <option value="189">Slovakia (Slovak Republic)</option>
+                                    <option value="190">Slovenia</option>
+                                    <option value="191">Solomon Islands</option>
+                                    <option value="192">Somalia</option>
+                                    <option value="193">South Africa</option>
+                                    <option value="194">South Georgia and the South Sandwich Islands</option>
+                                    <option value="195">Spain</option>
+                                    <option value="196">Sri Lanka</option>
+                                    <option value="197">St. Helena</option>
+                                    <option value="198">St. Pierre and Miquelon</option>
+                                    <option value="199">Sudan</option>
+                                    <option value="200">Suriname</option>
+                                    <option value="201">Svalbard and Jan Mayen Islands</option>
+                                    <option value="202">Swaziland</option>
+                                    <option value="203">Sweden</option>
+                                    <option value="204">Switzerland</option>
+                                    <option value="205">Syrian Arab Republic</option>
+                                    <option value="206">Taiwan</option>
+                                    <option value="207">Tajikistan</option>
+                                    <option value="208">Tanzania, United Republic of</option>
+                                    <option value="209">Thailand</option>
+                                    <option value="210">Togo</option>
+                                    <option value="211">Tokelau</option>
+                                    <option value="212">Tonga</option>
+                                    <option value="213">Trinidad and Tobago</option>
+                                    <option value="214">Tunisia</option>
+                                    <option value="215">Turkey</option>
+                                    <option value="216">Turkmenistan</option>
+                                    <option value="217">Turks and Caicos Islands</option>
+                                    <option value="218">Tuvalu</option>
+                                    <option value="219">Uganda</option>
+                                    <option value="220">Ukraine</option>
+                                    <option value="221">United Arab Emirates</option>
+                                    <option value="222">United Kingdom</option>
+                                    <option value="223">United States</option>
+                                    <option value="224">United States Minor Outlying Islands</option>
+                                    <option value="225">Uruguay</option>
+                                    <option value="226">Uzbekistan</option>
+                                    <option value="227">Vanuatu</option>
+                                    <option value="228">Vatican City State (Holy See)</option>
+                                    <option value="229">Venezuela</option>
+                                    <option value="230">Viet Nam</option>
+                                    <option value="231">Virgin Islands (British)</option>
+                                    <option value="232">Virgin Islands (U.S.)</option>
+                                    <option value="233">Wallis and Futuna Islands</option>
+                                    <option value="234">Western Sahara</option>
+                                    <option value="235">Yemen</option>
+                                    <option value="236">Yugoslavia</option>
+                                    <option value="237">Zaire</option>
+                                    <option value="238">Zambia</option>
+                                    <option value="239">Zimbabwe</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="field_name"><label for="zip"><?= $this->translate('Postal Code/Zip :') ?></label></td>
+                            <td align="left"><input type="text" name="zip"  value="" size="50" id="zip" class="form-control textbox"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="field_name"><label class="required" for="phone1"><?= $this->translate('Phone (W) :') ?></label></td>
+                            <td align="left"><input type="text" name="phone1" value="" size="50" id="phone1" class="form-control textbox"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="field_name"><label for="phone2"><?= $this->translate('Phone (C) :') ?></label></td>
+                            <td align="left"><input type="text" name="phone2" value="" size="50" id="phone2" class="form-control textbox"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="field_name"><label for="fax"><?= $this->translate('Fax :') ?></label></td>
+                            <td align="left"><input type="text" name="fax" value="" size="50" id="fax" class="form-control textbox"/></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="wizardcontent" id="step_3">
+                    <h4><?= $this->translate('Add Users') ?></h4>
+
+                    <div><em class="required">*</em><span class="field_name"> <?=$this->translate('indicates mandatory fields ')?></span></div>
+
+                    <div style="">
+                        <div id="users_container">
+                        </div>
+                        <div id="additional_users_options">
+                            <button id="add_user_btn" type="button" class="btn btn-primary" style="margin-bottom: 15px;">Add another user</button>
+                            <p id="add_user_btn_help" style="margin-bottom: 30px; display: none;">You can add additional users after you login to your admin account.</p>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="wizardcontent" id="step_4">
+                    <h4><?= $this->translate('Add Client/Trust Account')?></h4>
+
+                    <div><em class="required">*</em><span class="field_name"> <?= $this->translate('indicates mandatory fields ') ?></span></div>
+
+                    <div style="padding-top: 10px;">
+                        <label hidden="true" for="ta_count" class="required"><?= $this->translate('How many ' . $this->taLabel . 's do you have?') ?></label>
+                        <select hidden="true" id="ta_count" name="ta_count" style="width: 50px;">
+                            <option value="1">1</option>
+                        </select>
+                        <div id="ta_container"></div>
+                    </div>
+                </div>
+            </form>
+
+            <div style="margin: 0 auto;">
+                <div id="divError" class="alert alert-danger"><span id="errorDescription"></span></div>
+                <div id="divWarning" class="alert alert-warning">Please wait while we are setting up your company. This action can take some time. Please do not go back, close or refresh your browser.</div>
+                <div id="loadingImage" style="display: none; text-align: center; margin: 10px;"><img src="<?= $this->imgUrl('loading.gif') ?>" align="middle" alt="<?= $this->translate('Loading') ?>" width="16" height="16"/></div>
+            </div>
+
+        </div>
+
+        <div class="buttons">
+            <button type="submit" id="previous" class="btn btn-primary"><span style='vertical-align: middle;'><?= $this->translate('Back') ?></span></button>
+            <button type="submit" id="next" class="btn btn-primary"><span style='vertical-align: middle;'><?= $this->translate('Next') ?></span></button>
+        </div>
+    </div>
+
+    <div id="thankYouMsg" style="display: none; margin-top: 20px;" class="card w-75 mx-auto">
+        <div class="card-body">
+            <h5 class="card-title"><?= $this->translate('Thank You! Your company was successfully created.') ?></h5>
+            <p class="card-text"><?= $this->translate(
+                    'An email has been sent to you (and all users) with instructions on how to access your account. You can click on the button below to start exploring Officio.'
+                ) ?></p>
+            <div class="row justify-content-center" style="margin-top: 20px; margin-bottom: 10px;">
+                <a href="<?= $this->layout()->topBaseUrl ?>" class="btn btn-primary orange-btn"><?= $this->translate('Start Officio Now') ?></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="footer-window">
+    <div class="container-fluid">
+        <div class="footer-row">
+            <div class="footercol01 small">Copyright &copy; <?= ($this->layout()->site_version == 'australia' ? '2013-' . date('Y') : '1996-' . date('Y')) ?>, <?= $this->layout()->site_company_name ?></div>
+            <div class="footercol02 small">
+                <ul>
+                    <li><a class="inline_footer" href="<?= $this->layout()->baseUrl; ?>/default/index/privacy"><?= $this->translate('Privacy Policy') ?></a></li>
+                    <li><a class="inline_footer" href="<?= $this->layout()->baseUrl; ?>/default/index/terms"><?= $this->translate('Terms of Use') ?></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

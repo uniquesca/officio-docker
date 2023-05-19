@@ -1,0 +1,10 @@
+<?php
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->cssUrl . '/shared_templates.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/shared-templates.js');
+?>
+
+<div align="left" id="admin-shared-templates-div"></div>

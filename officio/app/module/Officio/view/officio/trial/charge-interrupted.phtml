@@ -1,0 +1,50 @@
+<div id="renew_change_plan">
+    <div id="renew_details" style="margin:0 auto; width: 560px;">
+
+        <?php if ($this->showExpiration) : ?>
+            <div style="margin: 0 auto; padding: 20px 0; width: 100%; font-size: 12px; color: red;">
+                <?=
+                sprintf(
+                    $this->translate('Your account is past due for over 60 days, and we have been unable to charge your last %d invoices.<br>Your account will be suspended on <b>%s</b>. To receive an uninterrupted service, please update your payment information as soon as possible.'),
+                    $this->failedInvoicesCount,
+                    $this->suspendedOnDate
+                )
+                ?>
+            </div>
+        <?php else : ?>
+            <div style="margin: 0 auto; padding: 20px 0; width: 100%; font-size: 12px;">
+                <?= $this->translate('Sorry for the interruption. But, we could not process the subscription fee to your credit card this month.') ?>
+            </div>
+        <?php endif ?>
+
+
+        <div>
+            <input name='cc_info_changed' id='cc_info_changed' type='radio' value='changed' style='margin-right: 5px;' checked='checked'/>
+            <label for='cc_info_changed' style='vertical-align: top; font-size: 12px;'><?= $this->translate('My card details have changed') ?></label>
+        </div>
+
+        <div style="margin: 20px; width: 530px; height: 130px;">
+            <?= $this->partial('officio/partials/cc-section.phtml'); ?>
+        </div>
+
+
+        <div style='padding: 0 0 20px 0;'>
+            <input name='cc_info_changed' id='cc_info_not_changed' type='radio' value='not_changed' style='margin-right: 5px;'/>
+            <label for='cc_info_not_changed' style='vertical-align: top; font-size: 12px;'><?= $this->translate("My card details haven't changed. But, try my card again in a few days.") ?></label>
+        </div>
+
+        <div style="margin: 0 auto; width: 100%; text-align: center;">
+            <button onclick="submitInterruptionForm();"><?= $this->translate('Submit') ?></button>
+            &nbsp;&nbsp;&nbsp;
+            <button onclick="interruptionLogout();"><?= $this->translate('Logout') ?></button>
+        </div>
+
+        <div style="margin: 0 auto; padding: 30px 5px 5px 5px; width: 350px; color: #5589C8;">
+            <?php if ($this->layout()->site_version == 'australia') : ?>
+                <?= $this->translate('Have any questions? Call us:') ?> <b><?= $this->layout()->site_company_phone ?></b>
+            <?php else : ?>
+                <?= $this->translate('Have any questions? Call us toll free:') ?> <b><?= $this->layout()->site_company_phone ?></b>
+            <?php endif ?>
+        </div>
+    </div>
+</div>

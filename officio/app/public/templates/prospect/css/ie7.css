@@ -1,0 +1,11 @@
+.social-icons li,
+.banners li,
+.button,
+.sf-menu > li > a .arrow,
+.sf-menu li li a .arrow,
+.pagination li,
+h1 a {
+    display: inline;
+    transform: scale(1);
+    transform-origin: 0 0;
+}

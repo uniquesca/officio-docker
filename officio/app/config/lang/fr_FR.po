@@ -1,0 +1,3587 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Uniques\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-17 15:21+0200\n"
+"PO-Revision-Date: 2012-01-17 15:21+0200\n"
+"Last-Translator: Andron <work.andron@gmail.com>\n"
+"Language-Team: Uniques\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;translate;plural:1,2\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"X-Poedit-SearchPath-0: D:\\Projects\\Web\\htdocs\\uniques_zend\n"
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/bootstrap.php:12
+#, php-format
+msgid "Too old PHP version (%s). Please update."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/bootstrap.php:22
+#, php-format
+msgid "Please turn off magic_quotes_gpc or magic_quotes_sybase in php settings [e.g. magic_quotes_gpc = Off]"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/bootstrap.php:43
+#, php-format
+msgid "Such PHP Extensions must be installed:<br/> <strong>%s</strong>"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/bootstrap.php:78
+#, php-format
+msgid "Too old ZF (%s). Minimum %s must be installed, please update."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:93
+msgid "No Agents found"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:154
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:221
+msgid "Incorrectly selected agent"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:161
+msgid "This agent is assigned to the client(s) - please unassign and try again."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:168
+msgid "Internal error occurred [#1]. Please contact to web site administrator."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:173
+msgid "Internal error occurred [#2]. Please contact to web site administrator."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:215
+msgid "Incorrect mode"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:230
+msgid "Please provide value for \"First Name\" field"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:235
+msgid "Please provide value for \"Last Name\" field"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:240
+msgid "Please provide value for \"Status\" field"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:246
+msgid "Not correct value for \"Email 1\" field"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:254
+msgid "Email already used. Value for \"Email 1\" must be unique"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:260
+msgid "Not correct value for \"Email 2\" field"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:264
+msgid "Not correct value for \"Email 3\" field"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:270
+msgid "Errors:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/controllers/IndexController.php:294
+msgid "Saved"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/api/controllers/IndexController.php:301
+msgid "Incorrectly selected role"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/api/controllers/IndexController.php:310
+msgid "Incorrectly selected role [2]"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/api/controllers/IndexController.php:336
+msgid "Must be defined at least one admin user"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/api/controllers/IndexController.php:354
+msgid "Each user must have unique username."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/api/controllers/IndexController.php:361
+msgid "Incorrectly selected user"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/api/controllers/IndexController.php:455
+msgid "Can not create a company"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/api/controllers/IndexController.php:501
+msgid "Cannot create a user"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:85
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:238
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:456
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:583
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:680
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:991
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1350
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/IndexController.php:123
+msgid "Incorrectly selected client"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:90
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:243
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:317
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:475
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:588
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:651
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:685
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:759
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:944
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:996
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1355
+msgid "Insufficient access rights for this Client"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:99
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:251
+msgid "Incorrectly selected primary Trust Account"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:104
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:256
+msgid "Insufficient access rights for this Trust Account [primary]"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:108
+msgid "Incorrectly selected secondary Trust Account"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:112
+msgid "Insufficient access rights for this Trust Account [secondary]"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:175
+msgid "It is not possible to change primary Trust Account because there are assigned deposits or created invoices"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:179
+msgid "It is not possible to change secondary Trust Account because there are assigned deposits or created invoices"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:312
+msgid "Payments can not be empty"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:321
+msgid "Template name can not be empty"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:327
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:479
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:592
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:764
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1180
+msgid "Incorrect amount"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:331
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:483
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:596
+msgid "Please enter the description"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:335
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:460
+msgid "Incorrectly selected Due On field"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:342
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:467
+msgid "Please select a date"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:371
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:499
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:510
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:606
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:612
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:791
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:797
+msgid "Incorrectly selected GST"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:491
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:549
+msgid "Insufficient access rights for this Payment Schedule"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:540
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1129
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1175
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1225
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1253
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1279
+msgid "Incorrect incoming data"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:600
+msgid "Incorrectly selected adding method"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:626
+msgid "Internal error occurred. Please contact to web site administrator."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:655
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:697
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:754
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:939
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1007
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1019
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1366
+msgid "Insufficient access rights for this Trust Account"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:692
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:750
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1002
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1361
+msgid "Incorrectly selected Trust Account"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:769
+msgid "Description can not be empty"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:774
+msgid "Incorrect action"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:779
+msgid "Invoice # can not be empty"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:883
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:904
+msgid "Incorrectly selected transaction"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:906
+msgid "Insufficient access rights for this transaction"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1028
+msgid "Incorrect date"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/AccountingController.php:1398
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/ProfileController.php:828
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/ProfileController.php:897
+msgid "Insufficient access rights."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/IndexController.php:41
+#, php-format
+msgid "Last %d clients accessed by me"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/IndexController.php:42
+#, php-format
+msgid "Last %d clients accessed by all"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/IndexController.php:43
+msgid "All Clients"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/IndexController.php:135
+msgid "You cannot delete clients with entries in their Trust Account Summary. You can set \"Status\" of this client to \"Closed\" to remove this client from list of active clients."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/IndexController.php:175
+msgid "Access Denied"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/IndexController.php:1295
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/IndexController.php:1341
+msgid "Incorrectly selected report."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/IndexController.php:1302
+msgid "Incorrectly selected To date."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/IndexController.php:1306
+msgid "Incorrectly selected From date."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/IndexController.php:1310
+msgid "The date in 'From' field must be less or equal to date in 'To' field."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/IndexController.php:1316
+msgid "Incorrectly selected type."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/ProfileController.php:832
+msgid "Please specify client password"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/ProfileController.php:836
+msgid "Please specify client username"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/ProfileController.php:840
+msgid "This username is already used, please choose another."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/ProfileController.php:844
+msgid "Incorrect characters in username"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/ProfileController.php:872
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/controllers/ProfileController.php:905
+msgid "Incorrectly sent request"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/controllers/IndexController.php:47
+msgid "Internal error."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/AuthController.php:62
+msgid "You have been logged out because you logged in on another computer or browser."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/AuthController.php:66
+msgid "You have been logged out because session has timed out."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/AuthController.php:70
+msgid "You have been logged out from this session."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/AuthController.php:114
+msgid "Log in"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/AuthController.php:115
+msgid "Client Login"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/AuthController.php:180
+msgid "This account currently is not active.<br/>Please contact your company admin to renew your password and update your account."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/AuthController.php:189
+msgid "You don't have an active login account, please contact your company admin to get a login account."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/AuthController.php:194
+msgid "invalid_email"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/AuthController.php:197
+msgid "invalid_captcha"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/AuthController.php:200
+msgid "Captcha Error. Please try again latter."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/AuthController.php:205
+msgid "Thank you. Your login details were sent to your e-mail. Please also ensure to check your spam folder."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/ErrorController.php:37
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/ErrorController.php:53
+msgid "Page not found"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/ErrorController.php:40
+#, php-format
+msgid "Unable to find controller \"%s\" in module \"%s\""
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/ErrorController.php:42
+#, php-format
+msgid "Unable to find action \"%s\" in controller \"%s\" in module \"%s\""
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/ErrorController.php:55
+#, php-format
+msgid "Resource not defined: \"%s\" . \"%s\""
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/ErrorController.php:67
+msgid "Application error"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/TrialController.php:159
+msgid "Incorrectly selected submission type."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/TrialController.php:163
+msgid "Incorrectly selected Credit Card Type."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/TrialController.php:167
+msgid "Please enter Name on the Card."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/TrialController.php:171
+msgid "Please enter correct Credit Card No."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/TrialController.php:176
+msgid "Please select Expiry Date Month."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/TrialController.php:180
+msgid "Please select Expiry Date Year."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/TrialController.php:200
+msgid "Incorrectly selected subscription."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/TrialController.php:205
+msgid "Please enter correct number of user licenses."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/TrialController.php:223
+msgid "Please select correct Storage needed value."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/TrialController.php:241
+#, php-format
+msgid "Thank you for renewing your subscription. A copy of the invoice was emailed to: %s"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/TrialController.php:245
+msgid " Please logout, and log back in to start Officio."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/TrialController.php:270
+msgid "Thank you for renewing your subscription."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/controllers/TrialController.php:322
+msgid "Thank you. We will try charging in next several days."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:59
+msgid "Please enter a keyword to search for"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:64
+msgid "Incorrectly selected form version"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:120
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:1136
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:1241
+msgid "Incorrectly selected form"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:164
+msgid "Cannot delete assigned pdf form"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:170
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:241
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:310
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:1057
+msgid "Incorrectly selected forms"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:192
+msgid "Completed/finalized form cannot be deleted. Please deselect it."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:216
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:278
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:1219
+msgid "Internal Error. Please contact to web site support."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:399
+msgid "Cannot create flatten pdf"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:478
+msgid "Incorrectly selected family member"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:487
+msgid "Incorrectly selected pdf form"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:983
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:1116
+msgid "Cannot print pdf"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:989
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:1030
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:404
+msgid "Internal error"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:1013
+msgid "Cannot attach pdf form(s)"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:1152
+msgid "File was attached incorrectly"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:1159
+msgid "Unsupported file format"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:1212
+msgid "File was not saved on server. Please contact to web site support."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:1274
+msgid "Incorrectly selected revision"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/controllers/IndexController.php:1299
+msgid "File does not exists"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:371
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:381
+msgid "Incorrectly selected mail."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:375
+msgid "Please select at least one mail and try again."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:388
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:515
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:561
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:796
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:834
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:946
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:989
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:1036
+msgid "Incorrectly selected account"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:463
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:467
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:480
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:485
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:506
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:510
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:528
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:552
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:556
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:575
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:937
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:941
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:954
+msgid "Incorrectly selected folder."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:490
+msgid "Folder was not removed."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:520
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:566
+msgid "Incorrect folder name (forbidden symbols: ^ # % @ / \\ \" ')"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:534
+msgid "Server error. Can't rename folder."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:583
+msgid "Folder was not created successfully."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:663
+msgid "Please enter the recipient's email"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:668
+msgid "Incorrect \"TO\" Email Address"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:674
+msgid "Incorrect \"CC\" Email Address"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:680
+msgid "Incorrect \"BCC\" Email Address"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:807
+msgid "Incorrectly selected email(s)"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:908
+msgid "Draft was not saved successfully."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:1112
+#, php-format
+msgid "%d out of %d email(s) were successfully sent. The following client(s) failed: <br /><br /> %s"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:1118
+#, php-format
+msgid "%d out of %d email(s) were successfully sent."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:1243
+msgid "Incorrectly selected email"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/IndexController.php:1249
+msgid "Incorrectly selected flag"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/SettingsController.php:124
+msgid "Error happened during mail account settings saving."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/SettingsController.php:146
+msgid "Error happened during setting mail account as default."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/SettingsController.php:162
+msgid "Incorrectly selected email account(s)"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/mail/controllers/SettingsController.php:180
+msgid "Error happened on mail account delete."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:651
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:713
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:768
+msgid "Information was updated successfully, but there are such errors:<br/>"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:662
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:719
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:774
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:905
+msgid "Information was updated successfully."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:806
+msgid "Incorrectly selected prospect."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:902
+msgid "Prospect was created successfully."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:1312
+msgid "You have no access to reminders"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:1348
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:1368
+msgid "Empty reminders list"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:1352
+msgid "Incorrect reminder id or insufficient access rights"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:1405
+msgid "Incorrectly selected prospects."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:1432
+#, php-format
+msgid "Prospect with id %d is not ready for converting."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:1447
+msgid "Prospect(s) were not converted. Please try again later."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:1448
+msgid "Prospect was not converted. Please try again later."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/controllers/IndexController.php:1495
+msgid "Incorrectly selected prospect"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/qnr/controllers/IndexController.php:50
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/qnr/controllers/IndexController.php:56
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/qnr/controllers/IndexController.php:65
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/qnr/controllers/IndexController.php:114
+msgid "Incorrectly selected questionnaire."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/AccountsController.php:28
+msgid "Accounts"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/AutomatedBillingLogController.php:87
+msgid "Session was deleted successfully."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/AutomatedBillingLogController.php:92
+msgid "Session was selected incorrectly"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ChangeMyPasswordController.php:59
+msgid "Old password cannot be empty"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ChangeMyPasswordController.php:62
+msgid "New password cannot be empty"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ChangeMyPasswordController.php:66
+msgid "Your passwords do not match"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ChangeMyPasswordController.php:77
+msgid "Sorry, you have entered incorrect old password"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ChangeMyPasswordController.php:86
+msgid "Password changed successfully"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsController.php:39
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsController.php:40
+msgid "Manage Forms"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsController.php:61
+msgid "At least one of the selected form templates is used by clients. You cannot delete these form templates."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsController.php:63
+msgid "The selected form template is used by clients.<br/>You cannot delete this form template."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsController.php:69
+msgid "Selected form(s) cannot be deleted. Please contact to web site support."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsController.php:84
+msgid "PDF form was successfully saved.<br><br>But such fields with incorrect names were found:<br><br>"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsController.php:112
+msgid "File name can not be empty"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsController.php:117
+msgid "Incorrectly selected folder"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsController.php:148
+msgid "Please select a file"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsController.php:176
+msgid "Can not copy a file. Please contact the website support."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsDefaultController.php:37
+msgid "Default Forms"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsDefaultController.php:207
+msgid "One of these forms is already assigned to the company"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsMapsController.php:95
+msgid "Incorrectly selected family member [from]"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsMapsController.php:99
+msgid "Incorrectly selected family member [to - pdf form]"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsMapsController.php:114
+msgid "Incorrectly selected field [from]"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsMapsController.php:118
+msgid "Incorrectly selected field [to]"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsMapsController.php:121
+msgid "There are no sync fields in db"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/FormsMapsController.php:180
+msgid "Incorrectly selected maps"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageAdminUsersController.php:65
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:97
+msgid "Please select checkboxes to delete or to activate/deactivate any listing"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageAdminUsersController.php:74
+msgid "Selected Users were successfully deleted"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageAdminUsersController.php:80
+msgid "Selected Users were successfully activated"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageAdminUsersController.php:85
+msgid "Selected Users were successfully deactivated"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageAdminUsersController.php:141
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:265
+msgid "There are no records matching your query"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageAdminUsersController.php:224
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:549
+msgid "Please enter user name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageAdminUsersController.php:230
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:554
+msgid "Duplicate username, please choose another"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageAdminUsersController.php:234
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:558
+msgid "Please enter password"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageAdminUsersController.php:239
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:562
+#, php-format
+msgid "Minimum password length is %d chars"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageAdminUsersController.php:243
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:566
+#, php-format
+msgid "Maximum password length is %d chars"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageAdminUsersController.php:247
+msgid "Please enter admin first name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageAdminUsersController.php:251
+msgid "Please enter admin last name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageAdminUsersController.php:255
+msgid "Please enter admin email address"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageBadDebtsLogController.php:88
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageBadDebtsLogController.php:94
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageBadDebtsLogController.php:134
+msgid "Incorrect incoming params"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageBadDebtsLogController.php:105
+#, php-format
+msgid "%d %s deleted successfully"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageBadDebtsLogController.php:107
+msgid "invoice was"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageBadDebtsLogController.php:107
+msgid "invoices were"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageBadDebtsLogController.php:144
+msgid "Invoice was charged successfully"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:222
+msgid "Please make changes and try again"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:227
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:154
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:284
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:593
+msgid "Incorrectly selected field"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:300
+msgid "Incorrect data."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:310
+msgid "There are clients in this Office. Please move them to other office and try again."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1008
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1056
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1087
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:147
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:261
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:578
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:622
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:679
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:466
+msgid "Incorrectly selected company"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1032
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1037
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1062
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1067
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1096
+msgid "Internal Error."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1220
+msgid "Company was selected incorrectly."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1288
+msgid "Companies were selected incorrectly."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1292
+msgid "Incoming data [processed count] is incorrect."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1296
+msgid "Incoming data [total count] is incorrect."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1300
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1326
+msgid "Template was selected incorrectly."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1309
+msgid "Users were selected incorrectly."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1314
+msgid "Send to option was selected incorrectly."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1378
+msgid "Internal Error"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyController.php:1759
+msgid "Save Changes"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:68
+msgid "Default Prospects"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:70
+msgid "Prospects Management"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:190
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:422
+msgid "Incorrectly selected template."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:199
+msgid "This template cannot be deleted because it is already used in Questionnaire(s)."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:258
+msgid "Incorrectly selected company."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:266
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:277
+msgid "Incorrectly selected categories."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:300
+msgid "Some categories were already used by prospects. Please unassign category for each prospect and try again."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:315
+msgid "Changes were successfully saved."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:375
+msgid "This questionnaire cannot be deleted."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:381
+msgid "Questionnaire was successfully deleted."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:412
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:560
+msgid "Please enter questionnaire name."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:416
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:619
+msgid "Incorrectly selected questionnaire NOC."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:567
+msgid "Incorrectly selected office."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:579
+msgid "Incorrectly selected agent."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:587
+msgid "Please enter applicant name."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:591
+msgid "Please enter the text for 'Please select' field."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:595
+msgid "Please enter the caption for 'Next Page' button."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:599
+msgid "Please enter the caption for 'Previous Page' button."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:603
+msgid "Please enter the caption for 'Step 1' navigation item."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:607
+msgid "Please enter the caption for 'Step 2' navigation item."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:611
+msgid "Please enter the caption for 'Step 3' navigation item."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:615
+msgid "Please enter the caption for 'Step 4' navigation item."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:623
+msgid "Incorrectly selected questionnaire layout direction."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:633
+msgid "Incorrectly selected negative response template."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:638
+msgid "Incorrectly selected thank you template."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:667
+msgid "Incorrectly selected category templates."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:755
+msgid "Incorrectly selected section."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:759
+msgid "Please enter a section name."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:763
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:996
+msgid "Incorrectly selected help radio."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:768
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:1001
+msgid "Please enter help description."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:833
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:883
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:974
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:987
+msgid "Incorrectly selected field."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:841
+msgid "This section does not exists."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:978
+msgid "Please enter field name."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageCompanyProspectsController.php:990
+msgid "Please add at least one option."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:67
+msgid "--- DEFAULT ---"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:100
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:101
+msgid "Manage Fields Groups"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:197
+msgid "Information was successfully loaded"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:270
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:629
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:634
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:731
+msgid "Incorrectly selected group"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:276
+msgid "Incorrectly selected group [err#2]"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:302
+msgid "Incorrect field type"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:306
+msgid "It is possible to create only one Divisions field"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:337
+msgid "Incorrect field name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:351
+msgid "This field name is already in use. Please enter other field name and try again."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:473
+msgid "Field was successfully created"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:544
+msgid "Field was successfully updated"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:559
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:765
+msgid "Information was successfully updated"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:645
+msgid "There are fields in this group. Please move these fields to other group, save changes and try again"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:735
+msgid "Incorrect group name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageFieldsGroupsController.php:747
+msgid "Group was successfully created"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:59
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:60
+msgid "Manage Users"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:105
+msgid "You cannot activate/deactivate/delete yourself"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:127
+msgid "Incorrectly selected users"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:162
+msgid "deleted"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:167
+msgid "activated"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:172
+msgid "deactivated"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:181
+msgid "Selected user was successfully "
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:183
+msgid "Selected users were successfully "
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:420
+msgid "Parameters were sent incorrectly."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:471
+msgid "Please login as company admin to add a new user"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:481
+msgid "Please select a role"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:541
+msgid "Must be at least one assigned role with access rights to this page"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:572
+msgid "Please enter email address"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:587
+msgid "Please enter first name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:591
+msgid "Please enter last name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageMembersController.php:595
+msgid "Please select time zone"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManagePricingController.php:83
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManageTrialPricingController.php:79
+msgid "Information was saved successfully."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManagePtErrorCodesController.php:74
+msgid "Please enter correct code."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManagePtErrorCodesController.php:78
+msgid "Please enter correct description."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManagePtErrorCodesController.php:87
+msgid "Error code already exists in DB."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManagePtErrorCodesController.php:98
+msgid "Error code was successfully saved"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManagePtErrorCodesController.php:98
+msgid "Error code was successfully updated"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/ManagePtErrorCodesController.php:125
+msgid "Error code was incorrectly selected."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:77
+msgid "It is not possible delete the role(s) if it is assigned to you."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:81
+msgid "It is not possible deactivate the role(s) if it is assigned to you."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:96
+msgid "Incorrectly selected roles"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:132
+msgid "Selected Roles were successfully deleted"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:138
+msgid "Selected Roles were successfully activated"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:143
+msgid "Selected Roles were successfully deactivated"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:206
+msgid "Sorry no records found."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:470
+msgid "It is not possible to uncheck `Manage Roles` and `Edit Roles` access settings for own role."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:546
+msgid "The highlighted fields below are required fields on Profile tab.  These fields have to be given Read & Write access if you want to allow the role to save the profile or add new client i.e. the \"New/Edit Profile\" access."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:852
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:853
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:854
+msgid "Add new role"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:883
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:884
+msgid "Edit role"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:908
+msgid "Role was successfully updated"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:922
+msgid "Role was successfully created"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/RolesController.php:932
+msgid "Update Role"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/StatisticsController.php:23
+msgid "Statistics"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/TrustAccountSettingsController.php:107
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/TrustAccountSettingsController.php:108
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/TrustAccountSettingsController.php:122
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/TrustAccountSettingsController.php:123
+msgid "Trust A/C and Accounting Settings"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/TrustAccountSettingsController.php:185
+msgid "Cannot change currency because there are imported records in Trust Account."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/TrustAccountSettingsController.php:234
+msgid "Cannot delete the Trust Account because it has imported transactions and some of the transactions are already assigned to clients."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/TrustAccountSettingsController.php:239
+msgid "This Trust Account is assigned to client(s). Please assign the Clients to a different trust account first then delete the trust account."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/TrustAccountSettingsController.php:303
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/TrustAccountSettingsController.php:319
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/TrustAccountSettingsController.php:338
+msgid "Incorrectly selected Option"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/TrustAccountSettingsController.php:325
+msgid "Cannot delete option"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/superadmin/controllers/TrustAccountSettingsController.php:344
+msgid "Cannot update option"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:260
+msgid "Pending for clearing in Trust A/C"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:261
+msgid "Deposit Not Verified"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:265
+msgid "Refund from Trust A/C"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:265
+msgid "Deposit in Trust A/C"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:266
+msgid "Deposit Verified"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:326
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:1645
+msgid "Not Cleared"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:326
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:1645
+msgid "Cleared"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:346
+msgid "equivalent of "
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:355
+msgid "Transferred from Client/Trust Account"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:357
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:363
+msgid "Returned Payment"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:1104
+msgid "Pending Deposit"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:1265
+msgid "This transaction cannot be corrected, as it is already reconciled."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Accounting.php:1598
+msgid "Details"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Auth.php:125
+msgid "Please provide a username"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Auth.php:127
+msgid "Please provide a password"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Auth.php:149
+msgid "You can not login because this is not allowed for your company"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Auth.php:158
+#, php-format
+msgid "Access denied. Error %d."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Auth.php:218
+msgid "Incorrect username or password."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Company.php:1298
+msgid "Please enter company name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Company.php:1302
+msgid "Please enter address"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Company.php:1306
+msgid "Please enter city"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Company.php:1310
+msgid "Please select country"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Company.php:1314
+msgid "Please enter state"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Company.php:1318
+msgid "Please enter company phone #1 number"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Company.php:1322
+msgid "Please enter company email address"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Company.php:1336
+msgid "Please select Time Zone"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Company.php:1347
+msgid "Please enter company admin first name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Company.php:1351
+msgid "Please enter company admin last name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Company.php:1355
+msgid "Please enter company user name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Company.php:1370
+#, php-format
+msgid "Please enter an unique username. %s already in the system as a username."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Company.php:1565
+msgid "Can not create admin of the company"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyInvoice.php:477
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanySubscriptions.php:292
+msgid "Communication with PT is turned off. Please turn it on in config file and try again."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyInvoice.php:484
+msgid "Invoice was not found"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyQnr.php:482
+msgid "Please enter PNP category in the field."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyQnr.php:498
+msgid "Please enter Other category in the field."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyQnr.php:645
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyQnr.php:660
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyQnr.php:673
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyQnr.php:686
+#, php-format
+msgid "Incorrect value for <i>%s</i> field."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyQnr.php:711
+#, php-format
+msgid "Incorrectly selected option for <i>%s</i> field."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyQnr.php:720
+#, php-format
+msgid "Incorrectly selected country for <i>%s</i> field."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyQnr.php:731
+#, php-format
+msgid "Email address for <i>%s</i> field is incorrect."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyQnr.php:741
+#, php-format
+msgid "Incorrect date for <i>%s</i> field."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyQnr.php:750
+#, php-format
+msgid "Field <i>%s</i> is required."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanySubscriptions.php:312
+msgid "PT profile doesn't exists."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyTrial.php:122
+msgid "We could not locate you as a registered member. This could be because you typed your Key incorrectly, or we may not have received your membership confirmation yet.<br/><br/>If you need assistance, please email us at: support@uniques.ca"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/CompanyTrial.php:131
+msgid "Your trial account privileges have already been used."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Pdf.php:52
+msgid "Your form was successfully saved to Officio."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Pdf.php:53
+msgid "Submitted information was not saved - close the form, then try to open it again from Officio. If the issue persists, please contact the website support."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Pdf.php:54
+msgid "Form is marked as finalized and can not be updated."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Pdf.php:55
+msgid "Invalid data file format - close the form, then try to open it again from Officio. If the issue persists, please contact the website support."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Pdf.php:56
+msgid "Incorrect login info. Please try again."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Pdf.php:57
+msgid "The forms are locked by the office. If you need to make any changes, please contact them for assistance."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Pdf.php:58
+msgid "Insufficient access rights for this form or client."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Pdf.php:59
+msgid "Your form cannot be saved. Since the last time you download this form, this form has been modified by another user and it has newer information not available in your copy. Please open or download a new copy of this form and make your modifications on that form."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Pdf.php:331
+msgid "Error during PDF form parsing."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Pdf.php:334
+msgid "PDF form does not exists."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Prospects.php:160
+msgid "Incorrect parameters."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Prospects.php:164
+msgid "Incorrect subscription fee."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Prospects.php:169
+msgid "Incorrectly selected package."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Prospects.php:183
+msgid "Error during prospect creation"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Prospects.php:304
+msgid "Prospect was created, but email was not sent. Please contact to the web site admin."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Plugin/Acl.php:315
+#, php-format
+msgid "Access Denied: \"%s\" . \"%s\" . \"%s\""
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/library/Uniques/Plugin/Initializer.php:278
+#, php-format
+msgid "Too old MySQL version (%s). Please update."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/client/client.phtml:84
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/main/main.phtml:78
+msgid "Logout"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/client/client.phtml:87
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/main/main.phtml:81
+msgid "Help"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/client/client.phtml:110
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/main/main.phtml:107
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/officio/main.phtml:49
+msgid "Copyright"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/client/client.phtml:110
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/main/main.phtml:107
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/officio/main.phtml:49
+msgid "Uniques Software Corp."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/client/client.phtml:110
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/main/main.phtml:107
+msgid "Reproduction in any form is prohibited."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/client/client.phtml:111
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/main/main.phtml:108
+msgid "Powered by Uniques Software Corp."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/main/main.phtml:55
+msgid "Officio Logo"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/main/main.phtml:58
+msgid "Logo"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/main/main.phtml:85
+msgid "Admin"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/officio/main.phtml:20
+msgid "Toll free: 1-888-703-7073"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/officio/main.phtml:27
+msgid "Home"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/officio/main.phtml:28
+msgid "Product Details"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/officio/main.phtml:29
+msgid "Pricing"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/officio/main.phtml:30
+msgid "Company"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/officio/main.phtml:31
+msgid "Sign Up"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/officio/main.phtml:32
+msgid "Contact"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/officio/main.phtml:38
+msgid "Bookmark and Share"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/officio/main.phtml:52
+msgid "Privacy Statement"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/officio/main.phtml:53
+msgid "Terms of Use"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/qnr/main.phtml:37
+msgid "Please enable JavaScript to use Virtual Office"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/qnr/main.phtml:42
+msgid "In order to experience Virtual Office, you'll need to enable JavaScript . "
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/qnr/main.phtml:43
+msgid "To find out how, view the instruction for your browser:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/layouts/qnr/main.phtml:47
+msgid "Firefox 2 or later"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:28
+msgid "Delete"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:32
+msgid "indicates mandatory fields"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:57
+msgid "Agent Details"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:66
+msgid "Title :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:69
+msgid "Mr."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:70
+msgid "Miss"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:71
+msgid "Ms."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:72
+msgid "Mrs."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:73
+msgid "Dr."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:77
+msgid "First Name :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:81
+msgid "Last Name :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:87
+msgid "Date signed up :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:94
+msgid "Status :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:96
+msgid "Active"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:97
+msgid "Inactive"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:134
+msgid "Country"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:145
+msgid "Province / State :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:149
+msgid "Postal/Zip Code :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:155
+msgid "Phone (work) :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:159
+msgid "Phone (home) :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:163
+msgid "Phone (mobile) :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:169
+msgid "Email 1:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:173
+msgid "Email 2 :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:177
+msgid "Email 3 :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:183
+msgid "Fax (home) :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:187
+msgid "Fax (work) :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:191
+msgid "Fax (others) :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:225
+msgid "Add Agent"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:225
+msgid "Update Agent Details"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/agent_form.phtml:230
+msgid "Saving..."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/index.phtml:7
+msgid "Show"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/index.phtml:12
+msgid "All Agents"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/index.phtml:13
+msgid "Active Agents"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/index.phtml:14
+msgid "In-Active Agents"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/index.phtml:19
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/index.phtml:43
+msgid "Agents"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/index.phtml:47
+msgid "Select the agent name to view the agent information from left navigation panel."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/index.phtml:48
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/agents/views/scripts/index/index.phtml:59
+msgid "Add&nbsp;new&nbsp;Agent"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/calendar/views/scripts/index/index.phtml:3
+msgid ""
+"Here, you can access your calendar. Your calendar needs to be linked to an email account.<br />\n"
+"    Please ask your company Admin to set this up for you. This can be done by going to Admin | Define Users, and introducing your email coordinates."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/calendar/views/scripts/index/index.phtml:12
+msgid "This feature is part of package 3 and will be released in the next coming version."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:44
+msgid "Change Currency or Trust Account"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:46
+msgid "Email Client Accounting"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:47
+msgid "Reports"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:52
+msgid "Reports:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:54
+msgid "Close"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:59
+msgid "Clients Balances"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:60
+msgid "Clients Transactions"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:63
+msgid "Print"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:66
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:80
+msgid "Details..."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:69
+msgid "Total Fees:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:80
+#, php-format
+msgid "Financial Transactions (%s)"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:93
+#, php-format
+msgid "Trust Account Summary (%s - %s)"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:96
+msgid "Available Total:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:98
+msgid "Deposits Not Verified:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:106
+msgid "You don't have any Trust Account defined . "
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:107
+msgid "Admin tab"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:109
+msgid "No Trust Account is defined for your company."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:110
+msgid "The Admin of your company can add Trust Accounts to the system."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:115
+msgid "No entries on Accounting available."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_accounting.phtml:117
+#, php-format
+msgid "Please assign trust account to this client by clicking%s here"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:21
+msgid "Enter the criteria for the advance search:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:30
+msgid "Search filter name:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:48
+msgid "AND"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:49
+msgid "OR"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:59
+msgid "None"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:61
+msgid "Accounting"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:63
+msgid "Clients who owe money"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:64
+msgid "Available Total"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:135
+msgid "contains"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:135
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:221
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:240
+msgid "is"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:135
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:222
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:241
+msgid "isn't"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:135
+msgid "doesn't contain"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:135
+msgid "starts with"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:135
+msgid "ends with"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:135
+msgid "is empty"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:135
+msgid "is not empty"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:187
+msgid "Day(s)"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:187
+msgid "Week(s)"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:187
+msgid "Month(s)"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:187
+msgid "Year(s)"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:319
+msgid "Search only among Active Clients"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:329
+msgid "Search"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:330
+msgid "Save Search"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:340
+msgid "Click on each entry to view profile"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:347
+msgid "Print All"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:347
+msgid "Search Result"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:348
+msgid "Export All to Excel"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_advanced_search.phtml:349
+msgid "Show All on the Side Bar"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_forms.phtml:44
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_notes.phtml:27
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_reminders.phtml:12
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/login.phtml:148
+msgid "Loading..."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:21
+msgid "Sorry. You can't add new client. Please assign fields before add new client."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:23
+msgid "Sorry. You can't edit\\view this client info."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:114
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:182
+msgid "Save Profile"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:127
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:404
+msgid "No"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:128
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:403
+msgid "Yes"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:145
+msgid "No. of Children who are not permanent  resident or Citizen of Canada"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:313
+msgid "First Name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:314
+msgid "Last Name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:315
+msgid "Sex"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:316
+msgid "DOB"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:317
+msgid "assport #"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:318
+msgid "Passport Exp. Date"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:319
+msgid "Canadian Resident"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:350
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:357
+msgid "Male"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:350
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:358
+msgid "Female"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:356
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_profile.phtml:402
+msgid "Select"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/client_sub_tab_content.phtml:32
+msgid "Loading.."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/index.phtml:33
+msgid "Saved Searches:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/index.phtml:34
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/index.phtml:107
+msgid "Refresh"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/index.phtml:51
+msgid "default"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/index.phtml:53
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/index.phtml:65
+msgid "set as default"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/index.phtml:80
+msgid "Saved Searches"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/index.phtml:81
+msgid "Advanced Search"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/index.phtml:90
+msgid "Clients"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/index.phtml:106
+msgid "Reminders"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/index.phtml:138
+msgid "Clients:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/index.phtml:144
+msgid "It can show location of the client, status of the client, the latest notes etc. <br/>Select the client name to view the client information from left navigation panel."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/index.phtml:147
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/clients/views/scripts/index/index.phtml:166
+msgid "Add&nbsp;new&nbsp;Client"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/email_company_info.phtml:4
+msgid "Officio! Your Office Online :: Company Info Details Email"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/email_company_info.phtml:17
+msgid "Name:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/email_company_info.phtml:18
+msgid "Time Zone:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/email_company_info.phtml:19
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:77
+msgid "Email:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/email_company_info.phtml:20
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:80
+msgid "Address:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/email_company_info.phtml:21
+msgid "City:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/email_company_info.phtml:22
+msgid "State:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/email_company_info.phtml:23
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:83
+msgid "Country:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/email_company_info.phtml:24
+msgid "Zip:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/email_company_info.phtml:25
+msgid "Phone (w):"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/email_company_info.phtml:26
+msgid "Phone (h):"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/email_company_info.phtml:27
+msgid "Fax:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:4
+msgid "Officio! Your Office Online :: CMI Signup"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:29
+msgid "1. CMI Info"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:30
+msgid "2. Define Company"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:31
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:35
+msgid "3. Define Users"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:32
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:36
+msgid "4. Define Trust AC"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:43
+msgid "CMI Info"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:47
+msgid "CMI ID:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:51
+msgid "Regulator ID:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:57
+msgid "Package 1"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:58
+msgid "Package 2"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:59
+msgid "Package 3"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:64
+msgid "Define Company"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:65
+msgid "Please enter company details"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:66
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:500
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:517
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:98
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:114
+msgid "indicates mandatory fields "
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:69
+msgid "Company Name :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:74
+msgid "Time Zone :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:208
+msgid "Email :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:212
+msgid "Address :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:216
+msgid "City :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:220
+msgid "Province/State :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:232
+msgid "Country :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:235
+msgid "-- Please select a country --"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:479
+msgid "Postal Code/Zip :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:483
+msgid "Phone (W) :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:487
+msgid "Phone (C) :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:491
+msgid "Fax :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:503
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:101
+msgid "Number of users that will be using this system:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:515
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:112
+msgid "Define Trust Account"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:520
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:117
+msgid "How many Client/Trust Accounts do you have?"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:537
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:137
+msgid "Back"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:538
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:138
+msgid "Next"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:543
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:143
+msgid "Thank You! Your company was successfully created."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:544
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:144
+msgid ""
+"An email has been sent to you (and all users) with instructions on how to access your account<br/>\n"
+"            You can click on the button below to start exploring Officio."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/cmi-signup/views/scripts/index/index.phtml:546
+msgid "Start Now"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:4
+msgid "Officio! Your Office Online :: Wizard"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:33
+msgid "1. Setup Wizard"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:34
+msgid "2. Sign in Info"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:45
+msgid "Officio Company Setup Wizard"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:47
+msgid "Please enter the registration key and click Next: "
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:57
+msgid "Your Sign in Information"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:74
+msgid "Client:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:76
+msgid "Company name:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:78
+msgid "Phone (W):"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:79
+msgid "Phone (M):"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:81
+msgid "City: "
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:82
+msgid "Province/State:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:84
+msgid "Postal code/Zip:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:86
+msgid "Package:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:87
+msgid "Training &amp; Support:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:88
+msgid "Payment term:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:90
+msgid "Sign-up Date:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:96
+msgid "Define Users"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/companywizard/views/scripts/index/index.phtml:130
+msgid "Loading"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/login.phtml:65
+msgid "Enable JavaScript to use Virtual Office"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/login.phtml:70
+msgid "In order to experience Virtual Office, you'll need to enable JavaScript."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/login.phtml:98
+msgid "Username"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/login.phtml:104
+msgid "Password"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/login.phtml:120
+msgid "Forgot your login info?"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/login.phtml:130
+msgid "Loading, please wait..."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/login.phtml:138
+msgid "Retrieve Login Info"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/login.phtml:142
+msgid "Please enter your email address"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/login.phtml:151
+msgid "Please type the above text:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/login.phtml:157
+msgid "Cancel"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/retrieve_password.phtml:5
+#, php-format
+msgid "Dear %s,"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/retrieve_password.phtml:6
+msgid "As you requested, your login details are as follows:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/retrieve_password.phtml:7
+#, php-format
+msgid "User ID: %s"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/retrieve_password.phtml:8
+#, php-format
+msgid "Password: %s"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/auth/retrieve_password.phtml:10
+msgid ""
+"Best regards,<br />\n"
+"    Officio.ca Team"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:3
+msgid "Credit Card Type :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:12
+msgid "Credit Card No :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:16
+msgid "Expiry Date :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:23
+msgid "Month"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:24
+msgid "January"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:25
+msgid "February"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:26
+msgid "March"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:27
+msgid "April"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:28
+msgid "May"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:29
+msgid "June"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:30
+msgid "July"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:31
+msgid "August"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:32
+msgid "September"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:33
+msgid "October"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:34
+msgid "November"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:35
+msgid "December"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:40
+msgid "Year"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/cc_section.phtml:55
+msgid "Name on the Card :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/charge-interrupted.phtml:4
+msgid "Sorry for the interruption. But, we could not process the subscription fee to your credit card this month."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/charge-interrupted.phtml:9
+msgid "My card details have changed"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/charge-interrupted.phtml:19
+msgid "My card details haven't changed. But, try my card again in a few days."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/charge-interrupted.phtml:23
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:117
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:126
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/help/views/scripts/index/index.phtml:83
+msgid "Submit"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/charge-interrupted.phtml:26
+msgid "Have any questions? Call us toll free:<b>1.888.703.7073</b>"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:15
+msgid "Your trial period has expired on"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:15
+msgid "Your trial period is expiring on"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:15
+msgid "We hope you have enjoyed your experience with Officio."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:22
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:58
+msgid "Monthly Plan"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:24
+msgid "/month"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:35
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:57
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:46
+msgid "Annual Plan"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:37
+msgid "/year"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:38
+#, php-format
+msgid "equivalent to %s/month"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:40
+#, php-format
+msgid "Offer is valid until %s"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:48
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:52
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:31
+msgid "Have any questions? Call us toll free: <b>1.888.703.7073</b>"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:62
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:50
+msgid "Subscription:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:70
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:60
+msgid "Number of user licenses needed:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:72
+#, php-format
+msgid "Your subscription includes %s user license."
+msgid_plural "Your subscription includes %s user licenses."
+msgstr[0] ""
+msgstr[1] ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:73
+msgid "Additional users are charged at"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:90
+msgid "Additional user licenses:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:96
+msgid "GST/HST:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:102
+msgid "Total:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/index.phtml:113
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:122
+msgid "By pressing submit, you authorize Uniques Software to charge the credit card above."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:20
+msgid "Your subscription has expired"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:20
+msgid "Your subscription is expiring"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:21
+msgid "Renew your subscription now to enjoy an uninterrupted service."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:24
+msgid "Renew Now"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:34
+msgid "How would you like to renew your subscription?"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:36
+msgid "Monthly"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:39
+msgid "Annually"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:39
+msgid "(Save 17%)"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:62
+#, php-format
+msgid "You currently have %s active users."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:63
+#, php-format
+msgid "Your subscription includes %s user licenses."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:82
+#, php-format
+msgid "You are currently using %sGb of storage."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:83
+#, php-format
+msgid "Your subscription includes %sGb of storage."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/default/views/scripts/trial/renew.phtml:84
+msgid "Additional storage will be charged at"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/views/scripts/index/index.phtml:1
+msgid ""
+"Forms will be here very soon!\n"
+"Please subscribe to our emails to be first to use this functionality!!! ;)"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/views/scripts/index/open-embed-pdf.phtml:3
+msgid "Open PDF form"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/views/scripts/index/open-embed-pdf.phtml:12
+msgid ""
+"It appears you don't have Adobe Reader or PDF support in this web\n"
+"    browser . "
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/forms/views/scripts/index/open-embed-pdf.phtml:13
+msgid "Click here to download the PDF"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/freetrial/views/scripts/index/index.phtml:29
+msgid "1. Key Info"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/freetrial/views/scripts/index/index.phtml:43
+msgid "Key Info"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/freetrial/views/scripts/index/index.phtml:47
+msgid "Activation key:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/freetrial/views/scripts/index/index.phtml:221
+msgid "-- Please select --"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/help/views/scripts/index/index.phtml:3
+msgid "Can't find your answer here ? Ask us . "
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/help/views/scripts/index/index.phtml:35
+msgid "Section is empty"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/help/views/scripts/index/index.phtml:46
+msgid "No F.A.Q. sections found."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/help/views/scripts/index/index.phtml:55
+msgid "Support Request"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/help/views/scripts/index/index.phtml:58
+msgid "How can we contact you?"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/help/views/scripts/index/index.phtml:61
+msgid "Name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/help/views/scripts/index/index.phtml:69
+msgid "Email"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/help/views/scripts/index/index.phtml:73
+msgid "Phone No."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/help/views/scripts/index/index.phtml:77
+msgid "My Request"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/homepage/views/scripts/index/index.phtml:32
+msgid "News Announcements"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/homepage/views/scripts/index/index.phtml:74
+msgid "My Notes -"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/homepage/views/scripts/index/index.phtml:74
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/homepage/views/scripts/index/index.phtml:194
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/homepage/views/scripts/index/index.phtml:233
+msgid "Add"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/homepage/views/scripts/index/index.phtml:194
+msgid "Reminders -"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/homepage/views/scripts/index/index.phtml:260
+msgid "Welcome to Offcio!"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/index.phtml:33
+msgid "Today's Prospects"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/index.phtml:40
+msgid "Waiting for Assessment"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/index.phtml:43
+msgid "Qualified Prospects"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/index.phtml:46
+msgid "Unqualified Prospects"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/index.phtml:49
+msgid "All Prospects"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/index.phtml:82
+msgid "Right"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/index.phtml:88
+msgid "Add&nbsp;Prospect"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-assessment.phtml:97
+msgid "There are no assigned categories for your company."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-assessment.phtml:109
+msgid "Officio cannot make an automated assessment as not all the required questions are answered."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-assessment.phtml:144
+msgid "Age"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-assessment.phtml:148
+msgid "Education level"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-assessment.phtml:152
+msgid "First language"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-assessment.phtml:156
+msgid "Adaptability"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-assessment.phtml:160
+msgid "Second language"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-assessment.phtml:164
+msgid "Employment job offer"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-assessment.phtml:168
+msgid "Experience"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-assessment.phtml:173
+msgid "Unknown"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-assessment.phtml:194
+msgid "Not qualified"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-assessment.phtml:197
+msgid "Qualified"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-business.phtml:57
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-occupations.phtml:110
+msgid "There are no fields."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect-occupations.phtml:91
+msgid "Previous Job"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/prospects/views/scripts/index/prospect.phtml:240
+msgid "Other Info"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/qnr/views/scripts/index/index.phtml:27
+msgid "Step 1"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/qnr/views/scripts/index/index.phtml:28
+msgid "Step 2"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/qnr/views/scripts/index/index.phtml:29
+msgid "Step 3"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/qnr/views/scripts/index/index.phtml:30
+msgid "Step 4"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/signup/views/scripts/index/step3.phtml:83
+msgid "Back to previous page"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/signup/views/scripts/index/step3.phtml:103
+msgid "Salutation :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/signup/views/scripts/index/step3.phtml:106
+msgid "- Select -"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/signup/views/scripts/index/step3.phtml:118
+msgid "Name :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/signup/views/scripts/index/step3.phtml:182
+msgid "Credit Card Number :"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/signup/views/scripts/index/step3.phtml:243
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/signup/views/scripts/index/step4.phtml:4
+msgid "Thank you for your purchase."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/signup/views/scripts/index/step3.phtml:244
+msgid ""
+"An email has been sent to you with instructions on how to setup your account.<br />\n"
+"      You can click on the button below to setup your account right now, or you can setup your company account later by following the link that was sent to your email."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/signup/views/scripts/index/step3.phtml:247
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/signup/views/scripts/index/step4.phtml:8
+msgid "Setup Your Account Now"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/signup/views/scripts/index/step4.phtml:5
+msgid ""
+"An email has been sent to you with instructions on how to setup your account.<br />\n"
+"              You can click on the button below to setup your account right now, or you can setup your company account later by following the link that was sent to your email."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/signup/views/scripts/index/step4.phtml:14
+msgid "Error:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/specialoffer/views/scripts/index/index.phtml:30
+msgid "Officio Ultimate Plus"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/specialoffer/views/scripts/index/index.phtml:39
+msgid "Please select the payment term:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/specialoffer/views/scripts/index/index.phtml:63
+msgid ""
+"<b>Can I start on a monthly plan now, and later upgrade to an annual plan?</b><br />\n"
+"            Yes. Obviously annual packages are better value for your ongoing requirements. You can always upgrade to enjoy additional saving.<br />\n"
+"            <br />\n"
+"            <b>How will I be billed?</b><br />\n"
+"            Your credit card will be billed upon signing up and automatically thereafter at the end of each payment term.<br/>\n"
+"            For example, if you are on a monthly plan, your card will be charged every month. There are no contracts or hidden fees.<br />"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/specialoffer/views/scripts/index/index.phtml:69
+msgid "* GST/HST is charged on all Canadian sales."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/system/views/scripts/index/check-version.phtml:51
+msgid "Application"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/system/views/scripts/index/check-version.phtml:51
+msgid "Version/name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/system/views/scripts/index/check-version.phtml:54
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/system/views/scripts/index/email_version_info.phtml:17
+msgid "OS:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/system/views/scripts/index/check-version.phtml:57
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/system/views/scripts/index/email_version_info.phtml:18
+msgid "Browser:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/system/views/scripts/index/check-version.phtml:60
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/system/views/scripts/index/email_version_info.phtml:19
+msgid "Acrobat:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/system/views/scripts/index/check-version.phtml:63
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/system/views/scripts/index/email_version_info.phtml:20
+msgid "Additional info:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/system/views/scripts/index/check-version.phtml:66
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/system/views/scripts/index/email_version_info.phtml:21
+msgid "Comments:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/system/views/scripts/index/email_version_info.phtml:4
+msgid "Officio! Your Office Online :: Version Info Email"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/templates/views/scripts/index/view-pdf.phtml:12
+msgid ""
+"It appears you don't have Adobe Reader or PDF support in this web\n"
+"    browser. "
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/index.phtml:5
+msgid "You don't have any Trust Account defined."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/index.phtml:6
+#, php-format
+msgid "You can add a Trust Account for your company in the %sAdmin tab%s."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/index.phtml:8
+msgid ""
+"No Trust Account is defined for your company.<br/>\n"
+"        The Admin of your company can add Trust Accounts to the system."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/print.phtml:58
+msgid "Trust Account transactions: "
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/print.phtml:62
+msgid "Date from Bank"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/print.phtml:63
+msgid "Description"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/print.phtml:64
+msgid "Deposit"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/print.phtml:65
+msgid "Withdrawal"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/print.phtml:66
+msgid "Balance"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/print.phtml:67
+msgid "Assigned to"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/print.phtml:88
+msgid "Total transactions:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/print.phtml:89
+msgid "Current Trust Account Balance:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/show.phtml:20
+msgid "Import"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/show.phtml:21
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/view-report.phtml:3
+msgid "Reconciliation Report"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/show.phtml:22
+msgid "Proceed with Reconciliationt"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/show.phtml:24
+msgid "Import &amp; Change History"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/show.phtml:31
+msgid "Display transactions:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/show.phtml:35
+msgid "Require Processing"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/show.phtml:37
+msgid "Client Name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/show.phtml:38
+msgid "Client File #"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/show.phtml:39
+msgid "For Selected Period"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/show.phtml:40
+msgid "That are not assigned prior"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/show.phtml:41
+msgid "Today"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/show.phtml:42
+msgid "For the Last 30 Days"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/show.phtml:73
+msgid "OK"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/trust-account/views/scripts/index/view-report.phtml:12
+msgid ""
+"It appears you don't have Adobe Reader or PDF support in this web\n"
+"    browser."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/email_cc_info.phtml:4
+msgid "Officio! Your Office Online :: Credit Card Info Email"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/email_cc_info.phtml:14
+msgid "Company:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/email_cc_info.phtml:16
+msgid "Credit Card Info:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/email_cc_info.phtml:19
+msgid "Type:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/email_cc_info.phtml:21
+msgid "Number:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/email_cc_info.phtml:22
+msgid "Expiry:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:78
+msgid "0. Define Packages"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:79
+msgid "1. Define Company"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:80
+msgid "2. Credit Card Info"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:81
+msgid "3. Define Offices"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:82
+msgid "4. Define Users"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:83
+msgid "5. Define Trust AC"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:88
+msgid "1. Define Packages"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:90
+msgid "3. Credit Card Info"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:91
+msgid "4. Define Offices"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:92
+msgid "5. Define Users"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:93
+msgid "6. Define Trust AC"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:107
+msgid "Define Company Packages"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:108
+msgid "Please select"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:545
+msgid "Credit Card Info"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:546
+msgid "Please provide Credit Card Info"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:606
+msgid "Define Offices"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:611
+msgid ""
+"This refers to your branch offices or agents that bring you clients. By introducing an office, you can give each office access to see their clients only.<br/>\n"
+"                        If you only have one office now, but may have more in the future, you can always add new offices later."
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/modules/wizard/views/scripts/index/index.phtml:615
+msgid "How many offices do you have?"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/email_charging_companies_failed.phtml:4
+msgid "Officio! Your Office Online :: Companies list with failed charges"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/email_charging_companies_failed.phtml:25
+msgid "Company Id"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/email_charging_companies_failed.phtml:26
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_request_a_demo.phtml:20
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:29
+msgid "Company Name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/email_charging_companies_failed.phtml:27
+msgid "Amount"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/email_charging_companies_failed.phtml:28
+msgid "Status"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/email_charging_companies_failed.phtml:29
+msgid "Reason/Message"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/email_charging_companies_failed.phtml:47
+msgid "Nothing to charge"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:19
+msgid "Unknown date"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:76
+msgid "PRELIMINARY QUESTIONNAIRE"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:76
+#, php-format
+msgid "(Captured on %s)"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:84
+msgid "Main Applicant"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:85
+msgid "Spouse"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:90
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_request_a_demo.phtml:11
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:20
+msgid "Salutation"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:95
+msgid "Number of Children"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:100
+msgid "Ages of children"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:117
+msgid "Relatives in Canada"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:122
+msgid "Worked in Canada"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:125
+msgid "Years of Canadian experience"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:128
+msgid "Canadian Employment Status"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:143
+msgid "Studied in Canada"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:146
+msgid "Official Job Offer"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:151
+msgid "Management Experience"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:154
+msgid "Number of full-time staff"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:157
+msgid "Own this business"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:160
+#, php-format
+msgid "% of ownership"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:163
+msgid "Annual Sales"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:166
+msgid "Annual net income"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:169
+msgid "Net business asset"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:182
+msgid "Last name"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:200
+msgid "Country of residence"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:206
+msgid "Country of citizenship"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:218
+msgid "Marital status"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:224
+msgid "Education"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:230
+msgid "Number of years of studies"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:242
+msgid "Language Proficiency:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:248
+msgid "English"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:254
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:284
+msgid "Speaking"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:260
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:290
+msgid "Reading"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:266
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:296
+msgid "Writing"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:272
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:302
+msgid "Listening"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:278
+msgid "French"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:314
+msgid "Work Experience:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/pdf_prospect_export_to_client.phtml:365
+msgid "Qualified under the following categories:"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_request_a_demo.phtml:3
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_request_a_demo.phtml:7
+msgid "Demo requested"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_request_a_demo.phtml:23
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:32
+msgid "Phone (W)"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:3
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:7
+msgid "Company signed up"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:11
+msgid "Package"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:14
+msgid "Training &amp; Support"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:17
+msgid "Payment term"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:38
+msgid "Address"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:41
+msgid "City"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:44
+msgid "Province/State"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:50
+msgid "Postal Code/Zip"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:53
+msgid "Credit Card Type"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:56
+msgid "Name on the Card"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:59
+msgid "Credit Card No"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:62
+msgid "Expiry Month"
+msgstr ""
+
+#: D:\Projects\Web\htdocs\uniques_zend/application/partials/prospect_signup_success.phtml:65
+msgid "Expiry Year"
+msgstr ""
+

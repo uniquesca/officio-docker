@@ -1,0 +1,21 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headScript()->appendFile($this->layout()->topBaseUrl . '/assets/notif/notif.js');
+$this->headLink()->appendStylesheet($this->layout()->topBaseUrl . '/assets/notif/notif.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/news.js');
+
+$this->headScript()->captureStart();
+echo 'var booSpecialAnnouncementEnabled = ' . Json::encode($this->booSpecialAnnouncementEnabled) . ';';
+$this->headScript()->captureEnd();
+?>
+
+<div id="announcements-content">
+    <div class="news-main-title" align="left">News - <a href="#" onclick="news({action: 'add'}); return false;">Add</a></div>
+
+    <div id="admin-news" align="left" ><?=$this->news?></div>
+</div>

@@ -1,0 +1,76 @@
+<?php
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs = false;
+$this->headScript()->appendFile($this->layout()->jsUrl . '/iframe_height.js');
+?>
+
+<?php $this->headStyle()->captureStart(); ?>
+.smtp-title {
+font-weight:bold;
+padding-bottom:10px;
+}
+
+.smtp-form {
+padding-bottom:25px;
+}
+
+.smtp-main-block {
+padding:4px;
+}
+
+.smtp-block-label {
+width:100px;
+float:left;
+}
+
+.smtp-submit {
+padding-left:175px;
+}
+
+.smtp-submit INPUT {
+cursor:pointer;
+}
+<?php $this->headStyle()->captureEnd(); ?>
+
+<div class="admin-tab-content">
+    <form class="smtp-form" action="<?=$this->layout()->baseUrl ?>/smtp" method="post">
+    <div align="left" id="admin-smtp-content" style="height:500px;">
+        <?php foreach($this->smtp as $key=>$v) { $key++; ?>
+        <div class="smtp-title">
+            <?=$v['title'] ?>
+        </div>
+        <div class="smtp-main-block">
+            <div class="smtp-block-label">SMTP On:</div>
+            <div><input type="checkbox" name="<?= 'smtp_on[' . $key . ']' ?>"<?=$v['smtp_on']=='Y' ? ' checked="checked"' : '' ?> /></div>
+        </div>
+        <div class="smtp-main-block">
+            <div class="smtp-block-label">Server:</div>
+            <div><input type="text" name="<?= 'server[' . $key . ']' ?>" value="<?=$v['smtp_server'] ?>" /></div>
+        </div>
+        <div class="smtp-main-block">
+            <div class="smtp-block-label">Port:</div>
+            <div><input type="text" name="<?= 'port[' . $key . ']' ?>" value="<?=$v['smtp_port'] ?>" /></div>
+        </div>
+        <div class="smtp-main-block">
+            <div class="smtp-block-label">Username:</div>
+            <div><input type="text" name="<?= 'username[' . $key . ']' ?>" value="<?=$v['smtp_username'] ?>" /></div>
+        </div>
+        <div class="smtp-main-block">
+            <div class="smtp-block-label">New Password:</div>
+            <div><input type="text" name="<?= 'password[' . $key . ']' ?>" value="<?=$v['smtp_password'] ?>" /></div>
+        </div>
+        <div class="smtp-main-block">
+            <div class="smtp-block-label">SSL:</div>
+            <select name="<?= 'ssl[' . $key . ']' ?>">
+                <option value="N"<?=$v['smtp_use_ssl']=='N' ? ' selected' : '' ?>>-</option>
+                <option value="ssl"<?=$v['smtp_use_ssl']=='ssl' ? ' selected' : '' ?>>SSL</option>
+                <option value="tls"<?=$v['smtp_use_ssl']=='tls' ? ' selected' : '' ?>>TLS</option>
+            </select>
+        </div>
+        <br>
+        <?php } ?>
+
+        <div class="smtp-submit"><input type="submit" value="Save" class="orange-save-btn" /></div>
+    </div>
+    </form>
+</div>

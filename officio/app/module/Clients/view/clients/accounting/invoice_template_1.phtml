@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Invoice</title>
+
+    <style>
+        body{
+            font-family: Arial, Sans-Serif;
+            font-size: 16px;
+            color: #333;
+            background: #eee;
+            margin: 10px;
+        }
+        @media print {
+            body{
+                /*Webkit print background*/
+                -webkit-print-color-adjust: exact;
+                /*Firefox print background*/
+                color-adjust: exact;
+
+                background: #fff;
+                margin: 0px;
+            }
+        }
+        .invoice-wrap{
+
+        }
+        .invoice-body{
+            background: #fff;
+            width: 700px;
+            min-height: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+        @media print {
+            .invoice-body{
+                box-shadow: none;
+            }
+        }
+        table{
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 15px;
+        }
+        table td, table th{
+            padding: 10px;
+            vertical-align: top;
+        }
+        table.row-border td{
+            border-bottom: 1px solid #ddd;
+        }
+        table td.total-td{
+            background: #e2f6ff;
+            border-bottom: 2px solid #80d5ff;
+            border-top: 2px solid #80d5ff;
+            font-size: 1.2rem;
+        }
+        table td.total-td:first-child{
+            border-left: 2px solid #80d5ff;
+        }
+        table td.total-td:last-child{
+            border-right: 2px solid #80d5ff;
+        }
+        table th{
+            text-align: left;
+            background-color: #f5f5f5;
+            border-top: 2px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        table th:first-child{
+            border-left: 2px solid #ddd;
+        }
+        table th:last-child{
+            border-right: 2px solid #ddd;
+        }
+        .text-bold{
+            font-weight: bold;
+        }
+        p{
+            margin: 0;
+        }
+        textarea{
+            font-family: inherit;
+            font-size: inherit;
+        }
+        input{
+            font-family: inherit;
+        }
+        .status{
+            color: #fff;
+            display: inline-block;
+            padding: 3px 8px;
+            font-size: 24px;
+            font-weight: 700;
+            border-radius: 5px;
+            vertical-align: top;
+        }
+        .status.status-due{
+            background-color: #ff5252;
+            border: 2px solid #ff5252;
+        }
+        .status.status-paid{
+            background-color: #50b100;
+            border: 2px solid #50b100;
+        }
+        textarea:disabled {
+            color: #333;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<form action="#">
+    <input type="hidden" name="invoice_number" value="<?= $this->invoiceInfo['invoice_num'] ?>">
+
+<div class="invoice-wrap">
+    <div class="invoice-body">
+
+        <table class="two-column">
+            <tbody>
+                <tr>
+                    <td style="width: 50%; padding: 0 10px;">
+                        <div>
+                            <img style="max-width: 200px; max-height: 100px;" src="<?= $this->imgSrc ?>" alt="">
+                        </div>
+                    </td>
+                    <td style="width: 50%; padding: 0 10px; text-align: right;">
+                        <?php if(!$this->isPdf && !empty($this->fees)): ?>
+                            <?php if(!$this->invoicePaid): ?>
+                                <div class="status status-due">DUE</div>&nbsp;
+                            <?php else: ?>
+                                <div class="status status-paid">PAID</div>&nbsp;
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <span style="font-size: 32px; font-weight: bold; display: inline-block;">INVOICE</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+        <br>
+
+        <table class="two-column">
+            <tbody>
+                <tr>
+                    <td style="width: 50%; padding: 10px;">
+                        <p style="padding-bottom: 20px;font-size: 120%;"><?= $this->companyInfo['companyName']; ?></p>
+                        <p><?= $this->companyInfo['companyEmail']; ?></p>
+                        <p><?= $this->companyInfo['address']; ?><br><?= $this->companyInfo['city']; ?>, <?= $this->companyInfo['state']; ?><br><?= $this->companyInfo['zip']; ?> <?= $this->companyInfo['countryName']; ?></p>
+                    </td>
+                    <td style="width: 50%; padding: 0;">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;" class="text-bold">Case File#:</td>
+                                    <td><?= $this->caseInfo['fileNumber']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;" class="text-bold">Invoice#:</td>
+                                    <?php if($this->readOnly): ?>
+                                        <td><?= str_ireplace('{sequence_number}', $this->invoiceInfo['invoice_num'] ?? '', $this->settings['invoiceNumberFormat'] ?? '') ?></td>
+                                    <?php else: ?>
+                                        <td><span id="invoice_number_display"></span> <span style="color: #3B74BE; cursor: pointer;" onclick="editInvoiceNumber()">Edit</span></td>
+                                    <?php endif; ?>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">Invoice date:</td>
+                                    <?php if($this->readOnly): ?>
+                                        <td><?= $this->invoiceInfo['date_formatted']; ?></td>
+                                    <?php else: ?>
+                                        <td><input type="date" name="date" value="<?= date('Y-m-d') ?>" style="width: 130px;"></td>
+                                    <?php endif; ?>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">Currency:</td>
+                                    <td><?= $this->invoiceInfo['currency_label'].$this->invoiceInfo['currency_sign']; ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+        <div style="padding: 10px;">
+
+            <div style="margin-bottom: 20px;">
+                <span style="font-size: 24px;">Bill To:</span>
+            </div>
+
+            <?php if ($this->layout()->site_version == 'australia'): ?>
+                <?php if (!empty($this->profileInfo['given_names']) || !empty($this->profileInfo['family_name'])): ?>
+                    <p><?= $this->profileInfo['given_names'] ?? ''; ?> <?= $this->profileInfo['family_name'] ?? ''; ?></p>
+                <?php endif; ?>
+            <?php else: ?>
+                <?php if (!empty($this->profileInfo['first_name']) || !empty($this->profileInfo['last_name'])): ?>
+                    <p><?= $this->profileInfo['first_name'] ?? ''; ?> <?= $this->profileInfo['last_name'] ?? ''; ?></p>
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php if (!empty($this->profileInfo['email'])): ?>
+                <p><?= $this->profileInfo['email']; ?></p>
+            <?php endif; ?>
+            <?php if (!empty($this->profileInfo['address_1'])): ?>
+                <p><?= $this->profileInfo['address_1']; ?></p>
+            <?php endif; ?>
+            <?php if (!empty($this->profileInfo['address_2'])): ?>
+                <p><?= $this->profileInfo['address_2']; ?></p>
+            <?php endif; ?>
+            <?php if (!empty($this->profileInfo['city']) || !empty($this->profileInfo['state'])): ?>
+                <?php if (!empty($this->profileInfo['city']) && !empty($this->profileInfo['state'])): ?>
+                    <p><?= $this->profileInfo['city']; ?>, <?= $this->profileInfo['state']; ?></p>
+                <?php else: ?>
+                    <p><?= $this->profileInfo['city'] ?? $this->profileInfo['state']; ?></p>
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php if (!empty($this->profileInfo['zip_code']) || !empty($this->profileInfo['country'])): ?>
+                <p><?= $this->profileInfo['zip_code'] ?? ''; ?> <?= $this->profileInfo['country'] ?? ''; ?></p>
+            <?php endif; ?>
+
+
+        </div>
+
+        <br>
+        <br>
+
+        <table class="row-border">
+            <tbody>
+                <tr>
+                    <th style="width: 70%;">Fees</th>
+                    <th style="text-align: right;">Amount</th>
+                </tr>
+
+                <?php $totalFeesPaid = 0; ?>
+                <?php foreach($this->fees as $fee):?>
+                <?php
+                    $totalFeesPaid += floatval($fee['withdrawal']);
+
+                    $gstString = '';
+                    if(!empty($fee['gst_province_id']) || !empty($fee['due_gst'])){
+                        $gstString .= sprintf(
+                            ' (plus %s %s)',
+                            $fee['gst_tax_label'],
+                            $fee['gst_formatted']
+                        );
+                    }
+                ?>
+                    <tr>
+                        <td><?= $fee['date_formatted']; ?> - <?= $fee['description'] . $gstString; ?></td>
+                        <td style="text-align: right;"><?= $fee['amount']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <table class="two-column">
+            <tbody>
+                <tr>
+                    <td style="width: 50%; padding: 10px;">
+                        <div>
+                            <br>
+                            <?php if($this->isPdf): ?>
+                                <p><?= nl2br($this->invoiceInfo['invoice_recipient_notes'] ?? ''); ?></p>
+                            <?php else: ?>
+                                <textarea style="width: 95%; resize: none;" rows="5" maxlength="200" placeholder="Note to recipient" name="invoice_recipient_notes"><?= $this->invoiceInfo['invoice_recipient_notes'] ?></textarea>
+                            <?php endif; ?>
+                        </div>
+                    </td>
+                    <td style="width: 50%; padding: 0;">
+                        <?php if (empty($this->fees)): ?>
+                            <div style="padding: 10px;">
+                                <br>
+                                <p>No fees are assigned to this invoice.</p>
+                                <?php if (!$this->isPdf): ?>
+                                    <a href="#" class="assign-fees-link">Assign Fees</a>
+                                <?php endif ?>
+                            </div>
+                        <?php else: ?>
+                            <table class="row-border">
+                                <tbody>
+                                <tr>
+                                    <td class="text-bold" colspan="2">Fees</td>
+                                    <td style="text-align: right;"><?= $this->fees_amount; ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold">Tax</td>
+                                    <td>
+                                        <p><?= nl2br($this->invoiceInfo['invoice_tax_number'] ?? ''); ?></p>
+                                    </td>
+                                    <td style="text-align: right;"><?= $this->fees_tax; ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-bold <?= !empty($this->payments) ? '' : 'total-td'?>" colspan="2">Total</td>
+                                    <td style="text-align: right;" class="<?= !empty($this->payments) ? '' : 'total-td'?>"><?= $this->invoiceInfo['currency_label']; ?> <?= $this->fees_total; ?></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <?php if (!empty($this->payments)) : ?>
+            <br>
+            <br>
+
+            <table class="row-border">
+                <tbody>
+                <tr>
+                    <th style="width: 70%;">Payments</th>
+                    <th style="text-align: right;">Amount</th>
+                </tr>
+                <?php foreach ($this->payments as $arrPaymentInfo): ?>
+                    <tr>
+                        <td><?= $arrPaymentInfo['invoice_payment_description'] ?></td>
+                        <td style="text-align: right;"><?= $arrPaymentInfo['invoice_payment_amount_formatted'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <table class="two-column">
+                <tbody>
+                <tr>
+                    <td style="width: 50%; padding: 0;"></td>
+                    <td style="width: 50%; padding: 0;">
+                        <table class="row-border">
+                            <tr>
+                                <td class="text-bold">Total Paid</td>
+                                <td style="text-align: right;" class=""><?= $this->invoiceInfo['currency_label']; ?> <?= $this->payments_total ?></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <br>
+
+            <table class="two-column">
+                <tbody>
+                <tr>
+                    <td style="width: 50%; padding: 0;"></td>
+                    <td style="width: 50%; padding: 0;">
+                        <table class="row-border">
+                            <tr>
+                                <td class="text-bold total-td">Outstanding</td>
+                                <td style="text-align: right;" class="total-td"><?= $this->invoiceInfo['currency_label']; ?> <?= $this->outstanding ?></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        <?php endif; ?>
+
+        <div style="padding: 10px;">
+            <p><?= nl2br($this->invoiceInfo['invoice_disclaimer'] ?? ''); ?></p>
+        </div>
+
+    </div>
+</div>
+
+</form>
+
+<?php if(!$this->readOnly): ?>
+    <script>
+
+        var invoiceNumber = '<?= $this->invoiceInfo['invoice_num'] ?>';
+        var invoiceNumberFormat = '<?= $this->settings['invoiceNumberFormat'] ?>';
+
+        function showInvoiceNumber(){
+            var invoiceNumberFormatted = invoiceNumberFormat.replace(new RegExp("{sequence_number}", "ig"), invoiceNumber);
+            document.getElementById('invoice_number_display').innerText = invoiceNumberFormatted;
+            document.getElementsByName("invoice_number")[0].value = invoiceNumber;
+        }
+        showInvoiceNumber();
+
+        function editInvoiceNumber(){
+            var newInvoiceNum = prompt("Please enter the invoice number:", invoiceNumber);
+            if (newInvoiceNum != null) {
+                invoiceNumber = newInvoiceNum;
+                showInvoiceNumber();
+            }
+        }
+
+    </script>
+<?php endif; ?>
+
+</body>
+</html>

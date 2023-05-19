@@ -1,0 +1,14 @@
+### Server defaults
+ServerSignature Off
+
+# Default charset
+AddDefaultCharset UTF-8
+
+# Prevent directory listing
+IndexIgnore *
+
+# Disable access to all files
+Deny from all
+
+# Disable E-Tags
+FileETag none

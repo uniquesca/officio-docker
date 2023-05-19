@@ -1,0 +1,16 @@
+<?=str_replace('<body', '<body style="display:none;"', file_get_contents($this->url)) ?>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#txtUsername').val(<?= \Laminas\Json\Json::encode($this->login) ?>);
+        $('#txtPassword').val(<?= \Laminas\Json\Json::encode($this->pass) ?>);
+
+        $('#chkIAccept').prop('checked', true);
+
+        $('#form1').attr('action', '<?=$this->url?>');
+
+        $('#Button1').click();
+    });
+</script>

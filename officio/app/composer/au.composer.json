@@ -1,0 +1,36 @@
+{
+    "require": {
+        "ext-imap": "*",
+        "uniquesca/officio-api2": "~0.5.2",
+        "uniquesca/officio-calendar": "~0.4.11",
+        "uniquesca/officio-pdftron": "~0.3.6",
+        "uniquesca/uforms-php": "~0.1.0",
+        "uniquesca/officio-au-forms": "dev-main",
+        "twilio/sdk": "^5.42.2",
+        "league/oauth2-client": "~2.6.1",
+        "league/oauth2-google": "~4.0.0",
+        "stevenmaguire/oauth2-microsoft": "~2.2.0"
+    },
+    "repositories": [
+        {
+            "type": "github",
+            "url": "git@github.com:uniquesca/officio-api2.git"
+        },
+        {
+            "type": "github",
+            "url": "git@github.com:uniquesca/officio-calendar.git"
+        },
+        {
+            "type": "github",
+            "url": "git@github.com:uniquesca/officio-pdftron.git"
+        },
+        {
+            "type": "github",
+            "url": "git@github.com:uniquesca/uforms-php.git"
+        },
+        {
+            "type": "github",
+            "url": "git@github.com:uniquesca/officio-au-forms.git"
+        }
+    ]
+}

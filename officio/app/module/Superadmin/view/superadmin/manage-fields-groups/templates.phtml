@@ -1,0 +1,32 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/themes/' . $this->layout()->theme . '.css');
+$this->headLink()->appendStylesheet($this->layout()->cssUrl . '/case_templates.css');
+
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-company-case-categories/CaseCategoriesDialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-company-case-categories/CaseCategoriesGrid.js');
+
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-fields-groups/templates/dialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-fields-groups/templates/tab_panel.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-fields-groups/templates/grid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-fields-groups/templates/init.js');
+
+$arrInlineScript[] = "var arrCaseTemplateTypes = " . Json::encode($this->arrCaseTemplateTypes) . ";";
+$arrInlineScript[] = "var arrCaseFormVersions = " . Json::encode($this->arrCaseFormVersions) . ";";
+$arrInlineScript[] = "var arrCaseEmailTemplates = " . Json::encode($this->arrCaseEmailTemplates) . ";";
+$arrInlineScript[] = "var arrCaseStatusLists = " . Json::encode($this->arrCaseStatusLists) . ";";
+$arrInlineScript[] = "var booIsNotDefaultCompany = " . Json::encode($this->booIsNotDefaultCompany) . ";";
+$arrInlineScript[] = "var case_type_field_label_singular = " . Json::encode($this->caseTypeFieldLabelSingular) . ";";
+$arrInlineScript[] = "var case_type_field_label_plural = " . Json::encode($this->caseTypeFieldLabelPlural) . ";";
+$arrInlineScript[] = "var statuses_field_label_singular = " . Json::encode($this->statusesFieldLabelSingular) . ";";
+$arrInlineScript[] = "var categories_field_label_singular = " . Json::encode($this->categoriesFieldLabelSingular) . ";";
+$arrInlineScript[] = "var categories_field_label_plural = " . Json::encode($this->categoriesFieldLabelPlural) . ";";
+$this->headScript()->prependScript(implode("\n", $arrInlineScript));
+ ?>
+<div id="case-templates-container"></div>

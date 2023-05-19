@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pdx:document xmlns:pdx="http://www.phpdocx.com/main" >
+    <pdx:content>
+        <pdx:embedHTML>
+            <pdx:data pdx:dataId="" pdx:type="HTML"><![CDATA[<p>Text content</p>]]></pdx:data>
+        </pdx:embedHTML>
+        <pdx:embedHTML pdx:useHTMLExtended="true">
+            <pdx:data pdx:dataId="" pdx:type="HTML"><![CDATA[<phpdocx_bookmark data-type="start" data-name="bookmark_name" /><p>Text with a bookmark</p><phpdocx_bookmark data-type="end" data-name="bookmark_name" />]]></pdx:data>
+        </pdx:embedHTML>
+        <pdx:embedHTML pdx:useHTMLExtended="true">
+            <pdx:data pdx:dataId="" pdx:type="HTML"><![CDATA[<phpdocx_break data-type="page" data-number="2" /><phpdocx_link data-text="My Link" data-url="#bookmark_name" /><p><span>More text content </span><phpdocx_link data-text="External link" data-url="http://www.google.es" /></p><phpdocx_break data-type="line" data-number="5" /><phpdocx_crossreference data-text="My cross-reference" data-type="bookmark" data-referenceName="bookmark_name" /><p style="text-align: right;font-weight: bold;font-family: Arial;"><phpdocx_dateandhour data-dateFormat="dd\' of \'MMMM\' of \'yyyy\' at \'H:mm"/></p>]]></pdx:data>
+        </pdx:embedHTML>
+    </pdx:content>
+</pdx:document>

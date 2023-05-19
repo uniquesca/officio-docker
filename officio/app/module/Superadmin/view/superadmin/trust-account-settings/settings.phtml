@@ -1,0 +1,32 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/themes/' . $this->layout()->theme . '.css');
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headScript()->appendFile($this->layout()->jsUrl . '/trust_account/main.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/trust_account/manage_types.js');
+
+$this->headScript()->captureStart();
+echo 'var ta_label = ' . Json::encode($this->ta_label) . ';' . PHP_EOL;
+echo "var officeLabel = " . Json::encode($this->officeLabel) . ";" . PHP_EOL;
+echo "var booAdmin = {$this->booAdmin};";
+echo "var activeAdminTab = {$this->activeAdminTab};";
+echo 'var imagesUrl = "' . $this->layout()->topImagesUrl . '";' . PHP_EOL;
+
+$arrSupportedCurrencies = array();
+if (is_array($this->arrCurrencies) && !empty($this->arrCurrencies)) {
+    foreach ($this->arrCurrencies as $currencyId => $currencyLabel) {
+        $arrSupportedCurrencies[] = "['$currencyId', '$currencyLabel']";
+    }
+}
+echo 'var arrSupportedCurrencies = [' . implode(',', $arrSupportedCurrencies) . '];' . PHP_EOL;
+echo 'var arrCompanyOffices = ' . Json::encode($this->arrOffices) . ';' . PHP_EOL;
+
+echo "Ext.grid.taSettings = {$this->arrTA};".PHP_EOL;
+$this->headScript()->captureEnd(); ?>
+<div id="trust_account_settings" align="left"></div>

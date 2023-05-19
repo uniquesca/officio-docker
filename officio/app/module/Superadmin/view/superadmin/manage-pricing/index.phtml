@@ -1,0 +1,17 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-pricing/dialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-pricing/grid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-pricing/init.js');
+
+$this->headScript()->captureStart();
+echo 'var arrSubscriptions = ' . Json::encode($this->arrSubscriptions) . ';';
+$this->headScript()->captureEnd();
+?>
+
+<div id="pricing_container" style="height: auto;"></div>

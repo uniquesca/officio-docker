@@ -1,0 +1,18 @@
+<?php
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->cssUrl . '/manage_default_analytics.css');
+
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-default-analytics/dialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-default-analytics/grid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-default-analytics/panel.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-default-analytics/init.js');
+?>
+
+<?php $this->headScript()->captureStart(); ?>
+    var arrFields = <?=\Laminas\Json\Json::encode($this->arrFields)?>
+<?php $this->headScript()->captureEnd(); ?>
+
+<div align="left" id="admin-default-analytics"></div>

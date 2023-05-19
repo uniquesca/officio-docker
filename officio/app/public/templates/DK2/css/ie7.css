@@ -1,0 +1,8 @@
+.button,
+.lightbox-image span,
+.social-icons li,
+.sf-menu > li > a .arrow {
+    display: inline;
+    transform: scale(1);
+    transform-origin: 0 0;
+}

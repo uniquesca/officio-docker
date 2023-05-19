@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pdx:document xmlns:pdx="http://www.phpdocx.com/main" >
+    <pdx:content>
+        <pdx:addText>
+            <pdx:textRun>
+                <pdx:data pdx:dataId="" pdx:dataType="text">Not tracked paragraph</pdx:data>
+            </pdx:textRun>
+        </pdx:addText>
+        <pdx:addPerson pdx:author="phpdocx" />
+        <pdx:enableTracking pdx:author="phpdocx" />
+        <pdx:addText>
+            <pdx:textRun>
+                <pdx:data pdx:dataId="" pdx:dataType="text">First tracked paragraph</pdx:data>
+            </pdx:textRun>
+        </pdx:addText>
+        <pdx:addText>
+            <pdx:textRun>
+                <pdx:data pdx:dataId="" pdx:dataType="text">Second tracked paragraph</pdx:data>
+            </pdx:textRun>
+        </pdx:addText>
+        <pdx:disableTracking />
+        <pdx:addText>
+            <pdx:textRun>
+                <pdx:data pdx:dataId="" pdx:dataType="text">Other paragraph</pdx:data>
+            </pdx:textRun>
+        </pdx:addText>
+    </pdx:content>
+</pdx:document>

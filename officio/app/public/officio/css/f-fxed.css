@@ -1,0 +1,24 @@
+/* CSS Document */
+
+html, body, #wrap {height: 100%;}
+body > #wrap {height: auto; min-height: 100%;}
+#footer-window{margin-top:-36px; position: relative; clear:both; height:35px;}
+#main-in-window{padding-bottom:36px;}
+
+#main-in-error{padding-bottom:35px;}
+
+/* CLEAR FIX*/
+.clearfix:after {content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;}
+    
+.clearfix {display: inline-block;}
+
+/* Hides from IE-mac \*/
+
+* html .clearfix { height: 1%;}
+.clearfix {display: block;}
+
+/* End hide from IE-mac */

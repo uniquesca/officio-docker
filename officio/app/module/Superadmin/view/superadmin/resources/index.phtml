@@ -1,0 +1,16 @@
+<?php
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headScript()->appendFile($this->layout()->jsUrl . '/resources/list.js');
+?>
+<table style="padding-bottom: 10px;">
+    <tr>
+        <td>Section:</td>
+        <td><input type="text" id="resources-filter" size="20"/></td>
+    </tr>
+</table>
+
+
+<div id="resources-container"></div>

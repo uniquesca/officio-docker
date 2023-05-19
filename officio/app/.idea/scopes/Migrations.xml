@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Migrations" pattern="file[officio]:scripts/migrations//*&amp;&amp;!file[officio]:scripts/migrations/archive//*" />
+</component>

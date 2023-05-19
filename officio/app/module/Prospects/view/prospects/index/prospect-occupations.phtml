@@ -1,0 +1,371 @@
+<?php
+
+if (!empty($this->qnrFields) && is_array($this->qnrFields)): ?>
+<?php if($this->layout()->site_version != 'australia') : ?>
+<script type="text/javascript">var links='<?=\Laminas\Json\Json::encode($this->variables) ?>';</script>
+<?php endif; ?>
+
+<form id="<?=$this->tabId?>-prospects" action="#">
+    <input type="hidden" name="pid" value="<?=$this->pid?>" />
+    <div id="<?=$this->tabId?>-divSuccess" style="display:none; margin-top: 45px;" class="confirmation">&nbsp;</div>
+
+    <div class="qnr-section job-section-<?=$this->jobSectionId?>" style="margin: 70px 20px 10px 20px;">
+    <table style='width: 100%; background-color:#FFF;' cellpadding="0" cellspacing="0">
+        <tr><td>
+            <a href="#" class="bluetxtdark blue-arrow-down blue-arrow-down-simple"><?=$this->translate("Main Applicant's Occupations")?></a>
+        </td></tr>
+<?php
+    // How many job sections we need show
+    $count = sizeof($this->prospectAssignedJobs) == 0 ? 1 : sizeof($this->prospectAssignedJobs);
+    $booAllowChange = $this->panelType != 'marketplace';
+    for ($index = 0; $index < $count; $index++) {
+        $trCls = empty($index) ? 'class="job_section"' : '';
+        echo "<tr $trCls><td>";
+        
+        $strTable = "<table class='job_container'>";
+        foreach ($this->qnrFields as $arrField) {
+            // Skip labels showing
+            if($arrField['q_field_type'] == 'label') {
+                continue;
+            }
+            
+            $suffix = empty($index) ? '' : '_'.$index;
+            
+            $fieldId  = 'p_'.$this->pid.'_field_' . $arrField['q_field_id'] . $suffix;
+            $fieldId2 = 'p2_'.$this->pid.'_field_' . $arrField['q_field_id'] . $suffix; // Used for options
+
+            switch ($arrField['q_field_unique_id']) {
+                case 'qf_age':
+                    $date_format = $this->layout()->settings->variable_get('dateFormatFull');
+                    $fieldValue  = \Officio\Common\Service\Settings::isDateEmpty($this->prospectInfo['date_of_birth']) ? '' : date($date_format, strtotime($this->prospectInfo['date_of_birth']));
+                    break;
+
+                case 'qf_job_employer':
+                case 'qf_job_employment_type':
+                    $fieldId  = 'p_'.$this->pid.'_employer_field_' . $arrField['q_field_id'] . $suffix;
+                    $fieldId2 = 'p2_'.$this->pid.'_employer_field_' . $arrField['q_field_id'] . $suffix; // Used for options
+                    break;
+
+                default:
+                    if (isset($this->prospectData[$arrField['q_field_id']])) {
+                        $fieldValue = $this->prospectData[$arrField['q_field_id']];
+
+                        if (!empty($fieldValue) && $arrField['q_field_type'] == 'age') {
+                            $fieldValue = (int)date('Y') - $fieldValue;
+                        }
+                    }
+                    break;
+            }
+            
+            if ($this->layout()->site_version == 'australia' || $arrField['q_field_unique_id'] != 'qf_job_noc') {
+                $strTable .= "<tr>";
+            }
+
+            if (in_array($arrField['q_field_unique_id'], array('qf_job_noc', 'qf_job_title'))) {
+                $strTable .= "<td align='left' class='garytxt11 padbtm4 $arrField[q_field_unique_id]' valign='top'>";
+            } else {
+                $strTable .= "<td align='left' colspan='2' class='garytxt11 padbtm4 $arrField[q_field_unique_id]' valign='top'>";
+            }
+
+            
+            // Show label
+            $label = empty($arrField['q_field_prospect_profile_label']) ? $arrField['q_field_label'] : $arrField['q_field_prospect_profile_label'];
+
+            $value = '';
+            $prospectJobId = '';
+            if (isset($this->prospectAssignedJobs[$index]) && isset($this->prospectAssignedJobs[$index][$arrField['q_field_unique_id']])) {
+                $value = $this->prospectAssignedJobs[$index][$arrField['q_field_unique_id']];
+                $prospectJobId = $this->prospectAssignedJobs[$index]['qf_job_id'];
+            }
+            
+            // Show generated field
+            $generatedField = $this->qnr->generateQnrField(
+                true,
+                $fieldId,
+                $fieldId2,
+                $this->pid,
+                $arrField,
+                $this->qnrFieldsOptions,
+                $this->arrCountries,
+                $value,
+                'ltr',
+                false,
+                '',
+                $this->panelType
+            );
+
+            if ($arrField['q_field_unique_id'] == 'qf_job_resume') {
+                $id = 'id ="form-resume-block-' . $this->pid . '-' . $arrField['q_field_id'] . '"';
+                $strTable .= '<div class="form-resume" ' . $id . '>';
+
+                $fileExists = false;
+                if (!empty($value)) {
+                    $fileExists = true;
+                }
+
+                $strTable .=
+                    '<div class="form-resume-view' . ($fileExists ? '' : ' hidden') . '">' .
+                        '<div style="float: left;">' .
+                            '<div><label class="field-label" for="'.$fieldId.'">'.$label.'</label></div>'.
+                            '<div class="form-resume-links">' .
+                                '<table style="border-spacing: 0px;">' .
+                                    '<tr>' .
+                                        '<td style="width: 513px; padding: 0px;"><div class="dir-ltr x-form-field x-form-text form-control-file" style="display: flex; align-items: center;">
+                                            <a style="white-space: nowrap; text-decoration: none;font-size: 16px !important; font-family: Metropolis, Arial, Helvetica, sans-serif;" title="Click to download"
+                                            href="' . $this->layout()->baseUrl . '/prospects/index/download-resume?pid=' . $this->pid . '&id=' . $prospectJobId . '"' .
+                                                ' class="blulinkunb" data-rel="download" onclick="return false">'.$value.'</a></div>
+                                        </td>' .
+                                        '<td style="padding: 0 10px 0 20px" ' . (!$booAllowChange ? ' class = "hidden"' : '') . '>
+                                            <input value="change" type="button" class="x-form-field x-form-text form-control-file" style="background: rgb(239, 239, 239); cursor: pointer;">
+                                        </td>'.
+                                        '<td ' . (!$booAllowChange ? ' class = "hidden"' : '') . ' style="padding: 0;">
+                                            <a href="' . $this->layout()->baseUrl . '/prospects/index/delete-resume?pid=' . $this->pid . '&id=' . $prospectJobId . '"' .
+                                                ' class="blulinkunb x-form-field x-form-text form-control-file" style="border: none; text-decoration: none;" data-rel="remove" onclick="return false">remove</a>
+                                        </td>' .
+                                    '</tr>' .
+                                '</table>' .
+                            '</div>' .
+                        '</div>' .
+                        '<div style="clear: both;"></div>' .
+                    '</div>';
+
+                $strTable .=
+                    '<div class="form-resume-edit' . ($fileExists ? ' hidden' : '') . '">' .
+                        '<div><label class="field-label" for="'.$fieldId.'">'.$label.'</label></div>' .
+                        '<div style="display: flex; align-items: center;">' .
+                            $generatedField .
+                            '<a href="#" class="blulinkunb x-form-field x-form-text form-control-file" 
+                            style="display: flex; ' . ($fileExists ? '' : 'display:none;') . ' border: none; align-items: center; margin-left: 15px;" 
+                            data-rel="cancel" onclick="return false">cancel</a>' .
+                        '</div>'.
+                    '</div>';
+
+                $strTable .= '</div>';
+            } else {
+                // Show label
+                $strTable .= "<label class='field-label' for='$fieldId'>$label</label>";
+                // Show generated field
+                // TODO Fix the code below, it will never execute
+                if ($arrField['q_field_unique_id'] == 'qf_job_resume') {
+                    $strTable .= '<div>' . $generatedField . '</div>';
+
+                } else {
+                    $strTable .= $generatedField;
+                }
+            }
+
+            $strTable .= "</td>";
+
+            if ($arrField['q_field_unique_id'] != 'qf_job_title') {
+                $strTable .= "</tr>";
+            }
+        }
+        $strTable .= "</table>";
+        
+        if(empty($index)) {
+            echo $strTable;
+        } else {
+            // If this is not the first section - we need show a header and
+            // possibility to hide/close that section
+            echo '<table class="job_section_table section_num_'.$index.'">'.
+                    '<tr>'.
+                        '<td colspan="2" class="job_section_header" style="background-color: unset;">'.
+                            ($this->panelType != 'marketplace' ? '<img class="jobs_section_hide" width="11" height="11" title="'. $this->translate('Close').'" alt="'. $this->translate('Close').'" src="'.$this->layout()->topBaseUrl.'/images/' . $this->layout()->theme . '/close-button.gif" style="float: right;">' : '').
+                            '<div>'. ($this->layout()->site_version == 'australia' ? $this->translate('Employer') : $this->translate('Previous Job') ).'</div>'.
+                        '</td>'.
+                    '</tr>'.
+                    '<tr><td>'. $strTable . '</td></tr>'.
+                    '</table>';
+        }
+        
+        echo '</td></tr>';
+    }
+?>
+</table>
+    <div align="center" id="<?=$this->tabId?>-formSubmit-main" style="padding-bottom: 20px;">
+        <div class='q_job_add_<?=$this->pid?>' id="q_job_add_<?=$this->pid?>_main" style='padding-top: 15px;'></div>
+    </div>
+
+</div>
+
+    <?php if($this->booShowSpouseSection) : ?>
+
+    <?php
+        // How many Spouse job sections we need show
+        $countSpouseJobs = sizeof($this->prospectSpouseAssignedJobs);
+        $count = $countSpouseJobs == 0 ? 1 : $countSpouseJobs;
+    ?>
+
+    <div class="garytxt11 padbtm4 qf_job_spouse_has_experience" style="margin-top: 45px; padding: 10px 25px; font-size: 14px;">
+        <span style="padding-right: 15px; font-weight: bold;"><?=$this->translate('Spouse/Common-law partner has occupational experience?')?></span>
+
+        <input <?php if ($this->panelType == 'marketplace') echo 'disabled '?> type="radio" value="yes" id="spouse_has_experience_yes_<?=$this->pid?>" name="spouse_has_experience" <?php if($countSpouseJobs) echo "checked='checked'"?> />
+        <label for="spouse_has_experience_yes_<?=$this->pid?>" style="padding: 3px 10px 3px 3px;"><?=$this->translate('Yes')?></label>
+
+        <input <?php if ($this->panelType == 'marketplace') echo 'disabled '?> type="radio" value="no" id="spouse_has_experience_no_<?=$this->pid?>" name="spouse_has_experience" <?php if(!$countSpouseJobs) echo "checked='checked'"?> />
+        <label for="spouse_has_experience_no_<?=$this->pid?>" style="padding: 3px;"><?=$this->translate('No')?></label>
+    </div>
+
+    <div class="qnr-section job-section-<?=$this->jobSpouseSectionId?>" style="margin: 20px; <?php if(!$countSpouseJobs) echo 'display: none;'?>">
+<table style='width: 100%; background-color:#FFF;' cellpadding="0" cellspacing="0">
+    <tr><td>
+        <div>
+            <a href="#" class="bluetxtdark blue-arrow-down blue-arrow-down-simple"><?=$this->translate("Spouse/Common-law partner's Occupations")?></a>
+        </div>
+    </td></tr>
+<?php
+    for ($index = 0; $index < $count; $index++) {
+        $trCls = empty($index) ? 'class="job_section"' : '';
+        echo "<tr $trCls><td>";
+
+        $strTable = "<table class='job_container'>";
+        foreach ($this->qnrSpouseFields as $arrField) {
+            // Skip labels showing
+            if($arrField['q_field_type'] == 'label') {
+                continue;
+            }
+
+            $suffix = empty($index) ? '' : '_'.$index;
+
+            $fieldId  = 'p_'.$this->pid.'_field_' . $arrField['q_field_id'] . $suffix;
+            $fieldId2 = 'p2_'.$this->pid.'_field_' . $arrField['q_field_id'] . $suffix; // Used for options
+
+            if ($arrField['q_field_unique_id'] == 'qf_job_spouse_employer' || $arrField['q_field_unique_id'] == 'qf_job_spouse_employment_type') {
+                $fieldId  = 'p_'.$this->pid.'_spouse_employer_field_' . $arrField['q_field_id'] . $suffix;
+                $fieldId2 = 'p2_'.$this->pid.'_spouse_employer_field_' . $arrField['q_field_id'] . $suffix; // Used for options
+            }
+
+
+            if($this->layout()->site_version == 'australia' || $arrField['q_field_unique_id'] != 'qf_job_spouse_noc') {
+                $strTable .= "<tr>";
+            }
+
+            if (in_array($arrField['q_field_unique_id'], array('qf_job_spouse_noc', 'qf_job_spouse_title'))) {
+                $cls = ($arrField['q_field_unique_id'] == 'qf_job_spouse_noc') ? 'qf_job_noc' : '';
+                $strTable .= "<td align='left' class='garytxt11 padbtm4 $arrField[q_field_unique_id] $cls' style='width: 300px;' valign='top'>";
+            } else {
+                $strTable .= "<td align='left' colspan='2' class='garytxt11 padbtm4 $arrField[q_field_unique_id]' valign='top'>";
+            }
+
+
+            // Show label
+            $label = empty($arrField['q_field_prospect_profile_label']) ? $arrField['q_field_label'] : $arrField['q_field_prospect_profile_label'];
+
+            $value = '';
+            $prospectJobId = '';
+            $spouseFieldId = str_replace('qf_job_spouse_', 'qf_job_', $arrField['q_field_unique_id']);
+            if (isset($this->prospectSpouseAssignedJobs[$index]) && isset($this->prospectSpouseAssignedJobs[$index][$spouseFieldId])) {
+                $value = $this->prospectSpouseAssignedJobs[$index][$spouseFieldId];
+                $prospectJobId = $this->prospectSpouseAssignedJobs[$index]['qf_job_id'];
+            }
+
+            // Show generated field
+            $generatedField = $this->qnr->generateQnrField(
+                true,
+                $fieldId,
+                $fieldId2,
+                $this->pid,
+                $arrField,
+                $this->qnrFieldsOptions,
+                $this->arrCountries,
+                $value,
+                'ltr',
+                false,
+                '',
+                $this->panelType
+            );
+
+            if ($arrField['q_field_unique_id'] == 'qf_job_spouse_resume') {
+                $id = 'id ="form-resume-block-' . $this->pid . '-' . $arrField['q_field_id'] . '"';
+                $strTable .= '<div class="form-resume" ' . $id . '>';
+
+                $fileExists = false;
+                if (!empty($value)) {
+                    $fileExists = true;
+                }
+
+                $strTable .=
+                    '<div class="form-resume-view' . ($fileExists ? '' : ' hidden') . '">' .
+                        '<div style="float: left;">' .
+                            '<div><label class="field-label" for="'.$fieldId.'">'.$label.'</label></div>'.
+                            '<div class="form-resume-links">' .
+                                '<table style="border-spacing: 0px;">' .
+                                    '<tr>' .
+                                        '<td style="width: 513px; padding: 0px;"><div class="dir-ltr x-form-field x-form-text form-control-file" style="display: flex; align-items: center;">
+                                            <a style="white-space: nowrap; text-decoration: none;font-size: 16px !important; font-family: Metropolis, Arial, Helvetica, sans-serif;" title="Click to download"
+                                            href="' . $this->layout()->baseUrl . '/prospects/index/download-resume?pid=' . $this->pid . '&id=' . $prospectJobId . '"' .
+                                                ' class="blulinkunb" data-rel="download" onclick="return false">'.$value.'</a></div>
+                                        </td>' .
+                                        '<td style="padding: 0 10px 0 20px" ' . (!$booAllowChange ? ' class = "hidden"' : '') . '>
+                                            <input value="change" type="button" class="x-form-field x-form-text form-control-file" style="background: rgb(239, 239, 239); cursor: pointer;">
+                                        </td>'.
+                                        '<td ' . (!$booAllowChange ? ' class = "hidden"' : '') . ' style="padding: 0;">
+                                            <a href="' . $this->layout()->baseUrl . '/prospects/index/delete-resume?pid=' . $this->pid . '&id=' . $prospectJobId . '"' .
+                                                ' class="blulinkunb x-form-field x-form-text form-control-file" style="border: none; text-decoration: none;" data-rel="remove" onclick="return false">remove</a>
+                                        </td>' .
+                                    '</tr>' .
+                                '</table>' .
+                            '</div>' .
+                        '</div>' .
+                        '<div style="clear: both;"></div>' .
+                    '</div>';
+
+                $strTable .=
+                    '<div class="form-resume-edit' . ($fileExists ? ' hidden' : '') . '">' .
+                        '<div><label class="field-label" for="'.$fieldId.'">'.$label.'</label></div>' .
+                        '<div style="display: flex; align-items: center;">' .
+                            $generatedField .
+                            '<a href="#" class="blulinkunb x-form-field x-form-text form-control-file" 
+                            style="display: flex; ' . ($fileExists ? '' : 'display:none;') . ' border: none; align-items: center; margin-left: 15px;" 
+                            data-rel="cancel" onclick="return false">cancel</a>' .
+                        '</div>'.
+                    '</div>';
+
+                $strTable .= '</div>';
+            } else {
+                // Show label
+                $strTable .= "<label class='field-label' for='$fieldId'>$label</label>";
+                // Show generated field
+                $strTable .= $generatedField;
+            }
+
+            $strTable .= "</td>";
+
+            if ($arrField['q_field_unique_id'] != 'qf_job_spouse_title') {
+                $strTable .= "</tr>";
+            }
+        }
+        $strTable .= "</table>";
+
+        if(empty($index)) {
+            echo $strTable;
+        } else {
+            // If this is not the first section - we need show a header and
+            // possibility to hide/close that section
+            echo '<table class="job_section_table section_num_'.$index.'">'.
+                    '<tr>'.
+                        '<td colspan="2" class="job_section_header" style="background-color: unset;">'.
+                            ($this->panelType != 'marketplace' ? '<img class="jobs_section_hide" width="11" height="11" title="'. $this->translate('Close').'" alt="'. $this->translate('Close').'" src="'.$this->layout()->topBaseUrl.'/images/' . $this->layout()->theme . '/close-button.gif" style="float: right;">' : "").
+                            '<div>'. $this->translate('Previous Job').'</div>'.
+                        '</td>'.
+                    '</tr>'.
+                    '<tr><td>'. $strTable . '</td></tr>'.
+                    '</table>';
+        }
+
+        echo '</td></tr>';
+    }
+
+?>
+            
+    </table>
+    
+    <div align="center" id="<?=$this->tabId?>-formSubmit-spouse" style="padding-bottom: 20px;">
+        <div class='q_job_add_<?=$this->pid?>' id="q_job_add_<?=$this->pid?>_spouse" style='padding-top: 15px;'></div>
+    </div>
+    </div>
+    <?php endif; ?>
+</form>
+<?php else:?>
+    <?= $this->translate('There are no fields.') ?>
+<?php endif;?>

@@ -1,0 +1,15 @@
+<?php
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-vac/dialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-vac/grid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-vac/init.js');
+
+?>
+
+<div class="admin-tab-content">
+    <div id="vac_list_container"></div>
+</div>

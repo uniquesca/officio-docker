@@ -1,0 +1,64 @@
+.admin_table {
+    background-color: #D8D8D8;
+    width: 80%;
+    border: 0;
+}
+
+.admin_table > tbody > tr:nth-child(odd) {
+    background-color: #F6F6F6;
+}
+
+.admin_table > tbody > tr:nth-child(even) {
+    background-color: #FFF;
+}
+
+.admin_table > tbody > tr > td:nth-child(1) {
+    text-align: right;
+    white-space: nowrap;
+}
+
+#company-details input[type=text],
+#company-details input[type=file],
+#company-details input[type=radio],
+#company-details .textbox {
+    box-sizing: border-box;
+    width: 280px;
+}
+
+#company-details .drop_down {
+    width: 280px;
+}
+
+#storage_location {
+    width: auto;
+}
+
+#company-details td {
+    padding: 5px;
+}
+
+.x-item-disabled {
+    color: #677788 !important;
+}
+
+.field_name label:after {
+    content: " ";
+    padding-left: 5px;
+    font-weight: normal;
+}
+
+.field_name label.required:after {
+    content: "*";
+    color: #FF0000;
+}
+
+.field_name {
+    padding-left: 20px !important;
+}
+
+#manage-company-content .ui-tabs-nav {
+    background-color: white;
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+}

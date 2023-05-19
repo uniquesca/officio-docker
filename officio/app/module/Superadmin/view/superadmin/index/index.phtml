@@ -1,0 +1,23 @@
+<?php
+
+if ($this->layout()->auth->isCurrentUserSuperadmin()) {
+    $this->layout()->title = "Super Admin Home";
+    $welcome               = 'Welcome to ' . $this->layout()->siteTitle;
+} else {
+    $this->layout()->title = "Admin Home";
+    $welcome               = '';
+}
+$this->layout()->useJQuery = true;
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/iframe_height.js');
+?>
+<div class="admin-tab-content">
+    <table width="95%" border="0" cellspacing="0" cellpadding="5">
+        <tr align="center">
+            <td class="greytext12" align="left" valign="top">
+                <div class="blue_heading" style="font-weight: bold;"><?= $welcome ?></div>
+                Please use the navigation links on the left side to access different sections of the administration suite.
+            </td>
+        </tr>
+    </table>
+</div>

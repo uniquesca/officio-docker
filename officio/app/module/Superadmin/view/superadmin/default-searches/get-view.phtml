@@ -1,0 +1,38 @@
+<?php
+    use Officio\Common\Json;
+
+    $this->layout()->useJQuery    = true;
+    $this->layout()->useExtjs = true;
+
+    $this->headScript()->appendFile($this->layout()->topBaseUrl . '/assets/plugins/chart.js/dist/chart.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/chart.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/applicants/analytics/ApplicantsAnalyticsPanel.js');
+
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/applicants.css');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/applicants/advanced_search/ApplicantsAdvancedSearchGrid.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/applicants/advanced_search/ApplicantsAdvancedSearchPanel.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/main.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/default-searches.js');
+
+$this->headScript()->captureStart();?>
+    var searchId = <?= Json::encode($this->searchId) ?>;
+    var searchName = <?= Json::encode($this->searchName) ?>;
+    var arrApplicantsSettings = <?= Json::encode($this->arrApplicantsSettings) ?>;
+    var advancedSearchRowsMaxCount = <?= Json::encode($this->advancedSearchRowsMaxCount) ?>;
+    var allowedPages = <?= Json::encode($this->allowedPages) ?>;
+    var is_superadmin = <?= Json::encode($this->is_superadmin) ?>;
+
+    try{
+        Ext.onReady(function(){
+            Ext.QuickTips.init();
+            showSearchForm(<?= Json::encode($this->searchType)?>);
+        });
+    }catch(e){}
+<?php $this->headScript()->captureEnd(); ?>
+<?php $this->headStyle()->captureStart(); ?>
+.tab-title {
+    font-size: 16px;
+}
+<?php $this->headStyle()->captureEnd(); ?>
+<div id="advanced_search_panel"></div>

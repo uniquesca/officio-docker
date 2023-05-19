@@ -1,0 +1,25 @@
+<h1>Business Contacts or Services</h1>
+
+<table border="1" cellspacing="0" cellpadding="2">
+    <tr>
+        <th width="120" align="center" bgcolor="#ccc">Name</th>
+        <th width="120" align="center" bgcolor="#ccc">Type of Business Contact or Service</th>
+        <th width="100" align="center" bgcolor="#ccc">Phone</th>
+        <th width="100" align="center" bgcolor="#ccc">Email</th>
+        <th width="100" align="center" bgcolor="#ccc">Username</th>
+        <th width="100" align="center" bgcolor="#ccc">Password</th>
+        <th width="120" align="center" bgcolor="#ccc">Instructions</th>
+    </tr>
+
+    <?php foreach ($this->arrData as $arrRecordInfo) : ?>
+        <tr>
+            <td width="120" align="left"><?= $arrRecordInfo['pua_business_contact_name'] ?></td>
+            <td width="120" align="left"><?= $arrRecordInfo['pua_business_contact_or_service'] ?></td>
+            <td width="100" align="left"><?= $arrRecordInfo['pua_business_contact_phone'] ?></td>
+            <td width="100" align="left"><?= $arrRecordInfo['pua_business_contact_email'] ?></td>
+            <td width="100" align="left"><?= $arrRecordInfo['pua_business_contact_username'] ?></td>
+            <td width="100" align="left"><?= $arrRecordInfo['pua_business_contact_password'] ?></td>
+            <td width="120" align="left"><?= nl2br($arrRecordInfo['pua_business_contact_instructions'] ?? '') ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>

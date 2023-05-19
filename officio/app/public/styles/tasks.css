@@ -1,0 +1,241 @@
+.tasks-grid .x-panel-body {
+    padding-right: 0;
+}
+
+.threads-grid {
+    padding-left: 20px;
+}
+
+.threads-grid .x-panel-bwrap {
+    border-radius: 10px;
+    background-color: #E8E9EB;
+    padding: 3px;
+}
+
+.threads-grid .x-grid3-hd-inner {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.threads-grid .x-grid3-scroller.empty,
+.threads-grid .x-grid3-header {
+    background-color: #E8E9EB;
+}
+
+.threads-grid .x-grid3-header {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.threads-grid .x-grid3-header td {
+    text-transform: none;
+}
+
+.threads-grid .x-grid3-row {
+    border: none !important;
+}
+
+.threads-grid .x-grid-empty {
+    padding: 15px;
+}
+
+.tasks-grid .x-grid-empty {
+    padding: 0;
+}
+
+.thread-header {
+    width: 100%;
+}
+
+.thread-header > .x-grid3-row td
+{
+    font-size: 16px !important;
+}
+
+.thread-header .thread-header-title {
+    font-weight: 500;
+    padding: 5px 5px 3px 5px;
+    color: #616366;
+    font-size: 16px !important;
+}
+
+.thread-header-more {
+    cursor: help;
+    color: #4C83C5;
+    border-bottom: 1px dotted #4C83C5;
+}
+
+.thread-header td {
+    font-weight: normal;
+    margin-right: 10px;
+    border: none;
+    color: #85888c;
+    font-size: 16px !important;
+}
+
+.thread-header a {
+    text-decoration: none;
+    color: #3B74BE;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.thread-header a:hover {
+    text-decoration: underline;
+}
+
+.thread-header a.x-item-disabled {
+    color: gray !important
+}
+
+.thread-header a.x-item-disabled:hover {
+    text-decoration: none;
+}
+
+.threads-grid td {
+    color: #616366;
+}
+
+.threads-grid .x-grid3-cell, .threads-grid .x-grid3-cell-inner {
+    padding: 0;
+    white-space: normal;
+}
+
+.threads-grid .x-grid3-header {
+    border-bottom: none;
+}
+
+.threads-grid .secondary-btn {
+    padding: 8px;
+}
+
+.thread-item-info {
+    padding: 5px;
+    background-color: #EDF6F9;
+    border-bottom: 1px solid #D9E9F0;
+    height: 15px;
+}
+
+.thread-item-in-notes .thread-item-info{
+    background: none;
+    border-bottom: none;
+    padding: 5px 5px 0;
+}
+.thread-item-in-notes .thread-item-info-author {
+    color: #787878;
+}
+
+.thread-item-content {
+    padding: 5px;
+    background-color: #fff;
+}
+
+.thread-item-in-notes .thread-item-content {
+    padding: 1px 5px 5px 5px;
+    background: none;
+}
+
+
+.thread-item-info-to {
+    padding-left: 200px;
+}
+
+.thread-item-info-cc {
+    padding-left: 200px;
+}
+
+.task-unread .x-grid3-cell div{
+    font-weight: 500 !important;
+    color: #000;
+}
+
+.task-priority-low, .task-priority-low .x-menu-item-text{
+    color: #787878;
+}
+
+.task-priority-medium, .task-priority-medium .x-menu-item-text{
+    color: green;
+}
+
+.task-priority-high, .task-priority-high .x-menu-item-text{
+    color: orange;
+}
+
+.task-priority-critical,
+.task-priority-critical .task_subject_column,
+.task-priority-critical .task_subject_column a,
+.task-priority-critical .x-menu-item-text {
+    color: red;
+}
+
+.task-completed {
+    width: 16px;
+    height: 16px;
+    background-image:  url("../images/icons/tick.png") !important;
+}
+
+.task-owner {
+    font-size: 21px;
+}
+
+/* Toolbar buttons and menu */
+.menu-title{
+    background: #D6E3F2;
+    border: 1px solid #99bbe8;
+    margin:-2px -2px 0;
+    color:#15428b;
+    font:bold 10px tahoma,arial,verdana,sans-serif;
+    display:block;
+    padding:3px;
+}
+
+.task-tb-create {
+    background-image: url(../images/icons/page_white_add.png) !important;
+}
+
+.task-tb-reply {
+    background-image: url(../images/icons/arrow_right_blue.png) !important;
+}
+
+.task-tb-mark-as{
+    background-image: url(../images/icons/tick.png) !important;
+}
+
+.task-tb-set-priority{
+    background-image: url(../images/icons/flag_blue_right.png) !important;
+}
+
+.task-tb-participants{
+    background-image: url(../images/icons/stats.png) !important;
+}
+
+.task-tb-filter{
+    background-image: url(../images/icons/filter.png) !important;
+}
+
+/* Used in context menu for the tasks grid */
+.tasks-combo-general-task {
+    font-weight: bold;
+    border-bottom: 1px dotted #787878;
+}
+
+.task-reply-window .x-window-body {
+    background-color: #fff !important;
+}
+
+.task-reply-window .x-window-bbar .x-toolbar{
+    border: none;
+}
+
+.task-reply-window .x-window-bbar .x-form-cb-label {
+    color: #616366;
+}
+
+.task-reply-window .x-form-item-label {
+    font-size: 14px;
+    padding-top: 12px;
+}
+
+.task-reply-window a {
+    font-size: 14px;
+}

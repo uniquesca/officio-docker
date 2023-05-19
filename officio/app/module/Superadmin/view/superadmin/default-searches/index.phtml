@@ -1,0 +1,22 @@
+<?php
+use Officio\Common\Json;
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/default-searches.js');
+?>
+
+<?php $this->headScript()->captureStart(); ?>
+    try {
+        Ext.onReady(function(){
+            Ext.QuickTips.init();
+            $('#admin-default-searches').css('min-height', getSuperadminPanelHeight() + 'px');
+
+            showSearches(<?= Json::encode($this->searchType) ?>);
+        });
+    }catch(e){
+    }
+<?php $this->headScript()->captureEnd(); ?>
+
+<div align="left" id="admin-default-searches"></div>

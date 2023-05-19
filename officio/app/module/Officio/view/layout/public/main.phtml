@@ -1,0 +1,63 @@
+<?= $this->doctype() . "\n"; ?>
+<html>
+
+<head>
+    <?= $this->headTitle() . "\n" ?>
+    <?= $this->headMeta() . "\n" ?>
+    <link rel="gettext" type="application/x-po" href="<?= $this->baseUrl ?>/lang/<?= $this->current_locale ?>.po"/>
+
+    <!-- jQuery -->
+    <?= $this->minifier()->minify('jq') . "\n"; ?>
+    <?= $this->minifier()->minify('jquery-ui') . "\n"; ?>
+    <?= $this->minifier()->minify('jquery-ui-css') . "\n"; ?>
+    <!-- jQuery -->
+
+    <!-- ExtJS -->
+    <?= $this->minifier()->minify('ext_css') . "\n"; ?>
+    <?= $this->minifier()->minify('ext') . "\n"; ?>
+    <!-- / ExtJS -->
+
+    <?= $this->minStyleSheets() . "\n"; ?>
+    <?= $this->headStyle() . "\n" ?>
+    <?= $this->minJs() . "\n"; ?>
+</head>
+
+<body style="padding:0 18px;">
+<table width="100%" cellpadding="0" cellspacing="0">
+<tr>
+    <td>
+        <!-- header -->
+        <?php if(!empty($this->site_top_warning_message)): ?>
+            <div style="position: absolute; top: 15px; left: 170px; border: 1px solid red; padding: 10px;color: red; background-color: white;"><?= $this->site_top_warning_message ?></div>
+        <?php endif ?>
+
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+        <td valign="top" style="padding-top:5px;" align="left" height="70"><img src="<?=$this->imgUrl($this->imgThemeUrl . $this->logoFileName)?>" usemap="#logo_map" alt="<?=$this->translate('Officio Logo')?>" /><map name="logo_map" id="logo_map"><area shape="rect" coords="0,0,190,40" href="//<?=$this->officio_domain ?>" target="_blank" alt="" /></map></td>
+                <td valign="top" style="padding-top:5px;" align="right">
+                  &nbsp;
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td><?=$this->layout()->content ?></td>
+</tr>
+<tr>
+    <td style="padding:8px 8px 0 8px;">
+        <!-- footer -->
+        <table width="100%" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+        <td class="footertxt" valign="top" align="left" style="padding-bottom:10px;"><strong><?=$this->translate('Copyright')?> &copy; <?=($this->site_version == 'australia' ? '2013-' . date('Y') : '1996-' . date('Y'))?> <?=$this->site_company_name ?></strong>&nbsp;&nbsp;<span><?=$this->translate('Reproduction in any form is prohibited.')?></span><br /></td>
+        <?php if ($this->site_version=='canada') { ?>
+        <td class="footertxt" valign="top" align="right" style="padding-bottom:10px;"><a href="http://www.uniques.ca/" target="_blank" style="color: #848A8D"><?=$this->translate('Powered by Uniques Software Corp.')?></a></td>
+        <?php } ?>
+        </tr>
+        </table>
+    </td>
+</tr>
+</table>
+
+</body>
+</html>

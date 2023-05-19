@@ -1,0 +1,418 @@
+<?php if(!isset($this->booOnlyPointsTable)): ?>
+<form id="<?=$this->tabId?>-assessment-prospects" action="#">
+<input type="hidden" name="pid" value="<?=$this->pid?>" />
+    
+<table cellspacing="0" cellpadding="0" width="100%" style="margin: 50px 0 5px; padding: 15px;">
+<?php
+    $currentSectionId = 0;
+    echo "<tr><td class='prospects-assessment-td-group' style='padding: 5px 5px 0 5px;'><a href='#' class='bluetxtdark blue-arrow-down blue-arrow-down-simple'>".$this->translate('Assessment Summary')."</a></td></tr>";
+    echo "<tr>".
+            "<td class='padtopbtm3' valign='top'>".
+                "<div id='dv".$this->tabId. $currentSectionId . "' class='".$this->tabId."profile_section_content'>".
+                "<table width='100%' cellspacing='0' cellpadding='0'>";
+    echo "<tr><td align='left' class='garytxt14 padbtm4' style='padding: 10px;' valign='top'>";
+
+    if(!empty($this->arrCategories)) {
+        if ($this->layout()->site_version == 'canada') {
+            echo "<b>".$this->translate('Prospect is qualified under the following categories. Check all that apply.')."</b><br />";
+
+            // Add 3 custom categories
+            $arrUnqualified[] = array(
+                'prospect_category_id'   => 'unqualified',
+                'prospect_category_name' => 'Not Qualified'
+            );
+            $this->arrCategories = array_merge($arrUnqualified, $this->arrCategories);
+
+
+            $arrPNP[] = array(
+                'prospect_category_id'   => 'pnp',
+                'prospect_category_name' => 'PNP'
+            );
+            $this->arrCategories = array_merge($this->arrCategories, $arrPNP);
+
+
+            $arrOther[] = array(
+                'prospect_category_id'   => 'other',
+                'prospect_category_name' => 'Other'
+            );
+            $this->arrCategories = array_merge($this->arrCategories, $arrOther);
+        } else {
+            echo "<b>".$this->translate('Select your assessment for this prospect:')."</b><br />";
+
+            // Add a custom category
+            $arrUnqualified[] = array(
+                'prospect_category_id'   => 'unqualified',
+                'prospect_category_name' => 'Not Qualified'
+            );
+            $this->arrCategories = array_merge($arrUnqualified, $this->arrCategories);
+        }
+
+        // Generate categories table
+        if($this->layout()->site_version == 'australia') {
+            echo "<table class='assessment_section' style='float: left'>";
+        } else {
+            echo "<table class='assessment_section' style='width: 100%'>";
+        }
+
+        $col = 0;
+        $booUnQualified = isset($this->prospectInfo['qualified']) ? $this->prospectInfo['qualified'] == 'N' : false;
+        $inputType = $this->layout()->site_version == 'australia' ? 'radio' : 'checkbox';
+        foreach ($this->arrCategories as $arrCategoryInfo) {
+            //First column?
+            if ($col==0) {
+                echo "<tr>";
+            }
+
+            $id = 'p_'.$this->pid.'_category_' . $arrCategoryInfo['prospect_category_id'];
+            $name = $this->layout()->site_version == 'australia' ? 'p_' . $this->pid . '_category' : $id;
+            $checked = '';
+
+            if ($booUnQualified) {
+                // Set up only the first checkbox
+                if ($arrCategoryInfo['prospect_category_id'] == 'unqualified') {
+                    $checked = 'checked="checked"';
+                }
+            } else {
+                if(in_array($arrCategoryInfo['prospect_category_id'], $this->prospectCategories) ||
+                    ($arrCategoryInfo['prospect_category_id'] == 'other' && !empty($this->prospectInfo['category_other'])) ||
+                    ($arrCategoryInfo['prospect_category_id'] == 'pnp' && !empty($this->prospectInfo['category_pnp']))) {
+                    $checked = 'checked="checked"';
+                }
+            }
+
+
+            echo "<td style='padding: 5px 10px 0 0;'>";
+            echo "<input id='$id' name='$name' type='$inputType' $checked value='$arrCategoryInfo[prospect_category_id]' />&nbsp;";
+            echo "<label for='$id'>$arrCategoryInfo[prospect_category_name]</label>";
+
+            // For 2 categories we need show text fields
+            if ($arrCategoryInfo['prospect_category_id'] == 'other') {
+                $value = isset($this->prospectInfo['category_other']) ? $this->escapeHtmlAttr($this->prospectInfo['category_other']) : '';
+                echo "&nbsp;&nbsp;<input type='text' name='$id-val' value='$value' />";
+            }
+
+            if ($arrCategoryInfo['prospect_category_id'] == 'pnp') {
+                $value = isset($this->prospectInfo['category_pnp']) ? $this->escapeHtmlAttr($this->prospectInfo['category_pnp']) : '';
+                echo "&nbsp;&nbsp;<input type='text' name='$id-val' value='$value' />";
+            }
+
+            echo "</td>";
+
+            // Need we start a new row?
+            if ($this->layout()->site_version == 'australia' || ($col != 0 && $col % 2 == 0)) {
+                echo "</tr>";
+                $col=0;
+            } else {
+                $col++;
+            }
+        }
+        if ($col != 0) {
+            echo "</tr>";
+        }
+        echo "</table>";
+
+        if ($this->layout()->site_version == 'australia') {
+            $arrCategories = array();
+
+            foreach ($this->arrDefaultCategories as $arrSubclass) {
+                $arrCategories[(int)$arrSubclass['client_category_id']] = $arrSubclass['client_category_name'];
+            }
+
+            echo '<div style="float: left; padding-top: 23px;" class="field_visa_container">';
+            echo $this->formDropdown('p_' . $this->pid . '_field_visa', $arrCategories, (int)$this->prospectInfo['visa'], 'class="profile-select replace-select" style="width: 600px;"');
+            echo '</div>';
+        }
+    } else {
+        echo '<div class="error">'. $this->translate('There are no assigned categories for your company.').'</div>';
+    }
+    echo "</td></tr>";
+
+    if ($this->layout()->site_version == 'australia') {
+        $notesFieldId = 'p_' . $this->pid . '_field_notes';
+        echo '<tr>';
+            echo '<td align="left" class="garytxt14 padbtm4" valign="top">';
+                echo "<div style='padding: 20px 0 5px'><label for='$notesFieldId'>Assessment Notes:</label></div>";
+                echo "<textarea id='$notesFieldId' name='$notesFieldId' class='profile-memo' style='width: 100%; height: 200px; padding-left: 0;'>{$this->prospectInfo['notes']}</textarea>";
+            echo '</td>';
+        echo '</tr>';
+    }
+
+    echo "</table></div></td></tr>";
+?>
+</table>
+</form>
+
+<?php endif; ?>
+<?php if ($this->layout()->site_version == 'canada') {?>
+    <div style="height: 6px; border-top: 1px solid #D4D4D4; margin: 0 20px">&nbsp;</div>
+    <?php if(count($this->arrAssessmentInfo) == 0):?>
+        <div class="garytxt11 error" style="padding: 5px 15px;"><?=$this->translate('Officio cannot make an automated assessment since not all the required questions are answered.')?></div>
+    <?php else:?>
+        <table>
+        <tr>
+        <?php foreach ($this->arrAssessmentInfo as $groupId => $arrGroupInfo) {
+            if ($groupId == 'express_entry' && !$this->booExpressEntryEnabledForCompany) {
+                continue;
+            }
+
+            echo "<td style='vertical-align: top;'>";
+            // Show group label
+            switch ($groupId) {
+                case 'skilled_worker':
+                    $groupLabel = 'Skilled worker';
+                    break;
+
+                case 'express_entry':
+                    $groupLabel = 'Express Entry';
+                    break;
+
+                default:
+                    $groupLabel = 'Unknown group';
+                    break;
+            }
+            if ($groupId != 'express_entry') {
+                $groupLabel .= sprintf(' (%d points to pass)', $arrGroupInfo['global']['pass_mark']);
+            }
+
+
+            // Show group label
+            echo "<div class='prospects-assessment-td-group' style='margin-top: 10px; text-align: center;'>$groupLabel</div>";
+
+            // Show table headers 2F6BBA
+            echo '<table cellpadding="0" cellspacing="0" class="prospects-assessment-table">';
+            echo "<tr>" .
+                "<td class='garytxt14 prospects-assessment-td-header prospects-assessment-td-header-dark'>Selection Factor</td>" .
+                "<td class='garytxt14 prospects-assessment-td-header prospects-assessment-td-header-dark' style='text-align: center;'>Points</td>" .
+                "</tr>";
+
+            // Custom sorting function
+            if(!function_exists('cmpPoints')) {
+                function cmpPoints($a, $b){
+                    // Less value - will be on top of the list
+                    $order = array(
+                        'age'                  => 0,
+                        'education_level'      => 1,
+                        'experience'           => 2,
+                        'first_language'       => 3,
+                        'second_language'      => 4,
+                        'adaptability'         => 5,
+                        'employment_job_offer' => 6
+                    );
+
+                    $intOrder = -1;
+                    if(array_key_exists($a, $order) && array_key_exists($b, $order) && ($order[$a] >= $order[$b])) {
+                        $intOrder = 1;
+                    }
+
+                    return $intOrder;
+                }
+            }
+
+            if(!function_exists('cmpPointsExpressEntry')) {
+                function cmpPointsExpressEntry($a, $b){
+                    // Less value - will be on top of the list
+                    $order = array(
+                        'age'                                      => 0,
+                        'education_level_main'                     => 1,
+                        'first_language_main'                      => 2,
+                        'second_language_main'                     => 3,
+                        'canadian_work_experience'                 => 4,
+                        'education_level_spouse'                   => 5,
+                        'first_language_spouse'                    => 6,
+                        'canadian_work_experience_spouse'          => 7,
+                        'education_language_ability'               => 8,
+                        'education_canadian_experience'            => 9,
+                        'language_ability_non_canadian_experience' => 10,
+                        'canadian_non_canadian_experience'         => 11,
+                        'trade_certificate_language'               => 12,
+
+                        // Additional fields
+                        'post_secondary_education'                 => 13,
+                        'nomination_certificate'                   => 14,
+                        'arranged_employment'                      => 15,
+                        'siblings_in_canada'                       => 16,
+                        'additional_french_language'               => 17,
+                    );
+
+                    $intOrder = -1;
+                    if(array_key_exists($a, $order) && array_key_exists($b, $order) && ($order[$a] >= $order[$b])) {
+                        $intOrder = 1;
+                    }
+
+                    return $intOrder;
+                }
+            }
+            if ($groupId != 'express_entry') {
+                uksort($arrGroupInfo['data'], 'cmpPoints');
+            } else {
+                uksort($arrGroupInfo['data'], 'cmpPointsExpressEntry');
+                echo "<tr>" .
+                    "<td class='garytxt14 prospects-assessment-td-header' colspan='2' align='center'>" . "Core Human Capital " . "<span style='font-weight: normal;'>" . " Maximum:" . ($this->booHasProspectSpouse ? " 460 " : " 500") . " points</span></td>" .
+                    "</tr>";
+            }
+
+            // Show each group's content
+            $row = 0;
+            $booAdditionalPointsSectionShowed = false;
+            foreach ($arrGroupInfo['data'] as $sectionId => $arrSectionInfo) {
+                // Use correct labels
+                if (!$this->booHasProspectSpouse) {
+                    if ($sectionId == 'education_level_spouse' ||  $sectionId == 'first_language_spouse' || $sectionId == 'canadian_work_experience_spouse') {
+                        continue;
+                    }
+                }
+                switch ($sectionId) {
+                    case 'age':
+                        $sectionLabel = $this->translate('Age');
+                        break;
+
+                    case 'education_level':
+                        $sectionLabel = $this->translate('Education level');
+                        break;
+
+                    case 'education_level_main':
+                    case 'education_level_spouse':
+                        $sectionLabel = $this->translate('Education');
+                        break;
+
+                    case 'first_language':
+                    case 'first_language_main':
+                    case 'first_language_spouse':
+                        $sectionLabel = $this->translate('First language');
+                        break;
+
+                    case 'second_language':
+                    case 'second_language_main':
+                        $sectionLabel = $this->translate('Second language');
+                        break;
+
+                    case 'adaptability':
+                        $sectionLabel = $this->translate('Adaptability');
+                        break;
+
+                    case 'official_languages_proficiency':
+                        $sectionLabel = $this->translate('Official languages proficiency');
+                        break;
+
+                    case 'canadian_work_experience':
+                    case 'canadian_work_experience_spouse':
+                        $sectionLabel = $this->translate('Canadian work experience');
+                        break;
+
+                    case 'education_language_ability':
+                        $sectionLabel = $this->translate('Education and language');
+                        break;
+
+                    case 'education_canadian_experience':
+                        $sectionLabel = $this->translate('Education and Canadian work');
+                        break;
+
+                    case 'language_ability_non_canadian_experience':
+                        $sectionLabel = $this->translate('Foreign work and language');
+                        break;
+
+                    case 'canadian_non_canadian_experience':
+                        $sectionLabel = $this->translate('Foreign work and Canadian work');
+                        break;
+
+                    case 'trade_certificate_language':
+                        $sectionLabel = $this->translate('Trade certificate and language');
+                        break;
+
+                    case 'employment_job_offer':
+                        $sectionLabel = $this->translate('Employment job offer');
+                        break;
+
+                    case 'post_secondary_education':
+                        $sectionLabel = $this->translate('Post-secondary Education in Canada');
+                        break;
+
+                    case 'siblings_in_canada':
+                        $sectionLabel = $this->translate('Siblings in Canada');
+                        break;
+
+                    case 'additional_french_language':
+                        $sectionLabel = $this->translate('French knowledge');
+                        break;
+
+                    case 'arranged_employment':
+                        $sectionLabel = $this->translate('Arranged Employment');
+                        break;
+
+                    case 'nomination_certificate':
+                        $sectionLabel = $this->translate('Provincial nomination certificate');
+                        break;
+
+                    case 'experience':
+                        $sectionLabel = $this->translate('Experience');
+                        break;
+
+                    default:
+                        // Can't be here
+                        $sectionLabel = $this->translate('Unknown');
+                        break;
+                }
+
+                $points = is_array($arrSectionInfo) ? $arrSectionInfo['total'] : $arrSectionInfo;
+                // Custom background for odd and even rows
+                $cls  = ($row%2 == 0 ? 'prospects-assessment-td-even' : 'prospects-assessment-td-odd');
+
+                if ($groupId == 'express_entry' && !$booAdditionalPointsSectionShowed && in_array($sectionId, array('nomination_certificate', 'arranged_employment', 'post_secondary_education'))) {
+                    echo "<tr>" .
+                        "<td class='garytxt14 prospects-assessment-td-header' colspan='2' align='center'>Additional Points" . "<span style='font-weight: normal;'>" . " Maximum: 600 points</span></td>" .
+                        "</tr>";
+
+                    $booAdditionalPointsSectionShowed = true;
+                }
+
+                echo "<tr>";
+                echo "<td class='garytxt14 prospects-assessment-td $cls'>$sectionLabel</td>";
+                echo "<td class='garytxt14 prospects-assessment-td $cls' style='text-align: center;'>$points</td>";
+                echo "</tr>";
+
+                if ($sectionId == 'canadian_work_experience' && $this->booHasProspectSpouse) {
+                    echo "<tr>" .
+                        "<td class='garytxt14 prospects-assessment-td-header' colspan='2' align='center'>Core Human Capital (Spouse/Common-law Partner) " . "<span style='font-weight: normal;'>" . " Maximum: 40 points</span></td>" .
+                        "</tr>";
+                } else if ($sectionId == 'canadian_work_experience_spouse' || ($sectionId == 'canadian_work_experience' && !$this->booHasProspectSpouse)) {
+                    echo "<tr>" .
+                        "<td class='garytxt14 prospects-assessment-td-header' colspan='2' align='center'>Skill Transferability combos " . "<span style='font-weight: normal;'>" . " Maximum: 100 points</span></td>" .
+                        "</tr>";
+                }
+
+                $row++;
+            }
+
+            // Qualified or not?
+            // This is a question (c) Developers team
+            $cls = $cls2 = ($row%2 == 0 ? 'prospects-assessment-td-even' : 'prospects-assessment-td-odd');
+            if ($groupId != 'express_entry') {
+                if (!$arrGroupInfo['global']['qualified']) {
+                    $cls2  .= ' prospects-assessment-td-total-qualified';
+                    $points = $arrGroupInfo['global']['total'] . '<br/>'. $this->translate('Not qualified');
+                    
+                    if (empty($arrGroupInfo['data']['experience'])) {
+                        $points .= '<br/>'. $this->translate('due to experience factor');
+                    }
+                } else {
+                    $cls2  .= ' prospects-assessment-td-total-notqualified';
+                    $points = $arrGroupInfo['global']['total'] . '<br/>'. $this->translate('Qualified');
+                }
+            } else {
+                $points = $arrGroupInfo['global']['total'];
+            }
+
+            // Show last 'Total' row
+            echo "<tr>";
+            echo "<td class='garytxt14 prospects-assessment-td-total $cls'>".$this->translate('Total:')."</td>";
+            echo "<td class='garytxt14 prospects-assessment-td-total $cls2' style='text-align: center;'>$points</td>";
+            echo "</tr>";
+
+            echo '</table>';
+            echo '</td>';
+        }?>
+        </tr>
+        </table>
+    <?php endif;?>
+<?php }
+

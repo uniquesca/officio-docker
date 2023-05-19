@@ -1,0 +1,103 @@
+name: DM
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          extensions: json, mbstring, openssl, pdo, pdo_mysql, mailparse, iconv, gd, zlib, curl, xml, simplexml, dom, calendar, gettext, zip, tidy, intl
+
+      - name: Checkout main repository
+        if: (github.event_name == 'push') || (github.event.pull_request.merged == true)
+        uses: actions/checkout@v2
+        with:
+          path: main
+
+      - name: Checkout DM repository
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        uses: actions/checkout@v2
+        with:
+          repository: "uniquesca/dm-cbiu-backend"
+          ref: latest
+          token: ${{ secrets.ACCESS_TOKEN }}
+          path: dm
+
+      - name: Prepare main code for copying - configs, composer and DB scripts
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: main
+        run: |
+          php officio.phar select_project dm
+          php officio.phar cleanup_project dm
+          rm .git -rf
+
+      # IMPORTANT: This has to be maintained well in order to prevent loss of important files
+      - name: Preserve DM-specific project files and delete everything else
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: dm
+        run: |
+          mkdir preserve/public/pdf -p
+          rsync -aE public/pdf preserve/public
+          rsync -aE .git preserve
+          find . -mindepth 1 -maxdepth 1 -type d -not -name 'preserve' -exec rm -rf {} \;
+          find . -maxdepth 1 -type f -delete
+
+      - name: Copying main code into DM project
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        run: rsync -aE main/ dm/
+
+      - name: Restoring DM-specific files
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: dm
+        run: |
+          rsync -aE --ignore-existing preserve/ ./
+          rm preserve -rf
+          rm .officioproject
+
+      - name: Cache PHP dependencies
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        uses: actions/cache@v2
+        with:
+          path: |
+            dm/vendor
+          key: ${{ runner.OS }}-build-${{ hashFiles('dm/composer.lock') }}
+
+      - name: Cache Yarn dependencies
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        uses: actions/cache@v2
+        with:
+          path: |
+            dm/public/assets/plugins
+          key: ${{ runner.OS }}-build-${{ hashFiles('dm/yarn.lock') }}
+
+      - name: Composer and Yarn install
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: dm
+        run: |
+          php composer.phar config github-oauth.github.com ${{ secrets.ACCESS_TOKEN }}
+          php composer.phar install --no-dev --prefer-dist -o
+          echo "@uniquesca:registry=https://npm.pkg.github.com" >> ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.ACCESS_TOKEN }}" >> .npmrc
+          echo "always_auth=true" >> .npmrc
+          yarn install
+
+      - name: Commit changes
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: dm
+        run: |
+          git add .
+
+          git config --local user.email "gha@uniques.ca"
+          git config --local user.name "GitHub Actions"
+
+          git commit -a -m "Automatic commit from main repository: #${GITHUB_SHA}"
+
+          git push

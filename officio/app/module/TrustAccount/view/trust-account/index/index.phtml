@@ -1,0 +1,12 @@
+<?php $this->headTitle($this->ta_label); ?>
+<div id="divTrustAccountTab">
+    <div id="divNoTrustAccounts" style="display: none; padding: 10px;">
+        <?php if($this->booCanAddTA):?>
+        <?= $this->translate('You don\'t have any ' . $this->ta_label . ' defined.') ?><br/>
+        <?= sprintf($this->translate('You can add a ' . $this->ta_label . ' for your company in the %sAdmin tab%s.'), '<a href="#" class="blulinkun norightclick" style="font-size: 15px" onClick="addAdminPage(); return false;">', '</a>') ?>
+        <?php else:?>
+        <?=$this->translate('No ' . $this->ta_label . ' is defined for your company.<br/>
+        The Admin of your company can add ' . $this->ta_label . 's to the system.')?>
+        <?php endif?>
+    </div>
+</div>

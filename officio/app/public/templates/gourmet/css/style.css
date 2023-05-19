@@ -1,0 +1,795 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    font: 13px/18px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #a29f87;
+    position: relative;
+    min-width: 320px;
+    height: 100%;
+}
+
+.bg {
+    background: url(../images/body-shadow-tail.png) center bottom repeat-x;
+    width: 100%;
+    min-height: 100%;
+}
+
+/*.main{width:980px; position:relative; margin:0 auto; padding:0;}*/
+.main {
+    width: 100%;
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 1000px;
+}
+
+.content-box {
+    background: #fff;
+    box-shadow: 0px -1px 5px rgba(158, 158, 158, 0.12);
+    -moz-box-shadow: 0px -1px 5px rgba(158, 158, 158, 0.12);
+    -webkit-box-shadow: 0px -1px 5px rgba(158, 158, 158, 0.12);
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+/*********************************header*************************************/
+header {
+    width: 100%;
+    background: url(../images/header-tail.png) center top repeat-x;
+    position: relative;
+}
+
+header .indents {
+    padding: 33px 25px 9px;
+}
+
+h1.company-title {
+    overflow: hidden;
+    width: 250px;
+    float: left;
+}
+
+div.company-title {
+    padding: 20px 0 0 22px;
+    float: left;
+}
+
+header .content-box {
+    padding: 21px 23px 0;
+    border-radius: 30px 30px 0 0;
+    -moz-border-radius: 30px 30px 0 0;
+    -webkit-border-radius: 30px 30px 0 0;
+}
+
+.poster {
+    width: 100%;
+    padding-top: 2px;
+    height: auto;
+}
+
+/********************************* Content **********************************/
+#content {
+    width: 100%;
+}
+
+#content .content-box {
+    padding: 15px 5px 22px;
+}
+
+#page4 #content .content-box {
+    padding: 15px 5px 50px;
+}
+
+/* ---------- Tags ---------*/
+h3 {
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 36px;
+    color: #303030;
+}
+
+h4 {
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 29px;
+    color: #a0c900;
+}
+
+h4 a {
+    color: #a0c900;
+    text-decoration: none;
+}
+
+h4 a:hover {
+    text-decoration: none;
+    color: #777262;
+}
+
+h5 {
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 30px;
+    color: #303030;
+}
+
+h6 {
+    font-weight: bold;
+    color: #6c7261;
+}
+
+h6 a {
+    text-decoration: none;
+    color: #6c7261;
+}
+
+h6 a:hover {
+    text-decoration: none;
+    color: #b0d50f;
+}
+
+h6.title1 a {
+    text-decoration: underline;
+    color: #94c807;
+}
+
+h6.title1 a:hover {
+    text-decoration: none;
+    color: #94c807;
+}
+
+p, .p3-1 {
+    margin-bottom: 18px
+}
+
+.p0 {
+    margin-bottom: 0;
+}
+
+.p1 {
+    margin-bottom: 5px;
+}
+
+.p1-1 {
+    margin-bottom: 8px;
+}
+
+.p2 {
+    margin-bottom: 10px;
+}
+
+.p2-1 {
+    margin-bottom: 12px;
+}
+
+.p3 {
+    margin-bottom: 15px;
+}
+
+.p4 {
+    margin-bottom: 20px;
+}
+
+.p4-1 {
+    margin-bottom: 22px;
+}
+
+.p5 {
+    margin-bottom: 25px;
+}
+
+.p5-1 {
+    margin-bottom: 28px;
+}
+
+.p6 {
+    margin-bottom: 30px;
+}
+
+.p6-1 {
+    margin-bottom: 32px;
+}
+
+.p7 {
+    margin-bottom: 35px;
+}
+
+.p7-1 {
+    margin-bottom: 37px;
+}
+
+.p8 {
+    margin-bottom: 40px;
+}
+
+.p8-1 {
+    margin-bottom: 42px;
+}
+
+a {
+    color: #94c807;
+    outline: none;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+blockquote {
+    width: 100%;
+}
+
+.quote-caption {
+    text-align: right;
+}
+
+time {
+    display: block;
+    font-size: 24px;
+    line-height: 29px;
+    color: #a0c900;
+}
+
+time a {
+    text-decoration: none;
+}
+
+time a:hover {
+    text-decoration: none;
+    color: #6c7261;
+}
+
+/*----- Global Structure -----*/
+.clear {
+    clear: both;
+    line-height: 0;
+    font-size: 0;
+    overflow: hidden;
+    height: 0;
+    width: 100%;
+}
+
+.wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.extra-wrap {
+    overflow: hidden;
+    display: block;
+}
+
+.fleft {
+    float: left
+}
+
+.fright {
+    float: right
+}
+
+.alignright {
+    text-align: right
+}
+
+.aligncenter {
+    text-align: center
+}
+
+.alignmiddle * {
+    vertical-align: middle
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.img-indent {
+    float: left;
+    margin-right: 30px;
+}
+
+.last-item {
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/*---------- Columns --------*/
+.col-4 {
+    float: left;
+    width: 300px;
+    margin-right: 10px;
+}
+
+.col-4x {
+    float: left;
+    width: 310px;
+    margin-right: 14px;
+}
+
+.col-4xx {
+    float: left;
+    width: 300px;
+    margin-right: 17px;
+}
+
+.col-6 {
+    float: left;
+    width: auto;
+    margin-right: 30px;
+}
+
+.col-8 {
+    float: left;
+    width: auto;
+    margin-right: 14px;
+}
+
+/*---------- Links ----------*/
+.button {
+    display: inline-block;
+    font: normal 13px/16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #f7f7f7;
+    text-decoration: none;
+    background: #6c7261;
+    cursor: pointer;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.button span {
+    display: inline-block;
+    background: url(../images/button-marker.gif) 10px 9px no-repeat;
+    padding: 3px 15px 4px 18px;
+    position: relative;
+}
+
+.button:hover {
+    text-decoration: none;
+    background-color: #b0d50f;
+}
+
+/*----------- Boxes ----------*/
+.banner1, .banner2 {
+    display: block;
+    width: 300px;
+    height: 174px;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+}
+
+.banner1 span {
+    position: absolute;
+    top: 138px;
+    left: 29px;
+    display: block;
+    background: #fff;
+    font: bold 13px/16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #f2b119;
+    text-decoration: none;
+    padding: 3px 7px 4px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.banner2 span {
+    position: absolute;
+    top: 138px;
+    left: 28px;
+    display: block;
+    background: #fff;
+    font: bold 13px/16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #d63f34;
+    text-decoration: none;
+    padding: 3px 7px 4px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.banner3, .banner4, .banner5 {
+    display: block;
+    width: 305px;
+    height: 174px;
+    overflow: hidden;
+    position: relative;
+    float: left;
+    margin-right: 9px;
+    text-decoration: none;
+}
+
+.banner3 span {
+    position: absolute;
+    top: 138px;
+    left: 29px;
+    display: block;
+    background: #fff;
+    font: bold 13px/16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #f2b119;
+    text-decoration: none;
+    padding: 3px 7px 4px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.banner4 span {
+    position: absolute;
+    top: 138px;
+    left: 28px;
+    display: block;
+    background: #fff;
+    font: bold 13px/16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #d63f34;
+    text-decoration: none;
+    padding: 3px 7px 4px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.banner5 span {
+    position: absolute;
+    top: 138px;
+    left: 28px;
+    display: block;
+    background: #fff;
+    font: bold 13px/16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #aacd12;
+    text-decoration: none;
+    padding: 3px 7px 4px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.banner1:hover span, .banner2:hover span, .banner3:hover span, .banner4:hover span, .banner5:hover span {
+    color: #474747;
+    text-decoration: none;
+}
+
+.sidebar {
+    background: #f8f7ef;
+    padding: 28px 22px 28px 35px;
+    color: #474747;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
+
+.sidebar h3 {
+    font-size: 34px;
+    line-height: 41px;
+    color: #5b5543;
+}
+
+.sidebar .border-bottom {
+    border-bottom: 1px solid #ebe9d7;
+}
+
+#page1 .sidebar .button {
+    background-color: #777262;
+}
+
+.sidebar .button:hover, #page1 .sidebar .button:hover {
+    background-color: #b0d50f;
+}
+
+.sidebar dl {
+    float: none;
+    margin-right: 0;
+    padding: 0px 8px 0px 3px;
+    width: auto;
+    font-weight: bold;
+    line-height: 19px;
+    color: #94c807;
+}
+
+.sidebar dt {
+    color: #94c807;
+}
+
+.sidebar dl span {
+    float: right;
+    width: auto;
+}
+
+/*---------- Lists -----------*/
+.list-1 li {
+    font: 13px/16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    background: url(../images/marker-1.gif) 0 5px no-repeat;
+    padding-left: 18px;
+    margin-bottom: 14px;
+}
+
+.list-1 a {
+    color: #474747;
+}
+
+.list-1 a:hover {
+    color: #94c807;
+    text-decoration: underline;
+}
+
+/*---------- Indents ---------*/
+.content-indents1 {
+    padding: 32px 5px 51px;
+}
+
+#page3 .content-indents1 {
+    padding: 32px 20px 30px;
+}
+
+.content-indents2 {
+    padding: 0 20px;
+}
+
+.content-indents3 {
+    padding: 32px 30px 28px 20px;
+}
+
+.indent-top1 {
+    padding-top: 5px;
+}
+
+.indent-top3 {
+    padding-top: 15px;
+}
+
+.indent-top6-1 {
+    padding-top: 32px;
+}
+
+.indent-right3 {
+    padding-right: 15px;
+}
+
+.indent-right4 {
+    padding-right: 20px;
+}
+
+.indent-left1 {
+    padding-left: 5px;
+}
+
+.indent-left3 {
+    padding-left: 15px;
+}
+
+.indent-left4 {
+    padding-left: 20px;
+}
+
+.indent-left5 {
+    padding-left: 25px;
+}
+
+.indent-left7-1 {
+    padding-left: 37px;
+}
+
+.indent-bottom2 {
+    padding-bottom: 10px;
+}
+
+.indent-bottom3-1 {
+    padding-bottom: 18px;
+}
+
+.indent-bottom5-1 {
+    padding-bottom: 27px;
+}
+
+.indent-bottom7 {
+    padding-bottom: 35px;
+}
+
+.indent-bottom10 {
+    padding-bottom: 50px;
+}
+
+.indent-bottom12-1 {
+    padding-bottom: 63px;
+}
+
+/*----------- Contacts ------------*/
+dl {
+    float: right;
+    margin-right: 20px;
+    padding-left: 20px;
+    width: 240px;
+    position: relative;
+    overflow: hidden;
+}
+
+dt {
+    font-weight: bold;
+    color: #777262;
+}
+
+dl span {
+    float: left;
+    width: 86px;
+}
+
+dt {
+    line-height: 30px;
+}
+
+dd {
+    line-height: 25px;
+}
+
+/************************************** Footer *************************************/
+footer {
+    width: 100%;
+    position: relative;
+    padding: 44px 0 23px;
+}
+
+#page1 footer {
+    padding: 26px 0 23px;
+}
+
+footer .col-4 {
+    width: 309px;
+    margin-right: 0px !important;
+}
+
+footer .col-4x {
+    width: 332px;
+}
+
+footer .col-8 {
+    width: 633px;
+}
+
+footer .border-top {
+    border-top: 1px solid #dad8cf;
+}
+
+footer .border-left {
+    border-left: 1px solid #b9b5a2;
+}
+
+footer .indent-bottom {
+    padding-bottom: 43px;
+}
+
+footer .indents {
+    padding: 9px 22px 0 12px;
+}
+
+footer h3 {
+    font-size: 34px;
+    line-height: 41px;
+    color: #fff;
+    letter-spacing: 1px;
+    word-spacing: -1px;
+}
+
+.footer-list li {
+    background: url(../images/footer-list-marker.png) 0 3px no-repeat;
+    font: 13px/16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    padding-left: 21px;
+    margin-bottom: 7px;
+}
+
+.footer-list a {
+    font-weight: normal;
+    color: #fff;
+}
+
+.footer-list a:hover {
+    text-decoration: underline;
+    color: #4f4833;
+}
+
+a.small-logo {
+    display: block;
+    float: left;
+    font-weight: normal;
+    font-size: 35px;
+    line-height: 42px;
+    text-transform: uppercase;
+    color: #d0cdb8;
+    text-decoration: none;
+}
+
+a.small-logo:hover {
+    text-decoration: none;
+}
+
+a.small-logo strong {
+    color: #b0d50f;
+}
+
+.footer-text {
+    float: right;
+    color: #f4f2e1;
+    padding-top: 9px;
+}
+
+.footer-text a {
+    color: #f4f2e1;
+    font-weight: normal;
+}
+
+.nav-links {
+    width: 600px;
+    float: left;
+    padding-top: 5px;
+}
+
+.nav-links a {
+    margin-right: 6px;
+    color: #fff;
+}
+
+.nav-links a:hover {
+    color: #94c807;
+}
+
+/* social buttons */
+.social-buttons {
+    float: left;
+    width: 120px;
+    margin: 6px 20px 0;
+}
+
+.social-buttons li:first-child {
+    padding-left: 0;
+}
+
+.social-buttons li {
+    float: left;
+    padding-left: 8px;
+}
+
+.social-buttons li a {
+    display: block;
+    height: 22px;
+    width: 22px;
+}
+
+.social-buttons li a strong {
+    display: block;
+    height: 16px;
+    padding: 3px;
+    width: 16px;
+}
+
+.social-buttons li a span {
+    background: url(../images/social-buttons.png) no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 16px;
+    width: 16px;
+}
+
+.social-buttons li a.item-1 span {
+    background-position: 0 0;
+}
+
+.social-buttons li a.item-2 span {
+    background-position: -30px 0;
+}
+
+.social-buttons li a.item-3 span {
+    background-position: -60px 0;
+}
+
+.social-buttons li a.item-4 span {
+    background-position: -90px 0;
+}

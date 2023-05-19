@@ -1,0 +1,16 @@
+<?php
+    $this->layout()->title = "Manage GST/HST";
+    $this->headTitle("Manage GST/HST");
+
+    $this->layout()->useExtjs  = true;
+    $this->layout()->useJQuery = true;
+
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/hst.js');
+    
+    $this->headStyle()->captureStart();
+        echo '.bold-row .x-grid3-cell-inner { font-weight: bold; }';
+    $this->headStyle()->captureEnd();
+?>
+
+<div id="admin-manage-hst"></div>

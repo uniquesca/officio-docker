@@ -1,0 +1,209 @@
+### Server defaults
+ServerSignature Off
+
+# Default charset
+AddDefaultCharset UTF-8
+
+# Prevent directory listing
+IndexIgnore *
+
+# Follow symbolic links
+Options +FollowSymLinks
+
+# Disable access to .htaccess & .htpasswd
+<Files ~ "^\.ht">
+        Order allow,deny
+        Deny from all
+        Allow from localhost
+</Files>
+
+
+
+### Mod rewrite configuration
+<IfModule mod_rewrite.c>
+    # URL Rewriting
+    RewriteEngine on
+
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+    RewriteCond %{HTTPS} on
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+    RewriteCond %{HTTPS} off
+    RewriteCond %{REQUEST_URI} (.*)specialoffer
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # Block hackers
+    ########## Rewrite rules to block out some common exploits
+    # Block out any script trying to base64_encode crap to send via URL
+    RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [OR]
+    # Block out any script that includes a <script> tag in URL
+    RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+    # Block out any script trying to set a PHP GLOBALS variable via URL
+    RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+    # Block out any script trying to modify a _REQUEST variable via URL
+    RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+    RewriteRule ^.* - [F,L]
+
+
+    redirect /admin.php http://www.fbi.gov
+    redirect /DOCUMENT_ROOT http://www.fbi.gov
+    redirect /_mem_bin http://www.fbi.gov
+    redirect /msadc http://www.fbi.gov
+    redirect /scripts http://www.fbi.gov
+    redirect /_vti_bin http://www.fbi.gov
+    redirect /_vti_inf.html http://www.fbi.gov
+    redirect /phpmy/scripts/setup.php http://www.fbi.gov
+    redirect /phpmyadmin/scripts/setup.php http://www.fbi.gov
+    redirect /php/scripts/setup.php http://www.fbi.gov
+    redirect /phpMy/scripts/setup.php http://www.fbi.gov
+    redirect /_phpmyadmin/scripts/setup.php http://www.fbi.gov
+    redirect /pma/scripts/setup.php http://www.fbi.gov
+    redirect /admin/scripts/setup.php http://www.fbi.gov
+    redirect /MyAdmin/scripts/setup.php http://www.fbi.gov
+    redirect /sql/scripts/setup.php http://www.fbi.gov
+    redirect /mysql/scripts/setup.php http://www.fbi.gov
+    redirect /setup.php?dir http://www.fbi.gov
+    redirect /MSOffice/cltreq.asp http://www.fbi.gov
+    redirect /(null) http://www.fbi.gov
+    redirect ///?_SERVER[DOCUMENT_ROOT] http://www.fbi.gov
+    redirect //?_SERVER[DOCUMENT_ROOT] http://www.fbi.gov
+    redirect /assets/snippets/reflect/snippet.reflect.php? http://www.fbi.gov
+    redirect /pagead/test_domain.js http://www.fbi.gov
+    redirect /pagead/osd.js http://www.fbi.gov
+    redirect /pagead/expansion_embed.js http://www.fbi.gov
+    redirect /pagead/render_ads.js http://www.fbi.gov
+    redirect /pagead/atf.js http://www.fbi.gov
+    redirect /.svn/entries http://www.fbi.gov
+    redirect /config/config.inc.php http://www.fbi.gov
+    redirect /fastenv http://www.fbi.gov
+    redirect /wp-login.php http://www.fbi.gov
+    RedirectMatch (.*)\cmd.exe$ http://www.fbi.gov$1
+
+    # Typos
+    redirect /www.fastvisa.com.au http://www.fastvisa.com.au
+    redirect /www.gofastvisa.com http://www.gofastvisa.com
+    redirect /www.facebook.com http://www.facebook.com
+    redirect /secure.officio.com.au http://secure.officio.com.au
+
+
+    RewriteCond %{REQUEST_METHOD}  ^(TRACE|TRACK) [NC,OR]
+    #RewriteCond %{THE_REQUEST}     ^.*(\\r|\\n|%0D).* [NC,OR]
+
+    RewriteCond %{HTTP_REFERER}    ^(.*)(<|>|'|%0A|%0D|%3C|%3E|%00).* [NC,OR]
+    RewriteCond %{HTTP_COOKIE}     ^.*(<|>|'|%0A|%0D|%27|%3C|%3E|%00).* [NC,OR]
+    RewriteCond %{REQUEST_URI}     ^/(,|;|:|<|>|">|"<|/|\\\.\.\\).{0,9999}.* [NC,OR]
+    RewriteCond %{REQUEST_URI}     ^/3D".* [NC,OR]
+    RewriteCond %{REQUEST_URI}     ^/(.*)email_open_log_pic(.*) [NC,OR]
+
+    ########## Block bad user agents
+    RewriteCond %{HTTP_USER_AGENT} ^(java|curl|wget).* [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} ^Microsoft\ Office\ Protocol\ Discovery$ [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} ^.*(winhttp|HTTrack|clshttp|archiver|loader|email|harvest|extract|grab|miner|Morfeus|ZmEu|TwengaBot|DotBot|CaSpEr).* [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} ^.*(libwww-perl|curl|wget|python|nikto|scan).* [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} ^.*(<|>|'|%0A|%0D|%27|%3C|%3E|%00).* [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} ^.*internal\ dummy\ connection.*$ [NC,OR]
+
+    ########## Block mySQL injects
+    RewriteCond %{QUERY_STRING}    ^.*(;|<|>|'|"|\)|%22|%27|%3C|%3E|%00).*(/\*|union|select|insert|cast|set|declare|drop|update|md5|benchmark).* [NC,OR]
+
+    RewriteCond %{QUERY_STRING}    ^.*(localhost|loopback|127\.0\.0\.1).* [NC,OR]
+    RewriteCond %{QUERY_STRING}    ^.*(<|>|%3C|%3E|%00).* [NC,OR]
+
+
+    RewriteCond %{REQUEST_URI} ^/(PMA|phpmy|phpmanager|php\-my|dbadmin|myadmin|phpadmin|wp\-admin|wp\-content|xampp|mysql|sqlweb|sqladmin|sqlmanager|websql|webdb|webadmin|roundcubemail|nosuichfile|noxdir|vhcs2|proxychecker|muieblackcat|awstats|typo3|service\.svc|sitemap\.xml)(.*)$ [NC,OR]
+    RewriteCond %{REQUEST_URI} ^(.*)/browserconfig\.xml$ [NC,OR]
+    RewriteCond %{REQUEST_URI} ^(.*)/scripts/setup\.php$ [NC]
+
+    RewriteRule ^.* - [F,L]
+
+    RewriteRule !((\.(eot|otf|svg|ttf|woff|woff2|htc|js|ico|gif|jpg|jpeg|png|css|swf|po|map)$)|(^check.php$)|(^crossdomain.xml$)|(^robots.txt$)|(^lock.php$)|(^500.html$)|(^pdf/(.*))|(^assets/plugins/@pdftron/webviewer/public/(.*))|(^xod/(.*))|(^help_files/(.*))|(^email/(.*))|(^min/(.*))|(^downloads/(.*))) index.php
+</IfModule>
+
+
+### Enable gzip
+<IfModule mod_deflate.c>
+    AddOutputFilter DEFLATE js css po
+    AddOutputFilterByType DEFLATE text/plain text/xml application/xhtml+xml text/css application/xml application/rss+xml application/atom_xml application/x-javascript application/x-httpd-php application/x-httpd-fastphp text/html text/x-gettext-translation
+
+    #The following lines are to avoid bugs with some browsers
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</IfModule>
+
+### Browser Caching
+
+# TIME CHEAT SHEET
+#      300   5 MIN
+#      600  10 MIN
+#      900  15 MIN
+#     1800  30 MIN
+#     2700  45 MIN
+#
+#     3600   1 HR
+#     7200   2 HR
+#    10800   3 HR
+#    18000   5 HR
+#    43200  12 HR
+#    86400  24 HR
+#
+#    86400   1 DAY
+#   172800   2 DAY
+#   259200   3 DAY
+#   604800   7 DAY
+#
+#   604800   1 WEEK
+#  1209600   2 WEEK
+#  1814400   3 WEEK
+#
+#  2419200   1 MONTH
+#  4838400   2 MONTH
+#  7257600   3 MONTH
+# 14515200   6 MONTH
+# 29030400  12 MONTH
+
+# any Expires Directives go here
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 30 days"
+    ExpiresByType application/x-javascript       "access plus 2 days"
+    ExpiresByType application/x-shockwave-flash  A3600
+    ExpiresByType text/css                       "access plus 1 month"
+    ExpiresByType image/x-icon                   A3600
+    ExpiresByType image/gif                      "access plus 1 month"
+    ExpiresByType image/png                      "access plus 1 month"
+    ExpiresByType image/jpeg                     "access plus 1 month"
+    ExpiresByType text/plain                     A3600
+    ExpiresByType video/x-flv                    A3600
+</IfModule>
+
+# any Header directives go here
+# If a response includes both an Expires header and a max-age directive, the max-age directive overrides the Expires header
+<IfModule mod_headers.c>
+    # 1 YEAR
+    <FilesMatch "\.(ico|pdf|flv|ttf)$">
+    Header set Cache-Control "max-age=29030400, public"
+    </FilesMatch>
+
+    # 1 Month
+    <FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
+    Header set Cache-Control "max-age=4838400, public"
+    </FilesMatch>
+
+    # 2 DAYS
+    <FilesMatch "\.(xml|txt|css|js)$">
+    Header set Cache-Control "max-age=172800, proxy-revalidate"
+    </FilesMatch>
+
+    # 1 MIN
+    #<FilesMatch "\.(html|htm|php)$">
+    #Header set Cache-Control "max-age=60, private, proxy-revalidate"
+    #</FilesMatch>
+</IfModule>
+
+# Disable E-Tags
+FileETag none

@@ -1,0 +1,16 @@
+<?php
+    $this->layout()->useJQuery = true;
+    $this->layout()->useExtjs = true;
+
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/import-clients/grid.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/import-clients/notes/step1.js');
+?>
+
+<?php $this->headScript()->captureStart();?>
+    var arrFiles = <?= \Laminas\Json\Json::encode($this->arrFiles) ?>;
+    var selectedFileId = <?= \Laminas\Json\Json::encode($this->fileId) ?>;
+    var errorMessage = <?= \Laminas\Json\Json::encode($this->errorMessage) ?>;
+<?php $this->headScript()->captureEnd();?>
+
+<div id="import-client-notes-container"></div>

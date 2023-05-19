@@ -1,0 +1,17 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/system-variables/panel.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/system-variables/init.js');
+
+$this->headScript()->captureStart();
+echo "var arrVariables = " . Json::encode($this->arrVariables) . ";";
+$this->headScript()->captureEnd();
+?>
+
+<div id="variables_container"></div>

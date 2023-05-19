@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pdx:document xmlns:pdx="http://www.phpdocx.com/main" >
+    <pdx:content>
+        <pdx:addImage pdx:imageAlign="center" pdx:scaling="50">
+            <pdx:data pdx:dataId="" pdx:dataType="text">/var/www/phpdocx/examples/XmlApi/files/img/image.png</pdx:data>
+            <pdx:imageBorder pdx:borderColor="FF0000" pdx:borderStyle="lgDash" pdx:borderWidth="6" />
+            <pdx:imageMargin pdx:spacingTop="10" pdx:spacingRight="20" pdx:spacingBottom="0" pdx:spacingLeft="0" />
+            <pdx:textWrap pdx:value="0" />
+            <pdx:imageCaption pdx:showLabel="true" pdx:captionValue="Sample Image" />
+        </pdx:addImage>
+        <pdx:customizeWordContent>
+            <pdx:referenceNode pdx:type="image" pdx:occurrence="1" />
+            <pdx:options>
+                <pdx:borderColor pdx:value="00FF00" />
+                <pdx:borderStyle pdx:value="solid" />
+                <pdx:borderWidth pdx:value="2" />
+                <pdx:height pdx:value="1562038" />
+                <pdx:imageAlign pdx:value="right" />
+                <pdx:spacingTop pdx:value="395250" />
+                <pdx:width pdx:value="2066775" />
+            </pdx:options>
+        </pdx:customizeWordContent>
+    </pdx:content>
+</pdx:document>

@@ -1,0 +1,9 @@
+<?php
+$this->layout()->useJQuery = true;
+$this->headScript()->appendFile($this->layout()->jsUrl . '/iframe_height.js');
+?>
+<div id="prospects-matching" class="admin-tab-content">
+    <form action="<?=$this->layout()->baseUrl?>/prospects-matching" method="post" enctype="multipart/form-data">
+        Select XSL file to match prospects: <input type="file" name="prospects" /> <input type="submit" value="Match" style="cursor: pointer;" />
+    </form>
+</div>

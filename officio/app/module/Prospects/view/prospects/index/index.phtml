@@ -1,0 +1,95 @@
+<table width="100%" cellpadding="0" cellspacing="0">
+<tr>
+    <td class="show-left-p" style="width:180px; padding:3px 5px 0; background-color:#fff;" valign="top" align="left">
+
+    <table width="100%" cellspacing="0" cellpadding="0">
+    <tr>
+      <td style="height:22px;" align="left" class="garytxt"><img src="<?=$this->imgUrl('orange-arrow.gif')?>" alt="" width="7" height="8" /> <b><?=$this->translate('Search')?></b> </td>
+    </tr>
+    <tr>
+        <td align="left" valign="middle" style="padding-bottom:10px;">
+        <table width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>
+            <input onkeyup="if(event.keyCode==13)prospectSearch(this.value);" type="text" style="padding:1px 0 3px; width:160px; border:1px solid rgb(127, 157, 185);" class="input" id="prospects-search_field_<?=$this->pid?>" name="search_field"/>
+            </td>
+            <td width="30" align="right" style="padding-left:2px;">
+            <a href="#" onclick="prospectSearch($('#prospects-search_field_<?=$this->pid?>').val()); return false;"><img src="<?=$this->imgUrl('search.gif')?>" alt="<?=$this->translate('Search')?>" width="15" height="15" /></a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="left">
+                <a onclick="loadProspectsTab({tab: 'advanced-search'}); return false;" class="blulinkun" href="#"><?=$this->translate('Advanced Search')?></a>
+            </td>
+        </tr>
+        </table>
+        </td>
+    </tr>
+    <tr>
+      <td>
+
+        <table width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+            <td align="left" valign="middle" class="garytxt"><img src="<?=$this->imgUrl('orange-arrow.gif')?>" alt="" width="7" height="8" /> <b><?=$this->translate('Today\'s Prospects')?></b></td>
+        </tr>
+        <tr>
+            <td style="padding-bottom:5px;">
+            
+            <table width="100%" cellspacing="0" cellpadding="0">
+            <tr>
+                <td valign="middle" align="left" style="height:22px;" class="brgrbtm footertxt"><a onclick="loadProspectsTab({tab: 'waiting-for-assessment'}); return false;" class="blulinkun" href="#"><?=$this->translate('Waiting for Assessment')?></a></td>
+            </tr>
+            <tr>
+                <td valign="middle" align="left" style="height:22px;" class="brgrbtm footertxt"><a onclick="loadProspectsTab({tab: 'qualified-prospects'}); return false;" class="blulinkun" href="#"><?=$this->translate('Qualified Prospects')?></a></td>
+            </tr>
+            <tr>
+                <td valign="middle" align="left" style="height:22px;" class="brgrbtm footertxt"><a onclick="loadProspectsTab({tab: 'unqualified-prospects'}); return false;" class="blulinkun" href="#"><?=$this->translate('Unqualified Prospects')?></a></td>
+            </tr>
+            <tr>
+                <td valign="middle" align="left" style="height:22px;" class="footertxt"><a onclick="loadProspectsTab({tab: 'all-prospects'}); return false;" class="blulinkun" href="#"><?=$this->translate('All Prospects')?></a></td>
+            </tr>
+            </table>
+            
+            </td>
+        </tr>
+        <tr>
+            <td align="left" valign="middle">
+
+            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tr>
+                <td align="left" valign="middle" class="garytxt" style="padding-top:10px; height:22px;"><img src="<?=$this->imgUrl('orange-arrow.gif')?>" alt="" width="7" height="8"/> <b><?=$this->translate('Tasks')?></b></td>
+                <td align="right" style="padding-top:10px; height:22px;"><a href="#" onclick="reloadProspectTasksList(); return false;"><img src="<?=$this->imgUrl('refresh.png')?>" alt="<?=$this->translate('Refresh')?>" width="16" height="16" /></a></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="padding-bottom:10px;">
+                <div id="prospects-task-resizer">
+                    <div id="prospectsTasksForm" class="overflow" style="height:220px;"><?=$this->tasks?></div>
+                </div>
+                </td>
+            </tr>
+            </table>
+
+            </td>
+        </tr>
+        </table>
+
+      </td>
+    </tr>
+    </table>
+
+    </td>
+    <td style="border-right: 1px solid rgb(177, 177, 177); background-color: rgb(225, 232, 238);" valign="top" width="1">
+        <div class="hide-left-p"><a href="#" onClick="hideleft('#prospects-tab'); return false;"><img src="<?=$this->imgUrl('arrow-button.gif')?>" width="5" border="0" height="42" alt="<?=$this->translate('Right')?>" /></a></div>
+    </td>
+    <td valign="top" align="left" style="padding-left:6px;">
+
+        <div id="div-new-prospect-link" style="float:right; position:relative;">
+            <div class="add-new-client-link">
+                <a href="#" class="white11bold" onclick="loadProspectsTab({tab: 'new-prospect'}); return false;"><?=$this->translate('Add&nbsp;Prospect')?></a>
+            </div>
+        </div>
+
+        <div class="div-sub-tab-content" id="divProspectsTabMenu"></div>
+    </td>
+</tr>
+</table>

@@ -1,0 +1,28 @@
+<?php
+$this->layout()->useExtjs = true;
+$this->layout()->useJQuery = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->cssUrl . '/manage_help.css');
+
+$this->headScript()->appendFile($this->layout()->jsUrl . '/main.js');
+$this->headScript()->appendFile($this->layout()->topJsUrl . '/help/main.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/iframe_height.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-help/TagDialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-help/TagsGrid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-help/ContextIdsDialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-help/ContextIdsGrid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-help/ContextIdsTabPanel.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-help/ContextIdsInit.js');
+
+$this->layout()->top_menu =
+'<table style="float: right">
+    <tr>
+        <td>
+            <i class="las la-edit" alt="Manage Help Categories And Articles"></i>&nbsp;<a href="' . $this->layout()->topBaseUrl . '/superadmin/manage-faq/index" class="bluelinks">Manage Help categories and articles</a>
+        </td>
+    </tr>
+</table>';
+?>
+
+<div id="help_context_ids_container"></div>

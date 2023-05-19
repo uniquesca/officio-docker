@@ -1,0 +1,55 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+
+$this->headScript()->appendFile($this->layout()->jsUrl . '/access-logs/grid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/access-logs/panel.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/access-logs/filter_panel.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/access-logs/init.js');
+
+$this->headScript()->captureStart();
+echo "var arrSettings = " . Json::encode($this->arrSettings) . ";";
+$this->headScript()->captureEnd();
+?>
+<?php $this->headStyle()->captureStart() ?>
+.no-padding-top, #x-form-el-log_filter_date_from, #x-form-el-log_filter_date_to {
+    padding-top:0 !important;
+    margin-top:0 !important;
+}
+
+.no-padding-bottom {
+    padding-bottom:0 !important;
+    margin-bottom:0 !important;
+}
+
+.filter-panel > .x-panel-bwrap {
+    border: 1px solid #99BBE8;
+    border-top: none;
+}
+
+.filter-panel .x-panel-footer {
+    background-color: #fff;
+}
+
+.x-border-layout-ct {
+    background: none;
+}
+
+.x-grid3-row-checker, .x-grid3-hd-checker {
+    margin-left: 7px;
+}
+.x-grid3-hd-inner.x-grid3-hd-checker {
+    background-image: none;
+}
+.x-grid3-hd-row .x-grid3-hd-checker {
+    margin-left: 4px;
+}
+
+<?php $this->headStyle()->captureEnd();?>
+
+<div id="logs_container" style="width: 100%;"></div>

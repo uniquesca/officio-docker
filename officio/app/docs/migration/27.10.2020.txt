@@ -1,0 +1,2 @@
+Rename settings->bcpnp_nomination_certificate_number to setting->bcpnp_import_identificator_field_name in
+local.php file if it's set there.

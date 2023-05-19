@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico"/>
+    <link rel="stylesheet" href="./style.css"/>
+    <script src="/assets/plugins/@pdftron/webviewer/webviewer.min.js"></script>
+    <title>Officio :: Open form</title>
+</head>
+<body>
+<div id="viewer"></div>
+<script>
+    ['custom-viewing.js'].forEach(function (js) {
+        var scriptTag = document.createElement('script');
+        scriptTag.src = js;
+        scriptTag.type = 'text/javascript';
+        document.getElementsByTagName('head')[0].appendChild(scriptTag);
+    });
+</script>
+</body>
+</html>

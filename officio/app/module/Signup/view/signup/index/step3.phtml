@@ -1,0 +1,182 @@
+<?php
+
+$this->headLink()->appendStylesheet($this->layout()->assetsUrl . '/@fortawesome/fontawesome-free/css/all.min.css');
+$this->headLink()->appendStylesheet($this->layout()->assetsUrl . '/select2/dist/css/select2.min.css');
+$this->headLink()->appendStylesheet($this->layout()->officioCssUrl . '/colorbox.css');
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/bootstrap-signup.css');
+
+$this->headScript()->appendFile($this->layout()->assetsUrl . '/select2/dist/js/select2.min.js');
+$this->headScript()->appendFile($this->layout()->jqueryUrl . '/jquery.metadata.js');
+$this->headScript()->appendFile($this->layout()->jqueryUrl . '/jquery.json.js');
+$this->headScript()->appendFile($this->layout()->assetsUrl . '/jquery-validation/dist/jquery.validate.min.js');
+$this->headScript()->appendFile($this->layout()->assetsUrl . '/jquery-colorbox/jquery.colorbox-min.js');
+$this->headScript()->appendFile($this->layout()->topJsUrl . '/gettext.js');
+$this->headScript()->appendFile($this->layout()->officioJsUrl . '/signup/step3.js');
+
+$booAustralia = $this->layout()->site_version == 'australia';
+$backUrlPath  = !empty($this->arrStep2Info['special_offer']) ? $this->layout()->baseUrl . '/specialoffer' : $this->layout()->officioBaseUrl . '/pricing.html';
+
+?>
+<div id="page-container" class="container-fluid pr-0 pl-0 h-100 d-flex flex-column">
+
+    <nav class="header navbar fixed-top navbar-expand-md navbar-dark">
+        <div class="container">
+            <a href="<?= $this->layout()->officioBaseUrl ?>/index.php">
+                <img src="<?= $this->layout()->imagesUrl ?>/default/logo.png" height="65" width="174" alt="<?= $this->layout()->officio_domain ?>" title="<?= $this->layout()->officio_domain ?>" border="0"/>
+            </a>
+
+            <?php if ($this->booShowPackageSection) : ?>
+                <div style="float: left;" class="navbar-brand">
+                    <table>
+                        <tr>
+                            <td id="selectedPlanContainer" class="d-none d-md-block" style="color: #1A3A71">
+                                <?= $this->translate('Selected Plan:') ?> <?= $this->selectedPlanName ?><br>
+                                <?= $this->translate('Pay Period:') ?> <?= $this->selectedPlanTerm ?> ($<?= $this->selectedPlanPrice ?> <?= $this->translate('+ applicable GST/HST)') ?>
+                            </td>
+                            <td id="backButtonContainer">
+                                <a href="#" id="previousBtn" class="btn btn-outline-primary" style="margin: 0 0 0 30px"><?= $this->translate('Back') ?></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            <?php endif; ?>
+        </div>
+    </nav>
+
+    <?php if (!empty($this->strError)): ?>
+        <div class="container">
+            <div class="alert alert-danger" style="margin-top: 120px;"><?= $this->strError ?></div>
+        </div>
+    <?php else: ?>
+        <div id="wizard_content" class="container content-container" style="padding-top:100px; margin-bottom: 15px;">
+            <form id="price_submit" method="post" action="<?= $backUrlPath ?>">
+                <input type="hidden" name="price_package" value="<?= $this->arrStep2Info['price_package'] ?>"/>
+                <input type="hidden" name="payment_term" value="<?= $this->arrStep2Info['payment_term'] ?>"/>
+                <input type="hidden" name="support" value="<?= $this->arrStep2Info['support'] ?>"/>
+                <input type="hidden" name="price_training" value="<?= $this->arrStep2Info['price_training'] ?>"/>
+                <input type="hidden" name="price_month" value="<?= $this->arrStep2Info['price_month'] ?>"/>
+                <input type="hidden" name="price_annually" value="<?= $this->arrStep2Info['price_annually'] ?>"/>
+                <input type="hidden" name="price_bi" value="<?= $this->arrStep2Info['price_bi'] ?>"/>
+
+                <?php
+                foreach ($this->arrSubscriptions as $subscriptionId) {
+                    echo '<input  type="hidden" name="price_' . $subscriptionId . '_user_license_monthly" value="' . $this->arrStep2Info['price_' . $subscriptionId . '_user_license_monthly'] . '" />' . PHP_EOL;
+                    echo '<input  type="hidden" name="price_' . $subscriptionId . '_user_license_annually" value="' . $this->arrStep2Info['price_' . $subscriptionId . '_user_license_annually'] . '" />' . PHP_EOL;
+                    echo '<input  type="hidden" name="price_' . $subscriptionId . '_user_license_biannually" value="' . $this->arrStep2Info['price_' . $subscriptionId . '_user_license_biannually'] . '" />' . PHP_EOL;
+                }
+                ?>
+
+                <input type="hidden" name="extra_users_count" value="<?= $this->arrStep2Info['extra_users_count'] ?>"/>
+                <input type="hidden" name="user_included" value="<?= $this->arrStep2Info['user_included'] ?>"/>
+                <input type="hidden" name="free_storage" value="<?= $this->arrStep2Info['free_storage'] ?>"/>
+                <input type="hidden" name="key" value="<?= $this->arrStep2Info['key'] ?>"/>
+            </form>
+
+            <div class="row justify-content-center w-100">
+                <ul id="progressbar" class="w-100">
+                    <li class="active" id="account"><strong><?= $this->translate('Create Admin Account') ?></strong></li>
+                    <li id="payment"><strong><?= $this->translate('Billing & Company Details') ?></strong></li>
+                    <li id="confirm"><strong><?= $this->translate('Finish') ?></strong></li>
+                </ul>
+            </div>
+
+            <div class="wizardcontent" id="step_3">
+                <form id="newCompanyForm" name="newCompanyForm" method="post" action="<?= $this->layout()->baseUrl . '/signup/index/step4' ?>" autocomplete="off">
+                    <input type="hidden" id="pkey" name="pkey" value="<?= $this->prospectKey ?>"/>
+                    <input type="hidden" id="special_offer" name="special_offer" value="<?= $this->arrStep2Info['special_offer'] ?>"/>
+                    <input type="hidden" id="price_package" name="price_package" value="<?= $this->arrStep2Info['price_package'] ?>"/>
+                    <input type="hidden" id="payment_term" name="payment_term" value="<?= $this->arrStep2Info['payment_term'] ?>"/>
+                    <input type="hidden" id="price_month" name="price_month" value="<?= $this->arrStep2Info['price_month'] ?>"/>
+                    <input type="hidden" id="price_training" name="price_training" value="<?= $this->arrStep2Info['price_training'] ?>"/>
+                    <input type="hidden" id="price_annually" name="price_annually" value="<?= $this->arrStep2Info['price_annually'] ?>"/>
+                    <input type="hidden" id="price_bi" name="price_bi" value="<?= $this->arrStep2Info['price_bi'] ?>"/>
+                    <input type="hidden" id="user_included" name="user_included" value="<?= $this->arrStep2Info['user_included'] ?>"/>
+                    <input type="hidden" id="free_storage" name="free_storage" value="<?= $this->arrStep2Info['free_storage'] ?>"/>
+                    <input type="hidden" id="support" name="support" value="<?= $this->arrStep2Info['support'] ?>"/>
+                    <input type="hidden" id="extra_users_count" name="extra_users_count" value="<?= $this->arrStep2Info['extra_users_count'] ?>"/>
+                    <input type="hidden" id="key" name="key" value="<?= $this->arrStep2Info['key'] ?>"/>
+                    <input type="hidden" id="country_normal" name="country_normal" value=""/>
+
+                    <div class="form-group">
+                        <label for="companyName" class="required required_not_mark"><?= $this->translate('Company Name') ?></label>
+                        <input id="companyName" name="companyName" type="text" class="form-control" value="<?= $this->arrStep3Info['companyName'] ?>"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="companyPhone" class="required required_not_mark"><?= $this->translate('Phone (W)') ?></label>
+                        <input id="companyPhone" name="companyPhone" type="text" class="form-control" value="<?= $this->arrStep3Info['companyPhone'] ?>"/>
+                    </div>
+
+                    <br>
+                    <h4>Admin User Details</h4>
+
+                    <div class="form-group">
+                        <label for="firstName" class="required required_not_mark"><?= $booAustralia ? $this->translate('Given Name') : $this->translate('First Name') ?></label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" value="<?= $this->arrStep3Info['firstName'] ?>"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName" class="required required_not_mark"><?= $booAustralia ? $this->translate('Family Name') : $this->translate('Last Name') ?></label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" value="<?= $this->arrStep3Info['lastName'] ?>"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emailAddress" class="required required_not_mark"><?= $this->translate('Email') ?></label>
+                        <input type="text" class="form-control" id="emailAddress" name="emailAddress" value="<?= $this->arrStep3Info['emailAddress'] ?>"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" class="required required_not_mark"><?= $this->translate('Username (email can be used as username)') ?></label>
+                        <input type="text" class="form-control" id="username" name="username" remote="<?= $this->layout()->baseUrl ?>/api/index/check-username?pkey=<?= $this->prospectKey ?>" value="<?= $this->arrStep3Info['username'] ?>"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="required required_not_mark"><?= $this->translate('Password') ?></label>
+                        <input type="text" class="form-control" id="password" name="password" minlength="<?= $this->layout()->settings->passwordMinLength; ?>" maxlength="<?= $this->layout()->settings->passwordMaxLength; ?>"/>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input required required_not_mark" type="checkbox" value="" id="accept_terms" name="accept_terms" required  <?= $this->arrStep3Info['accept_terms'] ? 'checked' : '' ?>>
+                            <label class="form-check-label" for="accept_terms">
+                                <?= sprintf(
+                                    $this->translate('I have read and accept <a class="inline_footer" href="%s">Terms of Use</a>'),
+                                    $this->layout()->baseUrl . '/default/index/terms'
+                                ) ?>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="divError" class="alert alert-danger" style="display: none"></div>
+
+                    <div class="row justify-content-center" style="margin-top: 10px; margin-bottom: 10px;">
+                        <div style="float: none; margin: 0 auto">
+                            <button id="nextBtn" type="button" class="btn btn-primary orange-btn" <?= !$this->arrStep3Info['accept_terms'] ? 'disabled' : '' ?> style="width: 235px;"><?= $this->translate('Continue to Payment details') ?></button>
+                            <img src="<?=$this->imgUrl('loading.gif')?>" alt="<?=$this->translate('Loading')?>" width="16" height="16" id="loadingImage" style="display: none;" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <?php endif ?>
+
+    <footer class="mt-auto">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="footer-col-lf col-md-6 text-center">
+                    <ul class="vertical-links small">
+                        <li><a class="inline_footer" href="<?= $this->layout()->baseUrl ?>/default/index/privacy"><?= $this->translate('Privacy Policy') ?></a></li>
+                        <li><a class="inline_footer" href="<?= $this->layout()->baseUrl ?>/default/index/terms"><?= $this->translate('Terms of Use') ?></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col-rt col-md-6 text-center">
+                    <ul class="vertical-links small">
+                        <li>
+                            <?= $this->translate('Copyright') ?> &copy; <?= ($this->layout()->site_version == 'australia' ? '2013-' . date('Y') : '1996-' . date('Y')) ?>, <?= $this->layout()->site_company_name ?>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>

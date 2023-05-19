@@ -1,0 +1,213 @@
+<?php
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs = true;
+$this->headScript()->appendFile('//maps.google.com/maps/api/js?sensor=true&key=' . $this->googleMapsKey, 'text/javascript', array('minify_disabled' => true, 'weight' => 50));
+$this->headScript()->appendFile($this->layout()->topJsUrl . '/tooltip.js');
+$this->headScript()->appendFile($this->layout()->jqueryUrl . '/jquery.colorPicker.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/company-website.js');
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/colorpicker.css');
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->cssUrl . '/company-website.css');
+
+$bgClass  = '';
+function getBgColor()
+{
+    global $bgClass;
+    $bgClass = ($bgClass == "evenRow") ? "oddRow" : "evenRow";
+    return $bgClass;
+}
+
+function createAndSaveWebsite($showCreateWebsite = false, $showSave = true)
+{
+    ?>
+    <div <?= $showCreateWebsite ? 'class="cws-center"' : '' ?>>
+        <?= ($showCreateWebsite ? '<button class="cws-create">Create website</button>' : '') ?>
+        <?= ($showSave ? '<button class="cws-save-builder">Save website</button>' : '') ?>
+        <div style="clear:both;"></div>
+    </div>
+<?php
+}
+?>
+
+<div id="cws" style="background-color: #ffffff;">
+    <button class="switch-builder">Old builder</button>
+    <?php
+    createAndSaveWebsite(
+        $this->builderWebsite ? false : true,
+        $this->builderWebsite ? true : false
+    );
+    ?>
+
+    <?php if ($this->builderWebsite) { ?>
+        <div id="cws-tab">
+        <form id="websites-builder-form" action="<?= $this->layout()->baseUrl ?>/company-website/edit-page" method="post" enctype="multipart/form-data" autocomplete="off">
+            <ul>
+                <li class="cws-tab-templates"><a href="#cws-templates"><span>Templates</span></a></li>
+                <li class="cws-tab-main-details"><a href="#cws-main-details"><span>Website Settings</span></a></li>
+                <li class="cws-tab-pages-details"><a href="#cws-pages-details"><span>Pages Settings</span></a></li>
+            </ul>
+
+
+            <div id="cws-templates">
+                <h5>Templates</h5>
+
+               <?php   if (!empty($this->builderTemplates)) { ?>
+                   <div id="cws-templates-list" style="display: table; margin: 0 auto 8px">
+                      <?php   foreach ($this->builderTemplates as $template) { ?>
+                          <div class="cws-builder-template<?= ($template['id'] == $this->builderWebsite['template_id'] ? ' active' : '') ?>"
+                               id="cws-builder-template-<?= $template['id'] ?>"
+                               style="display: table-cell;">
+                              <div class="cws-builder-template-hover hidden">Click to select</div>
+                              <div class="cws-builder-template-image"><a
+                                          href="<?= $this->layout()->topBaseUrl ?>/templates/editTemplate/<?= $template['template_name'] ?>_template.png"
+                                          class="preview"><img
+
+                                              width="145" height="156"
+                                              style="background: url(<?= $this->layout()->topBaseUrl ?>/templates/editTemplate/<?= $template['template_name'] ?>_template.png) no-repeat top; background-size: cover; border: #aaa solid 1px;"
+                                              alt=""/></a></div>
+                              <div style="width: 145px; overflow: hidden; text-align: center; padding-top: 5px;">
+                                  <input type="radio" name="templateId" id="template<?= $template['id'] ?>"
+                                         value="<?= $template['id'] ?>"
+                                     <?= $template['id'] == $this->builderWebsite['template_id'] ? 'checked' : '' ?>/>
+                                  <label for="template<?= $template['id'] ?>"><?= $this->escapeHtml($template['template_name']) ?></label>
+                              </div>
+                          </div>
+                      <?php   } ?>
+                       <div style="clear:both;"></div>
+                   </div>
+               <?php   } else { ?>
+                   No templates available.
+               <?php   } ?>
+                <div id="cws-builder-template-loading" class="hidden"
+                     style="margin: 105px auto; text-align: center; font-style: italic;"><img
+                            src="<?= $this->layout()->topBaseUrl ?>/images/ajax-loader-white.gif" alt=""/> Changing template
+                    please wait...
+                </div>
+
+               <?php   if ($this->builderWebsite['visible']) { ?>
+                   <div class="cws-center" style="margin-bottom: 200px;">
+                       <a href="<?= $this->layout()->topBaseUrl ?>/webs/<?= $this->escapeUrl($this->builderWebsite['entrance_name']) ?>"
+                          target="_blank" class="cws-btn">View website</a>
+                       <a href="<?= $this->layout()->topBaseUrl ?>/builder/<?= $this->escapeUrl($this->builderWebsite['entrance_name']) ?>"
+                          target="_blank" class="cws-btn">Edit website</a>
+                   </div>
+               <?php   } ?>
+
+            </div>
+
+            <div id="cws-main-details">
+                <h5>Website options</h5>
+
+                <table width="80%" border="0" cellspacing="1" cellpadding="4" align="center" bgcolor="#D8D8D8">
+                    <tr class="<?= getBgColor() ?>">
+                        <td width="40%" align="right"><label for="visible">Website is visible to public</label></td>
+                        <td align="left">
+                            <input type="checkbox" name="visible"
+                                   id="visible" <?= ($this->builderWebsite['visible'] ? ' checked="checked"' : '') ?>
+                                   style="vertical-align: middle; margin: 0px;"/>
+                        </td>
+                    </tr>
+                    <tr class="<?= getBgColor() ?>">
+                        <td width="40%" align="right" valign="top" class="field_name"><label for="company_name">Company
+                                Name</label></td>
+                        <td align="left">
+                            <textarea name="company_name" id="company_name" style="width:400px; height: 120px;"
+                                      class="textbox cws-rich-editor"><?= $this->builderWebsite['company_name'] ?></textarea>
+                        </td>
+                    </tr>
+
+                    <tr class="<?= getBgColor() ?>">
+                        <td width="15%" align="right" class="field_name"><label for="title">Title</label></td>
+                        <td align="left"><input type="text" name="title"
+                                                value="<?= $this->escapeHtmlAttr($this->builderWebsite['title']) ?>" size="50"
+                                                id="phone" class="textbox" maxlength="50"/><br/></td>
+                    </tr>
+
+                    <tr class="<?= getBgColor() ?>">
+                        <td width="15%" align="right" class="field_name"><label for="phone">Contact phone</label></td>
+                        <td align="left"><input type="text" name="phone"
+                                                value="<?= $this->escapeHtmlAttr($this->builderWebsite['phone']) ?>" size="50"
+                                                id="phone" class="textbox" maxlength="50"/><br/></td>
+                    </tr>
+
+                    <tr class="<?= getBgColor() ?>">
+                        <td width="15%" align="right" class="field_name"><label for="address">Contact Address</label>
+                        </td>
+                        <td align="left"><input type="text" name="address"
+                                                value="<?= $this->escapeHtmlAttr($this->builderWebsite['address']) ?>" size="50"
+                                                id="address" class="textbox" maxlength="50"/><br/></td>
+                    </tr>
+                    <tr class="<?= getBgColor() ?>">
+                        <td width="15%" align="right" class="field_name"><label for="address">Assessment Url</label>
+                        </td>
+                        <td align="left"><input type="text" name="assessment_url"
+                                                value="<?= $this->escapeHtmlAttr($this->builderWebsite['assessment_url']) ?>" size="50"
+                                                id="assessment_url" class="textbox" maxlength="50"/><br/></td>
+                    </tr>
+                </table>
+
+                <h5>Analytics</h5>
+
+                <table width="80%" border="0" cellspacing="1" cellpadding="4" align="center" bgcolor="#D8D8D8">
+                    <tr class="<?= getBgColor() ?>">
+                        <td width="40%" align="right" valign="top">
+                            <label for="google_script">Google Analytics script</label></td>
+                        <td align="left">
+                            <textarea name="google_script" id="google_script" style="width: 100%; height: 180px;" placeholder="Optional"><?= htmlspecialchars($this->builderWebsite['google_script'] ?? '') ?></textarea>
+                        </td>
+                    </tr>
+
+                    <tr class="<?= getBgColor() ?>">
+                        <td width="40%" align="right" valign="top">
+                            <label for="fb_script">Facebook Pixel script</label></td>
+                        <td align="left">
+                            <textarea name="fb_script" id="fb_script" style="width: 100%; height: 180px;" placeholder="Optional"><?= htmlspecialchars($this->builderWebsite['fb_script'] ?? '') ?></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="cws-pages-details">
+               <?php   $menu = array(
+                  'homepage' => 'Homepage',
+                  'about' => 'About us',
+                  'canada' => $this->booIsAustralia ? 'About Australia' : 'About Canada',
+                  'immigration' => 'Immigration',
+                  'assessment' => 'Free assessment',
+                  'contact' => 'Contact us'
+               ); ?>
+
+               <?php   foreach ($menu as $name => $label) { ?>
+                   <h5><?= $label ?></h5>
+
+                   <table width="80%" border="0" cellspacing="1" cellpadding="4" align="center" bgcolor="#D8D8D8">
+                      <?php   if ($name != 'homepage') { ?>
+                          <tr class="<?= getBgColor() ?>">
+                              <td width="40%" align="right" class="field_name"><label for="<?= $name ?>">Page
+                                      available</label>
+                              </td>
+                              <td align="left"><input type="checkbox" name="<?= $name ?>_available"
+                                                      id="<?= $name ?>" <?= ($this->builderWebsite[$name]['available'] ? ' checked="checked"' : '') ?> />
+                              </td>
+                          </tr>
+                      <?php   } ?>
+                       <tr class="<?= getBgColor() ?>">
+                           <td width="40%" align="right" class="field_name"><label for="<?= $name ?>_name">Menu
+                                   name</label></td>
+                           <td align="left"><input class="builder_input" type="text" name="<?= $name ?>_name"
+                                                   id="<?= $name ?>_name"
+                                                   value="<?= $this->escapeHtmlAttr($this->builderWebsite[$name]['name']) ?>"
+                                                   maxlength="100" required/></td>
+                       </tr>
+
+                   </table>
+               <?php   } ?>
+            </div>
+
+        </form>
+        </div>
+    <?php } else { ?>
+        <h2 style="font-size: 21px;text-align: center; margin-top: 50px;">...oops you don't have a site yet :(</h2>
+    <?php } ?>
+</div>

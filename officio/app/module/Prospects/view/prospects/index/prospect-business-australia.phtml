@@ -1,0 +1,59 @@
+<?php if (!empty($this->qnrFields) && is_array($this->qnrFields)): ?>
+<div style="padding: 10px; !important">
+    <form id="<?=$this->tabId?>-prospects">
+        <input type="hidden" name="pid" value="<?=$this->pid?>" />
+        <div id="<?=$this->tabId?>-divSuccess" style="display:none; margin-top: 45px;" class="confirmation">&nbsp;</div>
+        <table style='width: 100%; background-color:#FFF; padding: 15px; margin-top: 45px;'>
+            <?php
+            $col = 0;
+            foreach ($this->qnrFields as $arrField) {
+                $fieldId  = 'p_'.$this->pid.'_field_' . $arrField['q_field_id'];
+                $fieldId2 = 'p2_'.$this->pid.'_field_' . $arrField['q_field_id']; // Used for options
+
+
+                //First column?
+                if ($col==0) {
+                    echo "<tr>";
+                }
+                echo "<td align='left' class='garytxt11 padbtm4 {$arrField['q_field_unique_id']}' valign='top'>";
+
+                // Show label
+                $label = empty($arrField['q_field_prospect_profile_label']) ? $arrField['q_field_label'] : $arrField['q_field_prospect_profile_label'];
+                echo "<div class='field-label' for='$fieldId'>$label</div>";
+
+                // Show generated field
+                echo $this->qnr->generateQnrField(
+                    true,
+                    $fieldId,
+                    $fieldId2,
+                    $this->pid,
+                    $arrField,
+                    $this->qnrFieldsOptions,
+                    $this->arrCountries,
+                    !isset($this->prospectData[$arrField['q_field_id']]) ? '' : $this->prospectData[$arrField['q_field_id']],
+                    'ltr',
+                    false
+                );
+
+                echo "</td>";
+
+                // Need we start a new row?
+                if ($col == 0) {
+                    echo "</tr>";
+                    $col=0;
+                } else {
+                    $col++;
+                }
+            }
+
+            if ($col != 0) {
+                echo "</tr>";
+            }
+            ?>
+        </table>
+
+    </form>
+</div>
+<?php else:?>
+    <?= $this->translate('There are no fields.') ?>
+<?php endif;?>

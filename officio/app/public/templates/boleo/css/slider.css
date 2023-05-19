@@ -1,0 +1,139 @@
+#slides {
+    width: 100%;
+    position: relative;
+    padding: 28px 0 31px;
+    height: 440px;
+    overflow: hidden;
+}
+
+.slides_container {
+    width: 950px;
+    height: 440px;
+    overflow: hidden;
+}
+
+.slide {
+    width: 950px;
+    height: auto;
+}
+
+/* Control Nav */
+.pagination {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    line-height: 11px;
+    z-index: 999;
+}
+
+.pagination li {
+    font-size: 0px;
+    line-height: 0;
+    margin-right: 2px;
+    display: inline-block;
+    text-indent: -5000px;
+}
+
+.pagination li a {
+    display: block;
+    height: 11px;
+    width: 11px;
+}
+
+.pagination li.current a, .pagination li a:hover {
+    background-position: 0 0;
+}
+
+.pagination li.current a {
+    cursor: default;
+}
+
+/* Caption */
+.caption {
+    z-index: 999;
+    position: absolute;
+    top: 184px;
+    left: 70px;
+    width: 350px;
+    height: 100px;
+    overflow: hidden;
+    font: 40px/36px Arial, Helvetica, sans-serif;
+    color: #a3c0c4;
+    letter-spacing: -1px;
+}
+
+.caption span {
+    display: block;
+    text-transform: uppercase;
+}
+
+@media only screen and (max-width: 995px) {
+    #slides {
+        padding: 20px 0 27px;
+        height: 357px;
+        background-position: center 377px;
+        background-size: 100%;
+    }
+
+    .slides_container {
+        width: 768px;
+        height: 357px;
+    }
+
+    .slide {
+        width: 768px;
+    }
+
+    .caption {
+        top: 130px;
+        font-size: 35px;
+        line-height: 33px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    #slides {
+        height: 195px;
+        padding: 20px 0 10px;
+        background-position: center 215px;
+    }
+
+    .slides_container {
+        width: 420px;
+        height: 195px;
+    }
+
+    .slide {
+        width: 420px;
+    }
+
+    .pagination {
+        width: auto;
+        bottom: auto;
+        top: 40px;
+        left: 20px;
+    }
+
+    .caption {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 479px) {
+    #slides {
+        height: 139px;
+        padding-bottom: 5px;
+        background-position: center 159px;
+    }
+
+    .slides_container {
+        width: 300px;
+        height: 139px;
+    }
+
+    .slide {
+        width: 300px;
+    }
+}

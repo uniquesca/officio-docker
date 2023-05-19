@@ -1,0 +1,571 @@
+<?php
+// Supporting function to avoid notices
+global $arrProspectData;
+
+use Officio\Common\Service\Settings;
+
+$arrProspectData = $this->arrProspectInfo['data'];
+if (!function_exists('getVal')) {
+    function getVal($key, $booRequired = true)
+    {
+        global $arrProspectData;
+        $strResult = '';
+        if (array_key_exists($key, $arrProspectData)) {
+            $strResult = $arrProspectData[$key];
+        }
+
+        if ($strResult == '0000-00-00') {
+            $strResult = '';
+        }
+
+        if (empty($strResult) && $booRequired) {
+            $strResult = '-';
+        }
+
+        return $strResult;
+    }
+}
+
+$booMainApplicantHasEnglishTest = array_key_exists('qf_language_have_taken_test_on_english', $arrProspectData) && $arrProspectData['qf_language_have_taken_test_on_english'] == 'Yes';
+$booSpouseHasEnglishTest = array_key_exists('qf_language_spouse_have_taken_test_on_english', $arrProspectData) && $arrProspectData['qf_language_spouse_have_taken_test_on_english'] == 'Yes';
+$booHasExperienceInManging = array_key_exists('qf_have_experience_in_managing', $arrProspectData) && $arrProspectData['qf_have_experience_in_managing'] == 'Yes';
+
+// Check which checkboxes are checked -
+// in relation to the checked checkboxes we'll show fields/group of fields
+$arrAreaOfInterest = array();
+if (array_key_exists('qf_area_of_interest', $arrProspectData) && !empty($arrProspectData['qf_area_of_interest'])) {
+    $arrAreaOfInterest = explode(', ', $arrProspectData['qf_area_of_interest']);
+}
+$booCitizenshipChecked = in_array('Citizenship', $arrAreaOfInterest);
+$booSkilledChecked = in_array('Skilled Independent Visa', $arrAreaOfInterest);
+$booEmployerChecked = in_array('Employer Sponsored Visa', $arrAreaOfInterest);
+$booParentVisaChecked = in_array('Parent Visa', $arrAreaOfInterest);
+$booStateVisaChecked = in_array('State Sponsorship Visa', $arrAreaOfInterest);
+$booBusinessVisaChecked = in_array('Business/Significant Investment Visa', $arrAreaOfInterest);
+$booProfessionalProgramsChecked = array_key_exists('qf_programs_completed_professional_year', $arrProspectData) && $arrProspectData['qf_programs_completed_professional_year'] == 'Yes';
+$booAreaOfInterestOtherChecked = in_array('Other (Type your area of interest in the box below and describe in brief)', $arrAreaOfInterest);
+
+if (!Settings::isDateEmpty($this->arrProspectInfo['main']['update_date'])) {
+    $strUpdatedOn = date('F d, Y', strtotime($this->arrProspectInfo['main']['update_date']));
+} elseif (!Settings::isDateEmpty($this->arrProspectInfo['main']['create_date'])) {
+    $strUpdatedOn = date('F d, Y', strtotime($this->arrProspectInfo['main']['create_date']));
+} else {
+    $strUpdatedOn = $this->translate('Unknown date');
+}
+?>
+<style type="text/css">
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td {
+        font-family: arial, sans-serif;
+        color: #000000;
+        border: 1px solid #4C83C5;
+    }
+
+    .header, .prospects-assessment-td-header {
+        background-color: #5D90CC;
+        color: #ffffff;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    .right {
+        text-align: right;
+    }
+
+    .prospects-assessment-table {
+        width: 255px;
+    }
+
+    .prospects-assessment-td-group {
+        color: #033876;
+        font-weight: bold;
+    }
+
+    .prospects-assessment-td-total-qualified {
+        color: #FF0000;
+    }
+
+    .prospects-assessment-td-total-notqualified {
+        color: #009900;
+    }
+
+    .prospects-assessment-td-total {
+        font-weight: bold;
+    }
+
+    .prospects-assessment-td-odd {
+        background-color: #F4F6F8;
+    }
+</style>
+
+<div class="center">
+    <strong><?= $this->translate('PRELIMINARY QUESTIONNAIRE AU') ?></strong> <?= sprintf($this->translate('(Captured on %s)'), $strUpdatedOn) ?>
+</div>
+<br/><br/>
+
+<table cellpadding="2" cellspacing="0">
+
+    <tr>
+        <td style="border: none;">&nbsp;</td>
+        <td class="header center"><?= $this->translate('Main Applicant') ?></td>
+        <td class="header center"><?= $this->translate('Spouse') ?></td>
+        <td style="border: none;">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td class="header"><?= $this->translate('Given names') ?></td>
+        <td class="center"><?= $this->arrProspectInfo['main']['fName'] ?></td>
+        <td class="center"><?= getVal('qf_spouse_first_name') ?></td>
+        <td rowspan="45" style="vertical-align: top; border: none;">
+            <table cellpadding="2" cellspacing="0">
+
+                <tr>
+                    <td class="header center"><?= $this->translate('Area of Interest') ?></td>
+                </tr>
+                <tr>
+                    <td class="center"><?= str_replace(', ', ',<br/>', getVal('qf_area_of_interest')) ?></td>
+                </tr>
+
+                <?php if ($booAreaOfInterestOtherChecked) : ?>
+                    <tr>
+                        <td class="center"><?= nl2br(getVal('qf_area_of_interest_other1')) ?></td>
+                    </tr>
+                <?php endif ?>
+
+                <?php if ($booCitizenshipChecked) : ?>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Date Permanent Residency Obtained') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_date_permanent_residency_obtained') ?></td>
+                    </tr>
+                <?php endif ?>
+
+                <?php if ($booStateVisaChecked) : ?>
+                    <tr>
+                        <td class="header center"><?= $this->translate('States of Interest') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= str_replace(', ', ',<br/>', getVal('qf_states_of_interest')) ?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="header center"><?= $this->translate('Completed any qualification from the above mentioned state') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_have_you_completed_any_qualification') ?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="header center"><?= $this->translate('Currently have a job offer from the above mentioned state') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_currently_have_a_job_offer') ?></td>
+                    </tr>
+                <?php endif ?>
+
+
+                <?php if ($booBusinessVisaChecked) : ?>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Prepared to invest at least AUD 1.5 Million in Australian business') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_prepared_to_invest') ?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="header center"><?= $this->translate('Have experience in managing a business') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_have_experience_in_managing') ?></td>
+                    </tr>
+
+                    <?php if ($booHasExperienceInManging) : ?>
+                        <tr>
+                            <td class="header center"><?= $this->translate('Is turnover of the business greater than AUD 500,000') ?></td>
+                        </tr>
+                        <tr>
+                            <td class="center"><?= getVal('qf_was_the_turnover_greater') ?></td>
+                        </tr>
+                    <?php endif ?>
+
+                    <tr>
+                        <td class="header center"><?= $this->translate('Is net worth more than AUD 2.25 Million') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_is_your_net_worth') ?></td>
+                    </tr>
+                <?php endif ?>
+
+                <?php if ($booEmployerChecked) : ?>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Employer Position/Job Title') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_position_job_title') ?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="header center"><?= $this->translate('Employer Name of the Business') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_name_of_the_business') ?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="header center"><?= $this->translate('Employer Address') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_address_of_the_employer') ?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="header center"><?= $this->translate('Employer Phone Number') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_phone_number') ?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="header center"><?= $this->translate('Employer E-mail Address') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_email_address') ?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="header center"><?= $this->translate('Employer Contact person') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_contact_person') ?></td>
+                    </tr>
+                <?php endif ?>
+
+                <?php if ($booParentVisaChecked) : ?>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Total number of children of the applicant') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_total_number_of_children') ?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="header center"><?= $this->translate('Number of children who are Australian permanent residents') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_number_of_children_australian_residents') ?></td>
+                    </tr>
+                <?php endif ?>
+
+
+                <?php if ($booSkilledChecked) : ?>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Completed a Professional Year for a period of at least 12 months in past four years') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_programs_completed_professional_year') ?></td>
+                    </tr>
+
+                    <?php if ($booProfessionalProgramsChecked) : ?>
+                        <tr>
+                            <td class="header center"><?= $this->translate('Name of Professional Year Program') ?></td>
+                        </tr>
+                        <tr>
+                            <td class="center"><?= getVal('qf_programs_name') ?></td>
+                        </tr>
+
+                        <tr>
+                            <td class="header center"><?= $this->translate('Year Completed') ?></td>
+                        </tr>
+                        <tr>
+                            <td class="center"><?= getVal('qf_programs_year_completed') ?></td>
+                        </tr>
+
+                        <tr>
+                            <td class="header center"><?= $this->translate('Have a credentialed community language qualification') ?></td>
+                        </tr>
+                        <tr>
+                            <td class="center"><?= getVal('qf_programs_have_credentialed_language_qualification') ?></td>
+                        </tr>
+                    <?php endif ?>
+                <?php endif ?>
+
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="header"><?= $this->translate('Family name') ?></td>
+        <td class="center"><?= $this->arrProspectInfo['main']['lName'] ?></td>
+        <td class="center"><?= getVal('qf_spouse_last_name') ?></td>
+    </tr>
+
+    <tr>
+        <td class="header"><?= $this->translate('Date of birth') ?></td>
+        <td class="center"><?= Settings::isDateEmpty($this->arrProspectInfo['main']['date_of_birth']) ? '-' : $this->arrProspectInfo['main']['date_of_birth'] ?></td>
+        <td class="center"><?= getVal('qf_spouse_date_of_birth') ?></td>
+    </tr>
+
+    <tr>
+        <td class="header"><?= $this->translate('Country of Passport') ?></td>
+        <td class="center"><?= getVal('qf_country_of_citizenship') ?></td>
+        <td class="center"><?= getVal('qf_spouse_country_of_passport') ?></td>
+    </tr>
+
+    <tr>
+        <td class="header"><?= $this->translate('Country of current Residence') ?></td>
+        <td class="center"><?= getVal('qf_country_of_residence') ?></td>
+        <td class="center"><?= getVal('qf_spouse_country_of_current_residence') ?></td>
+    </tr>
+
+    <tr>
+        <td class="header"><?= $this->translate('Does any applicant have health or care concerns?') ?></td>
+        <td class="center"><?= getVal('qf_applicant_health_or_care_concerns') ?></td>
+        <td class="center">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td class="header"><?= $this->translate('Does any applicant have any criminal convictions?') ?></td>
+        <td class="center"><?= getVal('qf_applicant_have_criminal_convictions') ?></td>
+        <td class="center">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td class="header"><?= $this->translate('Referred by:') ?></td>
+        <td class="center">
+            <?= empty($this->arrProspectInfo['main']['referred_by']) ? '-' : $this->arrProspectInfo['main']['referred_by'] ?>
+        </td>
+        <td class="center">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td class="header"><?= $this->translate('Date of initial interview:') ?></td>
+        <td class="center"><?= getVal('qf_initial_interview_date') ?></td>
+        <td class="center">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td class="header"><?= $this->translate('Further Information:') ?></td>
+        <td class="center"><?= nl2br(getVal('qf_further_information')) ?></td>
+        <td class="center">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td class="header">&nbsp;</td>
+        <td class="center">&nbsp;</td>
+        <td class="center">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td class="header"><?= $this->translate('Marital status') ?></td>
+        <td class="center"><?= getVal('qf_marital_status') ?></td>
+        <td class="center">&nbsp;</td>
+    </tr>
+
+    <?php if ($booSkilledChecked) : ?>
+        <tr>
+            <td class="header"><?= $this->translate('Education') ?></td>
+            <td class="center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Highest Qualification') ?></td>
+            <td class="center"><?= getVal('qf_education_highest_qualification') ?></td>
+            <td class="center"><?= getVal('qf_education_spouse_highest_qualification', 0) ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Name of the Qualification') ?></td>
+            <td class="center"><?= getVal('qf_education_name_qualification') ?></td>
+            <td class="center"><?= getVal('qf_education_spouse_name_qualification', 0) ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Country of Education') ?></td>
+            <td class="center"><?= getVal('qf_education_country_of_education') ?></td>
+            <td class="center"><?= getVal('qf_education_spouse_country_of_education', 0) ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Completion Date') ?></td>
+            <td class="center"><?= getVal('qf_education_completion_date') ?></td>
+            <td class="center"><?= getVal('qf_education_spouse_completion_date', 0) ?></td>
+        </tr>
+
+        <tr>
+            <td class="header">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?= $this->translate('Language Proficiency:') ?></td>
+            <td class="center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Taken an English test in last 36 months') ?></td>
+            <td class="center"><?= getVal('qf_language_have_taken_test_on_english') ?></td>
+            <td class="center"><?= getVal('qf_language_spouse_have_taken_test_on_english', 0) ?></td>
+        </tr>
+
+        <?php if ($booMainApplicantHasEnglishTest || $booSpouseHasEnglishTest) : ?>
+            <tr>
+                <td class="header right"><?= $this->translate('Test Type') ?></td>
+                <td class="center"><?= $booMainApplicantHasEnglishTest ? getVal('qf_language_type_of_test', 0) : '&nbsp;' ?></td>
+                <td class="center"><?= $booSpouseHasEnglishTest ? getVal('qf_language_spouse_type_of_test', 0) : '&nbsp;' ?></td>
+            </tr>
+
+            <tr>
+                <td class="header right"><?= $this->translate('Date of Test') ?></td>
+                <td class="center"><?= $booMainApplicantHasEnglishTest ? getVal('qf_language_date_of_test', 0) : '&nbsp;' ?></td>
+                <td class="center"><?= $booSpouseHasEnglishTest ? getVal('qf_language_spouse_date_of_test', 0) : '&nbsp;' ?></td>
+            </tr>
+
+            <tr>
+                <td class="header right"><?= $this->translate('Listening Score') ?></td>
+                <td class="center"><?= $booMainApplicantHasEnglishTest ? getVal('qf_language_listening_score', 0) : '&nbsp;' ?></td>
+                <td class="center"><?= $booSpouseHasEnglishTest ? getVal('qf_language_spouse_listening_score', 0) : '&nbsp;' ?></td>
+            </tr>
+
+            <tr>
+                <td class="header right"><?= $this->translate('Reading Score') ?></td>
+                <td class="center"><?= $booMainApplicantHasEnglishTest ? getVal('qf_language_reading_score', 0) : '&nbsp;' ?></td>
+                <td class="center"><?= $booSpouseHasEnglishTest ? getVal('qf_language_spouse_reading_score', 0) : '&nbsp;' ?></td>
+            </tr>
+
+            <tr>
+                <td class="header right"><?= $this->translate('Writing Score') ?></td>
+                <td class="center"><?= $booMainApplicantHasEnglishTest ? getVal('qf_language_writing_score', 0) : '&nbsp;' ?></td>
+                <td class="center"><?= $booSpouseHasEnglishTest ? getVal('qf_language_spouse_writing_score', 0) : '&nbsp;' ?></td>
+            </tr>
+
+            <tr>
+                <td class="header right"><?= $this->translate('Speaking Score') ?></td>
+                <td class="center"><?= $booMainApplicantHasEnglishTest ? getVal('qf_language_speaking_score', 0) : '&nbsp;' ?></td>
+                <td class="center"><?= $booSpouseHasEnglishTest ? getVal('qf_language_spouse_speaking_score', 0) : '&nbsp;' ?></td>
+            </tr>
+
+            <tr>
+                <td class="header right"><?= $this->translate('Overall Score') ?></td>
+                <td class="center"><?= $booMainApplicantHasEnglishTest ? getVal('qf_language_overall_score', 0) : '&nbsp;' ?></td>
+                <td class="center"><?= $booSpouseHasEnglishTest ? getVal('qf_language_spouse_overall_score', 0) : '&nbsp;' ?></td>
+            </tr>
+        <?php endif ?>
+    <?php endif /* Is skilled checkbox checked */ ?>
+
+
+    <tr>
+        <td class="header center">&nbsp;</td>
+        <td class="center">&nbsp;</td>
+        <td class="center">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td class="header"><?= $this->translate('Work Experience:') ?></td>
+        <td class="center">&nbsp;</td>
+        <td class="center">&nbsp;</td>
+    </tr>
+
+    <?php
+    if (!function_exists('echoJobRow')) {
+        function echoJobRow($title, $arrMainApplicantJob, $arrSpouseJob, $index, $fieldId, $strEmpty = '-')
+        {
+            $mainApplicantVal = '&nbsp;';
+            if (isset($arrMainApplicantJob[$index])) {
+                $mainApplicantVal = empty($arrMainApplicantJob[$index][$fieldId]) ? $strEmpty : $arrMainApplicantJob[$index][$fieldId];
+            }
+
+            $spouseVal = '&nbsp;';
+            if (isset($arrSpouseJob[$index])) {
+                $spouseVal = empty($arrSpouseJob[$index][$fieldId]) ? $strEmpty : $arrSpouseJob[$index][$fieldId];
+            }
+
+            echo '<tr>';
+            echo '<td class="header right">' . $title . '</td>';
+            echo '<td class="center">' . $mainApplicantVal . '</td>';
+            echo '<td class="center">' . $spouseVal . '</td>';
+            echo '</tr>';
+        }
+    }
+
+    if (count($this->arrProspectInfo['job']) || count($this->arrProspectInfo['job_spouse'])) {
+        $maxJobCount = max(count($this->arrProspectInfo['job']), count($this->arrProspectInfo['job_spouse']));
+        for ($i = 0; $i < $maxJobCount; $i++) {
+            if ($i) {
+                echoJobRow('', array(), array(), 0, '');
+            }
+
+            $arrTitles = array(
+                'qf_job_title' => 'Occupation ' . ($i + 1),
+                'qf_job_employer' => 'Name of the employer',
+                'qf_job_text_title' => 'Job Title',
+                'qf_job_country_of_employment' => 'Country of Employment',
+                'qf_job_start_date' => 'Start Date',
+                'qf_job_end_date' => 'End Date',
+            );
+
+            foreach ($arrTitles as $fieldId => $fieldName) {
+                echoJobRow($fieldName, $this->arrProspectInfo['job'], $this->arrProspectInfo['job_spouse'], $i, $fieldId);
+            }
+        }
+    } else {
+        echo <<<EOD
+            <tr>
+                <td class="header">&nbsp;</td>
+                <td class="center">None</td>
+                <td class="center">&nbsp;</td>
+            </tr>
+EOD;
+    }
+    ?>
+
+    <tr>
+        <td class="header">&nbsp;</td>
+        <td class="center">&nbsp;</td>
+        <td class="center">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td class="header"><?= $this->translate('Assessment Summary:') ?></td>
+        <td class="center">
+            <?php
+            if ($this->arrProspectInfo['main']['qualified'] == 'Y') {
+                if (count($this->arrProspectInfo['categories'])) {
+                    $i = 1;
+                    foreach ($this->arrProspectInfo['categories'] as $categoryName) {
+                        echo ($i > 1) ? '<br/>' . $categoryName : $categoryName;
+                        $i++;
+                    }
+                }
+
+                foreach ($this->arrCategories as $arrCategoryInfo) {
+                    if ($arrCategoryInfo['client_category_id'] == $this->arrProspectInfo['main']['visa']) {
+                        echo '<br/>' . $arrCategoryInfo['client_category_name'];
+                        break;
+                    }
+                }
+            } else {
+                echo $this->translate('Not Qualified');
+            }
+            ?>
+        </td>
+        <td class="center">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td class="header"><?= $this->translate('Assessment Notes:') ?></td>
+        <td class="center">
+            <?= empty($this->arrProspectInfo['main']['notes']) ? '-' : nl2br($this->arrProspectInfo['main']['notes'] ?? '') ?>
+        </td>
+        <td class="center">&nbsp;</td>
+    </tr>
+</table>

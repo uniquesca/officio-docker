@@ -1,0 +1,255 @@
+.field-wrapper {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.radio_container {
+    position: relative;
+    display: table;
+}
+
+.ul.nav > li :hover{
+    background-color: red;
+    text-decoration: none;
+}
+
+.error {
+    color: red;
+}
+
+.required:after {
+    content: " *";
+    color: red;
+}
+
+.headerTitle {
+    display: inline-block;
+    width: 50%;
+    white-space: normal;
+}
+
+/* = STEPS CONTAINER
+----------------------------*/
+.wizard-steps {
+    display: inline;
+    margin: 0 0 0 24px;
+    padding:0;
+    position: relative;
+    clear:both;
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+.wizard-steps div {
+    position:relative;
+}
+/* = DEFAULT STEPS
+----------------------------*/
+.wizard-steps a h5 {
+    font-weight: 600;
+    margin: 9px;
+    font-size: 25px;
+}
+.wizard-steps a {
+    min-width: 160px;
+    position:relative;
+    display:block;
+    height:48px;
+    margin-right: 26px;
+    padding: 0 15px;
+    text-align: center;
+    float: left;
+    font-size:11px;
+    line-height:40px;
+    color:#63aae7;
+    background: #EBEBEB;
+    text-decoration:none;
+    text-shadow:1px 1px 1px rgba(255,255,255, 0.8);
+}
+
+.wizard-steps:not(.wizard-steps-rtl) > div:not(:first-child) a:before {
+    width: 0;
+    height:0;
+    border-top: 24px solid #EBEBEB;
+    border-bottom: 24px solid #EBEBEB;
+    border-left:20px solid transparent;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: -20px;
+}
+
+.wizard-steps:not(.wizard-steps-rtl) > div:not(:last-child) a:after {
+    width: 0;
+    height: 0;
+    border-top: 24px solid transparent;
+    border-bottom: 24px solid transparent;
+    border-left:20px solid #EBEBEB;
+    position: absolute;
+    content: "";
+    top: 0;
+    right: -20px;
+}
+
+.wizard-steps.wizard-steps-rtl {
+    display: flex;
+    flex-wrap: wrap-reverse;
+}
+
+.wizard-steps.wizard-steps-rtl > div:not(:first-child) a:after {
+    width: 0;
+    height:0;
+    border-top: 24px solid #EBEBEB;
+    border-bottom: 24px solid #EBEBEB;
+    border-right:20px solid transparent;
+    position: absolute;
+    content: "";
+    top: 0;
+    right: -20px;
+} 
+.wizard-steps.wizard-steps-rtl > div:not(:last-child) a:before {
+    width: 0;
+    height: 0;
+    border-top: 24px solid transparent;
+    border-bottom: 24px solid transparent;
+    border-right:20px solid #EBEBEB;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: -20px;
+}
+
+form[dir="rtl"] {
+    text-align: right;
+}
+
+form[dir="rtl"] .wizard-steps-rtl div:first-child a {
+    margin-right: 0px;
+}
+
+/* = COMPLETED STEPS
+----------------------------*/
+
+.hidden_via_visibility {
+    visibility: hidden !important;
+}
+
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+label, .name-employment {
+    font-weight: 500;
+    font-size: 20px;
+    color: #5c6873;
+}
+
+.field_help {
+    margin-bottom: 5px;
+}
+
+.spouse_field {
+    background-color: #fcf8e3;
+}
+
+.row.remove-employment {
+    text-align: right;
+}
+
+.name-employment {
+    font-size: 20px;
+}
+
+.dropdown-menu {
+    overflow: hidden !important;
+}
+
+.tooltip-inner {
+    max-width: 300px;
+}
+
+.dropdown-menu li a {
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.bottom_copyright {
+    text-align: center;
+    padding-bottom: 10px;
+    width: 100%;
+    color: gray;
+    font-size: 12px;
+}
+
+.select2-selection__rendered {
+    line-height: 31px !important;
+}
+.select2-container .select2-selection--single {
+    height: 35px !important;
+    border: 1px solid #ced4da;
+}
+.select2-dropdown {
+    border: 1px solid #ced4da;
+}
+.select2-selection__arrow {
+    height: 34px !important;
+}
+
+.select2-container .select2-results > .select2-results__options {
+    max-height: 400px;
+}
+
+.container {
+    max-width: 970px;
+}
+
+a.move:hover {
+    border: 2px solid #81D9FF;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 540px) {
+    .popover {
+        max-width: 300px !important;
+    }
+}
+@media screen and (min-width: 720px) {
+    .popover {
+        max-width: 400px !important;
+    }
+}
+@media screen and (min-width: 970px) {
+    /* .wizard-steps a {
+        width: 47px;
+    } */
+}
+@media screen and (min-width: 1200px) {
+    .popover {
+        max-width: 600px !important;
+    }
+}
+
+.btn.field_help {
+    border: 0;
+    background: none;
+    padding: 0;
+    margin-left: 8px;
+    margin-bottom: 0.3rem !important;
+}
+
+.btn.field_help a {
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.card-header .btn.field_help a {
+    font-size: 1.4rem;
+}
+
+label {
+    margin-bottom: 0.3rem !important;
+}
+
+.company-logo {
+    text-align: center;
+}

@@ -1,0 +1,15 @@
+<?php
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/zoho/keys/ZohoKeysGrid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/zoho/keys/ZohoKeysDialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/zoho/ZohoTabPanel.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/zoho/init.js');
+
+$this->headScript()->captureStart();
+    echo "var keys_perpage = ".$this->intShowKeysPerPage.";";
+$this->headScript()->captureEnd();
+?>
+<div id="zoho_settings_panel"></div>

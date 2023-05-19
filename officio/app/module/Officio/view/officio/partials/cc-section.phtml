@@ -1,0 +1,68 @@
+<table border="0" cellspacing="1" cellpadding="4" align="left" style="width: 100%;">
+    <tr>
+        <td width="150px" align="right" class="field_name"><label for="ccType" class="required"><?=$this->translate('Credit Card Type :')?> </label></td>
+        <td align="left">
+            <select name="ccType" class="drop_down" id="ccType" style="width: 145px;">
+                <option value="VISA">Visa</option>
+                <option value="MasterCard">MasterCard</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" class="field_name"><label class="required" for="ccNumber"><?=$this->translate('Credit Card No :')?></label></td>
+        <td align="left"><input id="ccNumber" name="ccNumber" type="text" size="50" style="width:290px;" /></td>
+    </tr>
+    <tr>
+        <td align="right" class="field_name"><label class="required" for="ccExpMonth"><?=$this->translate('Expiry Date :')?></label></td>
+        <td align="left">
+
+            <table border="0" cellspacing="0" cellpadding="0" align="left">
+                <tr>
+                    <td style="padding:0; border:none; width: 162px;">
+                        <select name="ccExpMonth" id="ccExpMonth" style="width:145px;">
+                            <option value=""><?=$this->translate('Month')?></option>
+                            <option value="01"><?=$this->translate('January')?></option>
+                            <option value="02"><?=$this->translate('February')?></option>
+                            <option value="03"><?=$this->translate('March')?></option>
+                            <option value="04"><?=$this->translate('April')?></option>
+                            <option value="05"><?=$this->translate('May')?></option>
+                            <option value="06"><?=$this->translate('June')?></option>
+                            <option value="07"><?=$this->translate('July')?></option>
+                            <option value="08"><?=$this->translate('August')?></option>
+                            <option value="09"><?=$this->translate('September')?></option>
+                            <option value="10"><?=$this->translate('October')?></option>
+                            <option value="11"><?=$this->translate('November')?></option>
+                            <option value="12"><?=$this->translate('December')?></option>
+                        </select>
+                    </td>
+                    <td style="padding:0; border:none;">
+                        <select id="ccExpYear" name="ccExpYear" style="width:145px;">
+                            <option value=""><?=$this->translate('Year')?></option>
+                            <?php
+                                $currentYear = date('Y');
+                                $maxYear = (date('Y', strtotime('+10 years')));
+                            for ($i = $currentYear; $i <= $maxYear; $i++) {
+                                echo sprintf("<option value='%s'>%s</option>", substr($i, 2, 2), $i);
+                            }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <?php if ($this->layout()->site_version == 'australia'): ?>
+        <tr>
+            <td align="right" class="field_name"><label class="required" for="ccCVN"><?= $this->translate('CVN :') ?></label></td>
+            <td align="left">
+                <input id="ccCVN" name="ccCVN" type="text" size="50" style="width:290px;"/>
+                <img src="<?= $this->layout()->topBaseUrl ?>/images/icons/help.png" width="16" height="16" alt="Help" style="padding: 10px 0 0 3px" ext:qwidth="500" ext:qtitle="About CVN"
+                     ext:qtip="<?= $this->escapeHtmlAttr($this->partial('officio/partials/cvn-info.phtml')) ?>"/>
+            </td>
+        </tr>
+    <?php endif ?>
+    <tr>
+        <td align="right" class="field_name"><label class="required" for="ccName"><?= $this->translate('Name on the Card :') ?></label></td>
+        <td align="left"><input id="ccName" name="ccName" type="text" size="50" style="width:290px;" /></td>
+    </tr>
+</table>

@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title><?= $this->translate('Open PDF form') ?></title>
+    <script type="text/javascript" src="<?= $this->layout()->jsUrl; ?>/pdfobject_source.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var success = new PDFObject({url: "<?=$this->embedUrl?>"}).embed();
+        };
+    </script>
+</head>
+<body>
+<p><?= $this->translate(
+        'It appears you don\'t have Adobe Reader or PDF support in this web
+    browser . '
+    ) ?> <a href="<?= $this->embedUrl ?>"><?= $this->translate('Click here to download the PDF') ?></a></p>
+</body>
+</html>

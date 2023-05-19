@@ -1,0 +1,97 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headScript()->appendFile($this->layout()->jsUrl . '/company/case_number_form.js');
+
+$this->headScript()->captureStart();
+echo 'var oCaseNumberSettings = ' . Json::encode($this->arrCaseNumberSettings) . ';';
+echo 'var oClientProfileIdSettings = ' . Json::encode($this->arrClientProfileIdSettings) . ';';
+echo 'var oCaseNumberLabels = ' . Json::encode($this->arrCaseNumberLabels) . ';';
+$this->headScript()->captureEnd();
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+
+$this->headStyle()->captureStart() ?>
+div.x-form-check-wrap, label.x-column {
+    padding-left: 5px;
+    padding-right: 5px;
+    display: inherit;
+}
+
+.x-form-item {
+    margin-bottom: 5px;
+}
+
+.x-form-radio {
+    vertical-align: top;
+}
+
+.x-form-element {
+    padding-top: 3px;
+}
+
+.move_button {
+    margin-left: 3px;
+}
+
+.move_option_up_button {
+    background-image: url(../images/icons/arrow_up.png) !important;
+}
+
+.move_option_down_button {
+    background-image: url(../images/icons/arrow_down.png) !important;
+}
+
+.with-top-padding {
+    padding-top: 7px;
+}
+.with-top-bigger-padding {
+    padding-top: 13px;
+}
+
+.content_container_body .x-form-text {
+    height: 20px;
+}
+
+.content_container_body .x-form-radio {
+    position: relative;
+    top: -2px;
+}
+
+.content_container_body .x-form-checkbox {
+    position: relative;
+    top: 2px;
+}
+.content_container_body .x-form-radio,
+.content_container_body .x-form-checkbox {
+    height: 20px;
+    width: 20px;
+}
+
+.content_container_body .x-btn-noicon .x-btn-small .x-btn-text {
+    height: 20px;
+}
+.content_container_body .x-btn-noicon:not(.move_button) .x-btn-small .x-btn-text {
+    padding: 0 16px;
+}
+
+form {
+    background-color: initial !important;
+}
+
+input[type="text"]
+{
+    padding-left: 10px !important;
+}
+
+.x-form-cb-label {
+    margin-left: 10px;
+}
+
+<?php $this->headStyle()->captureEnd();?>
+
+<div id="case-number-form"></div>

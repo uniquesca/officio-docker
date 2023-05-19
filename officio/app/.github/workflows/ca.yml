@@ -1,0 +1,114 @@
+name: CA
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          extensions: json, mbstring, openssl, pdo, pdo_mysql, mailparse, iconv, gd, zlib, curl, xml, simplexml, dom, calendar, gettext, zip, tidy, intl, imap
+
+      - name: Checkout main repository
+        if: (github.event_name == 'push') || (github.event.pull_request.merged == true)
+        uses: actions/checkout@v3
+        with:
+          path: main
+
+      - name: Checkout CA repository
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        uses: actions/checkout@v3
+        with:
+          repository: "uniquesca/ca-backend"
+          ref: latest
+          token: ${{ secrets.ACCESS_TOKEN }}
+          path: ca
+
+      - name: Prepare main code for copying - configs, composer and DB scripts
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: main
+        run: |
+          php officio.phar select_project ca
+          php officio.phar cleanup_project ca
+          rm .git -rf
+
+      # IMPORTANT: This has to be maintained well in order to prevent loss of important files
+      - name: Preserve CA-specific project files and delete everything else
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: ca
+        run: |
+          mkdir preserve/public/pdf -p
+          rsync -aE public/pdf preserve/public
+          rsync -aE .git preserve
+          find . -mindepth 1 -maxdepth 1 -type d -not -name 'preserve' -exec rm -rf {} \;
+          find . -maxdepth 1 -type f -delete
+
+      - name: Copying main code into CA project
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        run: rsync -aE main/ ca/
+
+      - name: Restoring CA-specific files
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: ca
+        run: |
+          rsync -aE --ignore-existing preserve/ ./
+          rm preserve -rf
+          rm .officioproject
+
+      - name: Cache PHP dependencies
+        id: cache-composer
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        uses: actions/cache@v3
+        with:
+          path: |
+            ca/vendor
+            ca/public/assets/
+            !ca/public/assets/plugins
+            ca/public/js/csrf/csrfprotector.js
+          key: ${{ runner.os }}-composer-${{ hashFiles('ca/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Cache Yarn dependencies
+        id: cache-yarn
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        uses: actions/cache@v3
+        with:
+          path: ca/public/assets/plugins
+          key: ${{ runner.os }}-yarn-${{ hashFiles('ca/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Composer install
+        if: success() && (steps.cache-composer.outputs.cache-hit != 'true') && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: ca
+        run: |
+          php composer.phar config github-oauth.github.com ${{ secrets.ACCESS_TOKEN }}
+          php composer.phar install --no-dev --prefer-dist -o
+
+      - name: Yarn install
+        if: success() && (steps.cache-yarn.outputs.cache-hit != 'true') &&  ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: ca
+        run: |
+          echo "@uniquesca:registry=https://npm.pkg.github.com" >> ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.ACCESS_TOKEN }}" >> .npmrc
+          echo "always_auth=true" >> .npmrc
+          yarn install
+
+      - name: Commit changes
+        if: success() && ((github.event_name == 'push') || (github.event.pull_request.merged == true))
+        working-directory: ca
+        run: |
+          git add .
+
+          git config --local user.email "gha@uniques.ca"
+          git config --local user.name "GitHub Actions"
+
+          git diff-index --quiet HEAD || (git commit -a -m "Automatic commit from main repository: #${GITHUB_SHA}" && git push)

@@ -1,0 +1,11 @@
+.division-group-icon-add {
+    background-image: url(../images/icons/page_add.png) !important;
+}
+
+.division-group-icon-edit {
+    background-image: url(../images/icons/page_edit.png) !important;
+}
+
+.division-group-icon-status {
+    background-image: url(../images/icons/page_gear.png) !important;
+}

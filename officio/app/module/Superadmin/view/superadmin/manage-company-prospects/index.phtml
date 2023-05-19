@@ -1,0 +1,88 @@
+<?php 
+    $this->layout()->useJQuery = true;
+    $this->layout()->useExtjs = true;
+    
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/qnr/global.js');
+
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/prospects/init.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/prospects/settings.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/prospects/questionnaires.js');
+
+
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/themes/' . $this->layout()->theme . '.css');
+    $this->headLink()->appendStylesheet($this->layout()->cssUrl . '/company_prospects.css');
+
+    $arrInlineScript[] = 'var arrCategories = '         . \Laminas\Json\Json::encode($this->arrCategories) . ';'.PHP_EOL;
+    $arrInlineScript[] = 'var arrCompanyCategories = '  . \Laminas\Json\Json::encode($this->arrCompanyCategories) . ';'.PHP_EOL;
+    $arrInlineScript[] = 'var arrProspectTemplates = '  . \Laminas\Json\Json::encode(array('totalCount' => count($this->arrProspectTemplates), 'rows' => $this->arrProspectTemplates)) . ';'.PHP_EOL;
+    $arrInlineScript[] = 'var arrCompanySettings = '    . \Laminas\Json\Json::encode($this->arrCompanySettings) . ';';
+    $arrInlineScript[] = 'var arrDefaultQnrs = '        . \Laminas\Json\Json::encode(array('totalCount' => count($this->arrDefaultQnrs), 'rows' => $this->arrDefaultQnrs)) . ';';
+    $arrInlineScript[] = 'var arrCompanyOffices = '     . \Laminas\Json\Json::encode(array('totalCount' => count($this->arrCompanyOffices), 'rows' => $this->arrCompanyOffices)) . ';';
+    $arrInlineScript[] = 'var arrDefaultSections = '    . \Laminas\Json\Json::encode($this->default_qnr_sections) . ';';
+    $arrInlineScript[] = "var qnrJobSectionId = "       . \Laminas\Json\Json::encode($this->qnrJobSectionId) . ";";
+    $arrInlineScript[] = "var qnrSpouseJobSectionId = " . \Laminas\Json\Json::encode($this->qnrSpouseJobSectionId) . ";";
+    $arrInlineScript[] = "var office_label = "          . \Laminas\Json\Json::encode($this->prospectOfficeLabel) . ";";
+
+    $this->headScript()->prependScript(implode("\n", $arrInlineScript));
+?>
+
+<div id="manage_company_prospects_container" class="main-tabs">
+    <ul>
+        <li class="main-prospects-tabs"><a id="prospects-questionnaires-link" href="#prospects-questionnaires"><span>Questionnaires</span></a></li>
+        <?php
+            if ($this->layout()->site_version == 'canada') {
+               echo '<li class="main-prospects-tabs"><a href="#prospects-settings"><span>Settings</span></a></li>';
+            }
+        ?>
+    </ul>
+<div id="prospects-questionnaires"></div>
+<?php
+    if ($this->layout()->site_version == 'canada') {
+        echo '<div id="prospects-settings">';
+    }
+    else {
+        echo '<div id="prospects-settings" style="display: none;">';
+    }
+?>
+    <div id="prospects-settings-content">
+        <input type="hidden" name="company_id" id="company_id" value="<?=$this->company_id?>" />
+        <table>
+            <tr>
+                <td class="first_col">
+                    <h2>Categories Supported</h2>
+                    The system is capable of assessing your prospects in the following categories.
+                    If you wish your prospects not to be assessed in a certain category, please uncheck that category.
+                    You must have at least one category checked.
+                </td>
+                <td class="second_col">
+                    <div id="categories_container"></div>
+                    <div id="categories_error_container">Please select at least one category</div>
+                </td>
+            </tr>
+
+            <tr><td colspan="2" class="spacer">&nbsp;</td></tr>
+
+            <tr>
+                <td class="first_col">
+                    <h2>Priority Level</h2>
+                    Please choose the Priority Level for each category.
+                    If a prospect is found qualified in more than one category,
+                    a positive response will be emailed for the category that has the highest Priority Level.
+                    Categories that are displayed higher, will have higher priorities.
+                </td>
+                <td class="second_col">
+                    <div id="categories_order_container"></div>
+                </td>
+            </tr>
+
+        </table>
+        <div style="margin: 10px auto; text-align: center"><input type="submit" value="Save changes" onclick="saveCompanyProspects(); return false;" class="orange-save-btn"></div>
+    </div>
+</div>
+
+<!-- TODO Check this tag seems to not match anything -->
+</div>
+
+
+<div align="left" id="prospects-templates"></div>

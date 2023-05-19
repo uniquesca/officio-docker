@@ -1,0 +1,7 @@
+.move_option_up {
+    background: transparent url(../images/icons/arrow_up.png) no-repeat scroll left center;
+}
+
+.move_option_down {
+    background: transparent url(../images/icons/arrow_down.png) no-repeat scroll left center;
+}

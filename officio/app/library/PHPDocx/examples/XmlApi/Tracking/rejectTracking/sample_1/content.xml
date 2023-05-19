@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pdx:document xmlns:pdx="http://www.phpdocx.com/main" >
+    <pdx:content>
+        <pdx:rejectTracking>
+            <pdx:referenceNode pdx:type="paragraph" pdx:contains="www.phpdocx.com" pdx:occurrence="1" />
+        </pdx:rejectTracking>
+        <pdx:rejectTracking>
+            <pdx:referenceNode pdx:type="paragraph" pdx:contains="for more information" />
+        </pdx:rejectTracking>
+    </pdx:content>
+</pdx:document>

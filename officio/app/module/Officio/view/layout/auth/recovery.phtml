@@ -1,0 +1,64 @@
+<html>
+<head><title>Officio Password Recovery</title></head>
+<body style="font-family: Arial;">
+<table width="100%">
+    <tr align="center">
+        <td colspan="2">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td align="right" valign="top" class="login_bg paddrt10">
+                        <?php   if (!isset($this->message)): ?>
+                            <form action="<?= $this->baseUrl ?>/auth/recovery" method="POST" name="recovery" class="form">
+                                <input type="hidden" name="hash" value="<?=$this->hash?>">
+                                <table width="45%" border="0" cellspacing="0" cellpadding="1" class="greytext12">
+                                    <tr class="greytext12">
+                                        <td height="25" align="center" valign="top" class="gray_txt">&nbsp;</td>
+                                    </tr>
+                                    <tr class="greytext12">
+                                        <td align="left" valign="top" class="gray_txt">
+                                            <span class="msg"><?= $this->errorMessage; ?></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="greytext12"><strong>Password</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">
+                                            <input id="password1" name="password1" type="password" class="black_text" size="38" maxlength="<?= $this->passwordMaxLength ?>" autocomplete="off">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="greytext12"><strong>Password again</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">
+                                            <input id="password2" name="password2" type="password" class="black_text" size="38" maxlength="<?= $this->passwordMaxLength ?>" autocomplete="off">
+                                        </td>
+                                    </tr>
+                                    <tr class="greytext12">
+                                        <td height="25" align="left" valign="middle" class="greytext12">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left"><input type="hidden" name="login" value="login">
+                                            <input type="submit" name="Submit2" alt="Submit" value="Submit">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">&nbsp;</td>
+                                    </tr>
+                                    <tr class="greytext12">
+                                        <td align="left" class="horizontal-bg">&nbsp;</td>
+                                    </tr>
+                                </table>
+                            </form>
+                        <?php   else: ?>
+                            <div><?=$this->message?></div>
+                        <?php   endif; ?>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

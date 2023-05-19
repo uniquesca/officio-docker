@@ -1,0 +1,184 @@
+<?php
+    $this->layout()->useJQuery = true;
+    $this->layout()->useExtjs = true;
+
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/import-clients/notes/step3.js');
+?>
+
+<?php $this->headScript()->captureStart();?>
+    var errorMessage = <?= \Laminas\Json\Json::encode($this->errorMessage) ?>;
+<?php $this->headScript()->captureEnd();?>
+<?php $this->headStyle()->captureStart(); ?>
+table.columns-mapping
+{
+    border-collapse:collapse;
+    padding:0;
+    margin:0;
+}
+
+table.columns-mapping td
+{
+    border:1px solid #CCCCCC;
+    padding:5px 8px;
+}
+
+table.columns-mapping tr:nth-child(2n+1)
+{
+    background-color:#F1F1F1;
+}
+
+table.columns-mapping tr:nth-child(2n)
+{
+    background-color:#FEFEFE;
+}
+
+table.columns-mapping th
+{
+    background-color:transparent;
+    padding:5px 8px;
+}
+
+.field-naming-error
+{
+    color:red;
+    font-weight:bold;
+}
+
+.field-naming-error td
+{
+    background-color:#FFDEDF;
+}
+
+.import_errors_details
+{
+    display:none;
+    position:absolute;
+    top:0;
+    width:250px;
+    font-size:11px;
+    border:1px solid #858585;
+    background:white;
+    padding:3px;
+    margin: -8px 0 0 48px;
+    box-shadow:3px 3px 3px #858585;
+}
+
+.import_errors_details ul
+{
+    margin:0;
+    padding-left:15px;
+    max-height:100px;
+    overflow-y:auto;
+}
+
+.import_errors_details em, .import_errors_details i
+{
+    color:#000000;
+}
+<?php $this->headStyle()->captureEnd(); ?>
+<div id="import-client-notes-container">
+    <div id="step3_container">
+        <h3><?=$this->translate('Please map fields') ?>:</h3>
+
+        <form id="form_step4" action="<?=$this->layout()->baseUrl?>/import-client-notes/step4?page=0" method="POST">
+            <div style="padding: 10px 0;">
+                <?=$this->translate('Import only Excel rows') ?>:<br>
+                <select name="index_start">
+                    <?php foreach (range(2, $this->number_of_client_rows+1) as $i) { ?>
+                    <option value="<?=$i ?>"><?=$i ?></option>
+                    <?php } ?>
+                </select>
+                -
+                <select name="index_finish">
+                    <?php foreach (range(2, $this->number_of_client_rows+1) as $i) { ?>
+                    <option value="<?=$i ?>" <?=($i==$this->number_of_client_rows+1) ? 'selected' : '' ?>><?=$i ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <br>
+
+            <table class="columns-mapping">
+                <tr>
+                    <th><input type="checkbox" id="check_all_fields"></th>
+                    <th>XLS Fields:</th>
+                    <th>&nbsp;</th>
+                    <th colspan="<?=1+(int)($this->importErrors!==null) ?>">DB Fields:</th>
+                </tr>
+                <?php  foreach($this->fields as $fieldNumber => $field):?>
+                <tr class="<?=$field['class']?>">
+                    <td>
+                        <input id="<?=$field['id']?>" type="checkbox" name="<?= 'fields_to_map[' . $fieldNumber . ']' ?>" <?=empty($field['class']) ? 'checked="checked"' : ''?>/>
+                    </td>
+                    <td>
+                        <label for="<?=$field['id']?>"><?=$field['xlsField']?></label>
+                    </td>
+                    <td>
+                        &rarr;
+                    </td>
+                    <td>
+                        <select name="<?= 'excel_field_' . $fieldNumber ?>">
+                            <?php
+                            foreach($this->dbFields as $dbFieldId => $dbFieldName) {
+                                $selected='';
+                                if($dbFieldName==$field['dbField'])
+                                    $selected = 'selected="selected"';
+                                echo "<option value=\"$dbFieldId\" $selected>$dbFieldName</option>";
+                            }?>
+                        </select>
+                    </td>
+                    <?php  if($this->importErrors !== null && count($this->importErrors)):?>
+                    <td>
+                        <?php  if(isset($this->importErrors[$fieldNumber])):?>
+                        <div style="position:relative;">
+                            <b class="show_details" style="color:red;">Details</b>
+                            <div class="import_errors_details">
+                                <ul>
+                                    <li>
+                                        <?=implode('</li><li>', $this->importErrors[$fieldNumber]) ?>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php  endif?>
+                    </td>
+                    <?php  endif?>
+                </tr>
+                <?php  endforeach?>
+            </table>
+
+            <br/>
+            <input type="hidden" name="file_id" value="<?=$this->fileId?>" />
+            <?php
+                foreach ($this->arrDefaultSettings as $fieldId => $fieldVal) {
+                    echo "<input type='hidden' name='note_$fieldId' value='$fieldVal' />" . PHP_EOL;
+                }
+            ?>
+        </form>
+
+        <form id="form_step2" action="<?=$this->layout()->baseUrl?>/import-client-notes/step2" method="POST">
+            <input type="hidden" name="file_id" value="<?=$this->fileId?>" />
+            <?php
+                foreach ($this->arrDefaultSettings as $fieldId => $fieldVal) {
+                    echo "<input type='hidden' name='note_$fieldId' value='$fieldVal' />" . PHP_EOL;
+                }
+            ?>
+        </form>
+
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 50%; text-align: right; padding-right: 20px;">
+                    <input type="submit" class="buttons" value="<< Go Back" onclick="$('#form_step2').submit();" />
+                <td style="width: 50%; text-align: left;">
+                    <input type="submit" class="buttons" value="Next Step >>" onclick="$('#step3_container, #process_started').toggle(); $('#form_step4').submit();" <?=count($this->fields) ? '' : 'disabled="disabled"'?>/>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="display:none; color:green; font-weight:bold;" id="process_started">
+        <img src="<?=$this->layout()->topBaseUrl ?>/images/loadingAnimation.gif" vspace="3" alt="loading"/>
+        <br>
+        <?=$this->translate('Process started. Please, do not close or reload the page.') ?>
+    </div>
+</div>

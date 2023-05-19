@@ -1,0 +1,13 @@
+<?php
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-templates.js');
+
+$this->headStyle()->captureStart();
+    echo '.x-border-layout-ct { background-color: #FFF; }';
+$this->headStyle()->captureEnd();
+?>
+
+<div align="left" id="admin-system-templates-div"></div>

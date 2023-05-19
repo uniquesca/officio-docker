@@ -1,0 +1,114 @@
+<?= $this->doctype()  . "\n" ?>
+<html>
+
+<head>
+<?= $this->headTitle()  . "\n" ?>
+<?= $this->headMeta()   . "\n" ?>
+<?= $this->headLink()   . "\n" ?>
+<?= $this->headStyle()  . "\n" ?>
+
+<style type="text/css">
+
+@font-face {
+    font-family: 'Metropolis';
+    src: url('/styles/fonts/Metropolis/Webfonts/EOT/Metropolis-Regular.eot'); /* IE9 Compat Modes */
+    src: url('/styles/fonts/Metropolis/Webfonts/EOT/Metropolis-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('/styles/fonts/Metropolis/Webfonts/WOFF/Metropolis-Regular.woff') format('woff'), /* Modern Browsers */
+         url('/styles/fonts/Metropolis/TrueType/Metropolis-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Metropolis';
+    src: url('/styles/fonts/Metropolis/Webfonts/EOT/Metropolis-Medium.eot'); /* IE9 Compat Modes */
+    src: url('/styles/fonts/Metropolis/Webfonts/EOT/Metropolis-Medium.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('/styles/fonts/Metropolis/Webfonts/WOFF/Metropolis-Medium.woff') format('woff'), /* Modern Browsers */
+         url('/styles/fonts/Metropolis/TrueType/Metropolis-Medium.ttf')  format('truetype'); /* Safari, Android, iOS */
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Metropolis';
+    src: url('/styles/fonts/Metropolis/Webfonts/EOT/Metropolis-SemiBold.eot'); /* IE9 Compat Modes */
+    src: url('/styles/fonts/Metropolis/Webfonts/EOT/Metropolis-SemiBold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('/styles/fonts/Metropolis/Webfonts/WOFF/Metropolis-SemiBold.woff') format('woff'), /* Modern Browsers */ url('/styles/fonts/Metropolis/TrueType/Metropolis-SemiBold.ttf') format('truetype'); /* Safari, Android, iOS */
+    font-weight: 600;
+}
+
+.print-title {
+    font-family: Metropolis;
+    font-size: 17px;
+    color: #000000;
+    font-weight: bold;
+    padding: 0 0 10px 10px;
+}
+
+.print-text {
+    padding: 0px 2px 10px 2px;
+    background-color: #FFF;
+}
+
+.print-text th {
+    font-family: Metropolis;
+}
+
+.print-text td {
+    font-family: Metropolis;
+    font-size: 14px;
+    color: #000000;
+    padding: 3px 6px 1px 6px;
+    border-bottom: #DDD solid 1px;
+}
+
+.odd {
+    background-color: #ECF5FF;
+}
+
+.currency {
+    font-family: Metropolis;
+    font-size: 16px;
+    color: #000000;
+    border: none;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+th {
+    text-align: center !important;
+}
+</style>
+</head>
+
+<body>
+<div class="print-title"><?= $this->translate($this->ta_label . ' transactions: ') ?></div>
+<table cellpadding="0" cellspacing="0" width="100%" class="print-text">
+<tr>
+<th class="tabdeactn tabbrright garytxt" style="height:29px; width:130px;"><?=$this->translate('Date from Bank')?></th>
+<th class="tabdeactn tabbrright garytxt" style="height:29px;"><?=$this->translate('Description')?></th>
+<th class="tabdeactn tabbrright garytxt" style="height:29px; width:80px;"><?=$this->translate('Deposit')?></th>
+<th class="tabdeactn tabbrright garytxt" style="height:29px; width:80px;"><?=$this->translate('Withdrawal')?></th>
+<th class="tabdeactn tabbrright garytxt" style="height:29px; width:80px;"><?=$this->translate('Balance')?></th>
+<th class="tabdeactn tabbrright garytxt" style="height:29px; width:300px;"><?=$this->translate('Assigned to')?></th>
+</tr>
+<?php
+$i = 0;
+foreach($this->arrResult['rows'] as $row)
+{
+echo '<tr '.($i == 1 ? 'class="odd"' : '').'>
+        <td align="center">'.$row['date_from_bank'].'</td>
+        <td align="left">'.strip_tags($row['description'] ?? '').'</td>
+        <td align="right">'.($row['deposit'] == 0 ? '&nbsp;' : $row['deposit']).'</td>
+        <td align="right">'.($row['withdrawal'] == 0 ? '&nbsp;' : $row['withdrawal']).'</td>
+        <td align="right">'.$row['balance'].'</td>
+        <td align="left">'.$row['client_name'].'</td>
+      </tr>';
+
+        $i = ($i == 0 ? 1 : 0);
+    }
+    ?>
+</table>
+<br/>
+<div class="currency">
+    <?= $this->translate('Total transactions:') ?> <?= $this->arrResult['totalCount'] ?><br/><br/>
+    <?= $this->translate('Current ' . $this->ta_label . ' Balance:') ?> <?= $this->arrResult['balance']; ?>
+</div>
+</body>
+</html>

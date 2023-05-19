@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pdx:document xmlns:pdx="http://www.phpdocx.com/main" >
+    <pdx:content>
+        <pdx:addText>
+            <pdx:textRun>
+                <pdx:data pdx:dataId="" pdx:dataType="text">Content protected.</pdx:data>
+            </pdx:textRun>
+        </pdx:addText>
+        <pdx:addPermProtection pdx:type="start" />
+        <pdx:addText>
+            <pdx:textRun>
+                <pdx:data pdx:dataId="" pdx:dataType="text">Content not protected.</pdx:data>
+            </pdx:textRun>
+        </pdx:addText>
+        <pdx:addPermProtection pdx:type="end" />
+        <pdx:addText>
+            <pdx:textRun>
+                <pdx:data pdx:dataId="" pdx:dataType="text">Content protected.</pdx:data>
+            </pdx:textRun>
+        </pdx:addText>
+        <pdx:addPermProtection pdx:type="start" />
+        <pdx:addList pdx:listType="1">
+            <pdx:data pdx:type="list">
+                <pdx:item>Line 1</pdx:item>
+                <pdx:data pdx:type="list">
+                    <pdx:item>Line A</pdx:item>
+                    <pdx:item>Line B</pdx:item>
+                    <pdx:item>Line C</pdx:item>
+                </pdx:data>
+                <pdx:item>Line 3</pdx:item>
+                <pdx:item>Line 4</pdx:item>
+                <pdx:item>Line 5</pdx:item>
+            </pdx:data>
+        </pdx:addList>
+        <pdx:addPermProtection pdx:type="end" />
+    </pdx:content>
+</pdx:document>

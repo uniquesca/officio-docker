@@ -1,0 +1,59 @@
+<style type="text/css">
+    *
+    {
+        font:13px Arial;
+    }
+
+    #header td
+    {
+        border-bottom:1px solid black;
+    }
+</style>
+
+<?php
+    $total_worked=$total_money=0;
+?>
+
+<div><?=$this->translate('Printed on') ?> <?=date('M d, Y') ?></div>
+
+<table border="0" width="100%" cellpadding="2" cellspacing="0">
+    <?php if (!empty($this->src)) { ?>
+        <tr>
+            <td>
+                <img src="<?=$this->src?>">
+            </td>
+        </tr>
+    <?php } ?>
+    <tr>
+        <td colspan="7" align="center" style="padding-bottom:35px; font-weight:bold;">
+            <?=$this->translate('Time Log') ?>
+            <br/>
+            <?=$this->layout()->title ?>
+        </td>
+    </tr>
+    <tr id="header">
+        <?php if (in_array('track_posted_on_date', $this->columns)) {?><td width="15%"><?=$this->translate('Date') ?></td><?php }?>
+        <?php if (in_array('track_comment', $this->columns)) {?><td><?=$this->translate('Subject') ?></td><?php }?>
+        <?php if (in_array('track_time_billed_rounded', $this->columns)) {?><td width="10%"><?=$this->translate('Hours') ?></td><?php }?>
+        <?php if (in_array('track_rate', $this->columns)) {?><td width="10%"><?=$this->translate('Rate/hour') ?></td><?php }?>
+        <?php if (in_array('track_total', $this->columns)) {?><td width="10%"><?=$this->translate('Total') ?></td><?php }?>
+        <?php if (in_array('track_posted_by_member_name', $this->columns)) {?><td width="18%"><?=$this->translate('Posted by') ?></td><?php }?>
+        <?php if (in_array('track_billed', $this->columns)) {?><td width="5%" align="center"><?=$this->translate('Billed') ?></td><?php }?>
+    </tr>
+    <?php foreach ($this->items as $i) { $total_worked+=$i['track_time_billed']; $total_money+=$i['track_total']; ?>
+    <tr valign="top">
+        <?php if (in_array('track_posted_on_date', $this->columns)) {?><td><?=$i['track_posted_on_date'] ?></td><?php }?>
+        <?php if (in_array('track_comment', $this->columns)) {?><td><?=$i['track_comment'] ?></td><?php }?>
+        <?php if (in_array('track_time_billed_rounded', $this->columns)) {?><td><?=round($i['track_time_billed']/60, 4) ?></td><?php }?>
+        <?php if (in_array('track_rate', $this->columns)) {?><td>$<?=$i['track_rate'] ?></td><?php }?>
+        <?php if (in_array('track_total', $this->columns)) {?><td>$<?=$i['track_total'] ?></td><?php }?>
+        <?php if (in_array('track_posted_by_member_name', $this->columns)) {?><td><?=$i['track_posted_by_member_name'] ?></td><?php }?>
+        <?php if (in_array('track_billed', $this->columns)) {?><td align="center"><?=$i['track_billed']=='Y' ? '<IMG src="' . $this->layout()->topBaseUrl . '/images/icons/tick.png">' : '' ?></td><?php }?>
+    </tr>
+    <?php } ?>
+    <tr>
+        <td colspan="7" align="right" style="padding-top:20px; font-weight:bold;">
+            <?=$this->translate('Total') ?> <?=round($total_worked/60, 4) ?> <?=$this->translate('hrs') ?>, $<?=$total_money ?>
+        </td>
+    </tr>
+</table>

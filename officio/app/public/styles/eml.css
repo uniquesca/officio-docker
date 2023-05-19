@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'Metropolis';
+    src: url('fonts/Metropolis/Webfonts/EOT/Metropolis-Regular.eot'); /* IE9 Compat Modes */
+    src: url('fonts/Metropolis/Webfonts/EOT/Metropolis-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('fonts/Metropolis/Webfonts/WOFF/Metropolis-Regular.woff') format('woff'), /* Modern Browsers */ url('fonts/Metropolis/TrueType/Metropolis-Regular.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Metropolis';
+    src: url('fonts/Metropolis/Webfonts/EOT/Metropolis-Medium.eot'); /* IE9 Compat Modes */
+    src: url('fonts/Metropolis/Webfonts/EOT/Metropolis-Medium.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('fonts/Metropolis/Webfonts/WOFF/Metropolis-Medium.woff') format('woff'), /* Modern Browsers */ url('fonts/Metropolis/TrueType/Metropolis-Medium.ttf') format('truetype'); /* Safari, Android, iOS */
+    font-weight: 500;
+}
+
+@media print {
+    .hide_while_print {
+        display: none;
+    }
+
+    .show_while_print {
+        display: inline !important;
+    }
+}
+
+.show_while_print {
+    display: none;
+}
+
+.eml-label {
+    font-size: 13px;
+    font-family: Metropolis;
+    font-weight: 500;
+    padding: 2px 4px;
+    color: #60758B;
+    text-align: left;
+}
+
+.eml-header-value {
+    font-size: 12px;
+    font-family: Arial;
+    padding: 2px 5px 2px 5px;
+}
+
+.eml-body {
+    text-align: justify;
+    font-size: 12px;
+}
+
+.eml-divider {
+    color: #c6d6e6;
+    background-color: #c6d6e6;
+    height: 1px;
+    border: none;
+}

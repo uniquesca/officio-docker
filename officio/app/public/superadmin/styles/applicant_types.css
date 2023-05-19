@@ -1,0 +1,12 @@
+.applicant_type_add{
+    background: left no-repeat url(../images/icons/table_add.png) !important;
+}
+.applicant_type_edit{
+    background: left no-repeat url(../images/icons/table_edit.png) !important;
+}
+.applicant_type_delete{
+    background: left no-repeat url(../images/icons/table_delete.png) !important;
+}
+.applicant_type_change_properties{
+    background: left no-repeat url(../images/icons/table_lightning.png) !important;
+}

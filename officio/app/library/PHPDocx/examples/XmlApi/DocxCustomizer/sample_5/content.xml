@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pdx:document xmlns:pdx="http://www.phpdocx.com/main" >
+    <pdx:content>
+        <pdx:addList pdx:listType="1">
+            <pdx:data pdx:type="list">
+                <pdx:item>Line 1</pdx:item>
+                <pdx:item>Line 2</pdx:item>
+                <pdx:item>Line 3</pdx:item>
+                <pdx:item>Line 4</pdx:item>
+                <pdx:item>Line 5</pdx:item>
+            </pdx:data>
+        </pdx:addList>
+        <pdx:customizeWordContent>
+            <pdx:referenceNode pdx:type="list" pdx:occurrence="-1" />
+            <pdx:options>
+                <pdx:italic pdx:value="0" />
+            </pdx:options>
+        </pdx:customizeWordContent>
+        <pdx:customizeWordContent>
+            <pdx:referenceNode pdx:type="list" pdx:occurrence="-1" />
+            <pdx:options>
+                <pdx:bold pdx:value="true" />
+                <pdx:color pdx:value="0000FF" />
+                <pdx:depthLevel pdx:value="1" />
+                <pdx:fontSize pdx:value="12" />
+                <pdx:type pdx:value="2" />
+            </pdx:options>
+        </pdx:customizeWordContent>
+    </pdx:content>
+</pdx:document>

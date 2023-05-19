@@ -1,0 +1,23 @@
+.sf-menu > li {
+    position: relative;
+    float: left;
+    font-size: 18px;
+    line-height: 23px;
+}
+
+.sf-menu > li > a {
+    display: block;
+    padding: 9px 13px 13px;
+    color: #524e4b;
+    text-decoration: none;
+    background: #fff;
+    border-radius: 15px 15px 0 0;
+    -moz-border-radius: 15px 15px 0 0;
+    -webkit-border-radius: 15px 15px 0 0;
+}
+
+.sf-menu > li.sfHover > a, .sf-menu > li > a:hover, .sf-menu > li.current > a {
+    text-decoration: none;
+    color: #fff !important;
+    background-color: #b0d50f !important;
+}

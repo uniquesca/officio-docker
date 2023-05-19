@@ -1,0 +1,235 @@
+.fields-and-group-container {
+    width: 100%;
+}
+
+.fields-and-group-container td {
+    vertical-align: top;
+}
+
+#fields_groups_container {
+    width: 60%;
+    border: 1px solid #DDDDDD;
+}
+
+#fields_groups_container a, #fields_groups_container a:visited {
+    color: #fff;
+    text-decoration: none;
+    padding: 2px 10px 1px 20px;
+       height: 16px;
+}
+
+#fields_groups_container a:hover {
+    color: #ccc;
+}
+
+.add-contact-block-link, .add-group-link {
+    background:transparent url(../images/icons/application_form_add.png) no-repeat scroll left top;
+}
+
+.groups_container_header {
+    background-color: #073A74;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.groups_container_header_title {
+    text-align: left;
+    vertical-align: middle;
+    padding: 5px 5px 5px 10px;
+}
+
+.block_column {
+    width: 99%;
+    margin: 5px auto;
+    padding-top: 5px;
+}
+
+.contact_block {
+    border: 2px dotted #8DB1DD;
+}
+
+.general_block {
+    border: 2px dotted #E7E7E7;
+}
+
+.block_actions {
+    display: none;
+    position: relative;
+    float: right;
+    background-color: #EEEEEE;
+}
+
+.block_actions div {
+    float: left;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.block_actions .block_add_group {
+    background: url(../images/icons/application_form_add.png) no-repeat scroll center top;
+}
+.block_actions .block_edit {
+    background: url(../images/layout/editLink.gif) no-repeat scroll center top;
+}
+.block_actions .block_move_up {
+    background: url(../images/icons/arrow_up.png) no-repeat scroll center top;
+}
+.block_actions .block_move_down {
+    background: url(../images/icons/arrow_down.png) no-repeat scroll center top;
+}
+.block_actions .block_delete {
+    background: url(../images/icons/delete.png) no-repeat scroll center top;
+}
+
+.portlet {
+    margin: 5px 10px 10px;
+}
+
+.portlet-header, .portlet-header-no-menu {
+    padding: 5px;
+    background: #FF7800 url(../images/layout/org-bg.gif) no-repeat scroll left top;
+    border: 1px solid #073A74;
+    font-weight: bold;
+    font-size: 11px;
+    color: #fff;
+    text-align: left;
+}
+
+.portlet-header .ui-icon {
+    float: right;
+    cursor: pointer;
+    padding: 0 2px;
+}
+
+.portlet-content {
+    width: 100%;
+    padding: 0.4em;
+    background-color: #96BCEB;
+    border: 1px solid #073A74;
+    border-top: none;
+    color: #fff;
+}
+
+#fields_groups_not_used_container .portlet-content {
+    border-top: 1px solid #073A74;
+}
+
+.field_group_add {
+    display: none;
+    background: url(../images/icons/textfield_add.png) no-repeat scroll left top;
+}
+
+.field_group_edit {
+    display: none;
+    background: url(../images/layout/editLink.gif) no-repeat scroll center top;
+}
+
+.field_group_delete {
+    display: none;
+    background: url(../images/layout/delete.gif) no-repeat scroll center top;
+}
+
+.field_group_minus {
+    background: url(../images/layout/minus.gif) no-repeat scroll center;
+}
+
+.field_group_plus {
+    background: url(../images/layout/plus.gif) no-repeat scroll center;
+}
+
+.fields_column {
+    width: 175px;
+    height: 38px;
+    vertical-align: top;
+    color: #fff;
+}
+
+.field_container {
+    background: url(../images/layout/added.gif) no-repeat scroll left top;
+    width: 171px;
+    height: 24px;
+    vertical-align: middle;
+    clear: both;
+    margin: 5px auto;
+    cursor: move;
+    overflow: hidden;
+    text-align: left;
+}
+
+.field_required {
+    background: url(../images/layout/pagelayout_required.gif) no-repeat scroll left top;
+}
+
+.field_disabled span.group_field_name{
+    color: #ccc !important;
+}
+
+.field_readonly {
+    background: url(../images/layout/pagelayout_readonly.gif) no-repeat scroll left top;
+    cursor: default;
+}
+
+.fields_column .ui-sortable-placeholder {
+    background: none;
+}
+
+.field_container span.group_field_name {
+    float: left;
+    padding: 5px 5px 5px 15px;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 120px;
+    overflow: hidden;
+    color: #fff;
+}
+
+.field_required span.group_field_name, .field_readonly span.group_field_name {
+    padding-left: 25px;
+    width: 110px;
+}
+
+.edit_field_action {
+    background: url(../images/layout/editLink.gif) no-repeat scroll center top;
+}
+
+.delete_field_action {
+    background: url(../images/layout/del.gif) no-repeat scroll center top;
+}
+
+.edit_field_action, .delete_field_action {
+    padding: 5px 5px;
+    width: 16px;
+    height: 16px;
+    background-position: bottom;
+    vertical-align: middle;
+    cursor: pointer;
+    display: none;
+}
+
+.icon-add-contact-fields {
+    background: url(../images/icons/textfield_key.png) no-repeat scroll left top;
+}
+
+.x-window-dlg .ext-mb-download {
+    padding: 0;
+    background:transparent url(../images/download.gif) no-repeat scroll left top;
+    height:55px !important;
+    width: 32px;
+}
+
+.add-option {
+    background-image:url(../images/icons/add.png) !important;
+}
+
+.delete-option {
+    background-image:url(../images/icons/cross.png) !important;
+}
+
+.move_option_up {
+    background:transparent url(../images/icons/arrow_up.png) no-repeat scroll left center;
+}
+
+.move_option_down {
+    background:transparent url(../images/icons/arrow_down.png) no-repeat scroll left center;
+}

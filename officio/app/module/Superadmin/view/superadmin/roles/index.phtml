@@ -1,0 +1,224 @@
+<?php
+
+$bgClass = '';
+if (!function_exists('getBgColor')) {
+    function getBgColor()
+    {
+        global $bgClass;
+        $bgClass = ($bgClass == "evenRow") ? "oddRow" : "evenRow";
+        return $bgClass;
+    }
+}
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+
+$this->headScript()->appendFile($this->layout()->jqueryUrl . '/thickbox.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/check_submit_form.js');
+
+if (!$this->booIsSuperAdmin || empty($this->companyId)) {
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/iframe_height.js');
+}
+
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->cssUrl . '/thickbox.css');
+
+$addRoleLink = <<<EOD
+<a href="{$this->layout()->baseUrl}/roles/add?type={$this->type}" class="main-btn"><i class="las la-plus"></i>Add New Role</a>&nbsp;&nbsp;
+EOD;
+
+$searchRoleLink = <<<EOD
+<!--<i class="las la-search"></i>&nbsp;<a href="#TB_inline?height=250&amp;width=400&amp;inlineId=hiddenRolesSearchBox&amp;modal=false;setfocus=srchRoleByName" class="thickbox bluelinks">Search Roles</a>-->
+EOD;
+
+$topMenu = '';
+if ($this->booCanAddRole) {
+    $topMenu .= $addRoleLink;
+}
+$topMenu .= $searchRoleLink;
+
+
+$this->layout()->top_menu = $topMenu;
+?>
+
+<?php $this->headScript()->captureStart(); ?>
+    if(typeof(autoshow_error) == "undefined") {
+    var autoshow_error = [];
+    }
+    autoshow_error.push('<?= $this->escapeHtml(addslashes($this->msgError)) ?>');
+
+    if(typeof(autoshow_info) == "undefined") {
+    var autoshow_info = [];
+    }
+    autoshow_info.push('<?= $this->escapeHtml(addslashes($this->msgConfirmation)) ?>');
+<?php $this->headScript()->captureEnd(); ?>
+
+<?php
+if (!$this->booIsSuperAdmin || empty($this->companyId)) {
+    ?>
+    <div class="admin-tab-content">
+    <?php
+} ?>
+    <!--  Search table starts here -->
+    <div id="hiddenRolesSearchBox" style="display:none;"><br/><br/>
+        <form method="get" action="<?= $this->layout()->baseUrl . "/roles/index?" . http_build_query(['type' => $this->type]) ?>">
+            <table width="100%" border="0" cellspacing="1" cellpadding="4" align=center bgcolor="#D8D8D8" class="padding_8">
+                <tr>
+                    <td colspan="2" class="header_bg" valign="top"><i class="las la-search"></i>&nbsp; Search Roles</td>
+                </tr>
+                <tr class="<?= getBgColor() ?>">
+                    <td width="40%" align="right" class="field_name">
+                        <label for="srchRoleByName">Role Name</label>
+                    </td>
+                    <td align="left">
+                        <input id="srchRoleByName" name="srchName" value="<?= $this->escapeHtmlAttr($this->srchName) ?>" class="textbox" size="30" type="text"/>
+                    </td>
+                </tr>
+                <tr class="<?= getBgColor() ?>">
+                    <td width="40%" align="right" class="field_name">
+                        <label for="srchStatus">Status</label>
+                    </td>
+                    <td width="60%" align="left">
+                        <select id="srchStatus" name="srchStatus" class="drop_down">
+                            <option value="" <?php if ($this->srchStatus == "") {
+                                echo " selected";
+                            } ?>>Any
+                            </option>
+                            <option value="1" <?php if ($this->srchStatus == "1") {
+                                echo " selected";
+                            } ?>>Active
+                            </option>
+                            <option value="0" <?php if ($this->srchStatus == "0") {
+                                echo " selected";
+                            } ?>>Inactive
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="<?= getBgColor() ?>">
+                    <td colspan="2" align="center"><input name="Submit" type="submit" class="buttons" value="Search"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <!--  Search table ends here -->
+    
+    <br/>
+    <form name="roles_form" method="post" action="<?= $this->layout()->baseUrl . "/roles/index?" . http_build_query(['type' => $this->type]) ?>">
+        <input type="hidden" name="section" value="roles"/>
+        <table width="80%" border="0" cellspacing="1" cellpadding="4" align=center bgcolor="#D8D8D8" class="gray_txt padding_8">
+            <?php if ($this->totalRecords > 0) { ?>
+
+                <tr>
+                    <td width="15%" class="header_bg text-center">ID <?= $this->formSortArrows('role_id') ?></td>
+                    <td width="30%" class="header_bg text-center">Role Title <?= $this->formSortArrows('role_name') ?></td>
+                    <td width="20%" class="header_bg text-center">Add Time <?= $this->formSortArrows('role_regTime') ?></td>
+                    <td width="24%" class="header_bg text-center">Status <?= $this->formSortArrows('role_status') ?></td>
+                    <?php if ($this->booCanViewRoleDetails) { ?>
+                        <td width="8%" class="header_bg text-center">Action</td>
+                        <?php
+                    } ?>
+                    <td width="8%" class="header_bg text-center">
+                        <input name="check_all" type="checkbox" onClick="checkall(this.form)">
+                    </td>
+                </tr>
+                <?php
+                foreach ($this->results as $row) {
+                    $bgClass = ($bgClass == "evenRow") ? "oddRow" : "evenRow";
+                    $this->sn++;
+                    ?>
+                    <tr class="<?php print $bgClass; ?>">
+                        <td class="gray_txt text-center"><?= $row['role_id'] ?></td>
+                        <td class="gray_txt">
+                            <div id="role_id_<?= $row['role_id'] ?>">
+                                <?php if ($this->booCanViewRoleDetails) { ?>
+                                    <a class="blulinkun" href="<?= $this->layout()->baseUrl . "/roles/edit?" . http_build_query(
+                                        ['roleid' => $row['role_id'], 'type' => $this->type]
+                                    ) ?>" <?= $this->booIsSuperAdmin ? 'target="_blank"' : '' ?>><?= $this->escapeHtml($row['role_name']); ?></a>
+                                <?php } else { ?>
+                                    <?= $this->escapeHtml($row['role_name']); ?>
+                                <?php } ?>
+                            </div>
+                        </td>
+                        <td class="gray_txt text-center"><?php print date("d/m/Y", $row['role_regTime']); ?></td>
+                        <td class="gray_txt text-center"><?php ($row['role_status'] == 1) ? print "Active" : print "Inactive"; ?></td>
+
+                        <?php
+                        // Client roles or agent roles cannot be copied/deleted
+                        $booCanCopyDeleteRole = !in_array($row['role_type'], array('individual_client', 'employer_client', 'client'));
+                        if ($booCanCopyDeleteRole && $this->booIsAuthorisedAgentsManagementEnabled && in_array(
+                                $row['role_name'],
+                                array(
+                                    \Officio\Service\Roles::$agentAdminRoleName,
+                                    \Officio\Service\Roles::$agentUserRoleName,
+                                    \Officio\Service\Roles::$agentSubagentRoleName
+                                )
+                            )) {
+                            $booCanCopyDeleteRole = false;
+                        }
+                        ?>
+
+                        <?php if ($this->booCanViewRoleDetails) { ?>
+                            <td valign="middle" class="text-center">
+                                <?php if ($this->booCanEditRole) : ?>
+                                    <a href="<?= $this->layout()->baseUrl . "/roles/edit?" . http_build_query(['roleid' => $row['role_id'], 'type' => $this->type]) ?>"><i class="las la-edit" title="Edit this role"></i></a>
+
+                                    <?php if ($booCanCopyDeleteRole) { ?>
+                                        &nbsp;
+                                        <a href="<?= $this->layout()->baseUrl . "/roles/add?" . http_build_query(['clone_roleid' => $row['role_id'], 'type' => $this->type]) ?>"><i class="las la-copy" title="Create a copy of this role"></i></a>
+                                    <?php } ?>
+                                <?php endif ?>
+                            </td>
+                        <?php } ?>
+
+                        <td width="5%" valign="middle" class="text-center">
+                            <?php if ($booCanCopyDeleteRole || ($this->currentRoleParentId != $row['role_parent_id'] && $this->type == 'superadmin')): ?>
+                                <?php if ($this->currentRoleParentId != $row['role_parent_id']): ?>
+                                    <input type="checkbox" name="delIDs[]" value="<?php print $row['role_id']; ?>">
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                $bgClass = ($bgClass == "evenRow") ? "oddRow" : "evenRow"; ?>
+                <tr align="right" class="<?php print $bgClass; ?>">
+                    <td colspan="6">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="100%" colspan="2" class="text-right">
+                                    <input type="hidden" name="listingAction" value=""/>
+                                    <?php if ($this->booCanEditRole): ?>
+                                        <input type="button" name="Activate" value="Activate" class="buttons" onClick="return submit_form(this.form,this.value)">
+                                        <input type="button" name="Deactivate" value="Deactivate" class="buttons" onClick="return submit_form(this.form,this.value)">
+                                    <?php endif; ?>
+                                    <?php if ($this->booCanDeleteRole) { ?>
+                                        <input type="button" name="Delete" value="Delete" class="buttons" onClick="return submit_form(this.form,this.value)">
+                                        <?php
+                                    } ?>
+                                </td>
+                            </tr>
+                            <?php
+                            if ($this->pagingStr != '') {
+                                ?>
+                                <tr>
+                                    <td height="35" colspan="2" align="right" valign="bottom"><?php print $this->pagingStr; ?></td>
+                                </tr>
+                                <?php
+                            } ?>
+                        </table>
+                    </td>
+                </tr>
+                <?php
+            } ?>
+        </table>
+    </form>
+<?php
+if (!$this->booIsSuperAdmin || empty($this->companyId)) {
+    ?>
+    </div>
+    <?php
+}
+?>

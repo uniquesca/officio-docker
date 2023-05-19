@@ -1,0 +1,16 @@
+<?php
+    $this->layout()->title = "PDF Version Checker";
+    $this->headTitle("PDF Version Checker");
+
+    $this->layout()->useJQuery = true;
+    $this->layout()->useExtjs = true;
+
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/url-checker/init.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/url-checker/UrlEdit.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/url-checker/UrlGrid.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/url-checker/MassCheckDialog.js');
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+    $this->headLink()->appendStylesheet($this->layout()->cssUrl . '/url_checker.css');
+?>
+
+<div id="url-checker-content"></div>

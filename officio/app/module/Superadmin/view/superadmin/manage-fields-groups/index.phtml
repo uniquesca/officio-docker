@@ -1,0 +1,190 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->layout()->useJQuery        = true;
+$this->layout()->useExtjs         = true;
+$this->layout()->booShowLeftPanel = false;
+
+$this->headLink()->appendStylesheet($this->layout()->cssUrl . '/edit_fields.css');
+
+$this->headScript()->appendFile($this->layout()->jsUrl . '/conditional-fields/ConditionalFieldsDialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/conditional-fields/ConditionalFieldsGrid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/conditional-fields/ConditionalFieldsPanel.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-fields-groups/edit_fields.js');
+
+if (!$this->booCreatedFromDefaultTemplate) {
+    $this->layout()->top_menu = '<a href="#" class="save-changes-link bluelinks"><i class="las la-save"></i> Save</a><a href="#" class="add-group-link bluelinks"><i class="las la-plus"></i> Add New Group</a><a href="#" class="add-field-link bluelinks"><i class="las la-plus"></i> Add New Field</a>';
+} else {
+    $this->layout()->top_menu = '';
+}
+
+$fieldTypesListGrouped = [];
+foreach ($this->fieldTypesList as $arrFieldTypeInfo) {
+    $fieldTypesListGrouped[$arrFieldTypeInfo['id']] = $arrFieldTypeInfo['label'];
+}
+
+$colMaxCount = 3;
+
+$this->headScript()->captureStart() ?>
+    var submissionUrl   = <?= Json::encode($this->layout()->baseUrl . '/manage-fields-groups') ?>;
+    var caseTemplateId  = <?= Json::encode($this->caseTemplateId) ?>;
+    var maxColumnsCount = <?= Json::encode($colMaxCount) ?>;
+    var fieldTypesList  = <?= Json::encode($this->fieldTypesList) ?>;
+    var arrRoles        = <?= Json::encode($this->arrRoles) ?>;
+    var booIsAuthorisedAgentsManagementEnabled = <?= Json::encode($this->booIsAuthorisedAgentsManagementEnabled) ?>;
+    var booCreatedFromDefaultTemplate = <?= Json::encode($this->booCreatedFromDefaultTemplate) ?>;
+    var arrReadableConditions = <?= Json::encode($this->arrReadableConditions) ?>;
+<?php $this->headScript()->captureEnd(); ?>
+
+<div style="padding: 10px 0; text-align: left; display:none;">Company:
+<?=$this->formDropdown('fieldsCompanyId', $this->arrCompanies, $this->arrFieldsInfo['company_id'],' class="drop_down" style="width: auto;"');?>
+</div>
+
+<?php if (!$this->booHideGroups):?>
+<table class="fields-and-group-container" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="fields_groups_container">
+
+            <div class="groups_container_header">
+                <div class="groups_container_header_title">Fields &amp; Groups Displayed on Cases Profile Info Tab</div>
+                <table cellpadding="0" cellspacing="0" style="width: 100%;">
+                    <tr>
+                        <td style="padding: 5px; background-color: #4c83c5; width: 50%; color: #fff; text-align: left;">
+                            <?php if (!$this->booCreatedFromDefaultTemplate):?>
+                                <a href="#" class="add-group-link"><i class="las la-plus"></i> Add New Group</a>
+                                <a href="#" class="add-field-link"><i class="las la-plus"></i> Add New Field</a>
+                            <?php endif;?>
+                        </td>
+                        <td style="padding: 5px; background-color: #4c83c5; text-align: right; color: #fff;">
+                            <span style="font-weight: bold;">Legend:</span>
+
+                            <div style="display: inline; font-weight: normal; padding: 0 5px;">
+                                <img src="<?= $this->imgUrl('layout/required.gif') ?>" alt="Required field"/> Mandatory
+                            </div>
+                            <div style="display: inline; font-weight: normal; padding: 0 5px;">
+                                <img src="<?= $this->imgUrl('layout/readonly.gif') ?>" alt="Read-only field"/> Read-only
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        <div id="groups_column">
+            <?php if (count($this->arrGroupsAndFields) > 0) :?>
+                    <?php foreach ($this->arrGroupsAndFields as $groupId => $groupInfo) :?>
+                        <?php
+                            $currentCol = 0;
+                            $colMaxCount = $groupInfo['cols_count'];
+                        ?>
+                        <?php if ($groupInfo['assigned'] == 'A') :?>
+                        <div class="portlet" id="fields_group_<?=$groupId?>">
+                            <?php
+                                $arrGroupClasses = [
+                                    'group_name',
+                                    'group_columns_count_' . $colMaxCount
+                                ];
+
+                                if ($groupInfo['collapsed'] == 'Y') {
+                                    $arrGroupClasses[] = 'group_collapsed';
+                                }
+
+                                if ($groupInfo['show_title'] == 'Y') {
+                                    $arrGroupClasses[] = 'group_show_title';
+                                }
+                            ?>
+                            <div class="portlet-header <?= ($groupInfo['name'] == 'Dependants' ? 'portlet-fields-adding-not-allowed' : '') ?>"><span class="<?= implode(' ', $arrGroupClasses) ?>"><?= $groupInfo['name'] ?></span></div>
+
+                        <?php if($groupInfo['name'] != 'Dependants') : ?>
+                            <div class="portlet-content group_columns_count_<?=$groupInfo['cols_count']?> fields_column">
+                                <?php foreach ($groupInfo['fields'] as $field) :?>
+                                    <?php
+                                        $class = '';
+                                        if ($field['readonly'] == 'Y') {
+                                            $class = 'field_readonly';
+                                        } elseif ($field['blocked'] == 'Y') {
+                                            // allow edit but disable delete/change type
+                                            $class = 'field_blocked';
+                                        } else {
+                                            $class = 'field_container_edit';
+                                        }
+
+                                        if ($field['encrypted'] == 'Y') {
+                                            $class .= ' field_encrypted';
+                                        }
+
+                                        if ($field['required'] == 'Y') {
+                                            $class .= ' field_required';
+                                        }
+
+                                        if ($field['disabled'] == 'Y') {
+                                            $class .= ' field_disabled';
+                                        }
+
+                                        if ($field['use_full_row'] == 'Y') {
+                                            $class .= ' field_use_full_row';
+                                        }
+
+                                        $title = implode("\n", [$field['company_field_id'], $field['label'], $fieldTypesListGrouped[$field['type']]]);
+                                    ?>
+
+                                    <div class="field_container <?= $class ?>" id="field_<?= $field['field_id'] ?>"><span class="group_field_name"><span title="<?= htmlspecialchars($title) ?>"><?= htmlspecialchars($field['label'] ?? '') ?></span></span></div>
+                                <?php endforeach;?>
+
+                            </div>
+                        <?php endif;?>
+                        </div>
+                    <?php endif;?>
+                    <?php endforeach;?>
+            <?php endif;?>
+
+        </div>
+            </td>
+            <td id="fields_groups_not_used_container">
+            <div class="groups_container_header">
+                    <div class="groups_container_header_title">Available Field List<br/>i.e. Not yet added to the Profile Info Tab</div>
+            </div>
+
+            <?php if (count($this->arrGroupsAndFields) > 0) :?>
+                    <?php foreach ($this->arrGroupsAndFields as $groupId => $groupInfo) :?>
+                        <?php if ($groupInfo['assigned'] != 'A') :?>
+                        <div class="portlet" id="fields_group_<?=$groupId?>" style="height: 400px; overflow-x: auto">
+                            <div class="portlet-content group_columns_count_1 fields_column">
+                                <?php foreach ($groupInfo['fields'] as $field) :?>
+                                    <?php
+                                    $class = '';
+                                    if ($field['readonly'] == 'Y') {
+                                        $class = 'field_readonly';
+                                    } elseif ($field['blocked'] == 'Y')  {
+                                        //allow edit but disable delete/change type
+                                        $class = 'field_blocked';
+                                    }
+
+                                    if ($field['required'] == 'Y') {
+                                        $class .= ' field_required';
+                                    }
+
+                                    if ($field['disabled'] == 'Y') {
+                                        $class .= ' field_disabled';
+                                    }
+
+                                    $title = implode("\n", [$field['company_field_id'], $field['label'], $fieldTypesListGrouped[$field['type']]]);
+                                    ?>
+                                    <div class="field_container <?= $class ?>" id="field_<?= $field['field_id'] ?>"><span class="group_field_name" title="<?= htmlspecialchars($title) ?>"><?= htmlspecialchars($field['label'] ?? '') ?></span></div>
+                                <?php endforeach;?>
+                            </div>
+                        </div>
+                    <?php endif;?>
+                    <?php endforeach;?>
+            <?php endif;?>
+            </td>
+    </tr>
+
+    <tr>
+        <td colspan="2" style="text-align: center; padding-top: 10px;">
+            <input class="buttons" type="button" value="Save" id="button_submit"/>
+            <input class="buttons" type="button" value="Cancel" onclick="window.history.back()" />
+        </td>
+    </tr>
+</table>
+<?php endif;?>

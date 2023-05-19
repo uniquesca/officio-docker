@@ -1,0 +1,435 @@
+<?php
+
+/**
+ * Local Configuration Override
+ *
+ * This configuration override file is for overriding environment-specific and
+ * security-sensitive configuration information. Copy this file without the
+ * .dist extension at the end and populate values as needed.
+ *
+ * NOTE: This file is ignored from Git by default with the .gitignore included
+ * in laminas-mvc-skeleton. This is a good practice, as it prevents sensitive
+ * credentials from accidentally being committed into version control.
+ */
+
+return [
+    'db' => [
+        'host'     => 'localhost',
+        'port'     => '3306',
+        'dbname'   => '',
+        'username' => '',
+        'password' => '',
+    ],
+
+    'db_stat' => [
+        'host'     => 'localhost',
+        'port'     => '3306',
+        'dbname'   => '',
+        'username' => '',
+        'password' => '',
+    ],
+
+    'settings' => [
+        'send_fatal_errors_to' => 'email@email.com',
+    ],
+
+    // **** **** **** **** ****  Security settings **** **** **** ****
+    'security' => [
+        // A salt is used when 'default' or 'hash' selected (not used for 'password_hash', as salt is dynamic there)
+        // cannot be changed if data was already saved
+        // note that the max length is 32 chars
+        'encryption_key'             => 'officio',
+
+        // should we check password for mix case of characters + common passwords + etc...
+        'password_high_secure'        => 0,
+
+        // Determines if we need to check logged in user's password aging
+        'password_aging'              => [
+            // Also if enabled - we'll check if user have changed password at least once
+            'enabled'              => 0,
+        ],
+
+        // Enable Cross Site Request Forgery protection if 1
+        // Note that config file is here: /library/config/csrf_config.php
+        'csrf_protection'             => [
+            'enabled' => 0
+        ],
+
+        // For password autocomplete. 1 - on; 0 - off/new-password
+        'autocompletion'              => [
+            'enabled' => 1
+        ],
+    ], // **** **** **** **** ****  Security settings **** **** **** ****
+
+    'site_version'   => [
+        // Different site versions settings
+        // This name will be used in support emails (e.g. in subject)
+        'name'                                         => 'Dominica CBIU Online',
+
+        // Default email address - will be used during system emails sending
+        'support_email'                                => '',
+        'sales_email'                                  => '',
+
+        'proxy' => [
+            // Determines if Officio is behind the proxy server
+            'enabled' => 1
+        ],
+
+        // Toggle Comodo SSL check image on the main login page
+        'show_ssl_certificate_check_image'             => 0,
+
+        // Toggle POSITIVESSL SSL check image on the main login page
+        'show_positivessl_ssl_certificate_check_image' => 0,
+
+        // Case Management Setting
+        // Used during new company creation
+        // If is set to 0 - only one case can be created for each client
+        'case_management_enable'                    => 1,
+
+        // If enabled - will be possible to use 'Check ABN' functionality
+        // Must be enabled for AU, disabled for CA/DM
+        'check_abn_enabled'                         => 1,
+
+        // Authorised Agents Management Setting
+        // If is set to 1 - company admin can manage Authorised Agents (divisions groups)
+        'authorised_agents_management_enabled'      => 0,
+
+        // List of allowed file types
+        'whitelist_files_for_uploading'             => 'txt, doc, dot, wbk, docx, docm, dotx, dotm, docb, xls, xlt, xlm, xlsx, xlsm, xltx, xltm, xlsb, xla, xlam, xll, xlw, ppt, pot, pps, pptx, pptm, potx, potm, ppam, ppsx, ppsm, sldx, sldm, adn, accdb, accdr, accdt, accda, mdw, accde, mam, maq, mar, mat, maf, laccdb, ade, adp, mdb, cdb, mda, mdn, mdt, mdf, mde, ldb, pub, xps, tif, tiff, jpg, jpeg, gif, png, bmp, eps, raw, cr2, nef, orf, sr2, pdf, eml',
+
+        // If authorised_agents_management_enabled enabled - use different variables + algorithms to generate fees for submission.
+        // Note that this variable will be shown on the superadmin's 'System variables' page
+        // Supported: dominica and antigua
+        'submission_fees_type'                      => 'dominica',
+
+        // Documents Checklist Setting
+        // If is set to 1 - it is possible to see and use 'Documents Checklist' tab
+        'documents_checklist_enabled'               => 1,
+
+        // Create note if file was uploaded
+        'create_note_on_file_upload'                => 0,
+
+        // Supported: australia | canada
+        'version'                                   => 'australia',
+        'currency'                                  => 'USD',
+        'title'                                     => 'Dominica CBUI Online',
+        'company_phone'                             => '',
+        'company_name'                              => 'Dominica',
+        'officio_domain'                            => 'dominica.cbiu.online',
+        'officio_domain_secure'                     => 'dominica.cbiu.online',
+
+        'clients' => [
+            // A message that will be shown at the top of Client's Profile + Case's Profile tabs
+            'warning_message' => 'All fields, including Photo and Address fields are required for speedy processing of this application. Your attention is greatly appreciated.',
+
+            // relationship_status field's "Single" option's label
+            // For DM - "Single", for all others - "Never Married"
+            // This is used in different checks, e.g. if relationship_status can be changed if there is a dependent "Spouse" already created
+            'never_married_label' => 'Single',
+
+            // When a case number should be generated:
+            // "submission" -> on case submission to the Gov or manually clicking on the generate link (DM only)
+            // "default" -> on case/prospect creation or manually clicking on the generate link (all others)
+            'generate_case_number_on' => 'submission'
+        ],
+
+        // Dependant's section settings
+        'dependants'                                => [
+            // The list of dependants' fields that will be visible in the tooltip or in the exported excel (advanced search)
+            // Only fields that are visible should be used here
+            'export_or_tooltip_fields' => [
+                'relationship',
+                'lName',
+                'fName',
+                'DOB',
+                'passport_num',
+                'country_of_citizenship',
+                'place_of_birth',
+                'sex',
+            ],
+
+            'fields' => [
+                'relationship' => [
+                    'show'           => 1,
+
+                    'options' => [
+                        'spouse' => [
+                            'label' => 'Spouse'
+                        ],
+
+                        'siblings' => [
+                            // Show for AU and DM only
+                            'show'  => 1,
+
+                            // customize siblings possible count
+                            'count' => 5,
+                        ],
+
+                        'other' => [
+                            // Show for AU and DM only
+                            'show'  => 1,
+
+                            // customize other dependants possible count
+                            'count' => 10,
+                        ],
+                    ],
+
+                    // customize children count for dependents section
+                    'children_count' => 20,
+                ],
+
+                'last_name'                          => ['show' => 1],
+                'first_name'                         => ['show' => 1],
+                'middle_name'                        => ['show' => 0],
+                'dob'                                => ['show' => 1],
+                // show for AU version only
+                'migrating'                          => ['show' => 0],
+
+                'passport_num' => [
+                    // show for CA and DM version only
+                    'show'     => 1,
+                    'required' => 1,
+                ],
+
+                'passport_date'                      => ['show' => 0],
+                // isn't used
+                'nationality'                        => ['show' => 0],
+                // show for DM version only
+                'country_of_citizenship'             => ['show' => 1],
+                'uci'                                => ['show' => 0],
+                // show for AU and CA, not for DM
+                'medical_expiration_date'            => ['show' => 0],
+                'photo'                              => ['show' => 1],
+
+                'address' => [
+                    // show for DM
+                    'show'      => 1,
+                    'multiline' => 1,
+                ],
+
+                'city'                               => ['show' => 0],
+                'country'                            => ['show' => 0],
+                'region'                             => ['show' => 0],
+                'postal_code'                        => ['show' => 0],
+
+                'profession' => [
+                    // For DM - Occupation. For others - Profession
+                    'label' => 'Occupation',
+                    // Show for DM only
+                    'show'  => 1
+                ],
+
+                'place_of_birth' => [
+                    // Show for DM only
+                    'show' => 1
+                ],
+
+                'country_of_birth' => [
+                    'show'     => 0,
+                    'required' => 1
+                ],
+
+                'marital_status' => [
+                    // Show for: Antigua, DM
+                    'show'     => 1,
+                    // Required everywhere, except of DM
+                    'required' => 0,
+
+                    'options' => [
+                        // Show everywhere
+                        'single' => ['show' => 1],
+
+                        // Show everywhere
+                        'married' => ['show' => 1],
+
+                        // Show for DM only
+                        'engaged' => ['show' => 1],
+
+                        // Show everywhere
+                        'widowed' => ['show' => 1],
+
+                        // Show for DM only
+                        'separated' => ['show' => 1],
+
+                        // Show everywhere
+                        'divorced' => ['show' => 1],
+                    ]
+                ],
+
+                'sex' => [
+                    // Show for DM only
+                    'show' => 1
+                ],
+
+                'country_of_residence'               => ['show' => 0],
+                'passport_issuing_country'           => ['show' => 0],
+                'third_country_visa'                 => ['show' => 0],
+                'main_applicant_address_is_the_same' => ['show' => 1],
+
+                'spouse_name' => [
+                    // Show for DM only
+                    'show' => 1
+                ],
+
+                'jrcc_result' => [
+                    // Show for DM only
+                    'show' => 1,
+
+                    // if enabled - the field will be visible only if the current user is not Agent (of 3 hardcoded roles) and is visible (a check above)
+                    'show_for_non_agent_only' => 1
+                ],
+
+                'include_in_minute_checkbox' => [
+                    // Show for DM only
+                    'show' => 1,
+
+                    // if enabled - the field will be visible only if the current user is not Agent (of 3 hardcoded roles) and is visible (a check above)
+                    'show_for_non_agent_only' => 1
+                ],
+            ]
+        ],
+
+        // Validation Settings (only for DM)
+        'validation'                                => [
+            'check_children_age'     => 1,
+            'check_investment_type'  => 1,
+            'check_marital_status'   => 1,
+            'check_date_of_birthday' => 1,
+        ],
+
+        // PUA must be enabled for CA only, disabled for others
+        'pua_enabled'                               => 0,
+
+        // CICC reconciliation reports setting
+        // If enabled - clients' names will be shortened in the report and 'zero records' can be shown in the bottom table
+        'iccrc_reconciliation_hide_names'           => 0,
+
+        // How to assign offices to the Employer
+        // If enabled: search for all assigned cases, for these cases search parents (IA can be found) and for these IAs search for other cases too.
+        // If disabled: search for all assigned cases and no for parent IA records for these cases.
+        'keep_employer_and_applicant_in_one_office' => 0,
+
+        // Generate Comfort Letter functionality
+        'custom_templates_settings'                 => [
+            'comfort_letter' => [
+                'enabled'       => 1,
+
+                // An array of letter templates' names that will be possible to select in the dialog
+                'templates'     => [
+                    'Comfort Letter',
+                    'Comfort Letter MMCE'
+                ],
+
+                // String format of the generated letter number
+                // At this point only 2 variables are supported: investment_type and comfort_letter_number
+                'format'        => 'DM%investment_type%%comfort_letter_number%',
+
+                // Format of the comfort_letter_number
+                // Note that zeroes will be prepended if generate number length is less than in this format
+                'number_format' => '0001'
+            ]
+        ]
+    ],
+
+    // PDF settings
+    'pdf'            => ['use_pdftk' => 0],
+
+    // Zoho settings
+    'zoho'           => [
+        // If enabled - request will be sent to Zoho server to open/edit supported files
+        'enabled' => 1,
+    ],
+
+    // SMS sending
+    'sms'            => [
+        'enabled'       => 0,
+    ],
+
+    // RabbitMQ settings
+    // Can be enabled only if all prerequisites were done (check the readme file)
+    'rabbit'         => [
+        'enabled'  => 0,
+    ],
+
+    // Theming
+    // css file will be automatically loaded: /public/styles/themes/[theme].css
+    'theme'          => 'default',
+
+    // Language settings
+    'translator'           => [
+        // List of timezones is here: http://php.net/manual/en/timezones.php
+        'timezone'      => 'America/Vancouver',
+    ],
+
+    // Mail settings
+    'mail'           => [
+        'enabled'                => 1,
+        'calendar_enabled'       => 1,
+        // Total files size in Mb
+        'total_files_size'       => 25,
+        // In 'Mail Send' dialog: hide 'Send' button if setting is set to '1' AND 'Send and Save' button (some one of them) is showed
+        'hide_send_button'       => 0,
+        // When try to send/get emails (via SMTP/POP3/IMAP) - check SSL certificate for correctness of the mail host
+        // If 0 - ignore SSL issues (e.g. peer name or self-signed certificates)
+        'verify_ssl_certificate' => 0
+    ],
+
+    // General Cloud Settings
+    'storage'        => [
+        'is_online'        => 1,
+        'aws_accesskey'    => 'key',
+        'aws_secretkey'    => 'secret',
+        'bucket_name'      => 's3.dominica.prod',
+        'check_ssl'        => 0,
+        'use_secure_links' => 0,
+        'aws_region'       => 'us-east-1',
+        // Supported: 'AES256' or if empty - will be not encrypted
+        'encryption'       => 'AES256'
+    ],
+
+    // Cache settings
+    'cache'          => [
+        'options' => [
+            'cache_dir'       => 'var/cache/',
+            'dir_permission'  => false,
+            'file_permission' => false
+        ],
+    ],
+
+    // RSS settings - news will be showed on the dashboard
+    'rss' => [
+        // RSS URLs that will be scanned and showed on the dashboard
+        'urls' => [
+            // in the key => url format
+        ],
+
+        // RSS Cache settings
+        'cache' => [
+            'options' => [
+                'cache_dir'       => 'var/cache/',
+                'dir_permission'  => false,
+                'file_permission' => false,
+                'ttl'             => 3600 // 1 hour
+            ],
+        ],
+    ],
+
+    // Outbound requests proxy settings
+    'outbound_proxy' => [
+        'use'   => 0,
+    ],
+
+    // Phinx related settings
+    'phinx'          => [
+        // Path to the migrations directory, where migrations are generated
+        'migrations_path' => 'scripts/migrations/',
+        // Table name, where phinx related changes will be saved
+        'migration_table' => 'schema_version'
+    ],
+
+    // PDF to XOD
+    'pdf2xod'        => [
+        'use_local'  => 1,
+    ],
+
+];

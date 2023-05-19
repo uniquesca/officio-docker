@@ -1,0 +1,85 @@
+div.notif, div.notif * {
+    font-family: inherit;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+div.notif {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-left: calc(-50vw / 2);
+    padding: 10px 75px 10px 60px;
+    width: 50vw;
+    border-radius: 5px;
+    justify-content: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    font-size: .9rem;
+    color: white;
+    background-color: #4C83C5;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
+    z-index: 4;
+}
+
+div.notif .close {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    right: 40px;
+    width: 30px;
+    height: 30px;
+    font-family: initial;
+    font-size: 1.5rem;
+    border-radius: 360px;
+    color: inherit;
+    border: 1px solid white;
+    background-color: transparent;
+    transform: translate(0, -50%);
+    -webkit-transform: translate(0, -50%);
+    -moz-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    -o-transform: translate(0, -50%);
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+div.notif .close:hover {
+    color: black;
+    background-color: white;
+}
+
+.notif .close span {
+    display: block;
+    height: 100%;
+    font-size: 1.5rem;
+    line-height: calc(1.5rem - 3px);
+    text-align: center;
+    max-height: calc(1.5rem - 3px);
+}
+
+div.notif .alert {
+    min-height: 50px;
+}
+
+div.notif .alert.clickable {
+    cursor: pointer;
+}
+
+div.notif ol, div.notif ul {
+    list-style: inherit;
+}

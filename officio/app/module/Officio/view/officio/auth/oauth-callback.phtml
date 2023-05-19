@@ -1,0 +1,20 @@
+<?php
+
+$this->headLink()->appendStylesheet($this->layout()->cssUrl . '/login.css');
+
+// Don't use extra js files
+$this->headScript()->exchangeArray(array());
+?>
+<div id="login_container" style="display: block">
+    <div id="loginTable">
+        <div class="title">
+            <?php if ($this->showTopLogo): ?>
+                <a href="//<?= $this->layout()->officio_domain ?>" target="_blank"><img src="<?= $this->imgUrl($this->layout()->imgThemeUrl . $this->layout()->logoFileName) ?>" alt="Officio Logo" height="65"/></a>
+            <?php endif; ?>
+        </div>
+
+        <div style="display: block; margin: 20px 0"><?= $this->errorMessage ?></div>
+
+        <a id="login_button_link" href="<?= $this->baseUrl ?>/auth/login">Back to login page</a>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<?php
+    $this->layout()->useJQuery = true;
+    $this->layout()->useExtjs = true;
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+    $this->headScript()->appendFile($this->layout()->topBaseUrl . '/assets/plugins/chart.js/dist/chart.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/chart.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/statistics/init.js');
+    $this->headLink()->appendStylesheet($this->layout()->cssUrl . '/statistics.css');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/iframe_height.js');
+?>
+<script type="text/javascript">
+//<![CDATA[
+var dateFormatShort = '<?=$this->layout()->settings->variable_get("dateFormatShort")?>';
+var dateFormatFull = '<?=$this->layout()->settings->variable_get("dateFormatFull")?>';
+//]]>
+</script>
+
+<div class="admin-tab-content">
+    <div style="margin-bottom: 10px; font-size: 16px;">Database size: <?=$this->databaseSize?></div>
+    <div style="margin-bottom: 10px; font-size: 16px; padding-bottom: 10px; border-bottom: 1px solid #ccc;">Statistics table size: <?=$this->tableSize?></div>
+    <div id="statistics_superadmin_date" style="margin-bottom: 10px;"></div>
+    <div id="statistics_superadmin_container" style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #ccc;"></div>
+    <div id="companies_list_container"></div>
+</div>

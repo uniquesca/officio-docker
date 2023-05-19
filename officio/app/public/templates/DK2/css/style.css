@@ -1,0 +1,735 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    font: 14px/20px Arial, Helvetica, sans-serif;
+    color: #797979;
+    position: relative;
+    min-width: 320px;
+}
+
+/*********************************header*************************************/
+header {
+    width: 100%;
+    position: relative;
+}
+
+header .indent-bottom {
+    padding: 35px 0 28px;
+}
+
+h1.company-logo {
+    padding-left: 38px;
+    text-align: left;
+    float: left;
+}
+
+h1.company-logo a:hover {
+    text-decoration: none;
+}
+
+h1.company-logo > span {
+    display: block;
+    font: normal 10px/12px Arial, Helvetica, sans-serif;
+    color: #5f5f5f;
+    text-transform: uppercase;
+    padding-top: 7px;
+}
+
+div.company-logo {
+    padding: 22px 0 0 38px;
+    float: left;
+}
+
+/********************************* Content **********************************/
+#content {
+    width: 100%;
+    padding: 56px 0 51px;
+}
+
+/* ---------- Tags ---------*/
+h3 {
+    font: normal 20px/42px Arial;
+    color: #191919;
+    /*border-bottom:1px solid #c7c7c7;*/
+    padding: 7px 0 17px 2px;
+}
+
+h3.icon-2 {
+    background: url(../images/title-icon2.png) 0 0 no-repeat;
+}
+
+h3.icon-assessment {
+    background: url(../images/title-icon4.png) 0 3px no-repeat;
+}
+
+h3.icon-5 {
+    background: url(../images/title-icon5.png) 0 0 no-repeat;
+}
+
+#page3 h3, #page4 h3, #page6 h3 {
+    font-size: 40px;
+    padding: 5px 0 19px 53px;
+}
+
+/*h4
+{
+    font:normal 35px/42px 'Open Sans Condensed', sans-serif;
+    color:#191919;
+    padding-top:7px;
+}*/
+
+h5 {
+    font-weight: normal;
+    color: #b4b4b4;
+}
+
+h6 {
+    font-weight: bold;
+    color: #191919;
+}
+
+h6 a {
+    color: #191919;
+}
+
+p, .p3-1 {
+    margin-bottom: 18px
+}
+
+.p0 {
+    margin-bottom: 0;
+}
+
+.p1 {
+    margin-bottom: 5px;
+}
+
+.p1-1 {
+    margin-bottom: 8px;
+}
+
+.p2 {
+    margin-bottom: 10px;
+}
+
+.p2-1 {
+    margin-bottom: 12px;
+}
+
+.p3 {
+    margin-bottom: 15px;
+}
+
+.p4 {
+    margin-bottom: 20px;
+}
+
+.p4-1 {
+    margin-bottom: 22px;
+}
+
+.p5 {
+    margin-bottom: 25px;
+}
+
+.p5-1 {
+    margin-bottom: 28px;
+}
+
+.p6 {
+    margin-bottom: 30px;
+}
+
+.p6-1 {
+    margin-bottom: 32px;
+}
+
+.p7 {
+    margin-bottom: 35px;
+}
+
+.p7-1 {
+    margin-bottom: 37px;
+}
+
+.p8 {
+    margin-bottom: 40px;
+}
+
+.p8-1 {
+    margin-bottom: 42px;
+}
+
+.p9 {
+    margin-bottom: 45px;
+}
+
+.p9-1 {
+    margin-bottom: 47px;
+}
+
+a {
+    color: #191919;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline
+}
+
+blockquote {
+    width: 100%;
+}
+
+.quote-caption {
+    text-align: right;
+}
+
+time {
+    display: block;
+    font: normal 24px/29px 'Open Sans Condensed', sans-serif;
+    color: #191919;
+}
+
+/*----- Global Structure -----*/
+.clear {
+    clear: both;
+    line-height: 0;
+    font-size: 0;
+    overflow: hidden;
+    height: 0;
+    width: 100%;
+}
+
+.wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.extra-wrap {
+    overflow: hidden;
+    display: block;
+}
+
+.fleft {
+    float: left
+}
+
+.fright {
+    float: right
+}
+
+.alignright {
+    text-align: right
+}
+
+.aligncenter {
+    text-align: center
+}
+
+.alignmiddle * {
+    vertical-align: middle
+}
+
+.img-indent {
+    float: left;
+    margin-right: 20px;
+}
+
+.img-indent2 {
+    float: left;
+    margin-right: 10px;
+}
+
+.last-item {
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.caption {
+    font-size: 12px;
+    line-height: 15px;
+    color: #4f4f4f;
+}
+
+.lable {
+    display: block;
+    float: left;
+    width: 28px;
+    margin-right: 3px;
+    font: 18px/22px Arial, Helvetica, sans-serif;
+    color: #191919;
+    text-transform: uppercase;
+}
+
+.font-1 {
+    line-height: 18px;
+}
+
+/*---------- Columns --------*/
+.col-2x {
+    float: left;
+    width: 134px;
+    margin-right: 20px;
+}
+
+/*---------- Links ----------*/
+/*.button
+{
+    display:inline-block;
+    font:normal 19px/23px;
+    color:#fff;
+    word-spacing:2px;
+    background:#2b2b2b;
+    padding:11px 19px 13px;
+    border-radius:10px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    cursor:pointer;
+}
+
+.button:hover
+{
+    text-decoration:none;
+    background-color:#f0f0f0;
+    color:#2b2b2b;
+}*/
+
+.link-1 {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    color: #83c00b;
+}
+
+.link-1:hover {
+    text-decoration: none;
+    color: #191919;
+}
+
+/*----------- Boxes ----------*/
+.box1 {
+    border: 1px solid #e9e9e9;
+    font: 12px/19px Arial, Helvetica, sans-serif;
+    color: #8b8b8b;
+    cursor: default;
+}
+
+.box1:hover {
+    background: #f0f0f0;
+}
+
+.box1 .indents1 {
+    padding: 13px 19px 16px;
+}
+
+.box1 h6 {
+    display: inline;
+}
+
+.box1 a:hover {
+    text-decoration: none;
+    color: #83c00b;
+}
+
+.box2 {
+    background: #e6e6e6;
+    font: 13px/18px Arial, Helvetica, sans-serif;
+    color: #787878;
+    cursor: default;
+}
+
+.box2:hover {
+    background: #191919;
+}
+
+.box2:hover h6 a {
+    color: #fff;
+}
+
+.box2 .indents1 {
+    padding: 10px 11px 15px;
+}
+
+.box2 h6 {
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+/*---------- Lists -----------*/
+.list-1 li {
+    background: url(../images/marker-1.png) 0 0 no-repeat;
+    padding-left: 30px;
+    margin-bottom: 4px;
+    min-height: 21px;
+}
+
+.list-1 a {
+    color: #797979;
+}
+
+.list-1 a:hover {
+    text-decoration: none;
+    color: #83c00b;
+}
+
+.list-2 {
+    background: #dedede;
+    padding: 17px 0;
+}
+
+.list-2 li {
+    font: bold 16px/20px Arial, Helvetica, sans-serif;
+}
+
+.list-2 a {
+    display: block;
+    padding: 0 30px;
+}
+
+.list-2 span {
+    display: block;
+    padding: 9px 0 10px;
+    border-bottom: 1px solid #bababa;
+}
+
+.list-2 .last-item span {
+    border-bottom: none;
+}
+
+.list-2 a:hover {
+    background: #191919;
+    text-decoration: none;
+    color: #fff;
+}
+
+.list-2 a:hover span {
+    border-bottom-color: #191919;
+}
+
+/*---------- Borders ---------*/
+.borders {
+    border: 1px solid #ccc;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e9e9e9;
+}
+
+/*---------- Indents ---------*/
+.indent-top1 {
+    padding-top: 5px;
+}
+
+.indent-right4 {
+    padding-right: 20px;
+}
+
+.indent-right6 {
+    padding-right: 30px;
+}
+
+.indent-left1-1 {
+    padding-left: 7px;
+}
+
+.indent-bottom5 {
+    padding-bottom: 25px;
+}
+
+.indent-bottom11-1 {
+    padding-bottom: 58px;
+}
+
+/*--------Pretty photo-------*/
+.lightbox-image {
+    cursor: pointer;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.lightbox-image img {
+    position: relative;
+    z-index: 1;
+}
+
+.lightbox-image span {
+    background: url("../images/magnify.png") no-repeat scroll 50% 50% transparent;
+    display: inline-block;
+    height: 100%;
+    left: 0;
+    padding: 0;
+    position: absolute;
+    top: -100%;
+    width: 100%;
+    z-index: 2;
+}
+
+/*----------- Map ------------*/
+#map dl {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#map dt {
+    font-weight: bold;
+    color: #191919;
+    margin-bottom: 20px;
+}
+
+#map dl span {
+    float: left;
+    width: 82px;
+}
+
+/*--------- social icons -------*/
+.social-icons {
+    margin: 0;
+    list-style: none;
+    padding-top: 21px;
+}
+
+.social-icons li {
+    display: inline-block;
+    margin-right: 3px;
+}
+
+.social-icons li a {
+    display: block;
+    height: 32px;
+    width: 32px;
+    background-image: url(../images/social-icons.jpg);
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.social-icons .icon-1 a {
+    background-position: 0 top;
+}
+
+.social-icons .icon-2 a {
+    background-position: -38px top;
+}
+
+.social-icons .icon-3 a {
+    background-position: -76px top;
+}
+
+.social-icons .icon-4 a {
+    background-position: -112px top;
+}
+
+/* Boleo footer */
+.footer-nav a {
+    margin-right: 7px;
+    color: #bbb;
+    text-decoration: underline !important;
+}
+
+.footer-nav a:hover {
+    color: #fff;
+}
+
+.footer-text {
+    font-size: 12px;
+    color: #918D8A;
+}
+
+footer {
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 15px;
+    padding: 28px 0;
+    text-align: center;
+    width: 100%;
+    display: block;
+    background-color: #61584F;
+}
+
+footer a {
+    color: #FFFFFF;
+}
+
+#contact-form {
+    position: relative;
+    vertical-align: top;
+    width: 100%;
+    z-index: 1;
+}
+
+#contact-form .status {
+    margin-bottom: 20px;
+    font-size: 11px;
+    line-height: 2em;
+}
+
+#contact-form fieldset {
+    border: medium none;
+    padding: 0;
+}
+
+#contact-form label {
+    display: block;
+    min-height: 46px;
+}
+
+#contact-form input {
+    background: none repeat scroll 0 0 #696056 !important;
+    border-color: #4D463F #918577 #918577 #4D463F !important;
+    border-radius: 4px 4px 4px 4px !important;
+    border-style: solid !important;
+    border-width: 1px !important;
+    box-shadow: 1px 1px 1px #60574E inset !important;
+    color: #D9D6CC !important;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif !important;
+    font-size: 13px !important;
+    line-height: 16px !important;
+    margin: 0 !important;
+    outline: medium none !important;
+    padding: 7px 13px 9px !important;
+    width: 270px !important;
+}
+
+#contact-form .error, #contact-form .empty {
+    color: #D0CDC2;
+    font-size: 11px;
+    line-height: 2em;
+    overflow: hidden;
+}
+
+#contact-form label.message {
+    min-height: 150px;
+}
+
+#contact-form textarea {
+    background: none repeat scroll 0 0 #696056 !important;
+    border-color: #4D463F #918577 #918577 #4D463F !important;
+    border-radius: 4px 4px 4px 4px !important;
+    border-style: solid !important;
+    border-width: 1px !important;
+    box-shadow: 1px 1px 1px #60574E inset !important;
+    color: #D9D6CC !important;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif !important;
+    font-size: 13px !important;
+    height: 121px !important;
+    line-height: 16px !important;
+    margin: 0 !important;
+    max-height: 121px !important;
+    max-width: 270px !important;
+    outline: medium none !important;
+    overflow: auto !important;
+    padding: 5px 13px 11px !important;
+    width: 270px !important;
+}
+
+.buttons-wrapper {
+    padding: 0 0 0 0;
+    text-align: right;
+}
+
+#contact-form a {
+    cursor: pointer;
+}
+
+.aside-bg {
+    color: #D0CDC2;
+    padding: 40px 0 57px;
+}
+
+h4 {
+    background: url(../../boleo/images/border-1.gif) repeat-x scroll 0 bottom transparent;
+    color: #DFDBCF;
+    font-family: 'Anton', sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 22px;
+    padding-bottom: 9px;
+    text-shadow: 1px 1px 1px #554E46;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.list-1 li:first-child {
+    padding-top: 0;
+}
+
+.list-1 li {
+    background: url(../../boleo/images/border-2.gif) repeat-x scroll 0 bottom transparent;
+    line-height: 20px;
+    padding: 13px 0 10px;
+}
+
+.list-1 li a {
+    -moz-transition: all 0.2s ease 0s;
+    background: url(../../boleo/images/marker-2.png) no-repeat scroll 1px 8px transparent;
+    color: #D0CDC2;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 14px;
+    padding-left: 16px;
+}
+
+.list-1 li a:hover {
+    background-position: 21px 9px;
+    color: #fff;
+    padding-left: 39px;
+}
+
+.list-1 li.last {
+    background: none repeat scroll 0 0 transparent;
+    padding-bottom: 0;
+}
+
+.button {
+    -moz-transition: background 0.4s ease 0s;
+    background: none repeat scroll 0 0 #696056 !important;
+    border-color: #4D463F !important;
+    border-radius: 4px 4px 4px 4px !important;
+    border-style: solid !important;
+    border-width: 1px !important;
+    color: #FFFFFF;
+    display: inline-block;
+    line-height: 22px;
+    padding: 5px 9px 7px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #000000;
+    border-color: #000000 !important;
+    box-shadow: 2px 2px 2px #9A978E !important;
+}
+
+.menu li a, .list-1 li a, .list-2 li a, .link, .button, .logo {
+    text-decoration: none;
+}
+
+.button {
+    -moz-transition: background 0.4s ease 0s;
+    background: none repeat scroll 0 0 #696056;
+    border-radius: 4px 4px 4px 4px !important;
+    color: #FFFFFF !important;
+    display: inline-block;
+    line-height: 22px;
+    padding: 5px 9px 7px;
+    text-transform: uppercase;
+}
+
+.button:hover {
+    background-color: #000 !important;
+}
+
+.button strong {
+    background: url(../../boleo/images/marker-1.gif) no-repeat scroll right 8px transparent;
+    display: inline-block;
+    font-weight: normal;
+    padding: 0 16px 0 0;
+}

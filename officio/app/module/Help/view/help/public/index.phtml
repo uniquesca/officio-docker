@@ -1,0 +1,126 @@
+<?php
+
+    $this->headLink()->appendStylesheet($this->layout()->topBaseUrl . '/assets/plugins/@fancyapps/fancybox/dist/jquery.fancybox.min.css');
+    $this->headScript()->appendFile($this->layout()->topBaseUrl . '/assets/plugins/@fancyapps/fancybox/dist/jquery.fancybox.min.js');
+
+    $this->headScript()->appendFile($this->layout()->topBaseUrl . '/assets/plugins/corejs-typeahead/dist/typeahead.jquery.min.js');
+    $this->headScript()->appendFile($this->layout()->topBaseUrl . '/js/help/main.js');
+    $this->headScript()->appendFile($this->layout()->topBaseUrl . '/js/help/init.js');
+    $this->headLink()->appendStylesheet($this->layout()->topBaseUrl . '/assets/plugins/@fortawesome/fontawesome-free/css/all.min.css');
+    $this->headLink()->appendStylesheet($this->layout()->topBaseUrl . '/styles/help.css');
+
+    $arrValues = array_values($this->faqArr);
+    $arrFirstCategory = empty($this->faqArr) ? array() : array_shift($arrValues);
+    $this->headScript()->captureStart();
+        echo 'var helpType = "public";';
+        echo 'var defaultCategoryToOpen = "' . ($arrFirstCategory['faq_section_id'] ?? '') . '";';
+    $this->headScript()->captureEnd();
+
+    $this->headStyle()->captureStart();
+        echo 'html,body { height: calc(100vh - 59px); }';
+    $this->headStyle()->captureEnd();
+
+function show_section($faqSection, $level, $topCategoryId)
+{
+    ?>
+    <div class="faq-section-wrap" style="padding-left:<?= ($level - 2) * 30 ?>px; display: none">
+        <div class="faq-section-name expandable" style="display: none">
+            <?php if (!empty($faqSection['section_external_link'])) : ?>
+                <a href="<?= $faqSection['section_external_link'] ?>" target="_blank" id="faq-section-id-<?= $faqSection['faq_section_id'] ?>"><?= $faqSection['section_name'] ?></a>
+            <?php elseif ($faqSection['section_show_as_heading'] === 'Y') : ?>
+                <div class="faq-section-title"><?= $faqSection['section_name'] ?></div>
+            <?php else : ?>
+                <a href="#c<?= $faqSection['faq_section_id'] ?>" class="faq-section-link <?= $level !== 1 ? ' faq-section-leaf' : '' ?>" id="faq-section-id-<?= $faqSection['faq_section_id'] ?>"><?= $faqSection['section_name'] ?></a>
+            <?php endif; ?>
+        </div>
+
+        <div class="faq-section-content <?= $faqSection['section_show_as_heading'] === 'Y' ? 'faq-section-content-heading' : '' ?>" <?= $faqSection['section_show_as_heading'] === 'Y' ? '' : 'style="display:none;"' ?> >
+            <?php
+            if (!empty($faqSection['faq'])) {
+                foreach ($faqSection['faq'] as $faq) {
+                    show_question($faq, $topCategoryId);
+                }
+            }
+
+            if (isset($faqSection['subcategories'])) {
+                foreach ($faqSection['subcategories'] as $subcat) {
+                    show_section($subcat, 2, $topCategoryId);
+                }
+            }
+            ?>
+        </div>
+    </div>
+    <?php
+}
+
+function show_question($faq, $topCategoryId)
+{
+    $href   = empty($topCategoryId) ? '#f' . $faq['faq_id'] : '#q' . $faq['faq_id'];
+    $id     = empty($topCategoryId) ? 'faq-featured-question-id-' . $faq['faq_id'] : 'faq-question-id-' . $faq['faq_id'];
+    $answer = str_ireplace('<img src', '<img loading="lazy" src', $faq['answer'] ?? '');
+    $answer = str_ireplace('<iframe src="https://player.vimeo', '<iframe class="lazyload" data-src="https://player.vimeo', $answer);
+
+    ?>
+    <div id="faq<?= $faq['faq_id'] ?>" class="faq">
+        <div class="faq-question">
+            <a href="<?= $href ?>" category_id="<?= $faq['faq_section_id'] ?>" top_category_id="<?= $topCategoryId ?>" id="<?= $id ?>" class="article-icon-<?= $faq['content_type'] ?>"><?= $faq['question'] ?></a>
+        </div>
+        <div class="faq-answer faq-hidden">
+            <div><?= $answer ?></div>
+        </div>
+    </div>
+    <?php
+}
+
+?>
+
+<?php if (empty($this->faqArr)): ?>
+    <div class="faq-answer"><i><?= $this->translate('No help articles') ?></i></div>
+<?php else: ?>
+    <div class="container" style="max-width: none; padding: 0;">
+        <nav class="navbar navbar-expand-lg" style="background-image: url('/images/help_background.jpg');">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto nav-pills">
+                    <?php foreach ($this->faqArr as $faqSection): ?>
+                        <li class="nav-item mr-2">
+                            <?php
+                            if (!empty($faqSection['section_external_link'])) {
+                                $target = 'target="_blank"';
+                                $onClick = '';
+                                $url = $faqSection['section_external_link'];
+                            } else {
+                                $target = '';
+                                $onClick = 'onclick="expand_category(' . $faqSection['faq_section_id'] . ');"';
+                                $url = $this->layout()->topBaseUrl . '/help/public/index?type=' . $this->sectionType . '#c' . $faqSection['faq_section_id'];
+                            }
+                            ?>
+
+                            <a href="<?= $url ?>" <?= $target ?> <?= $onClick ?> class="nav-link" id="nav-link-category-<?= $faqSection['faq_section_id'] ?>">
+                                <i class="<?= $faqSection['section_class'] ?>"></i>
+                                <?= $faqSection['section_name'] ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+
+                <form class="form-inline">
+                    <div class="form-group has-search">
+                        <span class="fa fa-search form-control-search"></span>
+                        <input type="text" class="form-control" placeholder="Search..." data-remote-load="help-index" data-section-type="<?= $this->sectionType ?>"/>
+                    </div>
+                </form>
+            </div>
+        </nav>
+
+        <div class="row" style="padding: 10px; margin: 0; background-color: white">
+            <div class="col-3" style="border: 1px solid #ccc;">
+                <?php
+                foreach ($this->faqArr as $faqSection) {
+                    show_section($faqSection, 1, $faqSection['faq_section_id']);
+                }
+                ?>
+            </div>
+            <div id="answer_to_question" class="col-9" style="border: 1px solid #ccc; border-left: none"></div>
+        </div>
+    </div>
+<?php endif; ?>

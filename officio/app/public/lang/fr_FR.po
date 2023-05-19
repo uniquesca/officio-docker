@@ -1,0 +1,118 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Uniques js\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-29 15:42+0200\n"
+"PO-Revision-Date: 2020-12-17 12:11-0800\n"
+"Last-Translator: Uniques <support@uniques.ca>\n"
+"Language-Team: Uniques <support@uniques.ca>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate;_\n"
+"X-Poedit-Basepath: C:/Projects/Web/htdocs/uniques_v2_phase6/public\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Language: fr\n"
+"X-Generator: Poedit 2.4.2\n"
+"X-Poedit-SearchPath-0: officio/js\n"
+"X-Poedit-SearchPath-1: js\n"
+"X-Poedit-SearchPathExcluded-0: js/angular_forms_libraries\n"
+"X-Poedit-SearchPathExcluded-1: js/angular_forms_libraries_new\n"
+"X-Poedit-SearchPathExcluded-2: js/csrf\n"
+"X-Poedit-SearchPathExcluded-3: js/ext\n"
+"X-Poedit-SearchPathExcluded-4: js/fine-uploader\n"
+"X-Poedit-SearchPathExcluded-5: js/fine-jquery\n"
+"X-Poedit-SearchPathExcluded-6: js/pdf\n"
+
+#: js/documents.js:185
+msgid "Loading..."
+msgstr ""
+
+#: js/user-main.js:30
+msgid "Home"
+msgstr "Accueil"
+
+#: js/user-main.js:49
+msgid "Prospects"
+msgstr "Perspectives"
+
+#: js/user-main.js:72
+msgid "Clients"
+msgstr "Clients"
+
+#: js/user-main.js:96
+msgid "Add New Client"
+msgstr ""
+
+#: js/user-main.js:101
+msgid "Click to create a new client"
+msgstr ""
+
+#: js/user-main.js:114
+msgid "Info"
+msgstr ""
+
+#: js/user-main.js:114
+msgid ""
+"Please enter a new client to access the following sections: <br>Forms, "
+"Notes, Tasks, Documents, Accounting"
+msgstr ""
+
+#: js/user-main.js:133
+msgid "Tasks"
+msgstr "Tâches"
+
+#: js/user-main.js:158
+msgid "Email"
+msgstr "Email"
+
+#: js/user-main.js:186
+msgid "Calendar"
+msgstr "Calendrier"
+
+#: js/user-main.js:200
+msgid "My Documents"
+msgstr "Mes Documents"
+
+#: js/user-main.js:213
+msgid "Client A/C"
+msgstr "Fiducie A/C"
+
+#: js/user-main.js:236
+msgid "Agents"
+msgstr "Agences"
+
+#: js/user-main.js:266
+msgid "Admin"
+msgstr ""
+
+#: js/clients/documents.js:277
+msgid "Copy to"
+msgstr ""
+
+#~ msgid "Check email"
+#~ msgstr "Vérifiez email"
+
+#~ msgid "New"
+#~ msgstr "Nouveau"
+
+#~ msgid "Reply"
+#~ msgstr "Répondre"
+
+#~ msgid "Reply All"
+#~ msgstr "Répondre à tous"
+
+#~ msgid "Forward"
+#~ msgstr "Forward"
+
+#~ msgid "Print"
+#~ msgstr "Imprimer"
+
+#~ msgid "Mark as..."
+#~ msgstr "Marquer comme ..."
+
+#~ msgid "Save to Client"
+#~ msgstr "Enregistrer pour le client"
+
+#~ msgid "Address book"
+#~ msgstr "Carnet d'adresses"

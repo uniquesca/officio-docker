@@ -1,0 +1,47 @@
+<?php
+    $this->layout()->useJQuery = true;
+    $this->layout()->useExtjs = true;
+
+    $this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+
+    $this->headLink()->appendStylesheet($this->layout()->cssUrl . '/manage_members.css');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/manage-members/grid.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/manage-members/panel.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/manage-members/filterPanel.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/manage-members/init.js');
+
+    $this->headScript()->captureStart();
+        echo "var arrSettings = ".\Laminas\Json\Json::encode($this->arrSettings).";";
+    $this->headScript()->captureEnd();
+?>
+<?php $this->headStyle()->captureStart() ?>
+.no-padding-top {
+    padding-top:0 !important;
+    margin-top:0 !important;
+}
+
+.no-padding-bottom {
+    padding-bottom:0 !important;
+    margin-bottom:0 !important;
+}
+
+.filter-panel > .x-panel-bwrap {
+    border: 1px solid #99BBE8;
+    border-top: none;
+}
+
+.filter-panel .x-panel-footer {
+    background-color: #fff;
+}
+.x-border-layout-ct {
+    background-color: initial;
+}
+.extjs-grid .x-toolbar {
+    margin-bottom: 0;
+}
+.x-grid3-header {
+    padding: 8px 0 6px 0;
+}
+<?php $this->headStyle()->captureEnd();?>
+
+<div id="members_container" style="width: 100%;"></div>

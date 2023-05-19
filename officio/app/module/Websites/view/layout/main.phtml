@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <?= $this->headTitle() . "\n" ?>
+    <?= $this->headMeta() . "\n" ?>
+    <link rel="gettext" type="application/x-po" href="<?= $this->baseUrl ?>/lang/<?= $this->current_locale ?>.po"/>
+    <?= $this->headLink() . "\n" ?>
+    <?= $this->headStyle() . "\n" ?>
+
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var baseUrl   = '<?=$this->baseUrl;?>';
+        var imagesUrl = '<?=$this->imagesUrl;?>';
+        /* ]]> */
+    </script>
+
+    <!-- jQuery -->
+    <?= $this->minifier()->minify('jq') . "\n"; ?>
+    <?= $this->minifier()->minify('jquery-ui') . "\n"; ?>
+    <?= $this->minifier()->minify('jquery-ui-css') . "\n"; ?>
+    <!-- jQuery -->
+
+    <?= $this->minJs() . "\n" ?>
+
+    <?= !empty($this->companyWebsite['script_google_analytics']) ? $this->companyWebsite['script_google_analytics'] : '' ?>
+    <?= !empty($this->companyWebsite['script_facebook_pixel']) ? $this->companyWebsite['script_facebook_pixel'] : '' ?>
+</head>
+
+<body>
+    <?= $this->content; ?>
+</body>
+</html>

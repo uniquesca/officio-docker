@@ -1,0 +1,483 @@
+<html>
+                            <head>
+                              <title>Officio - Fatal Error (check.php)</title>
+                            </head>
+                            <body>
+                              <h2>Fatal Error occurred on: 2023-05-16 21:37:46</h2>
+                              <h3>Details:</h3><pre>Array
+(
+    [type] => 1
+    [message] => Uncaught Error: Failed opening required 'config/application.config.php' (include_path='.:/usr/local/lib/php') in /var/www/public/check.php:161
+Stack trace:
+#0 {main}
+  thrown
+    [file] => /var/www/public/check.php
+    [line] => 161
+)
+</pre>
+                              <h3>Request details:</h3><pre>Array
+(
+    [show_info] => 
+)
+</pre>
+                              <h3>Server details:</h3><pre>Array
+(
+    [HOSTNAME] => ac2e48a68729
+    [APP_URL] => localhost:8080
+    [PHP_INI_DIR] => /usr/local/etc/php
+    [MYSQL_VERSION_RELEASE] => 8.0_26.23
+    [HOME] => /var/www
+    [MYSQL_ROOT_PASSWORD] => testpwd
+    [PHP_LDFLAGS] => -Wl,-O1 -pie
+    [PHP_CFLAGS] => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+    [PHP_VERSION] => 8.1.19
+    [MYSQL_ROOT_USER] => root
+    [GPG_KEYS] => 528995BFEDFBA7191D46839EF9BA0ADA31CBD89E 39B641343D8C104B2B146DC3F9C39DC0B9698544 F1F692238FBC1666E5A5CCD4199F9DFEF6FFBAFD
+    [PHP_CPPFLAGS] => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+    [PHP_ASC_URL] => https://www.php.net/distributions/php-8.1.19.tar.xz.asc
+    [PHP_URL] => https://www.php.net/distributions/php-8.1.19.tar.xz
+    [TERM] => xterm
+    [MYSQL_OFFICIO_DATABASE] => officio
+    [APACHE_VERSION_RELEASE] => 2.4.33_26.23
+    [PATH] => /usr/local/apache2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    [GIT_AUTH_TOKEN] => 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
+    [MYSQL_HOST] => 192.168.0.2
+    [CLIENT_CONFIG] => ca
+    [OFFICIO_VERSION_RELEASE] => 8.1_51.2023
+    [MYSQL_PORT] => 3306
+    [PHPIZE_DEPS] => autoconf 		dpkg-dev 		file 		g++ 		gcc 		libc-dev 		make 		pkg-config 		re2c
+    [PWD] => /var/www
+    [MYSQL_OFFICIO_STATISTICS_DATABASE] => uniques_main_statistics
+    [PHP_SHA256] => f42f0e93467415b2d30aa5b7ac825f0079a74207e0033010383cdc1e13657379
+    [GIT_PERSONAL_ACCESS_TOKEN] => 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
+    [USER] => www-data
+    [SCRIPT_NAME] => /check.php
+    [REQUEST_URI] => /check.php?show_info
+    [QUERY_STRING] => show_info
+    [REQUEST_METHOD] => GET
+    [SERVER_PROTOCOL] => HTTP/1.1
+    [GATEWAY_INTERFACE] => CGI/1.1
+    [REMOTE_PORT] => 56908
+    [SCRIPT_FILENAME] => /var/www/public/check.php
+    [SERVER_ADMIN] => you@example.com
+    [CONTEXT_DOCUMENT_ROOT] => /var/www/public/
+    [CONTEXT_PREFIX] => 
+    [REQUEST_SCHEME] => http
+    [DOCUMENT_ROOT] => /var/www/public/
+    [REMOTE_ADDR] => 192.168.0.1
+    [SERVER_PORT] => 8080
+    [SERVER_ADDR] => 192.168.0.3
+    [SERVER_NAME] => localhost
+    [SERVER_SOFTWARE] => Apache/2.4.33 (Unix)
+    [SERVER_SIGNATURE] => 
+    [HTTP_COOKIE] => lastUserName=admin
+    [HTTP_ACCEPT_LANGUAGE] => en-US,en;q=0.9
+    [HTTP_ACCEPT_ENCODING] => gzip, deflate, br
+    [HTTP_SEC_FETCH_DEST] => document
+    [HTTP_SEC_FETCH_USER] => ?1
+    [HTTP_SEC_FETCH_MODE] => navigate
+    [HTTP_SEC_FETCH_SITE] => none
+    [HTTP_ACCEPT] => text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    [HTTP_USER_AGENT] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
+    [HTTP_UPGRADE_INSECURE_REQUESTS] => 1
+    [HTTP_SEC_CH_UA_PLATFORM] => "Windows"
+    [HTTP_SEC_CH_UA_MOBILE] => ?0
+    [HTTP_SEC_CH_UA] => "Google Chrome";v="113", "Chromium";v="113", "Not-A.Brand";v="24"
+    [HTTP_CACHE_CONTROL] => max-age=0
+    [HTTP_CONNECTION] => keep-alive
+    [HTTP_HOST] => localhost:8080
+    [proxy-nokeepalive] => 1
+    [FCGI_ROLE] => RESPONDER
+    [PHP_SELF] => /check.php
+    [REQUEST_TIME_FLOAT] => 1684273066.0283
+    [REQUEST_TIME] => 1684273066
+)
+</pre>
+                            </body>
+                        </html><html>
+                            <head>
+                              <title>Officio - Fatal Error (check.php)</title>
+                            </head>
+                            <body>
+                              <h2>Fatal Error occurred on: 2023-05-16 21:37:47</h2>
+                              <h3>Details:</h3><pre>Array
+(
+    [type] => 1
+    [message] => Uncaught Error: Failed opening required 'config/application.config.php' (include_path='.:/usr/local/lib/php') in /var/www/public/check.php:161
+Stack trace:
+#0 {main}
+  thrown
+    [file] => /var/www/public/check.php
+    [line] => 161
+)
+</pre>
+                              <h3>Request details:</h3><pre>Array
+(
+    [show_info] => 
+)
+</pre>
+                              <h3>Server details:</h3><pre>Array
+(
+    [HOSTNAME] => ac2e48a68729
+    [APP_URL] => localhost:8080
+    [PHP_INI_DIR] => /usr/local/etc/php
+    [MYSQL_VERSION_RELEASE] => 8.0_26.23
+    [HOME] => /var/www
+    [MYSQL_ROOT_PASSWORD] => testpwd
+    [PHP_LDFLAGS] => -Wl,-O1 -pie
+    [PHP_CFLAGS] => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+    [PHP_VERSION] => 8.1.19
+    [MYSQL_ROOT_USER] => root
+    [GPG_KEYS] => 528995BFEDFBA7191D46839EF9BA0ADA31CBD89E 39B641343D8C104B2B146DC3F9C39DC0B9698544 F1F692238FBC1666E5A5CCD4199F9DFEF6FFBAFD
+    [PHP_CPPFLAGS] => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+    [PHP_ASC_URL] => https://www.php.net/distributions/php-8.1.19.tar.xz.asc
+    [PHP_URL] => https://www.php.net/distributions/php-8.1.19.tar.xz
+    [TERM] => xterm
+    [MYSQL_OFFICIO_DATABASE] => officio
+    [APACHE_VERSION_RELEASE] => 2.4.33_26.23
+    [PATH] => /usr/local/apache2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    [GIT_AUTH_TOKEN] => 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
+    [MYSQL_HOST] => 192.168.0.2
+    [CLIENT_CONFIG] => ca
+    [OFFICIO_VERSION_RELEASE] => 8.1_51.2023
+    [MYSQL_PORT] => 3306
+    [PHPIZE_DEPS] => autoconf 		dpkg-dev 		file 		g++ 		gcc 		libc-dev 		make 		pkg-config 		re2c
+    [PWD] => /var/www
+    [MYSQL_OFFICIO_STATISTICS_DATABASE] => uniques_main_statistics
+    [PHP_SHA256] => f42f0e93467415b2d30aa5b7ac825f0079a74207e0033010383cdc1e13657379
+    [GIT_PERSONAL_ACCESS_TOKEN] => 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
+    [USER] => www-data
+    [SCRIPT_NAME] => /check.php
+    [REQUEST_URI] => /check.php?show_info
+    [QUERY_STRING] => show_info
+    [REQUEST_METHOD] => GET
+    [SERVER_PROTOCOL] => HTTP/1.1
+    [GATEWAY_INTERFACE] => CGI/1.1
+    [REMOTE_PORT] => 35112
+    [SCRIPT_FILENAME] => /var/www/public/check.php
+    [SERVER_ADMIN] => you@example.com
+    [CONTEXT_DOCUMENT_ROOT] => /var/www/public/
+    [CONTEXT_PREFIX] => 
+    [REQUEST_SCHEME] => http
+    [DOCUMENT_ROOT] => /var/www/public/
+    [REMOTE_ADDR] => 192.168.0.1
+    [SERVER_PORT] => 8080
+    [SERVER_ADDR] => 192.168.0.3
+    [SERVER_NAME] => localhost
+    [SERVER_SOFTWARE] => Apache/2.4.33 (Unix)
+    [SERVER_SIGNATURE] => 
+    [HTTP_COOKIE] => lastUserName=admin
+    [HTTP_ACCEPT_LANGUAGE] => en-US,en;q=0.9
+    [HTTP_ACCEPT_ENCODING] => gzip, deflate, br
+    [HTTP_SEC_FETCH_DEST] => document
+    [HTTP_SEC_FETCH_USER] => ?1
+    [HTTP_SEC_FETCH_MODE] => navigate
+    [HTTP_SEC_FETCH_SITE] => none
+    [HTTP_ACCEPT] => text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    [HTTP_USER_AGENT] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
+    [HTTP_UPGRADE_INSECURE_REQUESTS] => 1
+    [HTTP_SEC_CH_UA_PLATFORM] => "Windows"
+    [HTTP_SEC_CH_UA_MOBILE] => ?0
+    [HTTP_SEC_CH_UA] => "Google Chrome";v="113", "Chromium";v="113", "Not-A.Brand";v="24"
+    [HTTP_CACHE_CONTROL] => max-age=0
+    [HTTP_CONNECTION] => keep-alive
+    [HTTP_HOST] => localhost:8080
+    [proxy-nokeepalive] => 1
+    [FCGI_ROLE] => RESPONDER
+    [PHP_SELF] => /check.php
+    [REQUEST_TIME_FLOAT] => 1684273067.0899
+    [REQUEST_TIME] => 1684273067
+)
+</pre>
+                            </body>
+                        </html><html>
+                            <head>
+                              <title>Officio - Fatal Error (check.php)</title>
+                            </head>
+                            <body>
+                              <h2>Fatal Error occurred on: 2023-05-16 21:38:00</h2>
+                              <h3>Details:</h3><pre>Array
+(
+    [type] => 1
+    [message] => Uncaught Error: Failed opening required 'config/application.config.php' (include_path='.:/usr/local/lib/php') in /var/www/public/check.php:161
+Stack trace:
+#0 {main}
+  thrown
+    [file] => /var/www/public/check.php
+    [line] => 161
+)
+</pre>
+                              <h3>Request details:</h3><pre>Array
+(
+    [show_info] => 
+)
+</pre>
+                              <h3>Server details:</h3><pre>Array
+(
+    [HOSTNAME] => ac2e48a68729
+    [APP_URL] => localhost:8080
+    [PHP_INI_DIR] => /usr/local/etc/php
+    [MYSQL_VERSION_RELEASE] => 8.0_26.23
+    [HOME] => /var/www
+    [MYSQL_ROOT_PASSWORD] => testpwd
+    [PHP_LDFLAGS] => -Wl,-O1 -pie
+    [PHP_CFLAGS] => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+    [PHP_VERSION] => 8.1.19
+    [MYSQL_ROOT_USER] => root
+    [GPG_KEYS] => 528995BFEDFBA7191D46839EF9BA0ADA31CBD89E 39B641343D8C104B2B146DC3F9C39DC0B9698544 F1F692238FBC1666E5A5CCD4199F9DFEF6FFBAFD
+    [PHP_CPPFLAGS] => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+    [PHP_ASC_URL] => https://www.php.net/distributions/php-8.1.19.tar.xz.asc
+    [PHP_URL] => https://www.php.net/distributions/php-8.1.19.tar.xz
+    [TERM] => xterm
+    [MYSQL_OFFICIO_DATABASE] => officio
+    [APACHE_VERSION_RELEASE] => 2.4.33_26.23
+    [PATH] => /usr/local/apache2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    [GIT_AUTH_TOKEN] => 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
+    [MYSQL_HOST] => 192.168.0.2
+    [CLIENT_CONFIG] => ca
+    [OFFICIO_VERSION_RELEASE] => 8.1_51.2023
+    [MYSQL_PORT] => 3306
+    [PHPIZE_DEPS] => autoconf 		dpkg-dev 		file 		g++ 		gcc 		libc-dev 		make 		pkg-config 		re2c
+    [PWD] => /var/www
+    [MYSQL_OFFICIO_STATISTICS_DATABASE] => uniques_main_statistics
+    [PHP_SHA256] => f42f0e93467415b2d30aa5b7ac825f0079a74207e0033010383cdc1e13657379
+    [GIT_PERSONAL_ACCESS_TOKEN] => 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
+    [USER] => www-data
+    [SCRIPT_NAME] => /check.php
+    [REQUEST_URI] => /check.php?show_info
+    [QUERY_STRING] => show_info
+    [REQUEST_METHOD] => GET
+    [SERVER_PROTOCOL] => HTTP/1.1
+    [GATEWAY_INTERFACE] => CGI/1.1
+    [REMOTE_PORT] => 46440
+    [SCRIPT_FILENAME] => /var/www/public/check.php
+    [SERVER_ADMIN] => you@example.com
+    [CONTEXT_DOCUMENT_ROOT] => /var/www/public/
+    [CONTEXT_PREFIX] => 
+    [REQUEST_SCHEME] => http
+    [DOCUMENT_ROOT] => /var/www/public/
+    [REMOTE_ADDR] => 192.168.0.1
+    [SERVER_PORT] => 8080
+    [SERVER_ADDR] => 192.168.0.3
+    [SERVER_NAME] => localhost
+    [SERVER_SOFTWARE] => Apache/2.4.33 (Unix)
+    [SERVER_SIGNATURE] => 
+    [HTTP_COOKIE] => lastUserName=admin
+    [HTTP_ACCEPT_LANGUAGE] => en-US,en;q=0.9
+    [HTTP_ACCEPT_ENCODING] => gzip, deflate, br
+    [HTTP_SEC_FETCH_DEST] => document
+    [HTTP_SEC_FETCH_USER] => ?1
+    [HTTP_SEC_FETCH_MODE] => navigate
+    [HTTP_SEC_FETCH_SITE] => none
+    [HTTP_ACCEPT] => text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    [HTTP_USER_AGENT] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
+    [HTTP_UPGRADE_INSECURE_REQUESTS] => 1
+    [HTTP_SEC_CH_UA_PLATFORM] => "Windows"
+    [HTTP_SEC_CH_UA_MOBILE] => ?0
+    [HTTP_SEC_CH_UA] => "Google Chrome";v="113", "Chromium";v="113", "Not-A.Brand";v="24"
+    [HTTP_CACHE_CONTROL] => max-age=0
+    [HTTP_CONNECTION] => keep-alive
+    [HTTP_HOST] => localhost:8080
+    [proxy-nokeepalive] => 1
+    [FCGI_ROLE] => RESPONDER
+    [PHP_SELF] => /check.php
+    [REQUEST_TIME_FLOAT] => 1684273080.8054
+    [REQUEST_TIME] => 1684273080
+)
+</pre>
+                            </body>
+                        </html><html>
+                            <head>
+                              <title>Officio - Fatal Error (check.php)</title>
+                            </head>
+                            <body>
+                              <h2>Fatal Error occurred on: 2023-05-16 22:26:54</h2>
+                              <h3>Details:</h3><pre>Array
+(
+    [type] => 1
+    [message] => Uncaught Error: Failed opening required '/var/www/vendor/composer/autoload_real.php' (include_path='.:/usr/local/lib/php') in /var/www/vendor/autoload.php:5
+Stack trace:
+#0 /var/www/public/check.php(159): require_once()
+#1 {main}
+  thrown
+    [file] => /var/www/vendor/autoload.php
+    [line] => 5
+)
+</pre>
+                              <h3>Request details:</h3><pre>Array
+(
+    [show_info] => 
+)
+</pre>
+                              <h3>Server details:</h3><pre>Array
+(
+    [HOSTNAME] => 7ff071283f14
+    [APP_URL] => localhost:8080
+    [PHP_INI_DIR] => /usr/local/etc/php
+    [MYSQL_VERSION_RELEASE] => 8.0_26.23
+    [HOME] => /var/www
+    [MYSQL_ROOT_PASSWORD] => testpwd
+    [PHP_LDFLAGS] => -Wl,-O1 -pie
+    [PHP_CFLAGS] => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+    [PHP_VERSION] => 8.1.19
+    [MYSQL_ROOT_USER] => root
+    [GPG_KEYS] => 528995BFEDFBA7191D46839EF9BA0ADA31CBD89E 39B641343D8C104B2B146DC3F9C39DC0B9698544 F1F692238FBC1666E5A5CCD4199F9DFEF6FFBAFD
+    [PHP_CPPFLAGS] => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+    [PHP_ASC_URL] => https://www.php.net/distributions/php-8.1.19.tar.xz.asc
+    [PHP_URL] => https://www.php.net/distributions/php-8.1.19.tar.xz
+    [TERM] => xterm
+    [MYSQL_OFFICIO_DATABASE] => officio
+    [APACHE_VERSION_RELEASE] => 2.4.33_26.23
+    [PATH] => /usr/local/apache2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    [GIT_AUTH_TOKEN] => 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
+    [MYSQL_HOST] => 192.168.0.2
+    [CLIENT_CONFIG] => ca
+    [OFFICIO_VERSION_RELEASE] => 8.1_51.2023
+    [MYSQL_PORT] => 3306
+    [PHPIZE_DEPS] => autoconf 		dpkg-dev 		file 		g++ 		gcc 		libc-dev 		make 		pkg-config 		re2c
+    [PWD] => /var/www
+    [MYSQL_OFFICIO_STATISTICS_DATABASE] => uniques_main_statistics
+    [PHP_SHA256] => f42f0e93467415b2d30aa5b7ac825f0079a74207e0033010383cdc1e13657379
+    [GIT_PERSONAL_ACCESS_TOKEN] => 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
+    [USER] => www-data
+    [SCRIPT_NAME] => /check.php
+    [REQUEST_URI] => /check.php?show_info
+    [QUERY_STRING] => show_info
+    [REQUEST_METHOD] => GET
+    [SERVER_PROTOCOL] => HTTP/1.1
+    [GATEWAY_INTERFACE] => CGI/1.1
+    [REMOTE_PORT] => 42276
+    [SCRIPT_FILENAME] => /var/www/public/check.php
+    [SERVER_ADMIN] => you@example.com
+    [CONTEXT_DOCUMENT_ROOT] => /var/www/public/
+    [CONTEXT_PREFIX] => 
+    [REQUEST_SCHEME] => http
+    [DOCUMENT_ROOT] => /var/www/public/
+    [REMOTE_ADDR] => 192.168.0.1
+    [SERVER_PORT] => 8080
+    [SERVER_ADDR] => 192.168.0.3
+    [SERVER_NAME] => localhost
+    [SERVER_SOFTWARE] => Apache/2.4.33 (Unix)
+    [SERVER_SIGNATURE] => 
+    [HTTP_COOKIE] => lastUserName=admin
+    [HTTP_ACCEPT_LANGUAGE] => en-US,en;q=0.9
+    [HTTP_ACCEPT_ENCODING] => gzip, deflate, br
+    [HTTP_SEC_FETCH_DEST] => document
+    [HTTP_SEC_FETCH_USER] => ?1
+    [HTTP_SEC_FETCH_MODE] => navigate
+    [HTTP_SEC_FETCH_SITE] => none
+    [HTTP_ACCEPT] => text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    [HTTP_USER_AGENT] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
+    [HTTP_UPGRADE_INSECURE_REQUESTS] => 1
+    [HTTP_SEC_CH_UA_PLATFORM] => "Windows"
+    [HTTP_SEC_CH_UA_MOBILE] => ?0
+    [HTTP_SEC_CH_UA] => "Google Chrome";v="113", "Chromium";v="113", "Not-A.Brand";v="24"
+    [HTTP_CACHE_CONTROL] => max-age=0
+    [HTTP_CONNECTION] => keep-alive
+    [HTTP_HOST] => localhost:8080
+    [proxy-nokeepalive] => 1
+    [FCGI_ROLE] => RESPONDER
+    [PHP_SELF] => /check.php
+    [REQUEST_TIME_FLOAT] => 1684276014.5332
+    [REQUEST_TIME] => 1684276014
+)
+</pre>
+                            </body>
+                        </html><html>
+                            <head>
+                              <title>Officio - Fatal Error (check.php)</title>
+                            </head>
+                            <body>
+                              <h2>Fatal Error occurred on: 2023-05-16 22:27:05</h2>
+                              <h3>Details:</h3><pre>Array
+(
+    [type] => 1
+    [message] => Uncaught Error: Failed opening required '/var/www/vendor/composer/autoload_real.php' (include_path='.:/usr/local/lib/php') in /var/www/vendor/autoload.php:5
+Stack trace:
+#0 /var/www/public/check.php(159): require_once()
+#1 {main}
+  thrown
+    [file] => /var/www/vendor/autoload.php
+    [line] => 5
+)
+</pre>
+                              <h3>Request details:</h3><pre>Array
+(
+    [show_info] => 
+)
+</pre>
+                              <h3>Server details:</h3><pre>Array
+(
+    [HOSTNAME] => 7ff071283f14
+    [APP_URL] => localhost:8080
+    [PHP_INI_DIR] => /usr/local/etc/php
+    [MYSQL_VERSION_RELEASE] => 8.0_26.23
+    [HOME] => /var/www
+    [MYSQL_ROOT_PASSWORD] => testpwd
+    [PHP_LDFLAGS] => -Wl,-O1 -pie
+    [PHP_CFLAGS] => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+    [PHP_VERSION] => 8.1.19
+    [MYSQL_ROOT_USER] => root
+    [GPG_KEYS] => 528995BFEDFBA7191D46839EF9BA0ADA31CBD89E 39B641343D8C104B2B146DC3F9C39DC0B9698544 F1F692238FBC1666E5A5CCD4199F9DFEF6FFBAFD
+    [PHP_CPPFLAGS] => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+    [PHP_ASC_URL] => https://www.php.net/distributions/php-8.1.19.tar.xz.asc
+    [PHP_URL] => https://www.php.net/distributions/php-8.1.19.tar.xz
+    [TERM] => xterm
+    [MYSQL_OFFICIO_DATABASE] => officio
+    [APACHE_VERSION_RELEASE] => 2.4.33_26.23
+    [PATH] => /usr/local/apache2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    [GIT_AUTH_TOKEN] => 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
+    [MYSQL_HOST] => 192.168.0.2
+    [CLIENT_CONFIG] => ca
+    [OFFICIO_VERSION_RELEASE] => 8.1_51.2023
+    [MYSQL_PORT] => 3306
+    [PHPIZE_DEPS] => autoconf 		dpkg-dev 		file 		g++ 		gcc 		libc-dev 		make 		pkg-config 		re2c
+    [PWD] => /var/www
+    [MYSQL_OFFICIO_STATISTICS_DATABASE] => uniques_main_statistics
+    [PHP_SHA256] => f42f0e93467415b2d30aa5b7ac825f0079a74207e0033010383cdc1e13657379
+    [GIT_PERSONAL_ACCESS_TOKEN] => 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
+    [USER] => www-data
+    [SCRIPT_NAME] => /check.php
+    [REQUEST_URI] => /check.php?show_info
+    [QUERY_STRING] => show_info
+    [REQUEST_METHOD] => GET
+    [SERVER_PROTOCOL] => HTTP/1.1
+    [GATEWAY_INTERFACE] => CGI/1.1
+    [REMOTE_PORT] => 42286
+    [SCRIPT_FILENAME] => /var/www/public/check.php
+    [SERVER_ADMIN] => you@example.com
+    [CONTEXT_DOCUMENT_ROOT] => /var/www/public/
+    [CONTEXT_PREFIX] => 
+    [REQUEST_SCHEME] => http
+    [DOCUMENT_ROOT] => /var/www/public/
+    [REMOTE_ADDR] => 192.168.0.1
+    [SERVER_PORT] => 8080
+    [SERVER_ADDR] => 192.168.0.3
+    [SERVER_NAME] => localhost
+    [SERVER_SOFTWARE] => Apache/2.4.33 (Unix)
+    [SERVER_SIGNATURE] => 
+    [HTTP_COOKIE] => lastUserName=admin
+    [HTTP_ACCEPT_LANGUAGE] => en-US,en;q=0.9
+    [HTTP_ACCEPT_ENCODING] => gzip, deflate, br
+    [HTTP_SEC_FETCH_DEST] => document
+    [HTTP_SEC_FETCH_USER] => ?1
+    [HTTP_SEC_FETCH_MODE] => navigate
+    [HTTP_SEC_FETCH_SITE] => none
+    [HTTP_ACCEPT] => text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    [HTTP_USER_AGENT] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
+    [HTTP_UPGRADE_INSECURE_REQUESTS] => 1
+    [HTTP_SEC_CH_UA_PLATFORM] => "Windows"
+    [HTTP_SEC_CH_UA_MOBILE] => ?0
+    [HTTP_SEC_CH_UA] => "Google Chrome";v="113", "Chromium";v="113", "Not-A.Brand";v="24"
+    [HTTP_CACHE_CONTROL] => max-age=0
+    [HTTP_CONNECTION] => keep-alive
+    [HTTP_HOST] => localhost:8080
+    [proxy-nokeepalive] => 1
+    [FCGI_ROLE] => RESPONDER
+    [PHP_SELF] => /check.php
+    [REQUEST_TIME_FLOAT] => 1684276025.2638
+    [REQUEST_TIME] => 1684276025
+)
+</pre>
+                            </body>
+                        </html>

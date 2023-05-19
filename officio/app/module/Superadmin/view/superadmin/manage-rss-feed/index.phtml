@@ -1,0 +1,12 @@
+<?php
+$this->layout()->title = "Manage news black list";
+$this->headTitle("Manage news black list");
+
+$this->layout()->useExtjs = true;
+$this->layout()->useJQuery = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-rss-feed.js');
+?>
+
+<div id="admin-manage-news-feed"></div>

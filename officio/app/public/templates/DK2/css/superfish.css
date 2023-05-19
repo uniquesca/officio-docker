@@ -1,0 +1,35 @@
+nav {
+    padding-top: 26px;
+    padding-right: 35px;
+    float: right;
+}
+
+.sf-menu > li {
+    position: relative;
+    float: left;
+    font: normal 14px/17px Arial, Helvetica, sans-serif;
+    margin-right: 6px;
+    text-transform: uppercase;
+}
+
+.sf-menu > li > a {
+    color: #fff;
+}
+
+.sf-menu > li.sfHover > a, .sf-menu > li > a:hover, .sf-menu > li.current > a {
+    text-decoration: none;
+    color: #83c00b !important;
+    background-color: transparent !important;
+}
+
+@media only screen and (max-width: 767px) {
+    nav {
+        padding-right: 0;
+    }
+
+    .sf-menu > li > a {
+        display: block;
+        padding: 16px 5px 17px 10px;
+        color: #7b7473;
+    }
+}

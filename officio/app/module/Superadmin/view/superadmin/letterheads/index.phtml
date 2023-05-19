@@ -1,0 +1,30 @@
+<?php
+    $this->layout()->useJQuery = true;
+    $this->layout()->useExtjs = true;
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/letterheads/grid.js');
+    $this->headScript()->appendFile($this->layout()->jsUrl . '/letterheads/letterhead.js');
+    $this->headScript()->appendFile($this->layout()->topJsUrl . '/main.js');
+
+$this->headStyle()->captureStart() ?>
+.no-padding-top, #x-form-el-log_filter_date_from, #x-form-el-log_filter_date_to {
+padding-top:0 !important;
+margin-top:0 !important;
+}
+
+.no-padding-bottom {
+padding-bottom:0 !important;
+margin-bottom:0 !important;
+}
+
+.filter-panel > .x-panel-bwrap {
+border: 1px solid #99BBE8;
+border-top: none;
+}
+
+.filter-panel .x-panel-footer {
+background-color: #fff;
+}
+<?php $this->headStyle()->captureEnd();?>
+
+<div id="letterheads_container" style="width: 100%;">
+</div>

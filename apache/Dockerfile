@@ -7,3 +7,10 @@ RUN apk update; \
 COPY apache.conf /usr/local/apache2/conf/apache.conf
 RUN echo "Include /usr/local/apache2/conf/apache.conf" \
     >> /usr/local/apache2/conf/httpd.conf
+
+COPY server.crt /usr/local/apache2/conf/server.crt
+COPY server.key /usr/local/apache2/conf/server.key
+
+EXPOSE 443/tcp 
+EXPOSE 80/tcp 
+  

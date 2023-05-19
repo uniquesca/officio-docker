@@ -1,0 +1,849 @@
+<?php
+
+// Supporting function to avoid notices
+global $arrProspectData;
+
+use Officio\Common\Service\Settings;
+
+$arrProspectData = $this->arrProspectInfo;
+if (!function_exists('getVal')) {
+    function getVal($key, $booRequired = true, $section = '', $row = 0)
+    {
+        global $arrProspectData;
+        $strResult = '';
+        if (array_key_exists($key, $arrProspectData['data'])) {
+            $strResult = $arrProspectData['data'][$key];
+        } elseif (array_key_exists($key, $arrProspectData['main'])) {
+            $strResult = $arrProspectData['main'][$key];
+        } elseif (!empty($section)) {
+            if (isset($arrProspectData[$section]) && is_array($arrProspectData[$section]) && !empty($arrProspectData[$section]) && isset($arrProspectData[$section][$row][$key])) {
+                $strResult = $arrProspectData[$section][$row][$key];
+            }
+        }
+
+        if ($strResult == '0000-00-00') {
+            $strResult = '';
+        }
+
+        if (empty($strResult) && $booRequired) {
+            $strResult = '-';
+        }
+
+        return $strResult;
+    }
+}
+
+if (!Settings::isDateEmpty($this->arrProspectInfo['main']['update_date'])) {
+    $strUpdatedOn = date('F d, Y', strtotime($this->arrProspectInfo['main']['update_date']));
+} elseif (!Settings::isDateEmpty($this->arrProspectInfo['main']['create_date'])) {
+    $strUpdatedOn = date('F d, Y', strtotime($this->arrProspectInfo['main']['create_date']));
+} else {
+    $strUpdatedOn = $this->translate('Unknown date');
+}
+
+$jobsCount = 0;
+if (isset($this->arrProspectInfo['job'])) {
+    $jobsCount = max($jobsCount, count($this->arrProspectInfo['job']));
+}
+
+if (isset($this->arrProspectInfo['job_spouse'])) {
+    $jobsCount = max($jobsCount, count($this->arrProspectInfo['job_spouse']));
+}
+?>
+    <style type="text/css">
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            font-family: arial, sans-serif;
+            color: #000000;
+            border: 1px solid #4C83C5;
+        }
+
+        .header, .prospects-assessment-td-header {
+            background-color: #5D90CC;
+            color: #ffffff;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .prospects-assessment-table {
+            width: 255px;
+        }
+
+        .prospects-assessment-td-group {
+            color: #033876;
+            font-weight: bold;
+        }
+
+        .prospects-assessment-td-total-qualified {
+            color: #FF0000;
+        }
+
+        .prospects-assessment-td-total-notqualified {
+            color: #009900;
+        }
+
+        .prospects-assessment-td-total {
+            font-weight: bold;
+        }
+
+        .prospects-assessment-td-odd {
+            background-color: #F4F6F8;
+        }
+    </style>
+
+    <div class="center">
+        <strong><?= $this->translate('PRELIMINARY QUESTIONNAIRE') ?></strong> <?= sprintf($this->translate('(Captured on %s)'), $strUpdatedOn) ?>
+    </div>
+    <br/><br/>
+
+    <table cellpadding="2" cellspacing="0">
+
+        <tr>
+            <td style="border: none;">&nbsp;</td>
+            <td class="header center" style="width: 25%"><?= $this->translate('Main Applicant') ?></td>
+            <td class="header center" style="width: 25%"><?= $this->translate('Spouse') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header"><?= $this->translate('Salutation') ?></td>
+            <td class="center"><?= getVal('qf_salutation') ?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?= $this->translate('Name') ?></td>
+            <td class="center"><?= $this->arrProspectInfo['main']['fName'] ?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?= $this->translate('Last name') ?></td>
+            <td class="center"><?= $this->arrProspectInfo['main']['lName'] ?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?= $this->translate('Date of birth') ?></td>
+            <td class="center"><?= Settings::isDateEmpty($this->arrProspectInfo['main']['date_of_birth']) ? '-' : $this->arrProspectInfo['main']['date_of_birth'] ?></td>
+            <td class="center"><?= $this->arrProspectInfo['main']['spouse_date_of_birth'] ?></td>
+        </tr>
+
+        <tr>
+            <td class="header"><?= $this->translate('Country of residence') ?></td>
+            <td class="center"><?= getVal('qf_country_of_residence') ?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?= $this->translate('Country of citizenship') ?></td>
+            <td class="center"><?= getVal('qf_country_of_citizenship') ?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?=$this->translate('Preferred Language')?></td>
+            <td class="center"><?=getVal('preferred_language')?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?=$this->translate('Email')?></td>
+            <td class="center"><?=getVal('email')?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?=$this->translate('Phone')?></td>
+            <td class="center"><?=getVal('qf_phone')?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?=$this->translate('Fax')?></td>
+            <td class="center"><?=getVal('qf_fax')?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?= $this->translate('Area of Interest') ?></td>
+            <td class="center"><?= str_replace(",", "<br />", getVal('qf_area_of_interest')) ?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?= $this->translate('Further Information:') ?></td>
+            <td class="center"><?= nl2br(getVal('qf_further_information')) ?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?= $this->translate('Marital status') ?></td>
+            <td class="center"><?= getVal('qf_marital_status') ?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?= $this->translate('Education') ?></td>
+            <td class="center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Highest level of education') ?></td>
+            <td class="center"><?= getVal('qf_education_level') ?></td>
+            <td class="center"><?= getVal('qf_education_spouse_level') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Name of Diploma') ?></td>
+            <td class="center"><?= getVal('qf_education_diploma_name') ?></td>
+            <td class="center"><?= getVal('qf_education_spouse_diploma_name') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Area of Studies') ?></td>
+            <td class="center"><?= getVal('qf_education_area_of_studies') ?></td>
+            <td class="center"><?= getVal('qf_education_spouse_area_of_studies') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Country of Studies') ?></td>
+            <td class="center"><?= getVal('qf_education_country_of_studies') ?></td>
+            <td class="center"><?= getVal('qf_education_spouse_country_of_studies') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Type of Educational Institute') ?></td>
+            <td class="center"><?= getVal('qf_education_institute_type') ?></td>
+            <td class="center"><?= getVal('qf_education_spouse_institute_type') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Post-secondaries in Canada') ?></td>
+            <td class="center"><?= getVal('qf_study_previously_studied') ?></td>
+            <td class="center"><?= getVal('qf_education_spouse_previously_studied') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Post-secondary studies period') ?></td>
+            <td class="center"><?= getVal('qf_education_studied_in_canada_period') ?></td>
+            <td class="center"><?= getVal('qf_education_spouse_studied_in_canada_period') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Name of bachelor\'s degree') ?></td>
+            <td class="center"><?= getVal('qf_education_bachelor_degree_name') ?></td>
+            <td class="center"><?= getVal('qf_education_spouse_bachelor_degree_name') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?= $this->translate('Language Proficiency:') ?></td>
+            <td class="center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header center"><?= $this->translate('English') ?></td>
+            <td class="center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header center"><?= $this->translate('Done any English language test:') ?></td>
+            <td class="center"><?= getVal('qf_language_english_done') ?></td>
+            <td class="center"><?= getVal('qf_language_spouse_english_done') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Speaking') ?></td>
+            <td class="center">
+                <?php
+                if (getVal('qf_language_english_ielts_score_speak') != '-' && getVal('qf_language_english_done') == 'IELTS') {
+                    echo getVal('qf_language_english_ielts_score_speak');
+                } else {
+                    if (getVal('qf_language_english_celpip_score_speak') != '-' && getVal('qf_language_english_done') == 'CELPIP') {
+                        echo getVal('qf_language_english_celpip_score_speak');
+                    } else {
+                        echo getVal('qf_language_english_general_score_speak');
+                    }
+                }
+                ?>
+            </td>
+            <td class="center">
+                <?php
+                if (getVal('qf_language_spouse_english_ielts_score_speak') != '-' && getVal('qf_language_spouse_english_done') == 'IELTS') {
+                    echo getVal('qf_language_spouse_english_ielts_score_speak');
+                } else {
+                    if (getVal('qf_language_spouse_english_celpip_score_speak') != '-' && getVal('qf_language_spouse_english_done') == 'CELPIP') {
+                        echo getVal('qf_language_spouse_english_celpip_score_speak');
+                    } else {
+                        echo getVal('qf_language_spouse_english_general_score_speak');
+                    }
+                }
+                ?>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Reading') ?></td>
+            <td class="center">
+                <?php
+                if (getVal('qf_language_english_ielts_score_read') != '-' && getVal('qf_language_english_done') == 'IELTS') {
+                    echo getVal('qf_language_english_ielts_score_read');
+                } else {
+                    if (getVal('qf_language_english_celpip_score_read') != '-' && getVal('qf_language_english_done') == 'CELPIP') {
+                        echo getVal('qf_language_english_celpip_score_read');
+                    } else {
+                        echo getVal('qf_language_english_general_score_read');
+                    }
+                }
+                ?>
+            </td>
+            <td class="center">
+                <?php
+                if (getVal('qf_language_spouse_english_ielts_score_read') != '-' && getVal('qf_language_spouse_english_done') == 'IELTS') {
+                    echo getVal('qf_language_spouse_english_ielts_score_read');
+                } else {
+                    if (getVal('qf_language_spouse_english_celpip_score_read') != '-' && getVal('qf_language_spouse_english_done') == 'CELPIP') {
+                        echo getVal('qf_language_spouse_english_celpip_score_read');
+                    } else {
+                        echo getVal('qf_language_spouse_english_general_score_read');
+                    }
+                }
+                ?>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Writing') ?></td>
+            <td class="center">
+                <?php
+                if (getVal('qf_language_english_ielts_score_write') != '-' && getVal('qf_language_english_done') == 'IELTS') {
+                    echo getVal('qf_language_english_ielts_score_write');
+                } else {
+                    if (getVal('qf_language_english_celpip_score_write') != '-' && getVal('qf_language_english_done') == 'CELPIP') {
+                        echo getVal('qf_language_english_celpip_score_write');
+                    } else {
+                        echo getVal('qf_language_english_general_score_write');
+                    }
+                }
+                ?>
+            </td>
+            <td class="center">
+                <?php
+                if (getVal('qf_language_spouse_english_ielts_score_write') != '-' && getVal('qf_language_spouse_english_done') == 'IELTS') {
+                    echo getVal('qf_language_spouse_english_ielts_score_write');
+                } else {
+                    if (getVal('qf_language_spouse_english_celpip_score_write') != '-' && getVal('qf_language_spouse_english_done') == 'CELPIP') {
+                        echo getVal('qf_language_spouse_english_celpip_score_write');
+                    } else {
+                        echo getVal('qf_language_spouse_english_general_score_write');
+                    }
+                }
+                ?>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Listening') ?></td>
+            <td class="center">
+                <?php
+                if (getVal('qf_language_english_ielts_score_listen') != '-' && getVal('qf_language_english_done') == 'IELTS') {
+                    echo getVal('qf_language_english_ielts_score_listen');
+                } else {
+                    if (getVal('qf_language_english_celpip_score_listen') != '-' && getVal('qf_language_english_done') == 'CELPIP') {
+                        echo getVal('qf_language_english_celpip_score_listen');
+                    } else {
+                        echo getVal('qf_language_english_general_score_listen');
+                    }
+                }
+                ?>
+            </td>
+            <td class="center">
+                <?php
+                if (getVal('qf_language_spouse_english_ielts_score_listen') != '-' && getVal('qf_language_spouse_english_done') == 'IELTS') {
+                    echo getVal('qf_language_spouse_english_ielts_score_listen');
+                } else {
+                    if (getVal('qf_language_spouse_english_celpip_score_listen') != '-' && getVal('qf_language_spouse_english_done') == 'CELPIP') {
+                        echo getVal('qf_language_spouse_english_celpip_score_listen');
+                    } else {
+                        echo getVal('qf_language_spouse_english_general_score_listen');
+                    }
+                }
+                ?>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="header center"><?= $this->translate('French') ?></td>
+            <td class="center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header center"><?= $this->translate('TEF done') ?></td>
+            <td class="center"><?= getVal('qf_language_french_done') ?></td>
+            <td class="center"><?= getVal('qf_language_spouse_french_done') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Speaking') ?></td>
+            <td class="center"><?= (getVal('qf_language_french_tef_score_speak') != '-' && getVal('qf_language_french_done') == 'Yes') ? getVal('qf_language_french_tef_score_speak') : getVal('qf_language_french_general_score_speak') ?></td>
+            <td class="center"><?= (getVal('qf_language_spouse_french_tef_score_speak') != '-' && getVal('qf_language_spouse_french_done') == 'Yes') ? getVal('qf_language_spouse_french_tef_score_speak') : getVal('qf_language_spouse_french_general_score_speak') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Reading') ?></td>
+            <td class="center"><?= (getVal('qf_language_french_tef_score_read') != '-' && getVal('qf_language_french_done') == 'Yes') ? getVal('qf_language_french_tef_score_read') : getVal('qf_language_french_general_score_read') ?></td>
+            <td class="center"><?= (getVal('qf_language_spouse_french_tef_score_read') != '-' && getVal('qf_language_spouse_french_done') == 'Yes') ? getVal('qf_language_spouse_french_tef_score_read') : getVal('qf_language_spouse_french_general_score_read') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Writing') ?></td>
+            <td class="center"><?= (getVal('qf_language_french_tef_score_write') != '-' && getVal('qf_language_french_done') == 'Yes') ? getVal('qf_language_french_tef_score_write') : getVal('qf_language_french_general_score_write') ?></td>
+            <td class="center"><?= (getVal('qf_language_spouse_french_tef_score_write') != '-' && getVal('qf_language_spouse_french_done') == 'Yes') ? getVal('qf_language_spouse_french_tef_score_write') : getVal('qf_language_spouse_french_general_score_write') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Listening') ?></td>
+            <td class="center"><?= (getVal('qf_language_french_tef_score_listen') != '-' && getVal('qf_language_french_done') == 'Yes') ? getVal('qf_language_french_tef_score_listen') : getVal('qf_language_french_general_score_listen') ?></td>
+            <td class="center"><?= (getVal('qf_language_spouse_french_tef_score_listen') != '-' && getVal('qf_language_spouse_french_done') == 'Yes') ? getVal('qf_language_spouse_french_tef_score_listen') : getVal('qf_language_spouse_french_general_score_listen') ?></td>
+        </tr>
+
+        <tr>
+            <td class="header center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <?php for ($i = 0; $i < $jobsCount; $i++) : ?>
+            <tr>
+                <td class="header"><?= $this->translate('Occupation') . ' ' . ($i + 1) ?></td>
+                <td class="center">&nbsp;</td>
+                <td class="center">&nbsp;</td>
+            </tr>
+
+            <tr>
+                <td class="header right"><?=$this->translate('Job Title')?></td>
+                <td class="center"><?=getVal('qf_job_title', true, 'job', $i)?></td>
+                <td class="center"><?=getVal('qf_job_title', true, 'job_spouse', $i)?></td>
+            </tr>
+
+            <tr>
+                <td class="header right"><?=$this->translate('NOC')?></td>
+                <td class="center"><?=getVal('qf_job_noc', true, 'job', $i)?></td>
+                <td class="center"><?=getVal('qf_job_noc', true, 'job_spouse', $i)?></td>
+            </tr>
+
+            <tr>
+                <td class="header right"><?=$this->translate('Duration')?></td>
+                <td class="center"><?=getVal('qf_job_duration', true, 'job', $i)?></td>
+                <td class="center"><?=getVal('qf_job_duration', true, 'job_spouse', $i)?></td>
+            </tr>
+
+            <tr>
+                <td class="header right"><?=$this->translate('Location')?></td>
+                <td class="center"><?=getVal('qf_job_location', true, 'job', $i)?></td>
+                <td class="center"><?=getVal('qf_job_location', true, 'job_spouse', $i)?></td>
+            </tr>
+
+            <tr>
+                <td class="header right"><?=$this->translate('Province')?></td>
+                <td class="center"><?=getVal('qf_job_province', true, 'job', $i)?></td>
+                <td class="center"><?=getVal('qf_job_province', true, 'job_spouse', $i)?></td>
+            </tr>
+
+            <tr>
+                <td class="header right"><?=$this->translate('PRESENTLY WORKING in this job')?></td>
+                <td class="center"><?=getVal('qf_job_presently_working', true, 'job', $i)?></td>
+                <td class="center"><?=getVal('qf_job_presently_working', true, 'job_spouse', $i)?></td>
+            </tr>
+
+            <tr>
+                <td class="header right"><?=$this->translate('Legally entitled to work in the country where gained this work experience')?></td>
+                <td class="center"><?=getVal('qf_job_qualified_for_social_security', true, 'job', $i)?></td>
+                <td class="center"><?=getVal('qf_job_qualified_for_social_security', true, 'job_spouse', $i)?></td>
+            </tr>
+
+            <tr>
+                <td class="header right"><?=$this->translate('Type of Employment')?></td>
+                <td class="center"><?=getVal('qf_job_employment_type', true, 'job', $i)?></td>
+                <td class="center"><?=getVal('qf_job_employment_type', true, 'job_spouse', $i)?></td>
+            </tr>
+
+            <tr>
+                <td class="header center">&nbsp;</td>
+                <td class="center">&nbsp;</td>
+                <td class="center">&nbsp;</td>
+            </tr>
+        <?php endfor; ?>
+
+        <tr>
+            <td class="header"><?= $this->translate('Previous And The Future Visit(s)') ?></td>
+            <td class="center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Previously visited Canada for work, travel, or study?') ?></td>
+            <td class="center"><?= getVal('qf_visit_previously_visited') ?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Previously applied for immigration or visa to Canada?') ?></td>
+            <td class="center"><?= getVal('qf_visit_previously_applied') ?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Where is your preferred destination in Canada?') ?></td>
+            <td class="center"><?= getVal('qf_visit_preferred_destination') ?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header right"><?= $this->translate('Previously submitted an Express Entry application? application?') ?></td>
+            <td class="center"><?= getVal('qf_visit_previously_submitted_express_entry') ?></td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?= $this->translate('Work Experience:') ?></td>
+            <td class="center">&nbsp;</td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="header"><?= $this->translate('Qualified under the following categories:') ?></td>
+            <td class="center">
+                <?php
+                if (!count($this->arrProspectInfo['categories'])) {
+                    echo 'None';
+                } else {
+                    $i = 1;
+                    foreach ($this->arrProspectInfo['categories'] as $categoryName) {
+                        echo ($i > 1) ? '<br/>' . $categoryName : $categoryName;
+                        $i++;
+                    }
+                }
+                ?>
+            </td>
+            <td class="center">&nbsp;</td>
+        </tr>
+
+    </table>
+
+    <br/><br/>
+
+    <table class="no-border" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Number of Children') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_children_count') ?></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Ages of children') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center">
+                            <?php
+                            $count = 0;
+                            $arrFields = array('qf_children_age_1', 'qf_children_age_2', 'qf_children_age_3', 'qf_children_age_4', 'qf_children_age_5', 'qf_children_age_6');
+                            foreach ($arrFields as $strFieldId) {
+                                if (array_key_exists($strFieldId, $this->arrProspectInfo['data']) && !empty($this->arrProspectInfo['data'][$strFieldId])) {
+                                    if (!empty($count)) {
+                                        echo ', ';
+                                    }
+                                    echo(date('Y') - $this->arrProspectInfo['data'][$strFieldId]);
+                                    $count++;
+                                }
+                            }
+                            if ($count == 0) {
+                                echo '-';
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Relatives in Canada') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_family_relationship', 1) ?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <?php
+            // Export this info only if there is a selected Sponsor (not empty nor "None")
+            $relationship = getVal('qf_family_relationship', 0);
+           if (!empty($relationship) && $relationship != 'None') :
+        ?>
+            <tr>
+                <td style="border: none;">
+                    <table>
+                        <tr><td class="header center"><?=$this->translate('Relative wish to sponsor')?></td></tr>
+                        <tr><td class="center"><?=getVal('qf_family_relative_wish_to_sponsor')?></td></tr>
+                    </table>
+                </td>
+                <td style="border: none;">
+                    <table>
+                        <tr><td class="header center"><?=$this->translate("Sponsor's age")?></td></tr>
+                        <tr><td class="center"><?=getVal('qf_family_sponsor_age')?></td></tr>
+                    </table>
+                </td>
+                <td style="border: none;">
+                    <table>
+                        <tr><td class="header center"><?=$this->translate("Sponsor's employment status")?></td></tr>
+                        <tr><td class="center"><?=getVal('qf_family_employment_status')?></td></tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: none;">
+                    <table>
+                        <tr><td class="header center"><?=$this->translate("Sponsor's family size")?></td></tr>
+                        <tr><td class="center"><?=getVal('qf_family_sponsor_financially_responsible')?></td></tr>
+                    </table>
+                </td>
+                <td style="border: none;">
+                    <table>
+                        <tr><td class="header center"><?=$this->translate("Sponsor's annual income")?></td></tr>
+                        <tr><td class="center"><?=getVal('qf_family_sponsor_income')?></td></tr>
+                    </table>
+                </td>
+                <td style="border: none;">
+                    <table>
+                        <tr><td class="header center"><?=$this->translate('Full-time student')?></td></tr>
+                        <tr><td class="center"><?=getVal('qf_family_currently_fulltime_student')?></td></tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" style="border: none;">
+                    <table>
+                        <tr><td class="header center"><?=$this->translate('Have been a dependent child since before 19')?></td></tr>
+                        <tr><td class="center"><?=getVal('qf_family_been_fulltime_student')?></td></tr>
+                    </table>
+                </td>
+            </tr>
+        <?php endif; ?>
+
+        <tr>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Worked in Canada') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_work_temporary_worker') ?></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Years of Canadian experience') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_work_years_worked') ?></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Canadian Employment Status') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center">
+                            <?php
+                            if (strtolower($this->arrProspectInfo['data']['qf_work_currently_employed'] ?? '') == 'yes') {
+                                $strStatus = 'Employed';
+                            } else {
+                                $strStatus = 'Left employment ' . strtolower($this->arrProspectInfo['data']['qf_work_leave_employment'] ?? '');
+                            }
+
+                            echo $strStatus;
+                            ?>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Arranged employment') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_work_offer_of_employment') ?></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?=$this->translate('NOC')?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?=getVal('qf_work_noc')?></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?=$this->translate('Certificate of qualification')?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="center"><?=getVal('qf_certificate_of_qualification')?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?=$this->translate('Provincial or territorial nomination')?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?=getVal('qf_nomination_certificate')?></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?=$this->translate('Networth')?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?=getVal('qf_cat_net_worth')?></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Management Experience') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_cat_managerial_experience') ?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Number of full-time staff') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_cat_staff_number') ?></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Own this business') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_cat_own_this_business') ?></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?= $this->translate('% of ownership') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_cat_percentage_of_ownership') ?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Annual Sales') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_cat_annual_sales') ?></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Annual net income') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_cat_annual_net_income') ?></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="border: none;">
+                <table>
+                    <tr>
+                        <td class="header center"><?= $this->translate('Net business asset') ?></td>
+                    </tr>
+                    <tr>
+                        <td class="center"><?= getVal('qf_cat_net_assets') ?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+<br/><br/><br/><br/>
+<div nobr="true">
+    <?= $this->arrProspectInfo['points'] ?>
+</div>

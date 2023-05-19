@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title><?= $this->layout()->siteTitle . ' :: ' . $this->translate('Companies list with failed charges') ?></title>
+    <style type="text/css">
+        table {
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid #AAAAAA;
+            vertical-align: top;
+            padding: 5px;
+            color: #444444;
+        }
+    </style>
+</head>
+
+<body>
+<?php if (count($this->arrFailedCharges)) { ?>
+    <table>
+        <tr>
+            <th>#</th>
+            <th><?= $this->translate('Company Id') ?></th>
+            <th><?= $this->translate('Company Name') ?></th>
+            <th><?= $this->translate('Amount') ?></th>
+            <th><?= $this->translate('Status') ?></th>
+            <th><?= $this->translate('Reason/Message') ?></th>
+        </tr>
+
+        <?php
+        $i = 1;
+        foreach ($this->arrFailedCharges as $item) :
+            ?>
+            <tr>
+                <td><?= $i++ ?></td>
+                <td width='100'><?= $item['company_id'] ?></td>
+                <td><?= $item['company_name'] ?></td>
+                <td><?= $item['amount'] ?></td>
+                <td style="color:<?= $item['success'] ? 'green' : 'red' ?>;"><?= $item['success'] ? 'Success' : 'Failed' ?></td>
+                <td><?= $item['error_message'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php } else { ?>
+    <b><?= $this->translate('Nothing to charge') ?></b>
+<?php } ?>
+</body>
+</html>

@@ -1,0 +1,20 @@
+.system-menu {
+    top: 0;
+}
+.main-tabs-no-bg .x-panel-body {
+    background-color: #DDEFFC;
+}
+
+.main-tabs-no-bg .x-tab-panel-body
+{
+    background-color:#DDEFFC;
+}
+
+.main-tabs-no-bg .clients-tab-panel .x-panel-body {
+    background-color: #FFF;
+}
+
+.main-tabs-no-bg .clients-sub-tab-panel .x-panel-body {
+    background-color: #FFF;
+}
+

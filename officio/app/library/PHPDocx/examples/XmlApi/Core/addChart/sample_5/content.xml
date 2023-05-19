@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pdx:document xmlns:pdx="http://www.phpdocx.com/main" >
+    <pdx:content>
+        <pdx:addText>
+            <pdx:textRun>
+                <pdx:data pdx:dataId="" pdx:dataType="text">A pie chart:</pdx:data>
+            </pdx:textRun>
+        </pdx:addText>
+        <pdx:addChart pdx:chartType="pieChart">
+            <pdx:data pdx:dataId="" pdx:type="chart">
+                <pdx:chartData>
+                    <pdx:series pdx:name="data 1">
+                        <pdx:dataValue pdx:value="10" />
+                    </pdx:series>
+                    <pdx:series pdx:name="data 2">
+                        <pdx:dataValue pdx:value="20" />
+                    </pdx:series>
+                    <pdx:series pdx:name="data 3">
+                        <pdx:dataValue pdx:value="50" />
+                    </pdx:series>
+                    <pdx:series pdx:name="data 4">
+                        <pdx:dataValue pdx:value="25" />
+                    </pdx:series>
+                </pdx:chartData>
+            </pdx:data>
+            <pdx:chartAlign pdx:value="center" />
+            <pdx:color pdx:value="3" />
+            <pdx:sizeX pdx:value="10"/>
+            <pdx:sizeY pdx:value="5"/>
+        </pdx:addChart>
+        <pdx:addText>
+            <pdx:textRun>
+                <pdx:data pdx:dataId="" pdx:dataType="text">The same chart with custom colors:</pdx:data>
+            </pdx:textRun>
+        </pdx:addText>
+        <pdx:addChart pdx:chartType="pieChart">
+            <pdx:data pdx:dataId="" pdx:type="chart">
+                <pdx:chartData>
+                    <pdx:series pdx:name="data 1">
+                        <pdx:dataValue pdx:value="10" />
+                    </pdx:series>
+                    <pdx:series pdx:name="data 2">
+                        <pdx:dataValue pdx:value="20" />
+                    </pdx:series>
+                    <pdx:series pdx:name="data 3">
+                        <pdx:dataValue pdx:value="50" />
+                    </pdx:series>
+                    <pdx:series pdx:name="data 4">
+                        <pdx:dataValue pdx:value="25" />
+                    </pdx:series>
+                </pdx:chartData>
+            </pdx:data>
+            <pdx:chartAlign pdx:value="center" />
+            <pdx:color pdx:value="3" />
+            <pdx:sizeX pdx:value="10"/>
+            <pdx:sizeY pdx:value="5"/>
+            <pdx:theme>
+                <pdx:valueRgbColors>
+                    <pdx:valueRgbColorsValues>
+                        <pdx:dataValue pdx:value="99C099" />
+                        <pdx:dataValue pdx:value="678CB3" />
+                        <pdx:dataValue pdx:value="ACA42E" />
+                    </pdx:valueRgbColorsValues>
+                </pdx:valueRgbColors>
+            </pdx:theme>
+        </pdx:addChart>
+    </pdx:content>
+</pdx:document>

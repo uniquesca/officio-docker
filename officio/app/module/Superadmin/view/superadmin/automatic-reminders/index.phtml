@@ -1,0 +1,29 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+$this->headScript()->appendFile($this->layout()->jsUrl . '/automatic-reminders/grid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/automatic-reminders/dialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/automatic-reminders/triggers/panel.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/automatic-reminders/actions/dialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/automatic-reminders/actions/grid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/automatic-reminders/conditions/dialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/automatic-reminders/conditions/grid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/automatic-reminders/init.js');
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->cssUrl . '/automatic_reminders.css');
+?>
+
+<?php $this->headScript()->captureStart(); ?>
+var is_superadmin = '<?=$this->is_superadmin?>';
+var arrTriggerSettings = <?= Json::encode($this->arrTriggerSettings)?>;
+var arrConditionSettings = <?= Json::encode($this->arrConditionSettings)?>;
+var arrApplicantsSettings = <?= Json::encode($this->arrApplicantsSettings)?>;
+var officeLabel = <?= Json::encode($this->officeLabel)?>;
+var booAutomaticTurnedOn = <?= Json::encode($this->booAutomaticTurnedOn)?>;
+<?php $this->headScript()->captureEnd(); ?>
+
+<div id="automatic-reminders-content" align="left"></div>

@@ -1,0 +1,171 @@
+#server_submit_button {
+    display: none;
+}
+
+.btn {
+    background: #4E88D2;
+    background-image: -webkit-linear-gradient(top, #4E88D2, #3867AB);
+    background-image: -moz-linear-gradient(top, #4E88D2, #3867AB);
+    background-image: -ms-linear-gradient(top, #4E88D2, #3867AB);
+    background-image: -o-linear-gradient(top, #4E88D2, #3867AB);
+    background-image: linear-gradient(to bottom, #4E88D2, #3867AB);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 3px #666666;
+    -moz-box-shadow: 0 1px 3px #666666;
+    box-shadow: 0 1px 3px #666666;
+    font-family: Arial, serif;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0 10px 0 10px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #508BD6;
+    background-image: -webkit-linear-gradient(top, #508BD6, #4E88D2);
+    background-image: -moz-linear-gradient(top, #508BD6, #4E88D2);
+    background-image: -ms-linear-gradient(top, #508BD6, #4E88D2);
+    background-image: -o-linear-gradient(top, #508BD6, #4E88D2);
+    background-image: linear-gradient(to bottom, #508BD6, #4E88D2);
+    text-decoration: none;
+}
+
+.btn i {
+    color: #ffffff;
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.btn.disabled, .btn.disabled i {
+    opacity: 0.6;
+    color: #E1E1E1;
+    cursor: not-allowed;
+}
+
+.text input, .text textarea {
+    background-color: #DDE4FE !important;
+}
+
+.text input:focus, .text textarea:focus {
+    background-color: transparent !important;
+}
+
+.ui-loader {
+    width: auto;
+}
+
+.ui-loader-background {
+    width:100%;
+    height:100%;
+    top:0;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display:none;
+    position: fixed;
+    z-index:100;
+}
+
+.ui-loading .ui-loader-background {
+    display:block;
+}
+
+.officio-logo {
+    height: 28px;
+    margin: 3px 0px 3px 16px;
+}
+
+.officio-save-btn {
+    margin: 0 20px 0 36px;
+    padding: 3px 15px;
+    background: #FF7C2F !important;
+    background-image: initial;
+    box-shadow: none;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 28px;
+    font-family: Metropolis, Arial, Helvetica, sans-serif;
+}
+
+.officio-save-btn:hover {
+    background: #FF8E4C !important;
+}
+
+.officio-save-btn > i {
+    font-size: 20px;
+}
+
+.officio-save-btn > .full-text {
+    display: none;
+}
+.officio-save-btn > .short-text {
+    display: block;
+}
+
+/** xxs **/
+@media (max-width: 400px) {
+    .custom-ribbons-container {
+        visibility: hidden;
+    }
+}
+
+/** xs **/
+@media (max-width: 576px) {
+    .officio-logo {
+        height: 21px;
+    }
+    [data-element="dropdown-item-toolbarGroup-Annotate"], [data-element="toolbarGroup-Annotate"] {
+        display: none;
+    }
+}
+
+/** sm **/
+@media (min-width: 576px) {
+}
+
+/** md **/
+@media (min-width: 768px) {
+}
+
+/** lg **/
+@media (min-width: 992px) {
+    .officio-save-btn {
+        margin: 0 50px 0 66px;
+    }
+    .officio-save-btn > .full-text {
+        display: block;
+    }
+    .officio-save-btn > .short-text {
+        display: none;
+    }
+}
+
+button[data-element="helpButton"] > i, button[data-element="printLinkButton"] > i {
+    font-size: 20px;
+    color: #929292;
+}
+
+.Header > .HeaderItems {
+    visibility: hidden;
+}
+
+.ErrorModal > .container > i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.custom-ribbons-container .ribbons-container .ribbons {
+    transform: initial !important;
+    left: unset !important;
+    right: 8px !important;
+}
+
+.HeaderToolsContainer > .Header > .HeaderItems > div.spacer:last-child {
+    display: none;
+}

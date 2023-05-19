@@ -1,0 +1,106 @@
+{
+  "info": {
+    "_postman_id": "7a9a678e-c332-48fc-8b52-40bdb62084f4",
+    "name": "Officio API v2",
+    "description": "Officio API layer based (mostly) on REST API standards.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "pm.test(\"Access token is present in the response\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).has(\"access_token\");\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "strictSSL": false
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "username",
+              "value": "{{Username}}",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "{{Password}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{Base URL}}api2/login",
+          "host": [
+            "{{Base URL}}api2"
+          ],
+          "path": [
+            "login"
+          ]
+        },
+        "description": "Logs user in and returns an access token for the further API usage."
+      },
+      "response": []
+    },
+    {
+      "name": "Logout",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "{{Access Token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{Base URL}}api2/logout",
+          "host": [
+            "{{Base URL}}api2"
+          ],
+          "path": [
+            "logout"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

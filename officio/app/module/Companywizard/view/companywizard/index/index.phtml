@@ -1,0 +1,241 @@
+<?php
+
+use Laminas\Json\Json;
+
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title><?= $this->layout()->siteTitle . ' :: ' . $this->translate('Company Wizard') ?></title>
+
+    <meta name="viewport" content="width=850, initial-scale=1.0">
+
+    <link rel="stylesheet" href="<?= $this->topBaseUrl ?>/assets/plugins/bootstrap/dist/css/bootstrap.min.css" type="text/css"/>
+    <link href="<?= $this->layout()->assetsUrl; ?>@fortawesome/fontawesome-free/css/all.min.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="<?= $this->layout()->assetsUrl; ?>jquery-ui/themes/base/theme.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="<?= $this->layout()->officioCssUrl; ?>/colorbox.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="<?= $this->layout()->cssUrl; ?>/wizard.css" media="screen" rel="stylesheet" type="text/css"/>
+
+    <?php
+    $booAustralia = $this->layout()->site_version == 'australia';
+    ?>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        var baseUrl = '<?= $this->layout()->baseUrl; ?>';
+        var arrRoles = '<?= $this->arrRoles; ?>';
+        var strError = '<?= $this->strError; ?>';
+        var site_version = '<?= $this->layout()->site_version; ?>';
+        var site_currency = '<?= strtolower($this->layout()->site_currency); ?>';
+        var defaultCountryId = <?= $this->defaultCountryId; ?>;
+        var defaultTimeZone = '<?= $this->defaultTimezone; ?>';
+        var maxUsersCount = <?= ($this->prospect['free_users'] + $this->prospect['extra_users']); ?>;
+        var prospectName = <?= Json::encode($this->prospect['name']); ?>;
+        var prospectLastName = <?= Json::encode($this->prospect['last_name']); ?>;
+        var prospectEmail = '<?= $this->prospect['email']; ?>';
+        var passwordHighSecurity = <?= $this->passwordHighSecurity; ?>;
+        var passwordMinLength = <?= $this->layout()->settings->passwordMinLength; ?>;
+        var passwordMaxLength = <?= $this->layout()->settings->passwordMaxLength; ?>;
+        var booAustralia = <?= Json::encode($booAustralia); ?>;
+        var booShowABN = <?= Json::encode($this->booShowABN); ?>;
+        var ta_label = '<?= $this->taLabel; ?>';
+        //]]>
+    </script>
+
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->officioJsUrl; ?>/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->assetsUrl; ?>/jquery-colorbox/jquery.colorbox-min.js"></script>
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->jqueryUrl; ?>/jquery.metadata.js"></script>
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->officioJsUrl; ?>/jquery.validate.js"></script>
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->jqueryUrl; ?>/jquery.json.js"></script>
+    <script language="javascript" type="text/javascript" src="<?= $this->layout()->jsUrl; ?>/wizard/global.js"></script>
+    <script language="javascript" type="text/javascript" src="<?=$this->layout()->jsUrl;?>/wizard/companywizard.js"></script>
+</head>
+
+<body>
+<div id="header">
+    <div class="container-fluid">
+        <div id="top_nav"><a href="http://<?= $this->layout()->officio_domain ?>"><img src="<?= $this->imgUrl('default/logo.png') ?>" title="<?= $this->officio_domain ?>" alt="<?= $this->officio_domain ?>" /></a></div>
+    </div>
+</div>
+<div id="wizard">
+
+    <div id="pageError" class="alert alert-danger" style="display: none;"></div>
+    <?php if($this->step == 3): ?>
+    <h3 id="pageTitle"><?= $this->prospect['company'] ?> Setup</h3>
+    <?php else:?>
+    <h3 id="pageTitle">Company Setup Wizard</h3>
+    <?php endif; ?>
+
+    <ul id="mainNav" class="fourStep" style="display: none;">
+        <?php if($this->step == 3): ?>
+            <li><a title=""><em><?= $this->translate('1. Add Users')?></em></a></li>
+            <li class="mainNavNoBg"><a title=""><em><?= $this->translate('2. Add Client/Trust Account') ?></em></a></li>
+        <?php else: ?>
+            <li><a title=""><em><?= $this->translate('1. Key Info')?></em></a></li>
+            <li><a title=""><em><?= $this->translate('2. Account Details')?></em></a></li>
+            <li><a title=""><em><?= $this->translate('3. Add Users')?></em></a></li>
+            <li class="mainNavNoBg"><a title=""><em><?= $this->translate('4. Add Client/Trust Account') ?></em></a></li>
+        <?php endif; ?>
+    </ul>
+
+    <ul id="progressbar" class="w-100">
+        <?php if($this->step == 3): ?>
+            <li id="progress_users" style="width: 50%;"><strong><?= $this->translate('Add Users') ?></strong></li>
+            <li id="progress_trust" style="width: 50%;"><strong><?= $this->translate('Add Client/Trust Account') ?></strong></li>
+        <?php else: ?>
+            <li id="progress_key"><strong><?= $this->translate('Key Info') ?></strong></li>
+            <li id="progress_account"><strong><?= $this->translate('Account Details') ?></strong></li>
+            <li id="progress_users"><strong><?= $this->translate('Add Users') ?></strong></li>
+            <li id="progress_trust"><strong><?= $this->translate('Add Client/Trust Account') ?></strong></li>
+        <?php endif; ?>
+    </ul>
+
+
+    <div id="wizardcontentwrap">
+        <div id="wizardcontent">
+            <form id="newCompanyForm" name="newCompanyForm" action="#">
+                <input type="hidden" id="start_step" name="start_step" value="<?=$this->step?>" />
+                <input type="hidden" id="stepsCount" name="stepsCount" value="4" />
+                <input type="hidden" id="users_count" name="users_count" value="1" />
+
+                <div class="wizardcontent" id="step_1">
+                    <h4><?=$this->translate('Key Info')?></h4>
+
+                    <table>
+                        <tr>
+                            <td><label for="freetrial_key"><?= $this->translate('Please enter the registration key and click Next:') ?></label></td>
+                            <td><input id="key" name="key" value="<?=$this->key?>" style="width: 350px;" type="text" class="form-control pageRequired"/></td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <?php
+                if($this->step > 1) {
+                    ?>
+
+                    <div class="wizardcontent" id="step_2">
+                        <h4><?=$this->translate('Account Details')?></h4>
+                        <input type="hidden" id="prospectId" name="prospectId" value="<?=$this->prospect['prospect_id']?>" />
+                        <input type="hidden" id="prospectName" name="prospectName" value="<?=$this->prospect['name']?>" />
+                        <input type="hidden" id="prospectLastName" name="prospectLastName" value="<?=$this->prospect['last_name']?>" />
+                        <input type="hidden" id="companyName" name="companyName" value="<?=$this->prospect['company']?>" />
+                        <input type="hidden" id="company_abn" name="company_abn" value="<?=$this->prospect['company_abn']?>" />
+                        <input type="hidden" id="address" name="address" value="<?=$this->prospect['address']?>" />
+                        <input type="hidden" id="city" name="city" value="<?=$this->prospect['city']?>" />
+                        <input type="hidden" id="state" name="state" value="<?=$this->prospect['state']?>" />
+                        <input type="hidden" id="country" name="country" value="<?=$this->prospect['country']?>" />
+                        <input type="hidden" id="zip" name="zip" value="<?=$this->prospect['zip']?>" />
+                        <input type="hidden" id="phone1" name="phone1" value="<?=$this->prospect['phone_w']?>" />
+                        <input type="hidden" id="phone2" name="phone2" value="<?=$this->prospect['phone_m']?>" />
+                        <input type="hidden" id="companyEmail" name="companyEmail" value="<?=$this->prospect['email']?>" />
+                        <input type="hidden" id="fax" name="fax" value="" />
+                        <input type="hidden" id="companyTimeZone" name="companyTimeZone" value="<?= $this->defaultTimezone; ?>" />
+
+                        <div>
+                            <div class="wizard-list-record"><div class="wizard-list-label">Case: </div><div class="wizard-list-value"><?=$this->prospect['salutation']?> <?=$this->prospect['name']?> <?=$this->prospect['last_name']?>&nbsp;</div></div>
+                            <hr style="margin: 5px;" />
+                            <div class="wizard-list-record"><div class="wizard-list-label"><?=$this->translate('Company name:')?> </div><div class="wizard-list-value"><?=$this->prospect['company']?>&nbsp;</div></div>
+
+                            <?php if ($this->booShowABN) : ?>
+                            <div class="wizard-list-record"><div class="wizard-list-label"><?=$this->translate('Company ABN:')?> </div><div class="wizard-list-value"><?=$this->prospect['company_abn']?>&nbsp;</div></div>
+                            <?php endif ?>
+
+                            <div class="wizard-list-record"><div class="wizard-list-label"><?=$this->translate('Email:')?> </div><div class="wizard-list-value"><?=$this->prospect['email']?>&nbsp;</div></div>
+                            <div class="wizard-list-record"><div class="wizard-list-label"><?=$this->translate('Phone (W):')?> </div><div class="wizard-list-value"><?=$this->prospect['phone_w']?>&nbsp;</div></div>
+                            <div class="wizard-list-record"><div class="wizard-list-label"><?=$this->translate('Phone (M):')?> </div><div class="wizard-list-value"><?=$this->prospect['phone_m']?>&nbsp;</div></div>
+                            <div class="wizard-list-record"><div class="wizard-list-label"><?=$this->translate('Address:')?> </div><div class="wizard-list-value"><?=$this->prospect['address']?>&nbsp;</div></div>
+                            <div class="wizard-list-record"><div class="wizard-list-label"><?=$this->site_version == 'canada' ? 'City' : 'Suburb'?>: </div><div class="wizard-list-value"><?=$this->prospect['city']?>&nbsp;</div></div>
+                            <div class="wizard-list-record"><div class="wizard-list-label"><?=$this->translate('Province/State:')?> </div><div class="wizard-list-value"><?=$this->prospect['state']?>&nbsp;</div></div>
+                            <div class="wizard-list-record"><div class="wizard-list-label"><?=$this->translate('Country:')?> </div><div class="wizard-list-value"><?=$this->prospect['country_name']?>&nbsp;</div></div>
+                            <div class="wizard-list-record"><div class="wizard-list-label"><?=$this->translate('Postal code/Zip:')?> </div><div class="wizard-list-value"><?=$this->prospect['zip']?>&nbsp;</div></div>
+
+                            <hr style="margin: 5px;" />
+
+                            <div class="wizard-list-record"><div class="wizard-list-label"><?=$this->translate('Package:')?> </div><div class="wizard-list-value"><?=$this->prospect['package_type']?>&nbsp;</div></div>
+                            <div class="wizard-list-record"><div class="wizard-list-label"><?=$this->translate('Training &amp; Support:')?> </div><div class="wizard-list-value"><?=$this->prospect['support']?>&nbsp;</div></div>
+                            <div class="wizard-list-record"><div class="wizard-list-label"><?=$this->translate('Payment term:')?> </div><div class="wizard-list-value"><?=$this->prospect['payment_term']?>&nbsp;</div></div>
+
+                            <hr style="margin: 5px;" />
+
+                            <div class="wizard-list-record"><div class="wizard-list-label"><?=$this->translate('Sign-up Date:')?> </div><div class="wizard-list-value"><?=$this->prospect['sign_in_date']?>&nbsp;</div></div>
+                        </div>
+                    </div>
+
+
+                    <div class="wizardcontent" id="step_3">
+                        <h4><?=$this->translate('Add Users')?></h4>
+
+                        <div><em class="required">*</em><span class="field_name"> <?=$this->translate('indicates mandatory fields ')?></span></div>
+
+                        <div style="">
+                            <div id="users_container">
+                            </div>
+                            <div id="additional_users_options">
+                                <button id="add_user_btn" type="button" class="btn btn-primary" style="margin-bottom: 15px;">Add another user</button>
+                                <p id="add_user_btn_help" style="margin-bottom: 30px; display: none;">You can add additional users after you login to your admin account.</p>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wizardcontent" id="step_4">
+                        <h4><?=$this->translate('Add Client/Trust Account')?></h4>
+
+                        <div><em class="required">*</em><span class="field_name"> <?=$this->translate('indicates mandatory fields ')?></span></div>
+
+                        <div style="padding-top: 10px;">
+                            <label hidden="true" for="ta_count" class="required"><?=$this->translate('How many Client Accounts do you have?')?></label>
+                            <select hidden="true" id="ta_count" name="ta_count" style="width: 50px;">
+                                <option value="1">1</option>
+                            </select>
+                            <div id="ta_container"></div>
+                        </div>
+                    </div>
+
+                <?php } ?>
+
+            </form>
+
+            <div style="margin: 0 auto;">
+                <div id="divError" class="alert alert-danger"><span id="errorDescription"></span></div>
+                <div id="divWarning" class="alert alert-warning">Please wait while we are setting up your company. This action can take some time. Please do not go back, close or refresh your browser.</div>
+                <div id="loadingImage" style="display: none; text-align: center; margin: 10px;"><img src="<?= $this->imgUrl('loading.gif') ?>" align="middle" alt="<?= $this->translate('Loading') ?>" width="16" height="16"/></div>
+            </div>
+
+        </div>
+
+        <div class="buttons">
+            <button type="submit" id="previous" class="btn btn-primary"><span style='vertical-align: middle;'><?= $this->translate('Back') ?></span></button>
+            <button type="submit" id="next" class="btn btn-primary"><span style='vertical-align: middle;'><?= $this->translate('Next') ?></span></button>
+        </div>
+    </div>
+
+    <div id="thankYouMsg" style="display: none; margin-top: 20px;" class="card w-75 mx-auto">
+        <div class="card-body">
+            <h5 class="card-title"><?= $this->translate('Thank You! Your company was successfully created.') ?></h5>
+            <p class="card-text"><?= $this->translate(
+                    'An email has been sent to you (and all users) with instructions on how to access your account. You can click on the button below to start exploring Officio.'
+                ) ?></p>
+            <div class="row justify-content-center" style="margin-top: 20px; margin-bottom: 10px;">
+                <a href="<?= $this->layout()->topBaseUrl ?>" class="btn btn-primary orange-btn"><?= $this->translate('Start Officio Now') ?></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="footer-window">
+    <div class="container-fluid">
+        <div class="footer-row">
+            <div class="footercol01 small">Copyright &copy; <?= ($this->layout()->site_version == 'australia' ? '2013-' . date('Y') : '1996-' . date('Y')) ?>, <?= $this->layout()->site_company_name ?></div>
+            <div class="footercol02 small">
+                <ul>
+                    <li><a class="inline_footer" href="<?= $this->layout()->baseUrl; ?>/default/index/privacy"><?= $this->translate('Privacy Policy') ?></a></li>
+                    <li><a class="inline_footer" href="<?= $this->layout()->baseUrl; ?>/default/index/terms"><?= $this->translate('Terms of Use') ?></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

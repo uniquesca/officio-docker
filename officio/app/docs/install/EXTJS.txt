@@ -1,0 +1,144 @@
+[resources/css/ext-all.css]
+
+Line 499: width:5000px; --> width:auto;
+Line 2945: height:18px; --> height:16px;
+Line 1196: top: -3px; --> top: 1px;
+
+[ext-all.js]
+Line 50610:
+    constrainScroll: function(y){ .. },
+
+    -->
+
+    constrainScroll : function(y){
+        var max, full = this.ul.setHeight('auto').getHeight();
+        var new_y = y;
+        if(this.floating){
+            var pe = Ext.fly(this.el.dom.parentNode);
+            var st = pe.getScroll().top;
+            var vh = pe.getViewSize().height;
+            //Normalize y by the scroll position for the parent element.  Need to move it into the coordinate space
+            //of the view.
+            var norm_y = y - st;
+            max = this.maxHeight ? this.maxHeight : vh - norm_y;
+
+            if(full > vh) {
+                max = vh;
+                //Set new_y equal to (0,0) in view space by reducing y by the value of norm_y
+                new_y = y - norm_y;
+            } else if(max < full) {
+                new_y = y - (full - max);
+                max = full;
+            }
+        }else{
+            max = this.getHeight();
+        }
+
+        if(full > max && max > 0){
+            this.activeMax = max - this.scrollerHeight * 2 - this.el.getFrameWidth('tb') - Ext.num(this.el.shadowOffset, 0);
+            this.ul.setHeight(this.activeMax);
+            this.createScrollers();
+            this.el.select('.x-menu-scroller').setDisplayed('');
+        }else{
+            this.ul.setHeight(full);
+            this.el.select('.x-menu-scroller').setDisplayed('none');
+        }
+        this.ul.dom.scrollTop = 0;
+
+        return new_y;
+    },
+
+
+Line 36604:
+    close : function(){
+        if(this.fireEvent('beforeclose', this) !== false){
+            this.hide(null, function(){
+                this.fireEvent('close', this);
+                this.destroy();
+            }, this);
+        }
+    },
+
+    -->
+
+    close : function(){
+        if(this.fireEvent('beforeclose', this) !== false){
+            this.hide(null, function(){
+                if(Ext.isIE8) { // BUG in IE8 when close window and focus is in some combobox
+                    // with timeout!
+                    var wnd = this;
+                    setTimeout(function(){
+                        wnd.fireEvent('close', wnd);
+                        wnd.destroy();
+                    }, 50);
+                } else {
+                    this.fireEvent('close', this);
+                    this.destroy();
+                }
+            }, this);
+        }
+    },
+
+
+[57914] Updated to:    
+        cleanHtml : function(html){
+        html = String(html);
+            if(Ext.isWebKit){ // strip safari nonsense
+                html = html.replace(/\sclass="(?:Apple-style-span|khtml-block-placeholder)"/gi, '');
+            }
+
+        /*
+         * Neat little hack. Strips out all the non-digit characters from the default
+         * value and compares it to the character code of the first character in the string
+         * because it can cause encoding issues when posted to the server.
+         */
+        if(html.charCodeAt(0) == this.defaultValue.replace(/\D/g, '')){
+            html = html.substring(1);
+        }
+        return html;
+    },    
+    
+    
+[29598] Update 0 to -5000000000000:
+asDate : function(s) {
+        if(!s){
+            return -5000000000000;
+        }
+        if(Ext.isDate(s)){
+            return s.getTime();
+        }
+    	return Date.parse(String(s));
+    },    
+    
+[2304]
+if(this.showToday){
+            this.todayKeyListener = this.eventEl.addKeyListener(Ext.EventObject.SPACE, this.selectToday,  this);
+            var today = (new Date()).dateFormat(this.format);
+            this.todayBtn = new Ext.Button({
+                renderTo: this.el.child('td.x-date-bottom', true),
+                text: String.format(this.todayText, today),
+                tooltip: String.format(this.todayTip, today),
+                handler: this.selectToday,
+                scope: this,
+                style: 'float:left' // <--- NEW
+            });
+            
+            /* NEW BEGIN */
+            this.okBtn = new Ext.Button({
+                renderTo: this.el.child('td.x-date-bottom', true),
+                text: 'OK',
+                handler: function(){                
+					var vd = $('div.x-date-picker .x-date-middle .x-btn-text').html() + ' ' + $('td.x-date-selected span').html();                
+                	if(!this.disabled && vd){
+						this.setValue(new Date(vd));
+						this.fireEvent('select', this, this.value);
+                	}
+                },
+                scope: this,
+                style: 'float:right'
+            });
+            /* NEW END */
+        }
+		
+[46105]
+functions findChild and findChildBy taken from ExtJS 3.3.1

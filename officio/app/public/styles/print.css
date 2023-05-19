@@ -1,0 +1,42 @@
+body {
+    padding: 8px;
+}
+
+a {
+    text-decoration: none !important;
+    color: #000 !important;
+}
+
+.buttons,
+.ui-datepicker-trigger,
+.x-form-trigger,
+.x-grid3-td-checker,
+.x-grid3-col-checker,
+.x-toolbar {
+    display: none !important;
+}
+
+.blue-arrow-down,
+.blue-arrow-down {
+    padding: 0;
+}
+
+.x-hide-display {
+    display: none !important;
+}
+
+.x-form-field-trigger-wrap .x-form-text {
+    border-right-width: 2px;
+}
+
+.form-image-input {
+    position: relative !important;
+}
+
+.x-fieldset {
+    border: none;
+}
+
+.x-grid3-scroller {
+    height: auto !important;
+}

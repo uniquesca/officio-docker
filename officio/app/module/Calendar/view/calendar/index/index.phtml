@@ -1,0 +1,8 @@
+<div style="display:flex;flex-direction:column;height:100%;">
+    <?php if ($this->calendarEnabled): ?>
+        <?= $this->content; ?>
+    <?php else: ?>
+        <p><?= $this->translate('Calendar tab in this version of the site is disabled.') ?></p>
+        <img src="<?= $this->imgUrl('calendar.jpg') ?>" alt="Calendar" vspace="5"/>
+    <?php endif; ?>
+</div>

@@ -1,0 +1,160 @@
+/* BUTTONS */
+.buttons{width:480px; margin:10px; margin-bottom:40px; padding: 10px; clear:both;}
+#next {float:right; width:80px;}
+#previous {float:left; width:80px;}
+
+.divErrorBox{
+    font-size:11px;
+    color:#FF7800;
+    font-weight:bold;
+    background-color:#F2FCEA;
+    border:#D3EABE solid 1px;
+    text-align:left;
+
+    margin: 0px auto;
+    display:none;
+    width: 300px;
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.divErrorBox span.error{
+    font-size:11px;
+    color:#FF7800;
+    font-weight:bold;
+}
+
+.divErrorBox span.info{
+    font-size:11px;
+    color: green;
+    font-weight:bold;
+}
+.divErrorBox img{
+    margin:0px;
+    padding: 0px 5px 0px 0px;
+    vertical-align: middle;
+}
+
+
+.error{
+    color:#FF7800;
+}
+
+
+.success {
+    font-size:11px;
+    color:#090;
+    font-weight:bold;
+}
+
+li.error {
+  list-style:inside square;
+  color:#FF7800;
+  width:auto;
+  padding-left:0px;
+  border:0px;
+  text-decoration:none;
+  font-weight:normal;
+}
+
+label.error {
+    padding-left: 5px;
+    white-space: nowrap;
+}
+
+label.valid { 
+    display: inline; 
+    background:url('../images/icons/accept.png') no-repeat center; 
+    width:16px; 
+    height:16px; 
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+input.error, textarea.error {
+    border:1px solid red;
+    background: url("../images/exclamation.png") no-repeat right;
+}
+
+span.error {
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color: #FF7800;
+    text-decoration: none;
+    list-style:none;
+}
+
+em.required {
+    color: #FF0000;
+    cursor: default;
+    font-style: normal;
+}
+
+/* WIZARD PROSPECT */
+.wizard-list-record
+{
+    padding: 4px 0;
+}
+
+.wizard-list-label
+{
+    /*color:#777;*/
+    /*width:130px;*/
+    padding-right: 10px;
+    float: left;
+}
+
+hr {
+    border-top: 1px solid #EEEEEE !important;
+    margin-bottom:5px !important;
+    margin-top:5px !important;
+}
+
+legend {
+    width:inherit; /* Or auto */
+    padding:0 10px; /* To give a bit of padding on the left and right */
+    border-bottom:none;
+}
+
+a.nav-link.step {
+    pointer-events: none;
+}
+nav.header {
+    background-color: #3F72B1 !important;
+}
+
+.select2-selection__rendered {
+    line-height: 31px !important;
+}
+.select2-container .select2-selection--single {
+    height: 35px !important;
+}
+.select2-selection__arrow {
+    height: 34px !important;
+}
+
+footer {
+    background-color: #3F72B1 !important;
+}
+
+.vertical-links {
+    padding-left: 0 !important;
+}
+
+.vertical-links>li {
+    padding-top: 10px;
+    color: white;
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding-left: 10px;
+}
+
+.vertical-links>li>a {
+    color: white;
+    font-weight: 400;
+    list-style-type:square;
+}
+
+.container {
+    max-width: 970px;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+      <style type="text/css">
+          body {
+              font-family: Georgia,Times,Verdana,Geneva,Arial,Helvetica,sans-serif;
+              margin:0;
+              padding:0;
+          }
+
+          .modal {
+              background-color:#fff;
+              height:272px;
+              width:500px;
+              margin: 50px auto 0;
+              padding:15px;
+              text-align:left;
+              border:2px solid #333;
+
+              opacity:0.8;
+              -moz-border-radius:6px;
+              -webkit-border-radius:6px;
+              -moz-box-shadow: 0 0 50px #ccc;
+              -webkit-box-shadow: 0 0 50px #ccc;
+          }
+
+          .modal h1 {
+              font-size:40px;
+              margin-bottom:35px;
+          }
+
+          .modal h2 {
+              background:url('/images/info.png') 0 50% no-repeat;
+              padding:10px 0 10px 45px;
+              margin-top:35px;
+
+              font-size:20px;
+          }
+      </style>
+
+      <title>Server error</title>
+  </head>
+  <body>
+      <div id="errorBox" class="modal">
+          <h1>Oops! Server error...</h1>
+          <p>Sorry, it appears there has been an internal server error with the page you've requested. The site administrator has been notified.</p>
+
+          <h2>Lost? We suggest...</h2>
+          <ol>
+              <li>Checking the web address for typos.</li>
+              <li>Visiting the home page by clicking <a href="/">here</a>.</li>
+          </ol>
+      </div>
+  </body>
+</html>

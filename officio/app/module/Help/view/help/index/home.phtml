@@ -1,0 +1,92 @@
+<?php
+
+$this->headScript()->appendFile($this->layout()->topBaseUrl . '/assets/plugins/corejs-typeahead/dist/typeahead.jquery.min.js');
+$this->headScript()->appendFile($this->layout()->topBaseUrl . '/js/help/main.js');
+$this->headScript()->appendFile($this->layout()->topBaseUrl . '/js/help/init.js');
+$this->headLink()->appendStylesheet($this->layout()->topBaseUrl . '/assets/plugins/@fortawesome/fontawesome-free/css/all.min.css');
+$this->headLink()->appendStylesheet($this->layout()->topBaseUrl . '/styles/help.css');
+?>
+
+<div class="container" style="max-width: none; padding: 0; background-image: url('/images/help_background.jpg');">
+    <div style="padding: 15px">
+        <?php if ($this->booShowHelpLearnButton) : ?>
+            <div class="d-flex justify-content-end" style="padding-bottom: 15px;">
+                <a href="https://ilearnio.com/" target="_blank" type="button" class="btn btn-success"><i class="far fa-star"></i> iPractice</a>
+            </div>
+        <?php endif; ?>
+
+        <div class="d-flex justify-content-center" style="margin: 50px 0;">
+            <div class="form-group has-search w-50">
+                <span class="fa fa-search form-control-search"></span>
+                <input type="text" class="form-control" placeholder="Search..." data-remote-load="help-home" data-section-type="<?= $this->sectionType ?>"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <?php $arrFeatured = array(); ?>
+            <?php foreach ($this->arrHelp as $arrCategoryInfo): ?>
+                <?php
+                // Get the list of featured articles
+                if (isset($arrCategoryInfo['faq'])) {
+                    foreach ($arrCategoryInfo['faq'] as $arrArticleInfo) {
+                        $arrFeatured[] = $arrArticleInfo;
+                    }
+                }
+
+                if (isset($arrCategoryInfo['subcategories'])) {
+                    foreach ($arrCategoryInfo['subcategories'] as $subCategory) {
+                        if (isset($subCategory['faq'])) {
+                            foreach ($subCategory['faq'] as $arrArticleInfo) {
+                                $arrFeatured[] = $arrArticleInfo;
+                            }
+                        }
+                    }
+                }
+
+                // Use the default or specified color of the section
+                $color = empty($arrCategoryInfo['section_color']) ? '9DB6D5' : $arrCategoryInfo['section_color'];
+                ?>
+
+                <div class="col-4 mb-5">
+                    <h2 style="text-transform: uppercase; text-align: center">
+                        <?php
+                        if ($arrCategoryInfo['section_show_as_heading'] === 'Y') {
+                            echo $arrCategoryInfo['section_name'] ?? '';
+                        } else {
+                            if (!empty($arrCategoryInfo['section_external_link'])) {
+                                $target = 'target="_blank"';
+                                $url = $arrCategoryInfo['section_external_link'];
+                            } else {
+                                $target = '';
+                                $url = $this->layout()->topBaseUrl . '/help/index/index?type=' . $this->sectionType . '#c' . $arrCategoryInfo['faq_section_id'];
+                            }
+                            ?>
+                            <a href="<?= $url ?>" <?= $target ?> style="color: <?= $color ?>">
+                                <?php if (!empty($arrCategoryInfo['section_class'])) : ?>
+                                    <i class="<?= $arrCategoryInfo['section_class'] ?>" style="padding-right: 3px"></i>
+                                <?php endif; ?>
+
+                                <?= $arrCategoryInfo['section_name'] ?>
+                            </a>
+                        <?php } ?>
+                    </h2>
+                    <h4 style="text-align: center"><?= $arrCategoryInfo['section_subtitle'] ?></h4>
+                    <div><?= $arrCategoryInfo['section_description'] ?></div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <?php if (!empty($arrFeatured)) : ?>
+        <div style="background-color: white; padding: 15px; margin: 0">
+            <h1><span class="badge badge-light">Featured Articles:</span></h1>
+            <div class="row" style="padding: 0 15px">
+                <?php
+                foreach ($arrFeatured as $arrArticleInfo) {
+                    echo "<div class='col-4'><a href='{$this->layout()->topBaseUrl}/help/index/index?type={$this->sectionType}#q{$arrArticleInfo['faq_id']}' style='color: #383D7C' class='article-icon-{$arrArticleInfo['content_type']}'>{$arrArticleInfo['question']}</a></div>";
+                }
+                ?>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>

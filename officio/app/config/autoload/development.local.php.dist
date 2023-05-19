@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * Local Configuration Override for DEVELOPMENT MODE.
+ *
+ * This configuration override file is for providing configuration to use while
+ * in development mode. Run:
+ *
+ * <code>
+ * $ composer development-enable
+ * </code>
+ *
+ * from the project root to copy this file to development.local.php and enable
+ * the settings it contains.
+ *
+ * You may also create files matching the glob pattern `{,*.}{global,local}-development.php`.
+ */
+
+return [
+    'view_manager' => [
+        'display_exceptions' => true,
+    ],
+
+    'site_version' => [
+        'always_secure' => 0,
+    ],
+
+    'settings' => [
+        // 1 - to show error details in error controller
+        'show_error_details'      => 1,
+
+        //  General php settings related to errors
+        'display_startup_errors'  => 1,
+        'display_errors'          => 1,
+        'error_reporting'         => E_ALL ^ E_DEPRECATED,
+
+        // If enabled - memory usage statistic will be saved in the Statistic DB
+        'debug_memory_usage'      => 0,
+    ],
+
+    // Minify settings
+    // Css/Js minification setting
+    'minify'         => [
+        // If enabled - all js/css files will be united in one 'minified file', e.g.: minify__a77d901b178b1666b80afc4ae1c35838.js
+        'enabled'                => 0,
+
+        // If obfuscation enabled - minified version of the js file will be obfuscated
+        'js_obfuscation_enabled' => 0
+    ],
+];

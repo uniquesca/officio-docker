@@ -1,0 +1,69 @@
+<html>
+<head>
+  <title><?=$this->translate('Company signed up')?></title>
+</head>
+<body>
+
+  <h2><?=$this->translate('Company signed up')?></h2>
+  
+  <table>
+    <tr>
+      <td style="width: 150px;"><?=$this->translate('Package')?></td><td><?=ucfirst($this->package_type)?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Training &amp; Support')?></td><td><?php  echo $this->support == 'Y' ? 'Yes' : 'No'?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Payment term')?></td><td><?=$this->str_payment_term?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Salutation')?></td><td><?=$this->salutation?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Name')?></td><td><?=$this->name?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Last Name')?></td><td><?=$this->last_name?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Company Name')?></td><td><?=$this->company?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Phone (W)')?></td><td><?=$this->phone_w?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Email')?></td><td><?=$this->email?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Address')?></td><td><?=$this->address?></td>
+    </tr>
+    <tr>
+      <td><?=$this->cityLabel?></td><td><?=$this->city?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Province/State')?></td><td><?=$this->state?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Country')?></td><td><?=$this->country_name?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Postal Code/Zip')?></td><td><?=$this->zip?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Credit Card Type')?></td><td><?=$this->ccType?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Name on the Card')?></td><td><?=$this->ccName?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Credit Card No')?></td><td><?=$this->ccNumber?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Expiry Month')?></td><td><?=$this->ccExpMonth?></td>
+    </tr>
+    <tr>
+      <td><?=$this->translate('Expiry Year')?></td><td><?=$this->ccExpYear?></td>
+    </tr>
+  </table>
+</body>
+</html>

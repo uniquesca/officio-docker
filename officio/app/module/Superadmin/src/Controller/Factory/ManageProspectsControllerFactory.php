@@ -1,0 +1,27 @@
+<?php
+
+namespace Superadmin\Controller\Factory;
+
+use Psr\Container\ContainerInterface;
+use Officio\BaseControllerFactory;
+use Officio\Common\Service\Country;
+use Officio\Service\Company;
+use Prospects\Service\Prospects;
+
+/**
+ * This is the factory for ManageProspectsController. Its purpose is to instantiate the controller
+ * and inject dependencies into its constructor.
+ */
+class ManageProspectsControllerFactory extends BaseControllerFactory
+{
+
+    protected function retrieveAdditionalServiceList(ContainerInterface $container)
+    {
+        return [
+            Company::class => $container->get(Company::class),
+            Country::class => $container->get(Country::class),
+            Prospects::class => $container->get(Prospects::class)
+        ];
+    }
+
+}

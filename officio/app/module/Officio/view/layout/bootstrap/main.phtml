@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<?= $this->topBaseUrl ?>/assets/plugins/bootstrap/dist/css/bootstrap.min.css" type="text/css"/>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script type="text/javascript" src="<?= $this->topBaseUrl ?>/assets/plugins/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="<?= $this->topBaseUrl ?>/assets/plugins/tether/dist/js/tether.min.js"></script>
+    <script type="text/javascript" src="<?= $this->topBaseUrl ?>/assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <?= $this->headTitle() . "\n" ?>
+    <?= $this->headMeta() . "\n" ?>
+    <?= $this->headLink() . "\n" ?>
+    <?= $this->headStyle() . "\n" ?>
+
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var baseUrl = '<?= $this->baseUrl; ?>';
+        var imagesUrl = '<?= $this->imagesUrl; ?>';
+        /* ]]> */
+    </script>
+
+    <?= $this->minJs() . "\n" ?>
+</head>
+<body><?= $this->layout()->content; ?></body>
+</html>

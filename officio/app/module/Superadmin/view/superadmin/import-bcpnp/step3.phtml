@@ -1,0 +1,36 @@
+<?php
+$this->layout()->useExtjs = true;
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/import-bcpnp.js');
+?>
+<div id="import-bcpnp-content" style="height: auto;">
+    <h2>Step #3</h2>
+    <form action="<?=$this->layout()->baseUrl?>/import-bcpnp/step2" autocomplete="off" method="POST">
+        <input type="hidden" name="file_name" value="<?=$this->fileName?>" />
+        <input type="submit" value="<?=$this->translate('<< Go Back')?>" class="buttons" />
+    </form>
+
+    <br>
+
+    <div style="width:400px; height:17px; border:1px solid grey; background-color:white; text-align:center; position:relative;">
+        <span id="import-bcpnp-percent-progress-span" style="position:absolute; z-index:50; left:<?=$this->percent>=100 ? 30 : 46 ?>%; top:2px; color:<?=$this->percent>50 ? 'white' : '#006400' ?>;">
+            <?=$this->percent ?>% <?=$this->percent>=100 ? 'Successfully completed!' : ''?>
+        </span>
+        <div id="import-bcpnp-percent-progress-div" style="position:absolute; left:0; top:0; height:17px; width:<?= round(400 * $this->percent / 100) ?>px; background-color:#006400; z-index:10;"></div>
+    </div>
+    <br>
+    <br>
+
+    <div id="import-bcpnp-log" style="height: auto;">
+        <?php
+        echo $this->log;
+        ?>
+    </div>
+
+    <?php if (!is_null($this->commandNextPage)): ?>
+        <script type='text/javascript'>setTimeout(function () {
+                step3(<?= $this->commandNextPage ?>);
+            }, 1500);</script>
+    <?php endif; ?>
+
+</div>

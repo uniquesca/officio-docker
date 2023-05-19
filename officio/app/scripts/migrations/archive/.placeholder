@@ -1,0 +1,5 @@
+This folder contains migration merely for history. It's not indexed and inspected by IDE.
+
+Migrations should be placed in archive if:
+1. They have been executed and won't be needed neither on PROD, TEST nor DEV servers AND
+2. They are not to be maintained anymore.

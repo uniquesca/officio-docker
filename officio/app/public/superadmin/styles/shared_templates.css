@@ -1,0 +1,12 @@
+.shared-template-toolbar-add {
+    background: left no-repeat url(../images/template_add.png) !important;
+}
+.shared-template-toolbar-edit {
+    background: left no-repeat url(../images/template_edit.png) !important;
+}
+.shared-template-toolbar-delete {
+    background: left no-repeat url(../images/template_delete.png) !important;
+}
+.shared-template-toolbar-mark-default {
+    background: left no-repeat url(../images/template_default.png) !important;
+}

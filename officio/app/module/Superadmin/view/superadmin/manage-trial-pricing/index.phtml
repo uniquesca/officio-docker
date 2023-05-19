@@ -1,0 +1,16 @@
+<?php
+
+use Officio\Common\Json;
+
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-trial-pricing.js');
+
+$this->headScript()->captureStart();
+echo "var arrPriceSettings = " . Json::encode($this->arrPriceSettings) . ";";
+$this->headScript()->captureEnd();
+?>
+
+<div id="trial_pricing"></div>

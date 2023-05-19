@@ -1,0 +1,32 @@
+<?php
+$this->layout()->useJQuery = true;
+$this->layout()->useExtjs  = true;
+
+$this->headLink()->appendStylesheet($this->layout()->topCssUrl . '/main.css');
+$this->headLink()->appendStylesheet($this->layout()->cssUrl . '/pua.css');
+
+$this->headScript()->appendFile($this->layout()->assetsUrl . '/jquery-validation/dist/jquery.validate.min.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-members/pua/responsible_person/dialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-members/pua/business_contact/dialog.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-members/pua/grid.js');
+$this->headScript()->appendFile($this->layout()->jsUrl . '/manage-members/pua/init.js');
+?>
+
+<div style="font-size: 14px">
+    <h1 style="padding-bottom: 10px">PUA Planning for: <?= $this->currentUserFullName ?></h1>
+
+    <div style="padding: 10px 0">
+        The PUA Planning feature helps CICC members comply with CICC's PUA requirements.
+    </div>
+
+    <div style="color: red;">
+        The information captured on this page is only visible to you and cannot be accessed by other Admin users.<br>
+        This information is encrypted and will only be released to your Designated Authorized Representative(s) and/or Responsible Person(s) in the event of a planned or unplanned absence.
+    </div>
+
+    <div style="padding: 10px 0 20px 0">
+        Complete Step 1 below to record your "Designated Authorized Representative(s)/Responsible Person(s)" and Step 2 below to record your "Business Contacts or Service Providers".
+    </div>
+</div>
+
+<div id="pua-tab">Loading...</div>

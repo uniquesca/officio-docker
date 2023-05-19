@@ -1,0 +1,104 @@
+<?php
+
+use Officio\Common\Json;
+
+?>
+<?= $this->doctype() . "\n"; ?>
+<html>
+<head>
+    <?= $this->headTitle() . "\n" ?>
+    <?= $this->headMeta() . "\n" ?>
+
+    <?php if ($this->useJQuery): ?>
+        <!-- jQuery -->
+        <?= $this->minifier()->minify('jq') . "\n"; ?>
+        <?= $this->minifier()->minify('jquery-ui') . "\n"; ?>
+        <?= $this->minifier()->minify('jquery-ui-css') . "\n"; ?>
+        <!--[if IE]><link rel="stylesheet" type="text/css" href="<?=$this->topCssUrl;?>/ie_fix.css" /><![endif]-->
+        <!-- jQuery -->
+    <?php endif;?>
+
+    <?php
+        echo $this->minifier()->minify('ext_css') . "\n";
+        echo $this->minifier()->minify('ext') . "\n";
+
+        $this->headScript()->appendFile($this->jsUrl . '/init_extjs.js');
+        $this->headScript()->appendFile($this->topJsUrl . '/home/user/UserPingStatus.js');
+        $this->headScript()->appendFile($this->topJsUrl . '/help/HelpContextWindow.js');
+    ?>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        // Settings
+        var passwordValidationRegexp = '<?=$this->site_password_regex?>';
+        var passwordValidationRegexpMessage = '<?=$this->site_password_regex_message?>';
+        var baseUrl = '<?=$this->baseUrl;?>';
+        var topBaseUrl = '<?=$this->topBaseUrl?>';
+        var dateFormatShort = '<?=$this->settings->variable_get("dateFormatShort"); ?>';
+        var dateFormatFull = '<?=$this->settings->variable_get("dateFormatFull"); ?>';
+        var company_timezone = '<?=$this->auth->getCurrentUserCompanyTimezone() ?>';
+        var current_member_company_name = <?=Json::encode($this->auth->getCurrentUserCompanyName()) ?>;
+        var site_version = '<?=$this->site_version?>';
+        var site_currency = '<?=strtolower($this->site_currency)?>';
+        var site_currency_label = '<?=$this->site_currency_label?>';
+        var site_company_phone = '<?=$this->site_company_phone?>';
+        var site_company_name = <?=Json::encode($this->site_company_name)?>;
+        var FROALA_SETTINGS = <?= Json::encode($this->froala_settings); ?>;
+        var booShowHelpIcon = <?= Json::encode($this->layout()->acl->isAllowed('help-view')); ?>;
+        //]]>
+    </script>
+
+    <?= $this->minStyleSheets() . "\n"; ?>
+    <?= $this->headStyle() . "\n" ?>
+    <?= $this->minJs() . "\n"; ?>
+</head>
+
+<body class="main-bg" id="framePage">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="main-bg">
+    <tr>
+        <td class="superadmin-iframe-header" colspan="2">&nbsp;</td>
+    </tr>
+    <?php if (!isset($this->booUseOtherContent) || !$this->booUseOtherContent) :?>
+
+        <tr align="center">
+            <td colspan="2"><table width="98%" border="0" cellspacing="0" cellpadding="0" style="background-color:#fff;">
+                    <tr>
+                        <?php if (!isset($this->booShowLeftPanel) || $this->booShowLeftPanel) : ?>
+                            <!-- LEFT PANEL -->
+
+                            <td style="padding: 5px 0 5px 15px;" valign="top" id="pleft" class="padingleft10">
+                                <div id="admin-left-panel" style="height: auto">
+                                    <?= $this->adminNavigation; ?>
+                                </div>
+                            </td>
+                            <!-- WHITE SPACE -->
+                            <td width="15" id="pspacing"><img src="<?= $this->imgUrl('spacer.gif') ?>" width="15" border="0" alt=""/></td>
+                            <!-- BODY START-->
+                            <td width="1" style="border:1px solid #D0D8DD;background-color:#f7f7f7">
+                                <div id="sign"></div>
+                            </td>
+                        <?php endif;?>
+
+                        <td width="100%" valign="top" class="contentPaneBdr">
+                            <table cellpadding="0" cellspacing="0" class="content_container">
+                                <tr>
+                                    <td class="h1 content_container_header_left"><i class="las la-cube"></i><?= $this->escapeHtml($this->title); ?></td>
+                                    <td class="content_container_header_right"><?=$this->top_menu;?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="content_container_body">
+                                        <?=$this->layout()->content;?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    <?php else :?>
+        <?=$this->layout()->content;?>
+    <?php endif;?>
+</table>
+</body>
+</html>
