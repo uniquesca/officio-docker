@@ -1,2 +1,1 @@
-server.csr 
-server.key
+secrets/*

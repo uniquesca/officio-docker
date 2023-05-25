@@ -1,0 +1,493 @@
+<?php
+
+/**
+ * Local Configuration Override
+ *
+ * This configuration override file is for overriding environment-specific and
+ * security-sensitive configuration information. Copy this file without the
+ * .dist extension at the end and populate values as needed.
+ *
+ * NOTE: This file is ignored from Git by default with the .gitignore included
+ * in laminas-mvc-skeleton. This is a good practice, as it prevents sensitive
+ * credentials from accidentally being committed into version control.
+ */
+
+return [
+    'db' => [
+        'host'     => ${MYSQL_OFFICIO_HOST},
+        'port'     => ${MYSQL_OFFICIO_PORTS},
+        'dbname'   => ${MYSQL_OFFICIO_DATABASE},
+        'username' => ${MYSQL_ROOT_USER},
+        'password' => ${MYSQL_ROOT_PASSWORD},
+    ],
+
+    'db_stat' => [
+        'host'     => ${MYSQL_OFFICIO_STATISTICS_HOST},
+        'port'     => ${MYSQL_OFFICIO_STATISTICS_PORTS},
+        'dbname'   => ${MYSQL_OFFICIO_STATISTICS_DATABASE},
+        'username' => ${MYSQL_ROOT_USER},
+        'password' => ${MYSQL_ROOT_PASSWORD},
+    ],
+
+    // Session configuration.
+    'session_config'  => [
+        // HTTP only attribute must be set on cookies containing session tokens
+        // If true - we cannot use flash uploader and 'simple extjs' uploader will be used
+        'cookie_httponly'     => true,
+
+        // Secure attribute must be set on cookies containing session tokens
+        'cookie_secure'       => true,
+    ],
+
+    'settings' => [
+        'send_fatal_errors_to' => 'work.andron@gmail.com, bateni@uniques.ca',
+
+        // BCPNP Clients auto-import settings
+        'bcpnp_import_identificator_field_name' => 'file_number',
+        
+        // Turn on/off quick search to filter active clients only
+        'quick_search_active_clients_only' => 1
+    ],
+
+    // **** **** **** **** ****  Security settings **** **** **** ****
+    'security' => [
+        // Enable Cross Site Request Forgery protection if 1
+        // Note that config file is here: /library/config/csrf_config.php
+        'csrf_protection'                         => [
+            'enabled' => 0
+        ],
+        
+        // If enabled - when company admin or superadmin will log in as the user - this user will be logged out
+        // will work if CSRF is disabled
+        'logout_user_when_login_as_company_admin' => 0,
+        
+        'oauth_login' => [
+            // If enabled - a link to the oAuth website will be shown,
+            // our login page will not work
+            'enabled'              => 0,
+
+            // Labels that we'll show on the user details page
+            'single_sign_on_label' => 'IDIR Username',
+            'guid_label'           => 'GUID',
+            // The label we'll use for the button on the login page
+            'login_button_label'   => 'BC Gov IDIR Single Sign On',
+
+            'provider' => 'keycloak',
+            'keycloak' => [
+                'server-url'    => '',
+                'realm'         => 'standard',
+                'client-id'     => '',
+                'client-secret' => '',
+                'proxy'         => '',
+                'verify'        => false,
+            ],
+
+            'google' => [
+                // Please note that the callback url is: https://officio_url/mailer/settings/oauth-callback and it must be added to the allowed list
+                'client-id'     => '',
+                'client-secret' => '',
+            ],
+
+            'microsoft' => [
+                // Please note that the callback url is: https://officio_url/mailer/settings/oauth-callback and it must be added to the allowed list
+                'client-id'     => 'ID',
+                'client-secret' => 'SECRET',
+            ]
+        ]
+    ], // **** **** **** **** ****  Security settings **** **** **** ****
+
+    'site_version'   => [
+        // Different site versions settings
+        // This name will be used in support emails (e.g. in subject)
+        'name'                                         => 'Officio 2022',
+
+        // Default email address - will be used during system emails sending
+        'support_email'                                => 'support@uniques.ca',
+        'sales_email'                                  => 'support@uniques.ca',
+
+        // A message that will be visible at the top of the main page (both users/admins and superadmins)
+        // If empty - nothing will be visible
+        'top_warning_message'                          => '',
+
+        // A message that will be visible under the Accounting tab for the case (Retainer schedule table, needed for CA)
+        'retainer_schedule_help_message'               => 'Important Note: CICC does <u>not</u> permit contingency billing. Please refer to CICC’s <i>Retainer Agreement Regulation</i> for a definition of contingency billing. Examples of contingency billing may include, but are not limited to, payment being due upon the issuing of: the visa, the file number, a request for medicals, etc.<br><br>CICC members are responsible for ensuring that they are <u>not</u> engaging in contingency billing when setting up milestones in the "Due on" column of the "Define Retainer Schedule" section. A good practice is to set milestones based on the scope of service being provided to your client. Please direct any questions to CICC.',
+
+        // Used in 'calculate company storage usage' cron, if 1 - companies without paymentech profile will be not calculated
+        'calculate_if_empty_paymentech_profile'        => 1,
+        
+        // If enabled - will be possible to use 'Check ABN' functionality
+        // Must be enabled for AU, disabled for CA/DM
+        'check_abn_enabled'                         => 0,
+
+        // List of allowed file types
+        'whitelist_files_for_uploading'             => 'txt, doc, dot, wbk, docx, docm, dotx, dotm, docb, xls, xlt, xlm, xlsx, xlsm, xltx, xltm, xlsb, xla, xlam, xll, xlw, ppt, pot, pps, pptx, pptm, potx, potm, ppam, ppsx, ppsm, sldx, sldm, adn, accdb, accdr, accdt, accda, mdw, accde, mam, maq, mar, mat, maf, laccdb, ade, adp, mdb, cdb, mda, mdn, mdt, mdf, mde, ldb, pub, xps, tif, tiff, jpg, jpeg, gif, png, bmp, eps, raw, cr2, nef, orf, sr2, pdf, eml, msg, zip, odt, ods, odp, odg, rtf',
+
+        // Documents Checklist Setting
+        // If is set to 1 - it is possible to see and use 'Documents Checklist' tab
+        'documents_checklist_enabled'               => 0,
+
+        // Create note if file was uploaded
+        'create_note_on_file_upload'                => 1,
+
+        // Google Tag Manager settings (used on the login + signup pages)
+        'google_tag_manager' => [
+            'container_id' => 'ID'
+        ],
+
+        // Google Recaptcha settings (used on the Sign-Up page)
+        // if one of keys is empty - recaptcha will be not used/checked
+        'google_recaptcha' => [
+            'check_ssl'  => 1,
+            'site_key'   => 'KEY',
+            'secret_key' => 'SECRET',
+        ],
+
+        // Supported: australia | canada
+        'version'                                   => 'canada',
+        'currency'                                  => 'CAD',
+        'title'                                     => 'Officio! Your Office Online',
+        'company_phone'                             => '1-888-703-7073',
+        'company_name'                              => 'Uniques Software Corp.',
+        'officio_domain'                            =>  ${APP_URL},
+        'officio_domain_secure'                     =>  ${APP_URL},
+
+        // Dependant's section settings
+        'dependants'                                => [
+            'fields' => [
+                'relationship' => [
+                    'show'           => 1,
+
+                    // customize children count for dependents section
+                    'children_count' => 6
+                ],
+
+                'last_name'                          => ['show' => 1],
+                'first_name'                         => ['show' => 1],
+                'middle_name'                        => ['show' => 0],
+                'dob'                                => ['show' => 1],
+                // show for AU version only
+                'migrating'                          => ['show' => 0],
+                // show for CA version only
+                'passport_num' => [
+                    // show for CA and DM version only
+                    'show'     => 1,
+                    'required' => 0,
+                ],
+                'passport_date'                      => ['show' => 1],
+                // isn't used
+                'nationality'                        => ['show' => 0],
+                // show for DM version only
+                'country_of_citizenship'             => ['show' => 0],
+                'uci'                                => ['show' => 1],
+                // show for AU and CA, not for DM
+                'medical_expiration_date'            => ['show' => 1],
+                'photo'                              => ['show' => 1],
+
+                // show for DM
+                'address' => [
+                    // show for DM
+                    'show'      => 0,
+                    'multiline' => 0,
+                ],
+
+                'city'                               => ['show' => 0],
+                'country'                            => ['show' => 0],
+                'region'                             => ['show' => 0],
+                'postal_code'                        => ['show' => 0],
+                'profession'                         => ['show' => 0],
+                'country_of_birth'                   => ['show' => 0],
+                'marital_status'                     => ['show' => 0],
+                'country_of_residence'               => ['show' => 0],
+                'passport_issuing_country'           => ['show' => 0],
+                'third_country_visa'                 => ['show' => 0],
+                'main_applicant_address_is_the_same' => ['show' => 0],
+
+                'spouse_name' => [
+                    // Show for DM only
+                    'show' => 0
+                ],
+
+                'jrcc_result' => [
+                    // Show for DM only
+                    'show' => 0,
+
+                    // if enabled - the field will be visible only if the current user is not Agent (of 3 hardcoded roles) and is visible (a check above)
+                    'show_for_non_agent_only' => 0
+                ],
+
+                'include_in_minute_checkbox' => [
+                    // Show for DM only
+                    'show' => 0,
+
+                    // if enabled - the field will be visible only if the current user is not Agent (of 3 hardcoded roles) and is visible (a check above)
+                    'show_for_non_agent_only' => 0
+                ],
+            ]
+        ],
+
+        // Labels of all blocks we show on the homepage
+        'homepage' => [
+            'announcements' => [
+                'label' => 'Announcements',
+                'help'  => 'We endeavour to regularly review and update all forms posted to Officio. In the event a discrepancy exists between the forms in Officio and the forms on any government website, the forms on the government website supersede those available through Officio.',
+
+                // The toggle will be shown for users that have access to the profile and are not clients
+                'show_toggle' => 1,
+                // A label that will be shown near the toggle
+                'toggle_label' => 'Email Daily Notification',
+                // A help will be shown when hovering mouse above the toggle, if empty - will be not shown
+                'toggle_help' => 'Toggle to "On" to receive daily email notifications on new Studio content, Officio Announcements, and unread Tasks on Prospect or Client activities.',
+
+                // Enable/disable special announcements to be shown after user login
+                'special_announcement_enabled' => 1
+            ],
+
+            'news' => [
+                'label' => 'Recent news',
+                'help'  => 'The Immigration News Feed is a value-added service to help you remain up-to-date on globally-reported Canadian Immigration matters.<br><br>' .
+                    'The news articles in this section are selected from IRCC and Canadian and International news RSS feeds using automated software and are not screened by Uniques Software Corp. Furthermore, the news articles posted in the Immigration News Feed do not necessarily represent the values and opinions of Uniques Software Corp. and Uniques Software Corp. is not responsible for the tone, content, or accuracy of the articles.<br><br>' .
+                    'If you wish to disable the Immigration News Feed, please go to "Admin" -> "Roles", select a role, go to "Modules" tab, uncheck "Home page" -> "Immigration News" checkbox.',
+            ],
+        ],
+
+        // PUA must be enabled for CA only, disabled for others
+        'pua_enabled'                               => 1,
+
+        // CICC reconciliation reports setting
+        // If enabled - clients' names will be shortened in the report and 'zero records' can be shown in the bottom table
+        'iccrc_reconciliation_hide_names'           => 1,
+
+        // How to assign offices to the Employer
+        // If enabled: search for all assigned cases, for these cases search parents (IA can be found) and for these IAs search for other cases too.
+        // If disabled: search for all assigned cases and no for parent IA records for these cases.
+        'keep_employer_and_applicant_in_one_office' => 0,
+
+        'show_my_offices_link'                      => 0,
+    ],
+    
+    // PDF settings
+    'pdf'            => [
+        // If pdftk or pdftron should be used for pdf-related tasks (e.g. merge pdf with xfdf)
+        'use_pdftk'   => 0,
+
+        // If pdftron uses python3 or python2
+        'use_python3' => 1
+    ],
+
+    // Zoho settings
+    'zoho'           => [
+        // If enabled - request will be sent to Zoho server to open/edit supported files
+        'enabled' => 1,
+
+        // If enabled - all request to Zoho will be logged
+        'log_enabled' => 0,
+
+        // Enable/disable SSL certificate checking when communicate with the Zoho server
+        // Should be enabled on the prod server
+        'check_ssl'   => 1,
+    ],
+
+    // Language settings
+    'translator' => [
+        'locale' => 'en_US',
+        'language_name' => 'english',
+        // List of timezones is here: http://php.net/manual/en/timezones.php
+        'timezone'      => 'America/New_York',
+    ],
+
+    // Mail settings
+    'mail'           => [
+        'enabled'                => 1,
+        'calendar_enabled'       => 1,
+        // Total files size in Mb
+        'total_files_size'       => 25,
+        // In 'Mail Send' dialog: hide 'Send' button if setting is set to '1' AND 'Send and Save' button (some one of them) is showed
+        'hide_send_button'       => 0,
+        // When try to send/get emails (via SMTP/POP3/IMAP) - check SSL certificate for correctness of the mail host
+        // If 0 - ignore SSL issues (e.g. peer name or self-signed certificates)
+        'verify_ssl_certificate' => 0
+    ],
+    
+    'calendly' => [
+        'enabled'       => 1,
+        'client_id'     => 'ID',
+        'client_secret' => 'SECRET',
+    ],
+
+    // Help tab settings
+    'help'           => [
+        // Show/hide Learn button we show at the top
+        'show_learn_button' => 0,
+    ],
+
+    // Dropbox settings
+    'dropbox' => [
+        'app_id' => 'id',
+    ],
+
+    // Google Drive settings
+    'google_drive' => [
+        'app_id'        => 'app_id',
+        'client_id'     => 'client_id',
+        'api_key'       => 'api_key',
+    ],
+    
+    // PDF to XOD
+    'pdf2xod'        => [
+        'use_local'  => 1,
+        'remote_url' => 'https://www.immigrationsquare.com/api/pdf2xod'
+    ],
+
+    // General Cloud Settings
+    'storage'        => [
+        'is_online'        => 1,
+        'aws_accesskey'    => 'key',
+        'aws_secretkey'    => 'secret',
+        'bucket_name'      => 'bucket',
+        'check_ssl'        => 0,
+        'use_secure_links' => 0,
+        'aws_region'       => 'ca-central-1',
+        // Supported: 'AES256' or if empty - will be not encrypted
+        'encryption'       => ''
+    ],
+
+    // Html editor settings
+    'html_editor' => [
+        'froala_license_key' => 'XAG4eG4J3B10C8C7D6C-11VKOJ1FGULVKHXDXNDXc1d1Kg1SNdD5B4A4D3H3I3H3B7B4B3==',
+
+        // Folder name, where editor images will be saved
+        // For the remote storage path will be: /{location}/{company_id}/
+        // For the local storage path will be: .../public/{location}/{company_id}/
+        // For the local storage please make sure that folder name is unique
+        'location'           => 'content_images',
+
+        // Storage location: 'remote' or 'local'
+        // If local - please make sure that apache has rw access rights to the {location}
+        'storage'            => 'remote',
+
+        // Will be used only if a Storage location is 'remote'
+        'remote'             => [
+            'is_online'        => 1,
+            'aws_accesskey'    => 'key',
+            'aws_secretkey'    => 'secret',
+            'bucket_name'      => 'bucket',
+            'check_ssl'        => 0,
+            'use_secure_links' => 0,
+            'aws_region'       => 'ca-central-1',
+            // Supported: 'AES256' or if empty - will be not encrypted
+            'encryption'       => 'AES256'
+        ],
+    ],
+
+    // Cache settings
+    'cache'          => [
+        'adapter' => 'Filesystem',
+        'options' => [
+            'cache_dir'       => 'var/cache/',
+            'dir_permission'  => false,
+            'file_permission' => false
+        ],
+        'plugins' => [
+            [
+                'name' => 'serializer'
+            ]
+        ]
+    ],
+
+    // RSS settings - news will be showed on the dashboard
+    'rss' => [
+        // RSS URLs that will be scanned and showed on the dashboard
+        'urls' => [
+            // in the key => url format
+            'rss_app' => 'https://rss.app/feeds/_vJAXkNEX9zpDDVWH.xml'
+        ],
+
+        // RSS Cache settings
+        'cache' => [
+            'adapter' => 'Filesystem',
+            'options' => [
+                'cache_dir'       => 'var/cache/',
+                'dir_permission'  => false,
+                'file_permission' => false,
+                'ttl'             => 3600 // 1 hour
+            ],
+            'plugins' => [
+                [
+                    'name' => 'serializer'
+                ]
+            ]
+        ],
+    ],
+
+    // **** Payment options ****
+    // *************************
+    'payment'        => [
+        // General options
+        'enabled'                 => 1,
+        'save_log'                => 1,
+        // timeout in seconds
+        'timeout'                 => 90,
+        // on error - request will be sent again
+        'max_retry_attempts'      => 2,
+        // if x errors at one row occurred - send email to support and exit
+        'recurring_errors_in_row' => 3,
+        'log_directory'           => 'var/log/payment',
+
+        // Payment method - set in relation to the site settings
+        // can be paymentech OR payway
+        'method'                  => 'paymentech',
+
+        // Currency code - used in templates and in PaymenTech processing
+        // Full list please check here: https://en.wikipedia.org/wiki/ISO_4217
+        // Canadian Dollar - 124
+        // Australian Dollar - 036
+        // US Dollar - 840
+        'currencyCode'            => '124',
+
+
+        // *** These settings are used only by PaymenTech ***
+        'use_test_server'         => 0,
+        'testMerchantID'          => 'ID',
+        'testSubmissionUrl'       => 'https://orbital1.chasepaymentech.com/authorize',
+
+        'submissionUrl'    => 'https://orbital1.chasepaymentech.com/authorize',
+        'customerBin'      => 'BIN',
+        'merchantID'       => 'ID',
+        'terminalID'       => '001',
+        // Related to currency, 2 for Canadian Dollar
+        'currencyExponent' => '2',
+    ],
+
+    // Phinx related settings
+    'phinx'          => [
+        // Path to the migrations directory, where migrations are generated
+        'migrations_path' => 'scripts/migrations/',
+        // Table name, where phinx related changes will be saved
+        'migration_table' => 'phinx_log'
+    ],
+
+    // Marketplace related settings
+    'marketplace'    => [
+        'enable_on_company_creation' => 1,
+        'toggle_status_url'          => 'https://immigrationsquare.com/api/update-profile',
+        'create_profile_url'         => 'https://immigrationsquare.com/sp-profile/add-profile',
+        'edit_profile_url'           => 'https://immigrationsquare.com/sp-profile/edit-profile',
+        // public/private files + key must be the same on MP side
+        'private_pem'                => 'config/keys/marketplace/private.pem',
+        'public_pem'                 => 'config/keys/marketplace/public.pem',
+        'key'                        => 'KEY'
+    ],
+
+    // LMS (Officio Studio) settings
+    'lms' => [
+        'enabled'     => 1,
+        'test_mode'   => 0,
+        'log_enabled' => 0,
+        'url'         => 'https://learn.officio.ca',
+        'auth_key'    => 'key',
+        'check_ssl'   => 1,
+
+        'rss_url'       => 'https://learn.officio.ca/feed/?post_type=sfwd-courses',
+        'rss_max_items' => 10
+    ]
+];

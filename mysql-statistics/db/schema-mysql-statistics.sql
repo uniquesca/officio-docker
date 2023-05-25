@@ -1,5 +1,4 @@
 CREATE DATABASE `uniques_main_statistics` /*!40100 CHARACTER SET utf8 COLLATE 'utf8_general_ci' */;
-
 DROP TABLE IF EXISTS `statistics`;
 CREATE TABLE IF NOT EXISTS `statistics` (
   `statistic_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,

@@ -14,16 +14,16 @@
 
 return [
     'db' => [
-        'host'     => ${MYSQL_HOST},
-        'port'     => ${MYSQL_PORT},
+        'host'     => ${MYSQL_OFFICIO_HOST},
+        'port'     => ${MYSQL_OFFICIO_PORTS},
         'dbname'   => ${MYSQL_OFFICIO_DATABASE},
         'username' => ${MYSQL_ROOT_USER},
         'password' => ${MYSQL_ROOT_PASSWORD},
     ],
 
     'db_stat' => [
-        'host'     => ${MYSQL_HOST},
-        'port'     => ${MYSQL_PORT},
+        'host'     => ${MYSQL_OFFICIO_STATISTICS_HOST},
+        'port'     => ${MYSQL_OFFICIO_STATISTICS_PORTS},
         'dbname'   => ${MYSQL_OFFICIO_STATISTICS_DATABASE},
         'username' => ${MYSQL_ROOT_USER},
         'password' => ${MYSQL_ROOT_PASSWORD},
@@ -42,11 +42,8 @@ return [
     'settings' => [
         'send_fatal_errors_to' => 'work.andron@gmail.com, bateni@uniques.ca',
 
-        // BCPNP Clients auto-import settings
-        'bcpnp_import_identificator_field_name' => 'file_number',
-        
         // Turn on/off quick search to filter active clients only
-        'quick_search_active_clients_only' => 1
+        'quick_search_active_clients_only' => 0
     ],
 
     // **** **** **** **** ****  Security settings **** **** **** ****
@@ -60,7 +57,7 @@ return [
         // If enabled - when company admin or superadmin will log in as the user - this user will be logged out
         // will work if CSRF is disabled
         'logout_user_when_login_as_company_admin' => 0,
-        
+
         'oauth_login' => [
             // If enabled - a link to the oAuth website will be shown,
             // our login page will not work
@@ -99,11 +96,11 @@ return [
     'site_version'   => [
         // Different site versions settings
         // This name will be used in support emails (e.g. in subject)
-        'name'                                         => 'Officio 2022',
+        'name'                                         => 'Officio AU',
 
         // Default email address - will be used during system emails sending
-        'support_email'                                => 'support@uniques.ca',
-        'sales_email'                                  => 'support@uniques.ca',
+        'support_email'                                => 'support@officio.com.au',
+        'sales_email'                                  => 'sales@officio.com.au',
 
         // A message that will be visible at the top of the main page (both users/admins and superadmins)
         // If empty - nothing will be visible
@@ -117,7 +114,7 @@ return [
         
         // If enabled - will be possible to use 'Check ABN' functionality
         // Must be enabled for AU, disabled for CA/DM
-        'check_abn_enabled'                         => 0,
+        'check_abn_enabled'                         => 1,
 
         // List of allowed file types
         'whitelist_files_for_uploading'             => 'txt, doc, dot, wbk, docx, docm, dotx, dotm, docb, xls, xlt, xlm, xlsx, xlsm, xltx, xltm, xlsb, xla, xlam, xll, xlw, ppt, pot, pps, pptx, pptm, potx, potm, ppam, ppsx, ppsm, sldx, sldm, adn, accdb, accdr, accdt, accda, mdw, accde, mam, maq, mar, mat, maf, laccdb, ade, adp, mdb, cdb, mda, mdn, mdt, mdf, mde, ldb, pub, xps, tif, tiff, jpg, jpeg, gif, png, bmp, eps, raw, cr2, nef, orf, sr2, pdf, eml, msg, zip, odt, ods, odp, odg, rtf',
@@ -127,12 +124,7 @@ return [
         'documents_checklist_enabled'               => 0,
 
         // Create note if file was uploaded
-        'create_note_on_file_upload'                => 1,
-
-        // Google Tag Manager settings (used on the login + signup pages)
-        'google_tag_manager' => [
-            'container_id' => 'ID'
-        ],
+        'create_note_on_file_upload'                => 0,
 
         // Google Recaptcha settings (used on the Sign-Up page)
         // if one of keys is empty - recaptcha will be not used/checked
@@ -143,34 +135,56 @@ return [
         ],
 
         // Supported: australia | canada
-        'version'                                   => 'canada',
-        'currency'                                  => 'CAD',
+        'version'                                   => 'australia',
+        'currency'                                  => 'AUD',
         'title'                                     => 'Officio! Your Office Online',
-        'company_phone'                             => '1-888-703-7073',
-        'company_name'                              => 'Uniques Software Corp.',
-        'officio_domain'                            => 'officio-docker.local',
-        'officio_domain_secure'                     => 'officio-docker.local',
+        'company_phone'                             => '1 300 063 052',
+        'company_name'                              => 'Officio Pty Ltd',
+        'officio_domain'                            =>  ${APP_URL},
+        'officio_domain_secure'                     =>  ${APP_URL},
+
 
         // Dependant's section settings
         'dependants'                                => [
             'fields' => [
                 'relationship' => [
-                    'show'           => 1,
+                    'show'                   => 1,
+
+                    'options' => [
+                        'spouse' => [
+                            'label' => 'Partner/Spouse'
+                        ],
+
+                        'siblings' => [
+                            // Show for AU and DM only
+                            'show'  => 1,
+
+                            // customize siblings possible count
+                            'count' => 5,
+                        ],
+
+                        'other' => [
+                            // Show for AU and DM only
+                            'show'  => 1,
+
+                            // customize other dependants possible count
+                            'count' => 2,
+                        ],
+                    ],
 
                     // customize children count for dependents section
-                    'children_count' => 6
+                    'children_count'         => 6,
                 ],
 
                 'last_name'                          => ['show' => 1],
                 'first_name'                         => ['show' => 1],
-                'middle_name'                        => ['show' => 0],
                 'dob'                                => ['show' => 1],
                 // show for AU version only
-                'migrating'                          => ['show' => 0],
+                'migrating'                          => ['show' => 1],
                 // show for CA version only
                 'passport_num' => [
                     // show for CA and DM version only
-                    'show'     => 1,
+                    'show'     => 0,
                     'required' => 0,
                 ],
                 'passport_date'                      => ['show' => 1],
@@ -178,10 +192,10 @@ return [
                 'nationality'                        => ['show' => 0],
                 // show for DM version only
                 'country_of_citizenship'             => ['show' => 0],
-                'uci'                                => ['show' => 1],
+                'uci'                                => ['show' => 0],
                 // show for AU and CA, not for DM
                 'medical_expiration_date'            => ['show' => 1],
-                'photo'                              => ['show' => 1],
+                'photo'                              => ['show' => 0],
 
                 // show for DM
                 'address' => [
@@ -222,7 +236,11 @@ return [
                     // if enabled - the field will be visible only if the current user is not Agent (of 3 hardcoded roles) and is visible (a check above)
                     'show_for_non_agent_only' => 0
                 ],
-            ]
+            ],
+
+            // A field label for the categories/subclasses field - 'category' OR 'subclass'
+            // AU only - 'subclass', for all others - 'category'
+            'categories_field_default_label' => 'subclass',
         ],
 
         // Labels of all blocks we show on the homepage
@@ -244,18 +262,17 @@ return [
 
             'news' => [
                 'label' => 'Recent news',
-                'help'  => 'The Immigration News Feed is a value-added service to help you remain up-to-date on globally-reported Canadian Immigration matters.<br><br>' .
-                    'The news articles in this section are selected from IRCC and Canadian and International news RSS feeds using automated software and are not screened by Uniques Software Corp. Furthermore, the news articles posted in the Immigration News Feed do not necessarily represent the values and opinions of Uniques Software Corp. and Uniques Software Corp. is not responsible for the tone, content, or accuracy of the articles.<br><br>' .
-                    'If you wish to disable the Immigration News Feed, please go to "Admin" -> "Roles", select a role, go to "Modules" tab, uncheck "Home page" -> "Immigration News" checkbox.',
+                'help'  => 'The news articles in this section are selected from Australian and International RSS feeds using automated software and are not screened by Officio.<br><br>' .
+                    'Furthermore, the news articles posted in the Immigration News Feed do not necessarily represent the values and opinions of Officio and Officio is not responsible for the tone, content, or accuracy of the articles.'
             ],
         ],
 
         // PUA must be enabled for CA only, disabled for others
-        'pua_enabled'                               => 1,
+        'pua_enabled'                               => 0,
 
         // CICC reconciliation reports setting
         // If enabled - clients' names will be shortened in the report and 'zero records' can be shown in the bottom table
-        'iccrc_reconciliation_hide_names'           => 1,
+        'iccrc_reconciliation_hide_names'           => 0,
 
         // How to assign offices to the Employer
         // If enabled: search for all assigned cases, for these cases search parents (IA can be found) and for these IAs search for other cases too.
@@ -287,12 +304,22 @@ return [
         'check_ssl'   => 1,
     ],
 
+    // SMS sending
+    'sms'            => [
+        'enabled'       => 1,
+        'company_id'    => 738,
+        'retry_count'   => 5,
+        'sid'           => '',
+        'token'         => '',
+        'twilio_number' => '',
+    ],
+
     // Language settings
     'translator' => [
         'locale' => 'en_US',
         'language_name' => 'english',
         // List of timezones is here: http://php.net/manual/en/timezones.php
-        'timezone'      => 'America/New_York',
+        'timezone'      => 'Australia/Sydney',
     ],
 
     // Mail settings
@@ -311,7 +338,7 @@ return [
     'calendly' => [
         'enabled'       => 1,
         'client_id'     => 'ID',
-        'client_secret' => 'SECRET',
+        'client_secret' => 'KEY',
     ],
 
     // Help tab settings
@@ -331,7 +358,7 @@ return [
         'client_id'     => 'client_id',
         'api_key'       => 'api_key',
     ],
-    
+
     // PDF to XOD
     'pdf2xod'        => [
         'use_local'  => 1,
@@ -346,14 +373,14 @@ return [
         'bucket_name'      => 'bucket',
         'check_ssl'        => 0,
         'use_secure_links' => 0,
-        'aws_region'       => 'ca-central-1',
+        'aws_region'       => 'us-east-1',
         // Supported: 'AES256' or if empty - will be not encrypted
-        'encryption'       => ''
+        'encryption'       => 'AES256'
     ],
 
     // Html editor settings
     'html_editor' => [
-        'froala_license_key' => 'XAG4eG4J3B10C8C7D6C-11VKOJ1FGULVKHXDXNDXc1d1Kg1SNdD5B4A4D3H3I3H3B7B4B3==',
+        'froala_license_key' => 'KEY',
 
         // Folder name, where editor images will be saved
         // For the remote storage path will be: /{location}/{company_id}/
@@ -363,11 +390,11 @@ return [
 
         // Storage location: 'remote' or 'local'
         // If local - please make sure that apache has rw access rights to the {location}
-        'storage'            => 'remote',
+        'storage'            => 'local',
 
         // Will be used only if a Storage location is 'remote'
         'remote'             => [
-            'is_online'        => 1,
+            'is_online'        => 0,
             'aws_accesskey'    => 'key',
             'aws_secretkey'    => 'secret',
             'bucket_name'      => 'bucket',
@@ -399,7 +426,7 @@ return [
         // RSS URLs that will be scanned and showed on the dashboard
         'urls' => [
             // in the key => url format
-            'rss_app' => 'https://rss.app/feeds/_vJAXkNEX9zpDDVWH.xml'
+            'rss_app' => 'https://rss.app/feeds/_pahkyiqDQfT97Ind.xml'
         ],
 
         // RSS Cache settings
@@ -427,7 +454,7 @@ return [
         'save_log'                => 1,
         // timeout in seconds
         'timeout'                 => 90,
-        // on error - request will be sent again
+        // on error - request will be send again
         'max_retry_attempts'      => 2,
         // if x errors at one row occurred - send email to support and exit
         'recurring_errors_in_row' => 3,
@@ -435,59 +462,68 @@ return [
 
         // Payment method - set in relation to the site settings
         // can be paymentech OR payway
-        'method'                  => 'paymentech',
+        'method'                  => 'payway',
 
         // Currency code - used in templates and in PaymenTech processing
         // Full list please check here: https://en.wikipedia.org/wiki/ISO_4217
         // Canadian Dollar - 124
         // Australian Dollar - 036
         // US Dollar - 840
-        'currencyCode'            => '124',
+        'currencyCode'            => '036',
 
 
         // *** These settings are used only by PaymenTech ***
-        'use_test_server'         => 0,
-        'testMerchantID'          => 'ID',
-        'testSubmissionUrl'       => 'https://orbital1.chasepaymentech.com/authorize',
+        'use_test_server'         => 1,
+        'testMerchantID'          => 'id',
+        'testSubmissionUrl'       => 'https://orbitalvar1.paymentech.net/authorize',
 
-        'submissionUrl'    => 'https://orbital1.chasepaymentech.com/authorize',
-        'customerBin'      => 'BIN',
-        'merchantID'       => 'ID',
+        'submissionUrl'    => 'https://orbital1.paymentech.net/authorize',
+        'customerBin'      => 'bin',
+        'merchantID'       => 'id',
         'terminalID'       => '001',
         // Related to currency, 2 for Canadian Dollar
         'currencyExponent' => '2',
+
+
+        // *** These settings are used only by PayWay ***
+        'payway'           => [
+            'username'        => 'user',
+            'password'        => 'pass',
+            // Use TEST for testing
+            'merchant'        => 'merchant',
+            'currency_code'   => 'AUD',
+            // these are crt and ca files
+            'certificate_crt' => 'path_to_crt',
+            'certificate_ca'  => 'path_to_ca',
+        ],
+
+        // *** These settings are used only by Stripe ***
+        'stripe'           => [
+            'secret'   => 'secret_key',
+            'public'   => 'public_key',
+            'currency' => 'usd',
+        ],
+
+        // *** These settings are used only by TranPage ***
+        'tranPage'         => [
+            'merchant_key'               => 'merchant_key',
+            'url_transaction_processing' => 'url_transaction_processing',
+            'currency'                   => 'USD'
+        ]
     ],
 
     // Phinx related settings
     'phinx'          => [
         // Path to the migrations directory, where migrations are generated
-        'migrations_path' => 'scripts/migrations/',
+        'migrations_path' => 'scripts/migrations/au/',
         // Table name, where phinx related changes will be saved
         'migration_table' => 'phinx_log'
     ],
 
-    // Marketplace related settings
-    'marketplace'    => [
-        'enable_on_company_creation' => 1,
-        'toggle_status_url'          => 'https://immigrationsquare.com/api/update-profile',
-        'create_profile_url'         => 'https://immigrationsquare.com/sp-profile/add-profile',
-        'edit_profile_url'           => 'https://immigrationsquare.com/sp-profile/edit-profile',
-        // public/private files + key must be the same on MP side
-        'private_pem'                => 'config/keys/marketplace/private.pem',
-        'public_pem'                 => 'config/keys/marketplace/public.pem',
-        'key'                        => 'KEY'
+    // Minify settings
+    // Css/Js minification setting
+    'minify'         => [
+        // If enabled - all js/css files will be united in one 'minified file', e.g.: minify__a77d901b178b1666b80afc4ae1c35838.js
+        'enabled'                => 1,
     ],
-
-    // LMS (Officio Studio) settings
-    'lms' => [
-        'enabled'     => 1,
-        'test_mode'   => 0,
-        'log_enabled' => 0,
-        'url'         => 'https://learn.officio.ca',
-        'auth_key'    => 'key',
-        'check_ssl'   => 1,
-
-        'rss_url'       => 'https://learn.officio.ca/feed/?post_type=sfwd-courses',
-        'rss_max_items' => 10
-    ]
 ];

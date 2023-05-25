@@ -54,8 +54,8 @@ return [
             'orm_default' => [
                 'driverClass' => Driver::class,
                 'params'      => [
-                    'host'          => getenv('MYSQL_HOST'),
-                    'port'          => getenv('MYSQL_PORT'),
+                    'host'          => getenv('MYSQL_OFFICIO_HOST'),
+                    'port'          => getenv('MYSQL_OFFICIO_PORTS'),
                     'user'          => getenv('MYSQL_ROOT_USER'),
                     'password'      => getenv('MYSQL_ROOT_PASSWORD'),
                     'dbname'        => getenv('MYSQL_OFFICIO_DATABASE'),
@@ -355,8 +355,8 @@ return [
         'title'                         => 'Officio! Your Office Online',
         'company_phone'                 => '',
         'company_name'                  => 'Officio',
-        'officio_domain'                => 'officio-docker.local',
-        'officio_domain_secure'         => 'officio-docker.local',
+        'officio_domain'                => getenv('APP_URL'),
+        'officio_domain_secure'         => getenv('APP_URL'),
 
         // If "use static" is enabled - for NON https requests we'll try to use up to 3 static subdomains to serve images
         // e.g. if test.officio.com.au is set, we'll use such subdomains:
@@ -365,7 +365,7 @@ return [
         // test2.officio.com.au
         // test3.officio.com.au
         'officio_domain_use_static'     => 0,
-        'officio_domain_static'         => 'officio-docker.local',
+        'officio_domain_static'         => getenv('APP_URL'),
 
         'clients' => [
             // A message that will be shown at the top of Client's Profile + Case's Profile tabs

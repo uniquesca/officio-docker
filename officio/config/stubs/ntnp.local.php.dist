@@ -1,0 +1,177 @@
+<?php
+
+/**
+ * Local Configuration Override
+ *
+ * This configuration override file is for overriding environment-specific and
+ * security-sensitive configuration information. Copy this file without the
+ * .dist extension at the end and populate values as needed.
+ *
+ * NOTE: This file is ignored from Git by default with the .gitignore included
+ * in laminas-mvc-skeleton. This is a good practice, as it prevents sensitive
+ * credentials from accidentally being committed into version control.
+ */
+
+return [
+    'db' => [
+        'host'     => ${MYSQL_OFFICIO_HOST},
+        'port'     => ${MYSQL_OFFICIO_PORTS},
+        'dbname'   => ${MYSQL_OFFICIO_DATABASE},
+        'username' => ${MYSQL_ROOT_USER},
+        'password' => ${MYSQL_ROOT_PASSWORD},
+    ],
+
+    'db_stat' => [
+        'host'     => ${MYSQL_OFFICIO_STATISTICS_HOST},
+        'port'     => ${MYSQL_OFFICIO_STATISTICS_PORTS},
+        'dbname'   => ${MYSQL_OFFICIO_STATISTICS_DATABASE},
+        'username' => ${MYSQL_ROOT_USER},
+        'password' => ${MYSQL_ROOT_PASSWORD},
+    ],
+
+    'settings' => [
+        'send_fatal_errors_to' => 'email@email.com',
+    ],
+
+    // **** **** **** **** ****  Security settings **** **** **** ****
+    'security' => [
+        // A salt is used when 'default' or 'hash' selected (not used for 'password_hash', as salt is dynamic there)
+        // cannot be changed if data was already saved
+        // note that the max length is 32 chars
+        'encryption_key'             => 'officio',
+
+        // should we check password for mix case of characters + common passwords + etc...
+        'password_high_secure'        => 1,
+        'password_min_length'         => 8,
+        'password_max_length'         => 32,
+        // Determines if we need to send email on password change event
+        'send_password_changed_email' => 0,
+        // Determines if we need to disable user account (and send email to support) on X tries of failed login in a row (in a day)
+        // 0 - means turned off, don't disable account
+        'account_lockout_policy'      => 3,
+        // How much time account will be locked (in seconds)
+        'account_lockout_time'        => 1800,
+
+        // Determines if we need to check logged in user's password aging
+        'password_aging'              => [
+            // Also if enabled - we'll check if user have changed password at least once
+            'enabled'              => 1,
+            // How many last passwords will be saved in DB
+            'save_passwords_count' => 3,
+            // Settings for admin/user in days
+            'admin_lifetime'       => 45,
+            'client_lifetime'      => 90,
+        ],
+
+        // Enable Cross Site Request Forgery protection if 1
+        // Note that config file is here: /library/config/csrf_config.php
+        'csrf_protection'             => [
+            'enabled' => 1
+        ],
+
+        // For password autocomplete. 1 - on; 0 - off/new-password
+        'autocompletion'              => [
+            'enabled' => 0
+        ],
+    ], // **** **** **** **** ****  Security settings **** **** **** ****
+
+    'site_version'   => [
+        // Different site versions settings
+        // This name will be used in support emails (e.g. in subject)
+        'name'                                         => 'Officio NTNP',
+
+        // Default email address - will be used during system emails sending
+        'support_email'                                => '',
+        'sales_email'                                  => '',
+
+        'proxy' => [
+            // Determines if Officio is behind the proxy server
+            'enabled'                => 1,
+        ],
+
+        // Case Management Setting
+        // Used during new company creation
+        // If is set to 0 - only one case can be created for each client
+        'case_management_enable'                    => 1,
+
+        // If enabled - will be possible to use 'Check ABN' functionality
+        // Must be enabled for AU, disabled for CA/DM
+        'check_abn_enabled'                         => 0,
+
+        // List of allowed file types
+        'whitelist_files_for_uploading'             => 'txt, doc, dot, wbk, docx, docm, dotx, dotm, docb, xls, xlt, xlm, xlsx, xlsm, xltx, xltm, xlsb, xla, xlam, xll, xlw, ppt, pot, pps, pptx, pptm, potx, potm, ppam, ppsx, ppsm, sldx, sldm, adn, accdb, accdr, accdt, accda, mdw, accde, mam, maq, mar, mat, maf, laccdb, ade, adp, mdb, cdb, mda, mdn, mdt, mdf, mde, ldb, pub, xps, tif, tiff, jpg, jpeg, gif, png, bmp, eps, raw, cr2, nef, orf, sr2, pdf, eml',
+
+        // If authorised_agents_management_enabled enabled - use different variables + algorithms to generate fees for submission.
+        // Note that this variable will be shown on the superadmin's 'System variables' page
+        // Supported: dominica and antigua
+        'submission_fees_type'                      => '',
+
+        // Documents Checklist Setting
+        // If is set to 1 - it is possible to see and use 'Documents Checklist' tab
+        'documents_checklist_enabled'               => 0,
+
+        // Create note if file was uploaded
+        'create_note_on_file_upload'                => 1,
+
+        // Supported: australia | canada
+        'version'                                   => 'canada',
+        'currency'                                  => 'CAD',
+        'title'                                     => 'NTNP Online',
+        'company_phone'                             => '1-888-703-7073',
+        'company_name'                              => 'NTNP Online',
+        'officio_domain'                            =>  ${APP_URL},
+        'officio_domain_secure'                     =>  ${APP_URL},
+    ],
+
+    // Language settings
+    'translator'           => [
+        // List of timezones is here: http://php.net/manual/en/timezones.php
+        'timezone'      => 'America/Yellowknife',
+    ],
+
+    // Mail settings
+    'mail'           => [
+        'enabled'                => 0,
+        'calendar_enabled'       => 0,
+    ],
+
+    // Cache settings
+    'cache'          => [
+        'options' => [
+            'cache_dir'       => 'var/cache/',
+            'dir_permission'  => false,
+            'file_permission' => false
+        ],
+    ],
+
+    // RSS settings - news will be showed on the dashboard
+    'rss' => [
+        // RSS URLs that will be scanned and showed on the dashboard
+        'urls' => [
+            // in the key => url format
+            'google' => 'https://news.google.com/news/rss/search/section/q/canada%20immigration/canada%20immigration?hl=en&gl=GB&ned=us',
+            'cic' => 'https://www.canada.ca/en/news/web-feeds/national-news.atom.xml'
+        ],
+
+        // RSS Cache settings
+        'cache' => [
+            'adapter' => 'Filesystem',
+            'options' => [
+                'cache_dir'       => 'var/cache/',
+                'dir_permission'  => false,
+                'file_permission' => false,
+                'ttl'             => 3600 // 1 hour
+            ],
+            'plugins' => []
+        ],
+    ],
+
+    // Phinx related settings
+    'phinx'          => [
+        // Path to the migrations directory, where migrations are generated
+        'migrations_path' => 'scripts/migrations/',
+        // Table name, where phinx related changes will be saved
+        'migration_table' => 'schema_version'
+    ],
+
+];

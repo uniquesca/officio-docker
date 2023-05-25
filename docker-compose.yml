@@ -9,37 +9,37 @@ services:
       args:
         - CLIENT_CONFIG=${CLIENT_CONFIG}
         - GIT_PERSONAL_ACCESS_TOKEN=${GIT_PERSONAL_ACCESS_TOKEN}
-        - MYSQL_OFFICIO_DATABASE=${MYSQL_OFFICIO_DATABASE}
-        - MYSQL_OFFICIO_STATISTICS_DATABASE=${MYSQL_OFFICIO_STATISTICS_DATABASE}
-        - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
-        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-        - MYSQL_HOST=${MYSQL_HOST}
-        - MYSQL_PORT=${MYSQL_PORT}
     image: docker-officio-app:${OFFICIO_VERSION_RELEASE}
     container_name: app
     restart: always
     tty: true
     environment:
       - GIT_PERSONAL_ACCESS_TOKEN=${GIT_PERSONAL_ACCESS_TOKEN}
+      - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_OFFICIO_DATABASE=${MYSQL_OFFICIO_DATABASE}
-      - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
       - MYSQL_OFFICIO_STATISTICS_DATABASE=${MYSQL_OFFICIO_STATISTICS_DATABASE}
+      - MYSQL_OFFICIO_HOST=${MYSQL_OFFICIO_HOST}
+      - MYSQL_OFFICIO_STATISTICS_HOST=${MYSQL_OFFICIO_STATISTICS_HOST}
+      - MYSQL_OFFICIO_PORTS=${MYSQL_OFFICIO_PORTS}
       - APP_URL=${APP_URL}
-      - MYSQL_HOST=${MYSQL_HOST}
-      - MYSQL_PORT=${MYSQL_PORT}
     working_dir: /var/www
+    depends_on:
+      - db_officio
+      - db_officio_statistics
     env_file:
     - .env
     volumes:
-      - ./officio/app:/var/www
+      # - ./officio/app:/var/www - uncomment to point to local
+      - officio-web-application:/var/www
+      - ./officio/config/.npmrc:/var/www/.npmrc
       - ./officio/config/php.ini:/usr/local/etc/php/conf.d/local.ini
       - ./officio/config/global.php:/var/www/config/autoload/global.php
-      - ./officio/config/ca.local.php.dist:/var/www/config/autoload/stubs/ca.local.php.dist
+      - ./officio/config/stubs:/var/www/config/autoload/stubs
       - ./officio/config/auth.json:/var/www/auth.json
     networks:
       officio-network:
-        ipv4_address: 192.168.0.4
+        ipv4_address: ${OFFICIO_HOST}
 
   # Apache Service
   webserver:
@@ -50,26 +50,28 @@ services:
     container_name: webserver
     restart: always
     tty: true
+    depends_on:
+      - app
     ports:
-      - "8000:80"
-      - "8002:443"
+      - ${APACHE_HTTP_PORTS}
+      - ${APACHE_HTTPS_PORTS}
     volumes:
-      - ./officio/app:/var/www
+      - officio-web-application:/var/www
     networks:
       officio-network:
-        ipv4_address: 192.168.0.3
+        ipv4_address: ${APACHE_HOST}
 
-  # MySQL Service
-  db:
+  # MySQL Officio Service
+  db_officio:
     build:
-      context: ./mysql
+      context: ./mysql-officio
       dockerfile: Dockerfile
-    image: docker-officio-mysql:${MYSQL_VERSION_RELEASE}
-    container_name: mysql
+    image: docker-officio-mysql-officio:${MYSQL_OFFICIO_VERSION_RELEASE}
+    container_name: mysql-officio
     restart: always
     tty: true
     ports:
-      - 3306:3306
+      - ${MYSQL_OFFICIO_PORTS}
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_OFFICIO_DATABASE}
@@ -78,10 +80,32 @@ services:
     volumes:
       - officio-mysql:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
-      - ./mysql/db/:/docker-entrypoint-initdb.d/
     networks:
       officio-network:
-        ipv4_address: 192.168.0.2
+        ipv4_address: ${MYSQL_OFFICIO_HOST}
+
+   # MySQL Officio Statistics Service
+  db_officio_statistics:
+    build:
+      context: ./mysql-statistics
+      dockerfile: Dockerfile
+    image: docker-officio-mysql-officio-statistics:${MYSQL_OFFICIO_STATISTICS_VERSION_RELEASE}
+    container_name: mysql-officio-statistics
+    restart: always
+    tty: true
+    ports:
+      - ${MYSQL_OFFICIO_STATISTICS_PORTS}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_OFFICIO_STATISTICS_DATABASE}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - officio-statistics-mysql:/var/lib/mysql/
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      officio-network:
+        ipv4_address: ${MYSQL_OFFICIO_STATISTICS_HOST}
 
 # Docker Networks
 networks:
@@ -90,12 +114,19 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: "192.168.0.0/24"
-          gateway: "192.168.0.1"
+        - subnet: ${NETWORK_SUBNET}
+          gateway: ${NETWORK_GATEWAY}
 
 # Volumes
 volumes:
   officio-mysql:
     name: officio-mysql
     driver: local
+  officio-statistics-mysql:
+    name: officio-statistics-mysql
+    driver: local
+  officio-web-application:
+    name: officio-web-application
+    driver: local
+
   

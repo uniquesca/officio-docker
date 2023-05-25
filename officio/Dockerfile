@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
         zip \
         cron \
         vim \
+        git \
         libzip-dev \
     && docker-php-ext-configure zip\
     && docker-php-ext-install zip \
@@ -38,17 +39,23 @@ WORKDIR /var/www
 # Copy existing application directory contents
 COPY app /var/www
 
-RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www/officio.phar
+RUN chmod 755 /var/www/officio.phar
 
 # Select Officio application type
-RUN ./officio.phar select_project ${CLIENT_CONFIG}
+RUN /usr/local/bin/php officio.phar select_project ${CLIENT_CONFIG}
+
+COPY config/auth.json auth.json
+
+COPY config/.npmrc .npmrc
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Composer setup
-RUN ./composer.phar config -g github-oauth.github.com -a ${GIT_PERSONAL_ACCESS_TOKEN}
+RUN composer config -g github-oauth.github.com -a ${GIT_PERSONAL_ACCESS_TOKEN}
 
-RUN ./composer.phar install
+RUN composer install
 
-RUN ./composer.phar dump-autoload
+RUN composer dump-autoload
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 
@@ -59,11 +66,18 @@ RUN apt-get install -y nodejs
 
 RUN npm install -g npm@latest
 
-RUN npm install
+RUN npm install -g yarn
 
-# Change folder permissions
-RUN chown -R www-data:www-data /var/www
- 
+RUN corepack enable
+
+RUN npm i -g corepack
+
+RUN yarn install
+
+RUN find . -type d -exec chmod 0755 {} \;
+
+RUN find . -type f -exec chmod 0644 {} \;
+
 # Make directories writable by the webserver and update permissions
 RUN chmod -R 775 backup/
 RUN chmod -R 775 data/
@@ -84,13 +98,8 @@ RUN chmod -R 775 public/help_files/
 RUN chmod -R 775 vendor/bin/phinx
 RUN chmod -R 775 vendor/robmorgan/phinx/bin/phinx
 
-# Select Officio application type
-RUN ./officio.phar select_project ${CLIENT_CONFIG}
-
-# Composer setup
-RUN ./composer.phar dump-autoload
-
-RUN ./composer.phar install
+# Change owner of project to www-data
+RUN chown -R www-data:www-data /var/www
 
 # Cron jobs
 
