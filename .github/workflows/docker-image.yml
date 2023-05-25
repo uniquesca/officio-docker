@@ -36,8 +36,6 @@ jobs:
         GIT_PERSONAL_ACCESS_TOKEN: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
       run: |
         # Build a docker container and push it to ECR 
-        echo $CLIENT_CONFIG
-        echo $GIT_PERSONAL_ACCESS_TOKEN
         cd ./officio && docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --build-arg CLIENT_CONFIG=$CLIENT_CONFIG --build-arg GIT_PERSONAL_ACCESS_TOKEN=$GIT_PERSONAL_ACCESS_TOKEN .
         echo "Pushing image to ECR..."
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
