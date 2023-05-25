@@ -42,7 +42,7 @@ COPY app /var/www
 RUN chmod 755 /var/www/officio.phar
 
 # Select Officio application type
-RUN officio.phar select_project ${CLIENT_CONFIG}
+RUN ./officio.phar select_project ${CLIENT_CONFIG}
 
 COPY config/auth.json auth.json
 
