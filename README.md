@@ -1,7 +1,5 @@
 # officio-docker
 
-About
-------------
 #### This is the project for a dockerised version of the officio project.
 
 #### There a four images involved in this project, that are stored in AWS/ECR:
