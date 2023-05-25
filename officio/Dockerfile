@@ -44,8 +44,6 @@ RUN chmod 755 /var/www/officio.phar
 # Select Officio application type
 RUN ./officio.phar select_project ${CLIENT_CONFIG}
 
-COPY config/auth.json auth.json
-
 COPY config/.npmrc .npmrc
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
