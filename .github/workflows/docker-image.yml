@@ -32,10 +32,12 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.WEB_REPO_NAME }}
         IMAGE_TAG: ${{ github.sha }}
-        CLIENT_CONFIG: ${CLIENT_CONFIG}
-        GIT_PERSONAL_ACCESS_TOKEN: ${GIT_PERSONAL_ACCESS_TOKEN}
+        CLIENT_CONFIG: ${{ secrets.CLIENT_CONFIG }}
+        GIT_PERSONAL_ACCESS_TOKEN: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
       run: |
         # Build a docker container and push it to ECR 
+        echo $CLIENT_CONFIG
+        echo $GIT_PERSONAL_ACCESS_TOKEN
         cd ./officio && docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         echo "Pushing image to ECR..."
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
