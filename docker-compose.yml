@@ -9,6 +9,7 @@ services:
       args:
         - CLIENT_CONFIG=${CLIENT_CONFIG}
         - GIT_PERSONAL_ACCESS_TOKEN=${GIT_PERSONAL_ACCESS_TOKEN}
+        - NPM_PERSONAL_ACCESS_TOKEN=${NPM_PERSONAL_ACCESS_TOKEN}
     image: docker-officio-app:${OFFICIO_VERSION_RELEASE}
     container_name: app
     restart: always
