@@ -83,8 +83,6 @@ RUN find . -type f -exec chmod 0644 {} \;
 # Make directories writable by the webserver and update permissions
 RUN chmod -R 775 backup/
 RUN chmod -R 775 data/
-RUN chmod -R 775 data/pdf 
-RUN chmod -R 775 data/xod
 RUN chmod -R 775 var/cache/
 RUN chmod -R 775 var/log/
 RUN chmod -R 775 var/log/payment/
