@@ -48,6 +48,8 @@ RUN ./officio.phar select_project ${CLIENT_CONFIG}
 
 COPY config/.npmrc .npmrc
 
+RUN echo '@uniquesca:registry=https://npm.pkg.github.com //npm.pkg.github.com/:_authToken="${GIT_PERSONAL_ACCESS_TOKEN}" always_auth=true' >> .npmrc
+
 RUN echo '{  "github-oauth" : {  "github.com": "'"${GIT_PERSONAL_ACCESS_TOKEN}"'" } }' >> auth.json
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
