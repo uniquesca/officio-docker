@@ -46,7 +46,7 @@ RUN chmod 755 /var/www/officio.phar
 # Select Officio application type
 RUN ./officio.phar select_project ${CLIENT_CONFIG}
 
-RUN echo '@uniquesca:registry=https://npm.pkg.github.com //npm.pkg.github.com/:_authToken="${GIT_PERSONAL_ACCESS_TOKEN}" always_auth=true' >> .npmrc
+COPY config/.npmrc .npmrc
 
 RUN echo '{  "github-oauth" : {  "github.com": "'"${GIT_PERSONAL_ACCESS_TOKEN}"'" } }' >> auth.json
 
