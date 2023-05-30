@@ -8,8 +8,8 @@ COPY apache.conf /usr/local/apache2/conf/apache.conf
 RUN echo "Include /usr/local/apache2/conf/apache.conf" \
     >> /usr/local/apache2/conf/httpd.conf
 
-COPY secrets/server.crt /usr/local/apache2/conf/server.crt
-COPY secrets/server.key /usr/local/apache2/conf/server.key
+COPY ./secrets/server.crt /usr/local/apache2/conf/server.crt
+COPY ./secrets/server.key /usr/local/apache2/conf/server.key
 
 EXPOSE 443/tcp 
 EXPOSE 80/tcp 
