@@ -48,11 +48,11 @@ RUN ./officio.phar select_project ${CLIENT_CONFIG}
 
 COPY config/.npmrc .npmrc
 
+# Composer setup
 RUN echo '{  "github-oauth" : {  "github.com": "'"${GIT_PERSONAL_ACCESS_TOKEN}"'" } }' >> auth.json
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Composer setup
 RUN composer config -g github-oauth.github.com -a ${GIT_PERSONAL_ACCESS_TOKEN}
 
 RUN composer install
@@ -76,27 +76,10 @@ RUN npm i -g corepack
 
 RUN yarn install
 
+# Make directories writable by the webserver and update permissions
 RUN find . -type d -exec chmod 0755 {} \;
 
 RUN find . -type f -exec chmod 0644 {} \;
-
-# Make directories writable by the webserver and update permissions
-RUN chmod -R 775 backup/
-RUN chmod -R 775 data/
-RUN chmod -R 775 var/cache/
-RUN chmod -R 775 var/log/
-RUN chmod -R 775 var/log/payment/
-RUN chmod -R 775 var/log/xfdf/
-RUN chmod -R 775 var/pdf_tmp/
-RUN chmod -R 775 var/tmp/
-RUN chmod -R 775 var/tmp/uploads/
-RUN chmod -R 775 var/tmp/lock/
-RUN chmod -R 775 public/captcha/images/
-RUN chmod -R 775 public/website/
-RUN chmod -R 775 public/email/data/
-RUN chmod -R 775 public/help_files/
-RUN chmod -R 775 vendor/bin/phinx
-RUN chmod -R 775 vendor/robmorgan/phinx/bin/phinx
 
 # Change owner of project to www-data
 RUN chown -R www-data:www-data /var/www
